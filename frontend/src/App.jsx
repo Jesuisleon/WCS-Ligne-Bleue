@@ -1,13 +1,27 @@
-import Home from "./pages/Home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "@pages/Home";
+import AdminPanel from "@pages/AdminPanel";
+import Login from "@pages/Login";
+import Journey from "@pages/Journey";
+import Search from "@pages/Search";
+import Tutorial from "@pages/Tutorial";
+import TutorialTheme from "@pages/TutorialTheme";
+import UserProfil from "@pages/UserProfil";
 
 function App() {
   return (
-    <div className="App">
-      <Home />
-      <h1 className="text-orange-600 text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/adminPanel" element={<AdminPanel />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/journey" element={<Journey />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/tutorial" element={<Tutorial />} />
+        <Route path="/tutorialTheme" element={<TutorialTheme />} />
+        <Route path="/UserProfil" element={<UserProfil />} />
+      </Routes>
+    </Router>
   );
 }
 
