@@ -7,6 +7,7 @@ import Search from "@pages/Search";
 import Tutorial from "@pages/Tutorial";
 import TutorialTheme from "@pages/TutorialTheme";
 import UserProfil from "@pages/UserProfil";
+import CreateTutorial from "@pages/CreateTutorial";
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/journey" element={<Journey />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/tutorial" element={<Tutorial />} />
-        <Route path="/tutorialTheme" element={<TutorialTheme />} />
+        <Route path="/:theme" element={<TutorialTheme />} />
+        <Route path="/:theme/:id" element={<Tutorial />} />
+        <Route path="/createTutorial" element={<CreateTutorial />} />
         <Route path="/UserProfil" element={<UserProfil />} />
       </Routes>
     </Router>
