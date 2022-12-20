@@ -3,19 +3,16 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <div>
-      <h1>
-        <Link className="simpleLink" to="/login">
-          Login
-        </Link>
-      </h1>
-
-      <h2>
-        <Link className="simpleLink" to="/">
-          Home
-        </Link>
-      </h2>
-    </div>
+    <nav className="min-w-screen bg-yellow-400">
+      <ul className="flex justify-between p-10 text-3xl text-blue-700 font-title">
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+      </ul>
+    </nav>
   );
 }
 

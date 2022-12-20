@@ -1,0 +1,115 @@
+export const themeTutorialData = [
+  { id: 1, theme: "Utiliser ligne Bleue" },
+  {
+    id: 2,
+    theme: "Utiliser mon téléphone",
+    tutorial: [
+      {
+        id: 1,
+        title: "Arrêter et démarrer le téléphone",
+        description: "",
+        content: [],
+        hashtag: [],
+        difficulty: "",
+        author: "",
+      },
+      {
+        id: 2,
+        title: "Utiliser un QR code ",
+        description: "",
+        content: [],
+        hashtag: [],
+        difficulty: "",
+        author: "",
+      },
+      {
+        id: 3,
+        title: "manipuler écran tactile ",
+        description: "",
+        content: [],
+        hashtag: [],
+        difficulty: "",
+        author: "",
+      },
+      {
+        id: 4,
+        title: "Téléphoner",
+        description: "",
+        content: [],
+        hashtag: [],
+        difficulty: "",
+        author: "",
+      },
+      {
+        id: 5,
+        title: "Différence : SMS, mail, message",
+        description: "",
+        content: [],
+        hashtag: [],
+        difficulty: "",
+        author: "",
+      },
+      {
+        id: 6,
+        title: "Envoyer et recevoir SMS",
+        description: "",
+        content: [],
+        hashtag: [],
+        difficulty: "",
+        author: "",
+      },
+      {
+        id: 7,
+        title: "Gestion des contacts",
+        description: "",
+        content: [],
+        hashtag: [],
+        difficulty: "",
+        author: "",
+      },
+      {
+        id: 8,
+        title: "Lexicologie Android",
+        description: "",
+        content: [],
+        hashtag: [],
+        difficulty: "",
+        author: "",
+      },
+    ],
+  },
+  {
+    id: 3,
+    theme: "Aller sur internet",
+  },
+  {
+    id: 4,
+    theme: "Vie Courante",
+  },
+  {
+    id: 5,
+    theme: "Me divertir",
+  },
+  {
+    id: 6,
+    theme: "Mes mails",
+  },
+  {
+    id: 7,
+    theme: "Communiquer",
+  },
+  {
+    id: 8,
+    theme: "Utiliser mon téléphone en sécurité",
+  },
+  {
+    id: 9,
+    theme: "Se déplacer",
+  },
+  {
+    id: 10,
+    theme: "Se faire aider",
+  },
+];
+
+export default themeTutorialData;

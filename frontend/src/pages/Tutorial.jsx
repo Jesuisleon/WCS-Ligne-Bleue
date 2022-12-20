@@ -1,16 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Header from "@components/Header";
+import NavigationBlock from "@components/NavigationBlock";
 
-export default function Tutorial() {
+export default function TutorialTheme() {
+  const navigate = useNavigate();
+
   return (
     <div>
-      <div>
-        <Link className="simpleLink" to="/tutorialTheme">
-          {" "}
-          Retour
-        </Link>
-      </div>
-      Tutorial
+      <Header />
+      <NavigationBlock navigate={() => navigate(-1)} />
+      <div className="flex flex-col justify-center items-start mx-2" />
     </div>
   );
 }

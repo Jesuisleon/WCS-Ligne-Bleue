@@ -7,22 +7,21 @@ import Search from "@pages/Search";
 import Tutorial from "@pages/Tutorial";
 import TutorialTheme from "@pages/TutorialTheme";
 import UserProfil from "@pages/UserProfil";
-import Header from "@components/Header";
+import CreateTutorial from "@pages/CreateTutorial";
 import Register from "@pages/Register";
 
 function App() {
   return (
     <Router>
-      <Header />
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/adminPanel" element={<AdminPanel />} />
         <Route path="/login" element={<Login />} />
         <Route path="/journey" element={<Journey />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/tutorial" element={<Tutorial />} />
-        <Route path="/tutorialTheme" element={<TutorialTheme />} />
+        <Route path="/:theme" element={<TutorialTheme />} />
+        <Route path="/:theme/:id" element={<Tutorial />} />
+        <Route path="/createTutorial" element={<CreateTutorial />} />
         <Route path="/UserProfil" element={<UserProfil />} />
         <Route path="/Register" element={<Register />} />
       </Routes>
