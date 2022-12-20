@@ -8,6 +8,7 @@ import Tutorial from "@pages/Tutorial";
 import TutorialTheme from "@pages/TutorialTheme";
 import UserProfil from "@pages/UserProfil";
 import CreateTutorial from "@pages/CreateTutorial";
+import Register from "@pages/Register";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/:theme/:id" element={<Tutorial />} />
         <Route path="/createTutorial" element={<CreateTutorial />} />
         <Route path="/UserProfil" element={<UserProfil />} />
+        <Route path="/Register" element={<Register />} />
       </Routes>
     </Router>
   );
