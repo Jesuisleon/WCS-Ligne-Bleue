@@ -48,7 +48,7 @@ class TutorialManager extends AbstractManager {
 
   update(tutorial) {
     return this.connection.query(
-      `update ${this.table} set theme = ?, difficulty = ?, title = ?, objective = ?, content = ?, hashtag = ?, author = ?  where id = ?`,
+      `update ${this.table} set themeid = ?, difficulty = ?, title = ?, objective = ?, content = ?, hashtag = ?, author = ?  where id = ?`,
       [
         tutorial.theme,
         tutorial.difficulty,
