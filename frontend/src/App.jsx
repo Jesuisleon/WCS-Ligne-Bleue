@@ -7,10 +7,14 @@ import Search from "@pages/Search";
 import Tutorial from "@pages/Tutorial";
 import TutorialTheme from "@pages/TutorialTheme";
 import UserProfil from "@pages/UserProfil";
+import Header from "@components/Header";
+import Register from "@pages/Register";
 
 function App() {
   return (
     <Router>
+      <Header />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/adminPanel" element={<AdminPanel />} />
@@ -20,6 +24,7 @@ function App() {
         <Route path="/tutorial" element={<Tutorial />} />
         <Route path="/tutorialTheme" element={<TutorialTheme />} />
         <Route path="/UserProfil" element={<UserProfil />} />
+        <Route path="/Register" element={<Register />} />
       </Routes>
     </Router>
   );
