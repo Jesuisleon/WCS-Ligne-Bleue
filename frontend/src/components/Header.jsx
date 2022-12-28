@@ -3,13 +3,41 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <nav className="min-w-screen bg-yellow-400">
-      <ul className="flex justify-between p-10 text-3xl text-blue-700 font-title">
+    <nav
+      className="
+      min-w-screen 
+      h-20
+      bg-white border-solid 
+      shadow-2xl
+      "
+    >
+      <ul
+        className="
+        flex
+        justify-between
+        items-center
+        px-4
+        text-2xl
+        text-blue-800
+        font-title
+        ">
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">
+            <img
+              alt="Logo La Poste"
+              className="h-20"
+              src="/image/logo_la_poste.jpeg" />
+          </Link>
         </li>
         <li>
-          <Link to="/login">Login</Link>
+          <Link
+            to="/login"
+            className="
+            antialiased
+            font-medium
+            "
+          >
+            Se connecter</Link>
         </li>
       </ul>
     </nav>

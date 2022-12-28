@@ -1,8 +1,7 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import Header from "@components/Header";
-import NavigationBlock from "@components/NavigationBlock";
 import { themeTutorialData } from "../data";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   function withoutAccent(str) {
@@ -45,33 +44,80 @@ export default function Home() {
 
     return str;
   }
+
   withoutAccent("tést");
 
+  let icon = <img
+  src="/image/logo.png"
+  alt="tutorial"
+  className="h-14"
+  />;
+
+  const [width, setWidth] = useState(window.innerWidth);
+  const breakpoint = 500;
+  
+  useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
+  
+  if (width < breakpoint) {
+    icon = null;
+  }
+
+  
+  const buttonStyle = "px-10 bg-white text-blue-700 text-l lg:text-xl antialiased font-bold flex flex-col items-center justify-center text-center h-30 w-30 rounded-xl hover:bg-blue-700 hover:text-white transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl hover:border-transparent shadow-lg shadow-yellow-400"
+
   return (
-    <div>
-      <Header />
-      <NavigationBlock title="Bienvenue" />
-      <div className="flex flex-col justify-center items-start mx-2">
+    <motion.div
+    initial={{ x: window.innerWidth }}
+      animate={{ x: 0 }}
+      // exit={ {x: "-100%"} }
+      transition={{ duration: 0.5 }}
+      className="flex-grow flex flex-col items-center justify-center"
+    >
+      <div
+        className="
+        my-10
+        mx-10
+        sm:mx-20
+        grid
+        grid-cols-2
+        sm:grid-cols-2
+        xl:grid-cols-3
+        2xl:grid-cols-5
+        gap-6
+        auto-rows-[minmax(100px,_1fr)]
+        sm:auto-rows-[minmax(180px,_2fr)]
+        lg:auto-rows-[minmax(220px,_2fr)]
+        ">
         {themeTutorialData.map((data) => (
           <Link
             key={data.theme}
-            className="text-blue-700 text-xl font-button"
+            className={buttonStyle}
             to={`/${data.theme}`}
           >
+            {icon}
             {data.theme}
           </Link>
         ))}
-        <div>
-          <Link className="text-blue-700 text-xl" to="/search">
+          <Link
+            className={buttonStyle}
+            to="/search"
+        >
+          {icon}
             Rechercher un tutoriel
           </Link>
-        </div>
-        <div>
-          <Link className="text-blue-700 text-xl" to="/tofollow">
+          <Link
+            className={buttonStyle}
+            to="/tofollow"
+        >
+          {icon}
             Pour poursuivre
           </Link>
-        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
+

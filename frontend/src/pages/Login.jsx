@@ -23,14 +23,21 @@ function Login() {
       });
   };
   return (
-    <div className="bg-zinc-600">
+    <div className="
+    flex-grow
+    flex
+    flex-col
+    px-20
+    justify-center
+    align-center
+    ">
       <form onSubmit={handleSubmit}>
         <div className="mb-6">
           <label
             htmlFor="email"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Your email
+            Veuillez insérer votre adresse email
           </label>
           <input
             type="email"
@@ -47,7 +54,7 @@ function Login() {
             htmlFor="password"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Your password
+            Veuillez rentrer votre mot de passe
           </label>
           <input
             type="password"
@@ -72,7 +79,7 @@ function Login() {
             htmlFor="remember"
             className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
-            Remember me
+            Se souvenir de moi
           </label>
         </div>
         {token ? (
