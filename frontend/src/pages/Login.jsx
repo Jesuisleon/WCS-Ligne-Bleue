@@ -23,14 +23,16 @@ function Login() {
       });
   };
   return (
-    <div className="
+    <div
+      className="
     flex-grow
     flex
     flex-col
     px-20
     justify-center
     align-center
-    ">
+    "
+    >
       <form onSubmit={handleSubmit}>
         <div className="mb-6">
           <label

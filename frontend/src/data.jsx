@@ -48,7 +48,8 @@ export const themeTutorialData = [
         id: 5,
         title: "Différence : SMS, mail, message",
         description: "",
-        objectif: "Savez-vous la différence entre un SMS, un mail et un message ?",
+        objectif:
+          "Savez-vous la différence entre un SMS, un mail et un message ?",
         content: [],
         hashtag: [],
         difficulty: "",
@@ -78,7 +79,8 @@ export const themeTutorialData = [
         id: 8,
         title: "Lexicologie Android",
         description: "",
-        objectif: "Voici quelques mots que vous allez rencontrer sur votre téléphone",
+        objectif:
+          "Voici quelques mots que vous allez rencontrer sur votre téléphone",
         content: [],
         hashtag: [],
         difficulty: "",

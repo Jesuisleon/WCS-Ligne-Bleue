@@ -14,12 +14,10 @@ module.exports = {
     },
     fontFamily: {
       body: ["Roboto", "sans-serif"],
-      button: ["Roboto", "sans-serif",],
+      button: ["Roboto", "sans-serif"],
       title: ["Montserrat", "Arial", "sans-serif"],
     },
-    extend: {
-
-    },
+    extend: {},
   },
   plugins: [],
 };

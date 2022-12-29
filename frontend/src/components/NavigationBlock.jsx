@@ -5,37 +5,47 @@ function NavigationBlock({ title, navigate }) {
     <div
       className="
       min-w-screen
-      h-15
+      h-11
+      sm:h-20
      bg-blue-800
       relative
       shadow-xl
-       ">
+      z-20
+       "
+    >
       {title !== "Bienvenue" && (
-          <button
-            type="button"
-            onClick={navigate}
-            className="
+        <button
+          type="button"
+          onClick={navigate}
+          className="
             text-white
             text-4xl
             font-title
             float-left
             absolute
             top-3
+            sm:top-5
             left-3
-            ">
-            <IoArrowBackSharp className="text-4xl" />
-          </button>
+            "
+        >
+          <IoArrowBackSharp className="text-2xl sm:text-4xl" />
+        </button>
       )}
       <p
         className="
         text-white
-        text-2xl
-        py-4
+        text-xl
+        sm:text-3xl
+        py-2
+        sm:py-6
         font-title
         text-center
         antialiased
         font-bold
-        ">{title}</p>
+        "
+      >
+        {title}
+      </p>
     </div>
   );
 }

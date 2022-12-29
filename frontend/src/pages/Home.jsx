@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { themeTutorialData } from "../data";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { themeTutorialData } from "../data";
 
 export default function Home() {
   function withoutAccent(str) {
@@ -47,33 +46,34 @@ export default function Home() {
 
   withoutAccent("tést");
 
-  let icon = <img
-  src="/image/logo.png"
-  alt="tutorial"
-  className="h-14"
-  />;
+  const icon = (
+    <img
+      src="/image/telephone.png"
+      alt="tutorial"
+      className="w-full h-full sm:h-[4em] lg:h-20 "
+    />
+  );
 
-  const [width, setWidth] = useState(window.innerWidth);
-  const breakpoint = 500;
-  
-  useEffect(() => {
-    const handleWindowResize = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handleWindowResize);
-    return () => window.removeEventListener("resize", handleWindowResize);
-  }, []);
-  
-  if (width < breakpoint) {
-    icon = null;
-  }
+  // const [width, setWidth] = useState(window.innerWidth);
+  // const breakpoint = 500;
 
-  
-  const buttonStyle = "px-10 bg-white text-blue-700 text-l lg:text-xl antialiased font-bold flex flex-col items-center justify-center text-center h-30 w-30 rounded-xl hover:bg-blue-700 hover:text-white transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl hover:border-transparent shadow-lg shadow-yellow-400"
+  // useEffect(() => {
+  //   const handleWindowResize = () => setWidth(window.innerWidth);
+  //   window.addEventListener("resize", handleWindowResize);
+  //   return () => window.removeEventListener("resize", handleWindowResize);
+  // }, []);
+
+  // if (width < breakpoint) {
+  //   icon = null;
+  // }
+
+  const buttonStyle =
+    "px-10 bg-white text-blue-700 text-l sm:text-xl antialiased font-semibold 2xl:font-bold flex flex-col items-center justify-center text-center h-30 w-30 rounded-xl hover:bg-blue-700 hover:text-white transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl hover:border-transparent shadow-lg shadow-yellow-400";
 
   return (
     <motion.div
-    initial={{ x: window.innerWidth }}
-      animate={{ x: 0 }}
-      // exit={ {x: "-100%"} }
+      initial={{ x: "100%" }}
+      animate={{ x: "0%" }}
       transition={{ duration: 0.5 }}
       className="flex-grow flex flex-col items-center justify-center"
     >
@@ -85,39 +85,33 @@ export default function Home() {
         grid
         grid-cols-2
         sm:grid-cols-2
-        xl:grid-cols-3
+        lg:grid-cols-3
+        xl:grid-cols-4
         2xl:grid-cols-5
         gap-6
         auto-rows-[minmax(100px,_1fr)]
         sm:auto-rows-[minmax(180px,_2fr)]
         lg:auto-rows-[minmax(220px,_2fr)]
-        ">
+        "
+      >
         {themeTutorialData.map((data) => (
-          <Link
-            key={data.theme}
-            className={buttonStyle}
-            to={`/${data.theme}`}
-          >
-            {icon}
-            {data.theme}
+          <Link key={data.theme} className={buttonStyle} to={`/${data.theme}`}>
+            <motion.div className="h-[4em] w-[4em] sm:h-fit sm:w-fit bg-amber-300 rounded-full p-3 m-2 border-2 sm:border-4 border-white">
+              {icon}
+            </motion.div>
+            <p>{data.theme}</p>
           </Link>
         ))}
-          <Link
-            className={buttonStyle}
-            to="/search"
-        >
-          {icon}
-            Rechercher un tutoriel
-          </Link>
-          <Link
-            className={buttonStyle}
-            to="/tofollow"
-        >
-          {icon}
-            Pour poursuivre
-          </Link>
+
+        <Link className={buttonStyle} to="/search">
+          <div className=" bg-amber-300 rounded-full p-3 m-2">{icon}</div>
+          <p>Rechercher un tutoriel</p>
+        </Link>
+        <Link className={buttonStyle} to="/tofollow">
+          <div className=" bg-amber-300 rounded-full p-3 m-2">{icon}</div>
+          <p>Pour poursuivre</p>
+        </Link>
       </div>
     </motion.div>
   );
 }
-
