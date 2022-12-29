@@ -54,11 +54,12 @@ function AnimatedRoutes() {
   const [showTopArrow, setShowTopArrow] = useState(false);
 
   useEffect(() => {
-    if (location.pathname === "/login" || location.pathname === "/Register") {
+    if (
+      location.pathname === "/login" ||
+      location.pathname === "/Register" ||
+      location.pathname === "/createTutorial"
+    ) {
       setShowBottomArrow(false);
-      setShowTopArrow(false);
-    } else {
-      setShowBottomArrow(true);
       setShowTopArrow(false);
     }
   }, [location]);
@@ -82,7 +83,11 @@ function AnimatedRoutes() {
   }
 
   useEffect(() => {
-    if (location.pathname === "/login" || location.pathname === "/register") {
+    if (
+      location.pathname === "/login" ||
+      location.pathname === "/register" ||
+      location.pathname === "/createTutorial"
+    ) {
       setShowBottomArrow(false);
       setShowTopArrow(false);
     } else {
@@ -97,8 +102,12 @@ function AnimatedRoutes() {
 
   return (
     <AnimatePresence>
-      <Header />
-      <NavigationBlock title={titleForPage} navigate={() => navigate(-1)} />
+      <Header key="header" />
+      <NavigationBlock
+        key="navigation"
+        title={titleForPage}
+        navigate={() => navigate(-1)}
+      />
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/adminPanel" element={<AdminPanel />} />
@@ -136,7 +145,7 @@ function AnimatedRoutes() {
           onClick={scrollUp}
           key="scrollUp"
         >
-          <GoArrowUp className="bg-blue-700 hover:bg-blue-600 rounded-full p-3 text-6xl sm:text-7xl lg:text-8xl text-white cursor-pointer z-10" />
+          <GoArrowUp className="bg-blue-700 hover:bg-blue-600 rounded-full p-3 text-6xl sm:text-7xl lg:text-7xl text-white cursor-pointer z-10" />
         </motion.div>
       )}
       {showBottomArrow && (
@@ -163,7 +172,7 @@ function AnimatedRoutes() {
           onClick={scrollDown}
           key="scrollDown"
         >
-          <GoArrowDown className="bg-blue-700 hover:bg-blue-600 rounded-full p-3 text-6xl sm:text-7xl lg:text-8xl text-white cursor-pointer " />
+          <GoArrowDown className="bg-blue-700 hover:bg-blue-600 rounded-full p-3 text-6xl sm:text-7xl lg:text-7xl text-white cursor-pointer " />
         </motion.div>
       )}
     </AnimatePresence>

@@ -23,7 +23,7 @@ export default function TutorialTheme() {
   return (
     <div
       className="
-      my-10
+        my-10
         mx-10
         sm:mx-20
         grid
@@ -54,7 +54,10 @@ export default function TutorialTheme() {
               key={tutorial.id}
               className="
                 bg-white
-                p-10
+                h-full
+                w-full
+                p-8
+                sm=p-10
                 flex
                 flex-col
                 justify-between

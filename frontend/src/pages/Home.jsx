@@ -72,6 +72,7 @@ export default function Home() {
 
   return (
     <motion.div
+      key="home"
       initial={{ x: "100%" }}
       animate={{ x: "0%" }}
       transition={{ duration: 0.5 }}
@@ -95,8 +96,11 @@ export default function Home() {
         "
       >
         {themeTutorialData.map((data) => (
-          <Link key={data.theme} className={buttonStyle} to={`/${data.theme}`}>
-            <motion.div className="h-[4em] w-[4em] sm:h-fit sm:w-fit bg-amber-300 rounded-full p-3 m-2 border-2 sm:border-4 border-white">
+          <Link key={data.id} className={buttonStyle} to={`/${data.theme}`}>
+            <motion.div
+              key={data.id}
+              className="h-[4em] w-[4em] sm:h-fit sm:w-fit bg-amber-300 rounded-full p-3 m-2 border-2 sm:border-4 border-white"
+            >
               {icon}
             </motion.div>
             <p>{data.theme}</p>

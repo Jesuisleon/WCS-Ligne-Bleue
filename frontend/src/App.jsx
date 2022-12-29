@@ -5,10 +5,11 @@ function App() {
   return (
     <div
       className="
+      absolute
       flex
       flex-col
       min-h-screen
-      min-w-screen 
+      w-screen 
       bg-gradient-to-b 
       from-yellow-100 
       to-yellow-200
