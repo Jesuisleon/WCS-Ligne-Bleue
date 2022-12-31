@@ -8,3 +8,10 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
+/* To overStyle TinyMCE */
+
+/* The Toolbar border */
+.tox-editor-header {
+  border: none !important;
+}
