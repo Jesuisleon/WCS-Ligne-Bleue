@@ -1,8 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import Quiz from "@components/Quiz";
 import stockedData from "./data";
 
-export function EditorForTopData({
+const quizData = [
+  {
+    id: 1,
+    question: "Quelle est la capitale de la France?",
+    answers: [
+      { id: 1, text: "Londres", correct: false },
+      { id: 2, text: "Paris", correct: true },
+      { id: 3, text: "Berlin", correct: false },
+      { id: 4, text: "New York", correct: false },
+    ],
+  },
+  {
+    id: 2,
+    question: "Combien y a-t-il de jours dans une année?",
+    answers: [
+      { id: 1, text: "365", correct: true },
+      { id: 2, text: "366", correct: false },
+      { id: 3, text: "364", correct: false },
+      { id: 4, text: "360", correct: false },
+    ],
+  },
+];
+
+function EditorForTopData({
   handleInputChange,
   id,
   placeholder,
@@ -15,7 +39,6 @@ export function EditorForTopData({
       onEditorChange={handleInputChange}
       value={defaultValue}
       init={{
-        skin: "naked",
         selector: "#theEditorForTopData",
         fixed_toolbar_container: "#toolbar-container-top",
         placeholder,
@@ -188,6 +211,7 @@ function CreateTutorial() {
           +
         </button>
       </form>
+      <Quiz data={quizData} />
     </div>
   );
 }
