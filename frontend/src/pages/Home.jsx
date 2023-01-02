@@ -54,7 +54,6 @@ export default function Home() {
     />
   );
 
-
   const buttonStyle =
     "px-10 bg-white text-blue-700 text-l sm:text-xl antialiased font-semibold 2xl:font-bold flex flex-col items-center justify-center text-center h-30 w-30 rounded-xl hover:bg-blue-700 hover:text-white transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl hover:border-transparent shadow-lg shadow-yellow-400";
 
