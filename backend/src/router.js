@@ -7,14 +7,17 @@ const {
 
 const router = express.Router();
 
-const itemControllers = require("./controllers/itemControllers");
 const userControllers = require("./controllers/userControllers");
+const tutorialControllers = require("./controllers/tutorialControllers");
+const themeControllers = require("./controllers/themeControllers");
 
-router.get("/items", itemControllers.browse);
-router.get("/items/:id", itemControllers.read);
-router.put("/items/:id", itemControllers.edit);
-router.post("/items", itemControllers.add);
-router.delete("/items/:id", itemControllers.destroy);
+router.get("/home", themeControllers.browse);
+
+router.get("/tutorials", tutorialControllers.browse);
+router.get("/tutorials/:id", tutorialControllers.read);
+router.put("/tutorials/:id", tutorialControllers.edit);
+router.post("/tutorials", tutorialControllers.add);
+router.delete("/tutorials/:id", tutorialControllers.destroy);
 
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
