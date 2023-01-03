@@ -18,5 +18,9 @@
   "devDependencies": {
     "concurrently": "^7.0.0",
     "husky": "^7.0.0"
+  },
+  "dependencies": {
+    "framer-motion": "^7.10.3",
+    "react-icons": "^4.7.1"
   }
 }

@@ -1,7 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import Header from "@components/Header";
-import NavigationBlock from "@components/NavigationBlock";
+import { motion } from "framer-motion";
 import { themeTutorialData } from "../data";
 
 export default function Home() {
@@ -45,33 +43,66 @@ export default function Home() {
 
     return str;
   }
+
   withoutAccent("tést");
 
+  const icon = (
+    <img
+      src="/image/telephone.png"
+      alt="tutorial"
+      className="w-full h-full sm:h-[4em] lg:h-20 "
+    />
+  );
+
+  const buttonStyle =
+    "px-10 bg-white text-blue-700 text-l sm:text-xl antialiased font-semibold 2xl:font-bold flex flex-col items-center justify-center text-center h-30 w-30 rounded-xl hover:bg-blue-700 hover:text-white transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl hover:border-transparent shadow-lg shadow-yellow-400";
+
   return (
-    <div>
-      <Header />
-      <NavigationBlock title="Bienvenue" />
-      <div className="flex flex-col justify-center items-start mx-2">
+    <motion.div
+      key="home"
+      initial={{ x: "100%" }}
+      animate={{ x: "0%" }}
+      transition={{ duration: 0.5 }}
+      className="flex-grow flex flex-col items-center justify-center"
+    >
+      <div
+        className="
+        my-10
+        mx-10
+        sm:mx-20
+        grid
+        grid-cols-2
+        sm:grid-cols-2
+        lg:grid-cols-3
+        xl:grid-cols-4
+        2xl:grid-cols-5
+        gap-6
+        auto-rows-[minmax(100px,_1fr)]
+        sm:auto-rows-[minmax(180px,_2fr)]
+        lg:auto-rows-[minmax(220px,_2fr)]
+        "
+      >
         {themeTutorialData.map((data) => (
-          <Link
-            key={data.theme}
-            className="text-blue-700 text-xl font-button"
-            to={`/${data.theme}`}
-          >
-            {data.theme}
+          <Link key={data.id} className={buttonStyle} to={`/${data.theme}`}>
+            <motion.div
+              key={data.id}
+              className="h-[4em] w-[4em] sm:h-fit sm:w-fit bg-amber-300 rounded-full p-3 m-2 border-2 sm:border-4 border-white"
+            >
+              {icon}
+            </motion.div>
+            <p>{data.theme}</p>
           </Link>
         ))}
-        <div>
-          <Link className="text-blue-700 text-xl" to="/search">
-            Rechercher un tutoriel
-          </Link>
-        </div>
-        <div>
-          <Link className="text-blue-700 text-xl" to="/tofollow">
-            Pour poursuivre
-          </Link>
-        </div>
+
+        <Link className={buttonStyle} to="/search">
+          <div className=" bg-amber-300 rounded-full p-3 m-2">{icon}</div>
+          <p>Rechercher un tutoriel</p>
+        </Link>
+        <Link className={buttonStyle} to="/tofollow">
+          <div className=" bg-amber-300 rounded-full p-3 m-2">{icon}</div>
+          <p>Pour poursuivre</p>
+        </Link>
       </div>
-    </div>
+    </motion.div>
   );
 }

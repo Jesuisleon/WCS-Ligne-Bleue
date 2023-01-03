@@ -13,6 +13,7 @@ module.exports = {
       yellow: "#ffc928",
     },
     fontFamily: {
+      body: ["Roboto", "sans-serif"],
       button: ["Roboto", "sans-serif"],
       title: ["Montserrat", "Arial", "sans-serif"],
     },
