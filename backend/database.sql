@@ -1,4 +1,3 @@
-﻿
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
     id int primary key NOT NULL AUTO_INCREMENT,
@@ -15,40 +14,19 @@ CREATE TABLE theme (
     themeName varchar(255) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO
-  theme (themeName)
+INSERT INTO theme (themeName)
 VALUES
-  (
-    'Utiliser ligne bleue'    
-  ),
-  (
-    'Utiliser mon téléphone'    
-  ),
-  (
-    'Aller sur internet'    
-  ),
-  (
-    'Vie Courante'    
-  ),
-  (
-   'Me divertir'   
-  ),
-  (
-     'Mes mails'   
-  ),
-   (
-   'Me divertir'   
-  ),
-   (
-   'Communiquer'    
-  ),
-   (
-   'Utiliser mon téléphone en sécurité'    
-  ),
-   (
-    'Se déplacer'   
-  ),
-  ( 'Se faire aider');
+  ('Utiliser ligne bleue'),
+  ('Utiliser mon téléphone'),
+  ('Aller sur internet'),
+  ('Vie Courante'),
+  ('Me divertir'),
+  ('Mes mails'),
+  ('Me divertir'),
+  ('Communiquer'),
+  ('Utiliser mon téléphone en sécurité'),
+  ('Se déplacer'),
+  ('Se faire aider');
 
 DROP TABLE IF EXISTS tutorial;
 
@@ -63,5 +41,3 @@ CREATE TABLE tutorial (
     author varchar(255) NOT NULL,
     FOREIGN KEY (themeID) REFERENCES theme(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import Quiz from "@components/Quiz";
+import axios from "axios";
 import stockedData from "./data";
 
 const quizData = [
@@ -53,6 +54,8 @@ function EditorForTopData({
 }
 
 function CreateTutorial() {
+  const { VITE_BACKEND_URL } = import.meta.env;
+
   const initialData = [].concat(stockedData);
 
   const [editorData, setEditorData] = useState([]);
@@ -67,7 +70,7 @@ function CreateTutorial() {
   function SubmitData(e) {
     e.preventDefault();
     stockedData.splice(0, stockedData.length, ...editorData, anotherData);
-    // console.log("StockedData :", JSON.stringify(stockedData));
+    axios.post(`${VITE_BACKEND_URL}/tutorials`, stockedData);
   }
 
   function removeBlockAndUpdateStep(blockToRemove) {
@@ -101,6 +104,18 @@ function CreateTutorial() {
       return block;
     });
     setEditorData(updatedEditorContent);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", e.target.image.files[0]);
+
+    axios.post(`${VITE_BACKEND_URL}/upload/image`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   };
 
   return (
@@ -170,10 +185,14 @@ function CreateTutorial() {
                   toolbar_sticky: true,
                   menubar: false,
                   autoresize_bottom_margin: 0,
+                  image_advtab: true,
+                  noneditable_class: "mceNonEditable",
+                  toolbar_mode: "wrap",
+                  contextmenu: "link image",
                   content_style:
                     "body { font-family:roboto ,sans-serif; font-size:16px }",
                   plugins:
-                    "autoresize preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap emoticons",
+                    "autoresize preview searchreplace autolink save directionality visualblocks visualchars fullscreen image link media charmap nonbreaking advlist lists wordcount help charmap emoticons",
                   editimage_cors_hosts: ["picsum.photos"],
                   toolbar:
                     "close fullscreen | undo redo removeformat bold italic underline fontsize| forecolor backcolor emoticons insertfile image media link | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist |",
@@ -192,11 +211,48 @@ function CreateTutorial() {
                       },
                     });
                   },
-                  image_advtab: true,
-                  image_caption: true,
-                  noneditable_class: "mceNonEditable",
-                  toolbar_mode: "wrap",
-                  contextmenu: "link image",
+                  images_upload_handler: (blobInfo, progress) => {
+                    return new Promise((resolve, reject) => {
+                      const xhr = new XMLHttpRequest();
+                      xhr.withCredentials = false;
+                      xhr.open("POST", `${VITE_BACKEND_URL}/upload/image`);
+                      xhr.upload.onprogress = (e) => {
+                        progress((e.loaded / e.total) * 100);
+                      };
+                      xhr.onload = () => {
+                        if (xhr.status === 403) {
+                          reject(new Error());
+                          return;
+                        }
+                        if (xhr.status < 200 || xhr.status >= 300) {
+                          reject(new Error(`HTTP Error: ${xhr.status}`));
+                          return;
+                        }
+                        const json = JSON.parse(xhr.responseText);
+                        if (!json || typeof json.location !== "string") {
+                          reject(
+                            new Error(`Invalid JSON: ${xhr.responseText}`)
+                          );
+                          return;
+                        }
+                        resolve(json.location);
+                      };
+                      xhr.onerror = () => {
+                        reject(
+                          new Error(
+                            `Image upload failed due to a XHR Transport error. Code: ${xhr.status}`
+                          )
+                        );
+                      };
+                      const formData = new FormData();
+                      formData.append(
+                        "image",
+                        blobInfo.blob(),
+                        blobInfo.filename()
+                      );
+                      xhr.send(formData);
+                    });
+                  },
                 }}
               />
             </div>
@@ -212,6 +268,10 @@ function CreateTutorial() {
         </button>
       </form>
       <Quiz data={quizData} />
+      <form method="POST" encType="multipart/form-data" onSubmit={handleSubmit}>
+        <input type="file" name="image" />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }

@@ -10,7 +10,6 @@
     "fix": "prettier --write . && eslint --fix --ext .jsx ."
   },
   "dependencies": {
-
     "@fontsource/roboto": "^4.5.8",
     "@tinymce/tinymce-react": "^4.2.0",
     "axios": "^1.2.1",
