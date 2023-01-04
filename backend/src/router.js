@@ -1,9 +1,16 @@
 const express = require("express");
+const fs = require("fs");
+const uuid = require("uuid");
+const multer = require("multer");
 const {
   hashPassword,
   verifyPassword,
   // verifyToken,
 } = require("./middleware/auth");
+
+const upload = multer({
+  dest: "upload/image",
+});
 
 const router = express.Router();
 
@@ -28,5 +35,28 @@ router.post(
   userControllers.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );
+
+router.post("/upload/image", upload.single("image"), (req, res) => {
+  const { file } = req;
+  if (!file) {
+    res.status(400).send("No file was uploaded.");
+    return;
+  }
+  const id = uuid.v4();
+  const { originalname } = file;
+
+  // Move the image to the public folder
+  fs.rename(file.path, `./public/images/${id}${originalname}`, (err) => {
+    if (err) {
+      res.status(500).send("There was an error uploading the file.");
+      return;
+    }
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const imageFolder = "/images/";
+
+    // send the image url back to the client
+    res.send({ location: `${baseUrl}${imageFolder}${id}${originalname}` });
+  });
+});
 
 module.exports = router;

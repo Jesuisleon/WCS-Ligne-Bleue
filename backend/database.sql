@@ -24,8 +24,7 @@ CREATE TABLE theme (
     themeName varchar(255) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO
-  theme (themeName)
+INSERT INTO theme (themeName)
 VALUES
   ('Utiliser ligne bleue'),
   ('Utiliser mon téléphone'),
@@ -54,5 +53,3 @@ CREATE TABLE tutorial (
     edition_date DATETIME default NOW(),
     FOREIGN KEY (themeID) REFERENCES theme(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-

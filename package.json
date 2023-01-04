@@ -10,7 +10,8 @@
     "dev-front": "npm --prefix ./frontend run dev",
     "dev-back": "npm --prefix ./backend run dev",
     "lint": "npm --prefix ./frontend run lint && npm --prefix ./backend run lint",
-    "fix": "npm --prefix ./frontend run fix && npm --prefix ./backend run fix"
+    "fix": "npm --prefix ./frontend run fix && npm --prefix ./backend run fix",
+    "postinstall": "node ./postinstall.js"
   },
   "keywords": [],
   "author": "Wild Code School",
@@ -21,6 +22,7 @@
   },
   "dependencies": {
     "framer-motion": "^7.10.3",
+    "fs-extra": "^11.1.0",
     "react-icons": "^4.7.1"
   }
 }
