@@ -54,12 +54,10 @@ function EditorForTopData({
 }
 
 function CreateTutorial() {
-  // title objective description difficulty content hashtag, author
-
   const { VITE_BACKEND_URL } = import.meta.env;
 
   const author = "Michel";
-  const theme = "Utiliser mon téléphone";
+  const themeId = "2";
 
   const initialData = [].concat(stockedData);
 
@@ -79,12 +77,11 @@ function CreateTutorial() {
       objective: anotherData.objective,
       description: anotherData.description,
       difficulty: anotherData.difficulty,
-      content: editorData,
+      content: JSON.stringify(editorData),
       hashtag: anotherData.hashtag,
-      autor: author,
-      theme,
+      author,
+      theme: themeId,
     };
-    // console.log(data);
     // stockedData.splice(0, stockedData.length, ...editorData, anotherData);
     axios.post(`${VITE_BACKEND_URL}/tutorials`, data);
   }
@@ -156,9 +153,9 @@ function CreateTutorial() {
               name="level"
               id="level"
             >
-              <option value="1">Débutant</option>
-              <option value="2">Facile</option>
-              <option value="3">Novice</option>
+              <option value="Débutant">Débutant</option>
+              <option value="Facile">Facile</option>
+              <option value="Novice">Novice</option>
             </select>
           </div>
         </div>

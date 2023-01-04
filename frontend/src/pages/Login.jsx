@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 function Login() {
   const navigate = useNavigate();
 
+  const { VITE_BACKEND_URL } = import.meta.env;
+
   const [password, setPassword] = useState("");
   const [email, setemail] = useState("");
   const [token, setToken] = useState("");
@@ -11,7 +13,7 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const login = { email, password };
-    fetch("http://localhost:5000/login", {
+    fetch(`${VITE_BACKEND_URL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(login),
