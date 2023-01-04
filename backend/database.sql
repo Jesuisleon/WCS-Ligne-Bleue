@@ -1,4 +1,5 @@
-﻿
+﻿-- Active: 1667382451940@@127.0.0.1@3306@laposte
+
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
     id int primary key NOT NULL AUTO_INCREMENT,

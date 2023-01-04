@@ -20,6 +20,7 @@ function Login() {
       .then((data) => {
         navigate("/");
         setToken(data.token);
+        // console.log(data.token);
       });
   };
   return (
@@ -37,7 +38,7 @@ function Login() {
         <div className="mb-6">
           <label
             htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
           >
             Veuillez insérer votre adresse email
           </label>
@@ -54,7 +55,7 @@ function Login() {
         <div className="mb-6">
           <label
             htmlFor="password"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
           >
             Veuillez rentrer votre mot de passe
           </label>
@@ -79,7 +80,7 @@ function Login() {
           </div>
           <label
             htmlFor="remember"
-            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-500"
           >
             Se souvenir de moi
           </label>

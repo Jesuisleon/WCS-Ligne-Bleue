@@ -41,5 +41,74 @@ if (fs.existsSync(reactIndexFile)) {
   });
 }
 
+// router.post("/create-user", (req, res) => {
+// Vérifiez si l'utilisateur est un administrateur en utilisant la valeur du champ "role"
+// if (req.body.role === "administrateur") {
+// Enregistrez le compte de l'utilisateur en tant qu'administrateur dans la base de données
+//   connection.query(
+//     "INSERT INTO user (firstname, password, role) VALUES (?, ?, ?)",
+//     [req.body.fisrtname, req.body.password, req.body.role],
+//     (err, results) => {
+//       if (err) {
+//         console.error(err);
+//         return res.send(err);
+//       }
+//       res.send("Utilisateur créé avec succès en tant qu administrateur");
+//     }
+//   );
+// } else {
+// Enregistrez le compte de l'utilisateur en tant qu'utilisateur normal dans la base de données
+//     connection.query(
+//       "INSERT INTO user (firstname, password) VALUES (?, ?)",
+//       [req.body.fisrtname, req.body.password],
+//       (err, results) => {
+//         if (err) {
+//           console.error(err);
+//           return res.send(err);
+//         }
+//         res.send("Utilisateur créé avec succès");
+//       }
+//     );
+//   }
+// });
+
+// router.get("/user", (req, res) => {
+// Sélectionnez uniquement les utilisateurs ayant le rôle "administrateur"
+//   connection.query(
+//     'SELECT * FROM user WHERE role = "administrateur"',
+//     (err, results) => {
+//       if (err) {
+//         console.error(err);
+//         return res.send(err);
+//       }
+//       res.send(results);
+//     }
+//   );
+// });
+
+// router.put("/update-user-role", (req, res) => {
+// Vérifiez si l'utilisateur connecté a le rôle d'administrateur
+// if (req.user.role === "administrateur") {
+// Mise à jour du rôle de l'utilisateur
+//     connection.query(
+//       "UPDATE user SET role = ? WHERE id = ?",
+//       [req.body.role, req.body.id],
+//       (err, results) => {
+//         if (err) {
+//           console.error(err);
+//           return res.send(err);
+//         }
+//         res.send("Rôle de l utilisateur mis à jour avec succès");
+//       }
+//     );
+//   } else {
+//     res
+//       .status(403)
+//       .send(
+//         "Vous n avez pas les permissions nécessaires pour mettre à jour le rôle de cet utilisateur"
+//       );
+//   }
+// });
+
 // ready to export
 module.exports = app;
