@@ -7,14 +7,14 @@ class UserManager extends AbstractManager {
 
   findUser(id) {
     return this.connection.query(
-      `select firstname, lastname, email from  ${this.table} where id = ?`,
+      `select firstname, lastname, email, admin from  ${this.table} where id = ?`,
       [id]
     );
   }
 
   findAllUsers() {
     return this.connection.query(
-      `select firstname, lastname, email from  ${this.table}`
+      `select id, firstname, lastname, email, admin from  ${this.table}`
     );
   }
 
@@ -27,14 +27,14 @@ class UserManager extends AbstractManager {
 
   update(user) {
     return this.connection.query(
-      `update ${this.table} set firstname = ?, lastname = ?, email = ? where id = ?`,
-      [user.firstname, user.lastname, user.email, user.id]
+      `update ${this.table} set firstname = ?, lastname = ?, email = ?, admin = ? where id = ?`,
+      [user.firstname, user.lastname, user.email, user.id, user.admin]
     );
   }
 
   getUserByEmail(email) {
     return this.connection.query(
-      `select email, hashedPassword, id from ${this.table} where email = ?`,
+      `select email, hashedPassword, id, admin from ${this.table} where email = ?`,
       [email]
     );
   }
