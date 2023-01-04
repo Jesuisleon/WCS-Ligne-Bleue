@@ -22,7 +22,6 @@ VALUES
   ('Vie Courante'),
   ('Me divertir'),
   ('Mes mails'),
-  ('Me divertir'),
   ('Communiquer'),
   ('Utiliser mon téléphone en sécurité'),
   ('Se déplacer'),

@@ -54,7 +54,12 @@ function EditorForTopData({
 }
 
 function CreateTutorial() {
+  // title objective description difficulty content hashtag, author
+
   const { VITE_BACKEND_URL } = import.meta.env;
+
+  const author = "Michel";
+  const theme = "Utiliser mon téléphone";
 
   const initialData = [].concat(stockedData);
 
@@ -69,8 +74,19 @@ function CreateTutorial() {
 
   function SubmitData(e) {
     e.preventDefault();
-    stockedData.splice(0, stockedData.length, ...editorData, anotherData);
-    axios.post(`${VITE_BACKEND_URL}/tutorials`, stockedData);
+    const data = {
+      title: anotherData.title,
+      objective: anotherData.objective,
+      description: anotherData.description,
+      difficulty: anotherData.difficulty,
+      content: editorData,
+      hashtag: anotherData.hashtag,
+      autor: author,
+      theme,
+    };
+    // console.log(data);
+    // stockedData.splice(0, stockedData.length, ...editorData, anotherData);
+    axios.post(`${VITE_BACKEND_URL}/tutorials`, data);
   }
 
   function removeBlockAndUpdateStep(blockToRemove) {
@@ -106,18 +122,6 @@ function CreateTutorial() {
     setEditorData(updatedEditorContent);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", e.target.image.files[0]);
-
-    axios.post(`${VITE_BACKEND_URL}/upload/image`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-  };
-
   return (
     <div className="p-4 h-full w-full">
       <form
@@ -131,7 +135,33 @@ function CreateTutorial() {
         >
           <p>Enregistrer</p>
         </button>
-
+        <div className="flex items-center gap-4 mb-4">
+          <div className="flex flex-col items-center gap-4">
+            <h2 className="text-2xl font-bold">Hashtag</h2>
+            <input
+              onChange={(e) =>
+                handleInputChange(e.target.value, { id: "hashtag" })
+              }
+              placeholder="Vos hashtag"
+              id="hashtag"
+              type="text"
+            />
+          </div>
+          <div className="flex flex-col gap-2 items-center ">
+            <h2 className="text-2xl font-bold">Niveau</h2>
+            <select
+              onChange={(e) =>
+                handleInputChange(e.target.value, { id: "difficulty" })
+              }
+              name="level"
+              id="level"
+            >
+              <option value="1">Débutant</option>
+              <option value="2">Facile</option>
+              <option value="3">Novice</option>
+            </select>
+          </div>
+        </div>
         <div
           id="toolbar-container-top"
           className="h-10 w-full bg-white border-b-2 drop-shadow-sm rounded-t-lg"
@@ -151,11 +181,11 @@ function CreateTutorial() {
             <h2 className="text-2xl font-bold">Objectif</h2>
             <EditorForTopData
               handleInputChange={(e) =>
-                handleInputChange(e, { id: "objectif" })
+                handleInputChange(e, { id: "objective" })
               }
-              id="objectif"
+              id="objective"
               placeholder="Décrivez l'objectif de ce tutoriel"
-              defaultValue={anotherData ? anotherData.objectif : ""}
+              defaultValue={anotherData ? anotherData.objective : ""}
             />
           </div>
           <div className=" flex flex-col gap-4 col-span-4 lg:col-span-3 lg:row-auto h-full">
@@ -261,17 +291,13 @@ function CreateTutorial() {
 
         <button
           type="button"
-          className="m-4 w-10 h-10 rounded-full bg-white cursor-pointer  text-4xl font-bold sm:font-semibold shadow-md hover:bg-black hover:text-white"
+          className="m-4 p-2 rounded-xl bg-white cursor-pointer text-lg shadow-md hover:bg-black hover:text-white"
           onClick={() => addNewBlockAndUpdateStep()}
         >
-          +
+          <p>Nouvelle section</p>
         </button>
       </form>
       <Quiz data={quizData} />
-      <form method="POST" encType="multipart/form-data" onSubmit={handleSubmit}>
-        <input type="file" name="image" />
-        <button type="submit">Submit</button>
-      </form>
     </div>
   );
 }
