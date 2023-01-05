@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header({ userToken, setUser }) {
   return (
     <nav
       className="
@@ -32,19 +32,39 @@ function Header() {
           </Link>
         </li>
         <li>
-          <Link to="/login">
-            <h1
-              className="
+          {!userToken ? (
+            <Link to="/login">
+              <h1
+                className="
               antialiased
               font-medium
               text-blue-800
               sm:text-2xl
               hover:text-blue-600
           "
+              >
+                Se connecter
+              </h1>
+            </Link>
+          ) : (
+            <h1
+              className="
+              antialiased
+              font-medium
+              text-blue-800
+              sm:text-2xl
+              hover:text-blue-600"
             >
-              Se connecter
+              <button
+                type="button"
+                onClick={() => {
+                  setUser(null);
+                }}
+              >
+                Se déconnecter
+              </button>
             </h1>
-          </Link>
+          )}
         </li>
       </ul>
     </nav>

@@ -11,11 +11,12 @@ import UserProfil from "@pages/UserProfil";
 import CreateTutorial from "@pages/CreateTutorial";
 import Register from "@pages/Register";
 import Header from "@components/Header";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { GoArrowDown, GoArrowUp } from "react-icons/go";
 import NavigationBlock from "@components/NavigationBlock";
 
-function AnimatedRoutes() {
+function AnimatedRoutes({ setUser, userToken }) {
   const navigate = useNavigate();
   const location = useLocation();
   let titleForPage = "";
@@ -102,7 +103,7 @@ function AnimatedRoutes() {
 
   return (
     <AnimatePresence>
-      <Header key="header" />
+      <Header key="header" userToken={userToken} setUser={setUser} />
       <NavigationBlock
         key="navigation"
         title={titleForPage}
@@ -111,7 +112,7 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/adminPanel" element={<AdminPanel />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/journey" element={<Journey />} />
         <Route path="/search" element={<Search />} />
         <Route path="/:theme" element={<TutorialTheme />} />

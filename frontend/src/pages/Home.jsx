@@ -46,21 +46,20 @@ export default function Home() {
 
   withoutAccent("tést");
 
-  const icon = (
+  const icon3 = (
     <img
-      src="/image/telephone.png"
+      src="/image/search.gif"
       alt="tutorial"
       className="w-full h-full sm:h-[4em] lg:h-20 "
     />
   );
-
-  // const icon2 = (
-  //   <img
-  //     src="/image/poster.png"
-  //     alt="tutorial"
-  //     className="w-full h-full sm:h-[4em] lg:h-20 "
-  //   />
-  // );
+  const icon4 = (
+    <img
+      src="/image/poursuivre.gif"
+      alt="tutorial"
+      className="w-full h-full sm:h-[4em] lg:h-20 "
+    />
+  );
 
   const buttonStyle =
     "px-10 bg-white text-blue-700 text-l sm:text-xl antialiased font-semibold 2xl:font-bold flex flex-col items-center justify-center text-center h-30 w-30 rounded-xl hover:bg-blue-700 hover:text-white transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl hover:border-transparent shadow-lg shadow-yellow-400";
@@ -96,18 +95,22 @@ export default function Home() {
               key={data.id}
               className="h-[4em] w-[4em] sm:h-fit sm:w-fit bg-amber-300 rounded-full p-3 m-2 border-2 sm:border-4 border-white"
             >
-              {icon}
+              <img
+                src={data.icon}
+                alt={data.theme}
+                className="w-full h-full sm:h-[4em] lg:h-20"
+              />
             </motion.div>
             <p>{data.theme}</p>
           </Link>
         ))}
 
         <Link className={buttonStyle} to="/search">
-          <div className=" bg-amber-300 rounded-full p-3 m-2">{icon}</div>
+          <div className=" bg-amber-300 rounded-full p-3 m-2">{icon3}</div>
           <p>Rechercher un tutoriel</p>
         </Link>
         <Link className={buttonStyle} to="/tofollow">
-          <div className=" bg-amber-300 rounded-full p-3 m-2">{icon}</div>
+          <div className=" bg-amber-300 rounded-full p-3 m-2">{icon4}</div>
           <p>Pour poursuivre</p>
         </Link>
       </div>

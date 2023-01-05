@@ -1,28 +1,32 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function Login() {
+function Login({ setUser, userToken }) {
   const navigate = useNavigate();
-
   const [password, setPassword] = useState("");
   const [email, setemail] = useState("");
-  const [token, setToken] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const login = { email, password };
-    fetch("http://localhost:5000/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(login),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+
+      const login = { email, password };
+
+      const response = await axios.post("http://localhost:5000/login", login);
+
+      if (response.data.token) {
+        // console.log(response.data.token);
+        setUser(response.data.token);
         navigate("/");
-        setToken(data.token);
-        // console.log(data.token);
-      });
+      } else {
+        // console.log(response);
+      }
+    } catch (error) {
+      // console.error(error.message);
+    }
   };
+
   return (
     <div
       className="
@@ -85,7 +89,7 @@ function Login() {
             Se souvenir de moi
           </label>
         </div>
-        {token ? (
+        {userToken ? (
           <h1>Vous êtes connecté</h1>
         ) : (
           <h1>Vous n'êtes pas connecté</h1>

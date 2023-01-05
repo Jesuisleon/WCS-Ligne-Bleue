@@ -1,8 +1,9 @@
 export const themeTutorialData = [
-  { id: 1, theme: "Utiliser ligne Bleue" },
+  { id: 1, theme: "Utiliser ligne Bleue", icon: "/image/telephone.png" },
   {
     id: 2,
     theme: "Utiliser mon téléphone",
+    icon: "/image/phone2.gif",
     tutorial: [
       {
         id: 1,
@@ -91,34 +92,42 @@ export const themeTutorialData = [
   {
     id: 3,
     theme: "Aller sur internet",
+    icon: "/image/internet.gif",
   },
   {
     id: 4,
     theme: "Vie Courante",
+    icon: "/image/telephone.png",
   },
   {
     id: 5,
     theme: "Me divertir",
+    icon: "/image/telephone.png",
   },
   {
     id: 6,
     theme: "Mes mails",
+    icon: "/image/mail2.gif",
   },
   {
     id: 7,
     theme: "Communiquer",
+    icon: "/image/telephone.png",
   },
   {
     id: 8,
     theme: "Utiliser mon téléphone en sécurité",
+    icon: "/image/securite.gif",
   },
   {
     id: 9,
     theme: "Se déplacer",
+    icon: "/image/deplacer.gif",
   },
   {
     id: 10,
     theme: "Se faire aider",
+    icon: "/image/aide.gif",
   },
 ];
 
