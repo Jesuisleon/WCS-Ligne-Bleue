@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
-function Login({ setUser, userToken }) {
+function Login({ setUser, setGetUser }) {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [email, setemail] = useState("");
@@ -16,14 +17,17 @@ function Login({ setUser, userToken }) {
       const response = await axios.post("http://localhost:5000/login", login);
 
       if (response.data.token) {
-        // console.log(response.data.token);
         setUser(response.data.token);
         navigate("/");
-      } else {
-        // console.log(response);
+      }
+      if (response.data.user.email) {
+        Cookies.set("userMail", response.data.user.email, {
+          expires: 1 / 24,
+        });
+        setGetUser(Cookies.get("userMail") || null);
       }
     } catch (error) {
-      // console.error(error.message);
+      error("Une erreur s'est produite lors de la connexion");
     }
   };
 
@@ -89,11 +93,11 @@ function Login({ setUser, userToken }) {
             Se souvenir de moi
           </label>
         </div>
-        {userToken ? (
+        {/* {userToken ? (
           <h1>Vous êtes connecté</h1>
         ) : (
           <h1>Vous n'êtes pas connecté</h1>
-        )}
+        )} */}
         <div>
           <Link to="/Register">Vous n'avez pas de compte ?</Link>
         </div>

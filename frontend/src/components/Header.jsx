@@ -1,7 +1,8 @@
+import Cookies from "js-cookie";
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Header({ userToken, setUser }) {
+function Header({ userToken, setUser, getUser }) {
   return (
     <nav
       className="
@@ -59,10 +60,13 @@ function Header({ userToken, setUser }) {
                 type="button"
                 onClick={() => {
                   setUser(null);
+                  Cookies.remove("userMail");
                 }}
               >
                 Se déconnecter
               </button>
+              <br />
+              {getUser && getUser.split("@")[0]}
             </h1>
           )}
         </li>
