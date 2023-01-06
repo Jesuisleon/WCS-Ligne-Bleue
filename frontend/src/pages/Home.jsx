@@ -1,8 +1,18 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { themeTutorialData } from "../data";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const { VITE_BACKEND_URL } = import.meta.env;
+  const [themes, setThemes] = useState([]);
+  useEffect(() => {
+    fetch(`${VITE_BACKEND_URL}/home`)
+      .then((response) => response.json())
+      .then((data) => {
+        setThemes(data);
+      });
+  }, []);
+
   function withoutAccent(str) {
     const accent = [
       /[\300-\306]/g,
@@ -89,8 +99,8 @@ export default function Home() {
         lg:auto-rows-[minmax(220px,_2fr)]
         "
       >
-        {themeTutorialData.map((data) => (
-          <Link key={data.id} className={buttonStyle} to={`/${data.theme}`}>
+        {themes.map((data) => (
+          <Link key={data.id} className={buttonStyle} to={`/${data.themeName}`}>
             <motion.div
               key={data.id}
               className="h-[4em] w-[4em] sm:h-fit sm:w-fit bg-amber-300 rounded-full p-3 m-2 border-2 sm:border-4 border-white"
@@ -101,7 +111,7 @@ export default function Home() {
                 className="w-full h-full sm:h-[4em] lg:h-20"
               />
             </motion.div>
-            <p>{data.theme}</p>
+            <p>{data.themeName}</p>
           </Link>
         ))}
 
