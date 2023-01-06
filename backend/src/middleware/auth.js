@@ -1,6 +1,7 @@
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const models = require("../models");
 
 const hashPassword = (req, res, next) => {
   // hash the password using argon2 then call next()
@@ -32,7 +33,7 @@ const verifyPassword = (req, res) => {
         const token = jwt.sign(
           { sub: req.user.id.toString() },
           process.env.JWT_SECRET,
-          { expiresIn: "1h" }
+          { expiresIn: "24h" }
         );
         res.status(200).json({
           token,
@@ -72,8 +73,26 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+const verifyAdmin = (req, res, next) => {
+  models.user
+    .findUser(req.payload.sub)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        req.body.admin = rows[0].admin;
+        next();
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   hashPassword,
   verifyPassword,
   verifyToken,
+  verifyAdmin,
 };

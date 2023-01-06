@@ -16,18 +16,6 @@ const browse = (req, res) => {
     });
 };
 
-const browseByTheme = (req, res) => {
-  models.tutorial
-    .findTutorialsByTheme(req.param.id)
-    .then(([rows]) => {
-      res.send(rows);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
-
 const read = (req, res) => {
   models.tutorial
     .findTutorial(req.params.id)
@@ -100,7 +88,6 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
-  browseByTheme,
   read,
   edit,
   add,
