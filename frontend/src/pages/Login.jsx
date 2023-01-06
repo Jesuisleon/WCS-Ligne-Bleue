@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 
-
 function Login() {
   const { setUserTokenCookie } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -19,7 +18,13 @@ function Login() {
       const response = await axios.post(`${VITE_BACKEND_URL}/login`, login);
 
       if (response.data.token) {
-        setUserTokenCookie(response.data.token, response.data.user.firstname, response.data.user.lastname, response.data.user.email, response.data.user.admin );
+        setUserTokenCookie(
+          response.data.token,
+          response.data.user.firstname,
+          response.data.user.lastname,
+          response.data.user.email,
+          response.data.user.admin
+        );
         navigate("/");
       }
     } catch (error) {
