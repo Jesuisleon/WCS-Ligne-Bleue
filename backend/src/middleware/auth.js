@@ -35,6 +35,7 @@ const verifyPassword = (req, res) => {
           process.env.JWT_SECRET,
           { expiresIn: "24h" }
         );
+        delete req.user.hashedPassword;
         res.status(200).json({
           token,
           user: req.user,
