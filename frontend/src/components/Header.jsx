@@ -1,8 +1,10 @@
-import Cookies from "js-cookie";
-import React from "react";
+import { React, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
-function Header({ userToken, setUser, getUser }) {
+function Header() {
+  const { userToken, userInfo, setUserTokenCookie, setUserInfo } =
+    useContext(AuthContext);
   return (
     <nav
       className="
@@ -58,16 +60,14 @@ function Header({ userToken, setUser, getUser }) {
               flex-col text-center
               "
             >
-              {getUser &&
-                getUser.split("@")[0].charAt(0).toUpperCase() +
-                  getUser.split("@")[0].slice(1)}
+              {userInfo}
               <br />
 
               <button
                 type="button"
                 onClick={() => {
-                  setUser(null);
-                  Cookies.remove("userMail");
+                  setUserTokenCookie(null);
+                  setUserInfo(null);
                 }}
               >
                 Se déconnecter
