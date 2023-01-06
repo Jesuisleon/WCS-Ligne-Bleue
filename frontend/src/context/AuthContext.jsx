@@ -5,9 +5,9 @@ export const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
   const [userToken, setUserToken] = useState(Cookies.get("userToken") || null);
-  const [getUser, setGetUser] = useState(Cookies.get("firstName") || null);
+  const [userInfo, setUserInfo] = useState(Cookies.get("firstName") || null);
 
-  const setUserTokenCookie = useCallback((token, firstName) => {
+  const setUserTokenCookie = useCallback((token, firstName, lastName, email, isAdmin) => {
     if (token) {
       Cookies.set("userToken", token, {
         expires: 1 / 24,
@@ -15,24 +15,34 @@ export function AuthContextProvider({ children }) {
       Cookies.set("firstName", firstName, {
         expires: 1 / 24,
       });
+      Cookies.set("lastName", lastName, {
+        expires: 1 / 24,
+      });
+      Cookies.set("email", email, {
+        expires: 1 / 24,
+      });
+      Cookies.set("isAdmin", isAdmin, {
+        expires: 1 / 24,
+      });
+      
       setUserToken(token);
-      setGetUser(firstName);
+      setUserInfo(firstName);
     } else {
       Cookies.remove("userToken");
       setUserToken(null);
       Cookies.remove("firstName");
-      setGetUser(null);
+      setUserInfo(null);
     }
   }, []);
 
   const value = useMemo(
     () => ({
       setUserTokenCookie,
-      setGetUser,
+      setUserInfo,
       userToken,
-      getUser,
+      userInfo,
     }),
-    [setUserTokenCookie, userToken, setGetUser, getUser]
+    [setUserTokenCookie, userToken, setUserInfo, userInfo]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function Header() {
-  const { userToken, getUser, setUserTokenCookie, setGetUser } =
+  const { userToken, userInfo, setUserTokenCookie, setUserInfo } =
     useContext(AuthContext);
   return (
     <nav
@@ -60,14 +60,14 @@ function Header() {
               flex-col text-center
               "
             >
-              {getUser}
+              {userInfo}
               <br />
 
               <button
                 type="button"
                 onClick={() => {
                   setUserTokenCookie(null);
-                  setGetUser(null);
+                  setUserInfo(null);
                 }}
               >
                 Se déconnecter
