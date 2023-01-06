@@ -1,7 +1,8 @@
+import Cookies from "js-cookie";
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header({ userToken, setUser, getUser }) {
   return (
     <nav
       className="
@@ -32,7 +33,21 @@ function Header() {
           </Link>
         </li>
         <li>
-          <Link to="/login">
+          {!userToken ? (
+            <Link to="/login">
+              <h1
+                className="
+              antialiased
+              font-medium
+              text-blue-800
+              sm:text-2xl
+              hover:text-blue-600
+          "
+              >
+                Se connecter
+              </h1>
+            </Link>
+          ) : (
             <h1
               className="
               antialiased
@@ -40,11 +55,25 @@ function Header() {
               text-blue-800
               sm:text-2xl
               hover:text-blue-600
-          "
+              flex-col text-center
+              "
             >
-              Se connecter
+              {getUser &&
+                getUser.split("@")[0].charAt(0).toUpperCase() +
+                  getUser.split("@")[0].slice(1)}
+              <br />
+
+              <button
+                type="button"
+                onClick={() => {
+                  setUser(null);
+                  Cookies.remove("userMail");
+                }}
+              >
+                Se déconnecter
+              </button>
             </h1>
-          </Link>
+          )}
         </li>
       </ul>
     </nav>
