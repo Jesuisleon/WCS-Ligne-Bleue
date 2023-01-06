@@ -1,27 +1,36 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 
-function Login() {
+function Login({ setUser, setGetUser }) {
   const navigate = useNavigate();
-
   const [password, setPassword] = useState("");
   const [email, setemail] = useState("");
-  const [token, setToken] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const login = { email, password };
-    fetch("http://localhost:5000/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(login),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+
+      const login = { email, password };
+
+      const response = await axios.post("http://localhost:5000/login", login);
+
+      if (response.data.token) {
+        setUser(response.data.token);
         navigate("/");
-        setToken(data.token);
-      });
+      }
+      if (response.data.user.email) {
+        Cookies.set("userMail", response.data.user.email, {
+          expires: 1 / 24,
+        });
+        setGetUser(Cookies.get("userMail") || null);
+      }
+    } catch (error) {
+      error("Une erreur s'est produite lors de la connexion");
+    }
   };
+
   return (
     <div
       className="
@@ -37,7 +46,7 @@ function Login() {
         <div className="mb-6">
           <label
             htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
           >
             Veuillez insérer votre adresse email
           </label>
@@ -54,7 +63,7 @@ function Login() {
         <div className="mb-6">
           <label
             htmlFor="password"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-dark"
           >
             Veuillez rentrer votre mot de passe
           </label>
@@ -79,16 +88,16 @@ function Login() {
           </div>
           <label
             htmlFor="remember"
-            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-500"
           >
             Se souvenir de moi
           </label>
         </div>
-        {token ? (
+        {/* {userToken ? (
           <h1>Vous êtes connecté</h1>
         ) : (
           <h1>Vous n'êtes pas connecté</h1>
-        )}
+        )} */}
         <div>
           <Link to="/Register">Vous n'avez pas de compte ?</Link>
         </div>

@@ -56,9 +56,16 @@ export default function Home() {
 
   withoutAccent("tést");
 
-  const icon = (
+  const icon3 = (
     <img
-      src="/image/telephone.png"
+      src="/image/search.gif"
+      alt="tutorial"
+      className="w-full h-full sm:h-[4em] lg:h-20 "
+    />
+  );
+  const icon4 = (
+    <img
+      src="/image/poursuivre.gif"
       alt="tutorial"
       className="w-full h-full sm:h-[4em] lg:h-20 "
     />
@@ -98,18 +105,22 @@ export default function Home() {
               key={data.id}
               className="h-[4em] w-[4em] sm:h-fit sm:w-fit bg-amber-300 rounded-full p-3 m-2 border-2 sm:border-4 border-white"
             >
-              {icon}
+              <img
+                src={data.icon}
+                alt={data.theme}
+                className="w-full h-full sm:h-[4em] lg:h-20"
+              />
             </motion.div>
             <p>{data.themeName}</p>
           </Link>
         ))}
 
         <Link className={buttonStyle} to="/search">
-          <div className=" bg-amber-300 rounded-full p-3 m-2">{icon}</div>
+          <div className=" bg-amber-300 rounded-full p-3 m-2">{icon3}</div>
           <p>Rechercher un tutoriel</p>
         </Link>
         <Link className={buttonStyle} to="/tofollow">
-          <div className=" bg-amber-300 rounded-full p-3 m-2">{icon}</div>
+          <div className=" bg-amber-300 rounded-full p-3 m-2">{icon4}</div>
           <p>Pour poursuivre</p>
         </Link>
       </div>

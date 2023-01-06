@@ -1,3 +1,4 @@
+
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
     id int primary key NOT NULL AUTO_INCREMENT,
