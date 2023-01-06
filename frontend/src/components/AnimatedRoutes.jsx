@@ -14,13 +14,11 @@ import Header from "@components/Header";
 import { AnimatePresence, motion } from "framer-motion";
 import { GoArrowDown, GoArrowUp } from "react-icons/go";
 import NavigationBlock from "@components/NavigationBlock";
-import Cookies from "js-cookie";
 
-function AnimatedRoutes({ setUser, userToken }) {
+function AnimatedRoutes() {
   const navigate = useNavigate();
   const location = useLocation();
   let titleForPage = "";
-  const [getUser, setGetUser] = useState(Cookies.get("userMail") || null);
 
   if (location.pathname === "/") {
     titleForPage = "Bienvenue";
@@ -104,12 +102,7 @@ function AnimatedRoutes({ setUser, userToken }) {
 
   return (
     <AnimatePresence>
-      <Header
-        key="header"
-        userToken={userToken}
-        setUser={setUser}
-        getUser={getUser}
-      />
+      <Header key="header" />
       <NavigationBlock
         key="navigation"
         title={titleForPage}
@@ -118,10 +111,7 @@ function AnimatedRoutes({ setUser, userToken }) {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/adminPanel" element={<AdminPanel />} />
-        <Route
-          path="/login"
-          element={<Login setUser={setUser} setGetUser={setGetUser} />}
-        />
+        <Route path="/login" element={<Login />} />
         <Route path="/journey" element={<Journey />} />
         <Route path="/search" element={<Search />} />
         <Route path="/:theme" element={<TutorialTheme />} />

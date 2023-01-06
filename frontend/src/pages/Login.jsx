@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Cookies from "js-cookie";
+import { AuthContext } from "../context/AuthContext";
 
-function Login({ setUser, setGetUser }) {
+function Login() {
+  const { setUserTokenCookie } = useContext(AuthContext);
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [email, setemail] = useState("");
@@ -17,17 +18,11 @@ function Login({ setUser, setGetUser }) {
       const response = await axios.post("http://localhost:5000/login", login);
 
       if (response.data.token) {
-        setUser(response.data.token);
+        setUserTokenCookie(response.data.token, response.data.user.firstname);
         navigate("/");
       }
-      if (response.data.user.email) {
-        Cookies.set("userMail", response.data.user.email, {
-          expires: 1 / 24,
-        });
-        setGetUser(Cookies.get("userMail") || null);
-      }
     } catch (error) {
-      error("Une erreur s'est produite lors de la connexion");
+      error("une erreur s'est produite lors de la connexion");
     }
   };
 

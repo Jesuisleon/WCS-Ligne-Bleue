@@ -1,11 +1,7 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import AnimatedRoutes from "@components/AnimatedRoutes";
-import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const { userToken, setUser } = useContext(AuthContext);
-
   return (
     <div
       className="
@@ -20,7 +16,7 @@ function App() {
       "
     >
       <Router>
-        <AnimatedRoutes setUser={setUser} userToken={userToken} />
+        <AnimatedRoutes />
       </Router>
     </div>
   );
