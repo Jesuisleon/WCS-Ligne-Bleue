@@ -54,8 +54,15 @@ function Header({ userToken, setUser, getUser }) {
               font-medium
               text-blue-800
               sm:text-2xl
-              hover:text-blue-600"
+              hover:text-blue-600
+              flex-col text-center
+              "
             >
+              {getUser &&
+                getUser.split("@")[0].charAt(0).toUpperCase() +
+                  getUser.split("@")[0].slice(1)}
+              <br />
+
               <button
                 type="button"
                 onClick={() => {
@@ -65,8 +72,6 @@ function Header({ userToken, setUser, getUser }) {
               >
                 Se déconnecter
               </button>
-              <br />
-              {getUser && getUser.split("@")[0]}
             </h1>
           )}
         </li>
