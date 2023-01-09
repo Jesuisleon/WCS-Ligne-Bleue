@@ -28,32 +28,20 @@ CREATE TABLE theme (
 
 ALTER TABLE theme ADD icon varchar(255);
 
-INSERT INTO theme
-  
-VALUES
- ('/image/telephone.png'),
-  ('/image/phone3.gif'),
-  ('/image/internet.gif'),
-  ('/image/telephone.png'),
-  ('/image/telephone.png'),
-  ('/image/mail3.gif'),   
-  ('/image/telephone.png'),
-  ('/image/securite.gif'),
-  ('/image/deplacer.gif'),
-  ('/image/aide.gif');
 
-INSERT INTO theme (themeName)
+INSERT INTO theme (themeName, icon)
 VALUES
-  ('Utiliser ligne bleue'),
-  ('Utiliser mon téléphone'),
-  ('Aller sur internet'),
-  ('Vie Courante'),
-  ('Me divertir'),
-  ('Mes mails'),
-  ('Communiquer'),
-  ('Utiliser mon téléphone en sécurité'),
-  ('Se déplacer'),
-  ('Se faire aider');
+ ('Utiliser ligne bleue', '/image/telephone.png'),
+  ('Utiliser mon téléphone', '/image/phone3.gif'),
+  ('Aller sur internet', '/image/internet.gif'),
+  ('Vie Courante', '/image/telephone.png'),
+  ('Me divertir', '/image/telephone.png'),
+  ('Mes mails', '/image/mail3.gif'),   
+  ('Communiquer', '/image/telephone.png'),
+  ('Utiliser mon téléphone en sécurité', '/image/securite.gif'),
+  ('Se déplacer', '/image/deplacer.gif'),
+  ('Se faire aider', '/image/aide.gif');
+
 
 DROP TABLE IF EXISTS tutorial;
 
