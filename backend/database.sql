@@ -23,7 +23,10 @@ DROP TABLE IF EXISTS theme;
 CREATE TABLE theme (
     id int primary key NOT NULL AUTO_INCREMENT,
     themeName varchar(255) NOT NULL
+
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+ALTER TABLE theme ADD icon varchar(255);
 
 INSERT INTO theme (themeName)
 VALUES

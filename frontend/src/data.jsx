@@ -91,7 +91,7 @@ export const themeTutorialData = [
   },
   {
     id: 3,
-    theme: "Aller sur internet",
+    theme: "Aller sur ",
     icon: "/image/internet.gif",
   },
   {
