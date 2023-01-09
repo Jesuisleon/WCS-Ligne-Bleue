@@ -5,8 +5,8 @@ export const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
   const [userToken, setUserToken] = useState(Cookies.get("userToken") || null);
-  const [userFirstName, serUserFirstName] = useState("non");
-  const [userLastName, setUserLastName] = useState("blabla");
+  const [userFirstName, setUserFirstName] = useState("");
+  const [userLastName, setUserLastName] = useState("");
 
   const setUserTokenCookie = useCallback((token) => {
     if (token) {
@@ -23,7 +23,7 @@ export function AuthContextProvider({ children }) {
   const value = useMemo(
     () => ({
       userFirstName,
-      serUserFirstName,
+      setUserFirstName,
       userLastName,
       setUserLastName,
       setUserTokenCookie,
@@ -33,7 +33,7 @@ export function AuthContextProvider({ children }) {
       setUserTokenCookie,
       userToken,
       userFirstName,
-      serUserFirstName,
+      setUserFirstName,
       userLastName,
       setUserLastName,
     ]

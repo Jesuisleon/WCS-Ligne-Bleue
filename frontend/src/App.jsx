@@ -10,7 +10,8 @@ function App() {
   const { setUserFirstName, setUserLastName } = useContext(AuthContext);
 
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = Cookies.get("userToken");
+
     if (token) {
       axios
         .get(`${VITE_BACKEND_URL}/reconnect`, {
@@ -19,11 +20,11 @@ function App() {
           },
         })
         .then((response) => {
-          setUserFirstName(response.data.user.firstname);
-          setUserLastName(response.data.user.lastname);
+          setUserFirstName(response.data.firstname);
+          setUserLastName(response.data.lastname);
         });
     }
-  });
+  }, []);
 
   return (
     <div
