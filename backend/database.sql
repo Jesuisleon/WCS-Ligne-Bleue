@@ -35,7 +35,7 @@ VALUES
   ('Aller sur internet'),
   ('Vie Courante'),
   ('Me divertir'),
-  ('Mes mails'),   
+  ('Mes mails'),
   ('Communiquer'),
   ('Utiliser mon téléphone en sécurité'),
   ('Se déplacer'),
