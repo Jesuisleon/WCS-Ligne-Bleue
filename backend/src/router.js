@@ -7,6 +7,7 @@ const {
   verifyPassword,
   verifyToken,
   verifyAdmin,
+  replaceReqParamIdByPayloadSub,
 } = require("./middleware/auth");
 
 const upload = multer({
@@ -34,6 +35,7 @@ router.post(
 // Not public routes
 router.use(verifyToken, verifyAdmin); // authentication wall : verifyToken is activated for each route after this line
 
+router.get("/reconnect", replaceReqParamIdByPayloadSub, userControllers.read);
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
 router.put("/users/:id", userControllers.edit);

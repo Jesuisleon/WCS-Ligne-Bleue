@@ -3,7 +3,7 @@ const models = require("../models");
 const browse = (req, res) => {
   let where = "";
   if (req.query.theme != null) {
-    where = ` where themeID = '${req.query.theme}'`;
+    where = ` where theme_id = '${req.query.theme}'`;
   }
   models.tutorial
     .findAllTutorials(where)

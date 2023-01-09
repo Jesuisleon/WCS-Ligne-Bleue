@@ -23,7 +23,10 @@ DROP TABLE IF EXISTS theme;
 CREATE TABLE theme (
     id int primary key NOT NULL AUTO_INCREMENT,
     themeName varchar(255) NOT NULL
+
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+ALTER TABLE theme ADD icon varchar(255);
 
 INSERT INTO theme (themeName)
 VALUES
@@ -32,7 +35,7 @@ VALUES
   ('Aller sur internet'),
   ('Vie Courante'),
   ('Me divertir'),
-  ('Mes mails'),   
+  ('Mes mails'),
   ('Communiquer'),
   ('Utiliser mon téléphone en sécurité'),
   ('Se déplacer'),
@@ -50,15 +53,17 @@ CREATE TABLE tutorial (
     step LONGTEXT NOT NULL,
     hashtag varchar(255) NOT NULL,
     author varchar(255) NOT NULL,
+    online BOOLEAN not NULL DEFAULT 0,
     creation_date DATETIME default NOW(),
     edition_date DATETIME default NOW(),
+
     FOREIGN KEY (theme_id) REFERENCES theme(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 INSERT INTO
-  tutorial (theme_id, difficulty, title, objective, description,step,hashtag,author)
+  tutorial (theme_id, difficulty, title, objective, description,step,hashtag,author,online)
 VALUES
-  (2,'débutant', 'Step 1dsqddsq', 'lunedsqddsq','<p>This is step 1dsqd</p>','[{"step":1,"text":"Voici du contenu pour la main data","content":"<p>DSQDSQDdsqd</p>"}]{"step":"2","quiz":[{"id":1,"question":"Quelle est la capitale de la France?","answers":[{"id":1,"text":"Londres","correct":false},{"id":2,"text":"Paris","correct":false},{"id":3,"text":"Berlin","correct":true},{"id":4,"text":"New York","correct":false}]},{"id":2,"question":"Combien y a-t-il de jours dans une année?","answers":[{"id":1,"text":"365","correct":true},{"id":2,"text":"366","correct":false},{"id":3,"text":"364","correct":false},{"id":4,"text":"360","correct":false}]}]}','dsqddsqd','Michel');
+  (2,'débutant', 'Step 1dsqddsq', 'lunedsqddsq','<p>This is step 1dsqd</p>','[{"step":1,"text":"Voici du contenu pour la main data","content":"<p>DSQDSQDdsqd</p>"}]{"step":"2","quiz":[{"id":1,"question":"Quelle est la capitale de la France?","answers":[{"id":1,"text":"Londres","correct":false},{"id":2,"text":"Paris","correct":false},{"id":3,"text":"Berlin","correct":true},{"id":4,"text":"New York","correct":false}]},{"id":2,"question":"Combien y a-t-il de jours dans une année?","answers":[{"id":1,"text":"365","correct":true},{"id":2,"text":"366","correct":false},{"id":3,"text":"364","correct":false},{"id":4,"text":"360","correct":false}]}]}','dsqddsqd','Michel',1);
 
 
 DROP TABLE IF EXISTS user_journey;

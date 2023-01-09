@@ -91,9 +91,19 @@ const verifyAdmin = (req, res, next) => {
     });
 };
 
+const replaceReqParamIdByPayloadSub = (req, res, next) => {
+  try {
+    req.params.id = req.payload.sub;
+    next();
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+};
 module.exports = {
   hashPassword,
   verifyPassword,
   verifyToken,
   verifyAdmin,
+  replaceReqParamIdByPayloadSub,
 };
