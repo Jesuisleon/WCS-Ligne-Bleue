@@ -18,13 +18,7 @@ function Login() {
       const response = await axios.post(`${VITE_BACKEND_URL}/login`, login);
 
       if (response.data.token) {
-        setUserTokenCookie(
-          response.data.token,
-          response.data.user.firstname,
-          response.data.user.lastname,
-          response.data.user.email,
-          response.data.user.admin
-        );
+        setUserTokenCookie(response.data.token);
         navigate("/");
       }
     } catch (error) {
@@ -77,28 +71,7 @@ function Login() {
             required
           />
         </div>
-        <div className="flex items-start mb-6">
-          <div className="flex items-center h-5">
-            <input
-              id="remember"
-              type="checkbox"
-              value=""
-              className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-              required
-            />
-          </div>
-          <label
-            htmlFor="remember"
-            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-500"
-          >
-            Se souvenir de moi
-          </label>
-        </div>
-        {/* {userToken ? (
-          <h1>Vous êtes connecté</h1>
-        ) : (
-          <h1>Vous n'êtes pas connecté</h1>
-        )} */}
+        <div className="flex items-start mb-6" />
         <div>
           <Link to="/Register">Vous n'avez pas de compte ?</Link>
         </div>

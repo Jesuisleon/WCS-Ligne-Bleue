@@ -28,6 +28,19 @@ CREATE TABLE theme (
 
 ALTER TABLE theme ADD icon varchar(255);
 
+INSERT INTO icon 
+VALUES
+ ('/image/telephone.png'),
+  ('/image/phone3.gif'),
+  ('/image/internet.gif'),
+  ('/image/telephone.png'),
+  ('/image/telephone.png'),
+  ('/image/mail3.gif'),   
+  ('/image/telephone.png'),
+  ('/image/securite.gif'),
+  ('/image/deplacer.gif'),
+  ('/image/aide.gif');
+
 INSERT INTO theme (themeName)
 VALUES
   ('Utiliser ligne bleue'),
@@ -73,3 +86,5 @@ CREATE TABLE user_journey (
     id_tutorial INTEGER REFERENCES user (id) ON DELETE CASCADE,
     PRIMARY KEY (id_user, id_tutorial)
 );
+
+
