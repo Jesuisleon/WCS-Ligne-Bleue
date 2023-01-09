@@ -67,7 +67,7 @@ function Question({
   return (
     <div>
       <div
-        className={`border-b-2 p-1 flex gap-4 items-center ${
+        className={`border-b-2 pt-4 pl-4 flex gap-4 items-center ${
           isSubmitted && isCorrect && "bg-green-500 text-white"
         }
         ${isSubmitted && !isCorrect && "bg-red-500 text-white"}`}
