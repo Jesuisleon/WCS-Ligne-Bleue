@@ -39,6 +39,7 @@ router.get("/reconnect", replaceReqParamIdByPayloadSub, userControllers.read);
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
 router.put("/users/:id", userControllers.edit);
+
 router.delete("/users/:id", userControllers.destroy);
 router.put("/tutorials/:id", tutorialControllers.edit);
 router.post("/tutorials", tutorialControllers.add);
