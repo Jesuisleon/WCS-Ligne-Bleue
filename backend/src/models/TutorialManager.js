@@ -20,7 +20,7 @@ class TutorialManager extends AbstractManager {
 
   findTutorialsByTheme(theme) {
     return this.connection.query(
-      `select id,theme_id, difficulty, title, objective,description, step, hashtag, author from  ${this.table} where theme = ?`,
+      `select id,theme_id, difficulty, title, objective,description, step, hashtag, author from  ${this.table} where theme_id = ?`,
       [theme]
     );
   }

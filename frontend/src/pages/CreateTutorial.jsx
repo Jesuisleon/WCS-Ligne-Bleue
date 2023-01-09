@@ -3,6 +3,7 @@ import QuizTutorialEdit from "@components/create_tutorial/QuizTutorialEdit";
 import HeaderTutorialEdit from "@components/create_tutorial/HeaderTutorialEdit";
 import EditorTutorialEdit from "@components/create_tutorial/EditorTutorialEdit";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
@@ -34,7 +35,8 @@ const quizDataForTest = [
 ];
 
 function CreateTutorial() {
-  const author = "Michel";
+  const token = Cookies.get("userToken");
+  const author = Cookies.get("firstName");
 
   const childsRefs = useRef([]);
   const [stepData, setStepData] = useState([]);
@@ -88,10 +90,14 @@ function CreateTutorial() {
       theme: basicData.theme,
       step: JSON.stringify(stepData),
       author,
-      online: true,
     };
     // console.log(JSON.stringify(data));
-    axios.post(`${VITE_BACKEND_URL}/tutorials`, data);
+
+    axios.post(`${VITE_BACKEND_URL}/tutorials`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 
   return (
