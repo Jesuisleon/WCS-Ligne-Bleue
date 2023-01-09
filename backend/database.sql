@@ -68,3 +68,5 @@ CREATE TABLE user_journey (
     id_tutorial INTEGER REFERENCES user (id) ON DELETE CASCADE,
     PRIMARY KEY (id_user, id_tutorial)
 );
+
+

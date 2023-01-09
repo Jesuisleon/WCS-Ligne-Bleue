@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 function Register() {
   const navigate = useNavigate();
 
+  const { VITE_BACKEND_URL } = import.meta.env;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,7 +17,7 @@ function Register() {
     e.preventDefault();
     axios
       .post(
-        "http://localhost:5000/users",
+        `${VITE_BACKEND_URL}/users`,
         {
           email,
           password,

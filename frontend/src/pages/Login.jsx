@@ -18,13 +18,7 @@ function Login() {
       const response = await axios.post(`${VITE_BACKEND_URL}/login`, login);
 
       if (response.data.token) {
-        setUserTokenCookie(
-          response.data.token,
-          response.data.user.firstname,
-          response.data.user.lastname,
-          response.data.user.email,
-          response.data.user.admin
-        );
+        setUserTokenCookie(response.data.token);
         navigate("/");
       }
     } catch (error) {
@@ -94,11 +88,6 @@ function Login() {
             Se souvenir de moi
           </label>
         </div>
-        {/* {userToken ? (
-          <h1>Vous êtes connecté</h1>
-        ) : (
-          <h1>Vous n'êtes pas connecté</h1>
-        )} */}
         <div>
           <Link to="/Register">Vous n'avez pas de compte ?</Link>
         </div>
