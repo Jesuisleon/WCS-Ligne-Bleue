@@ -28,7 +28,8 @@ CREATE TABLE theme (
 
 ALTER TABLE theme ADD icon varchar(255);
 
-INSERT INTO icon 
+INSERT INTO theme
+  
 VALUES
  ('/image/telephone.png'),
   ('/image/phone3.gif'),
