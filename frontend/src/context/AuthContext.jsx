@@ -7,6 +7,9 @@ export function AuthContextProvider({ children }) {
   const [userToken, setUserToken] = useState(Cookies.get("userToken") || null);
   const [userInfo, setUserInfo] = useState(Cookies.get("firstName") || null);
 
+  const [userFisrtName, setUserFisrtName] = useState("");
+  const [userLastName, setUserLastName] = useState("");
+
   const setUserTokenCookie = useCallback(
     (token, firstName, lastName, email, isAdmin) => {
       if (token) {
@@ -44,8 +47,21 @@ export function AuthContextProvider({ children }) {
       setUserInfo,
       userToken,
       userInfo,
+      userFisrtName,
+      setUserFisrtName,
+      userLastName,
+      setUserLastName,
     }),
-    [setUserTokenCookie, userToken, setUserInfo, userInfo]
+    [
+      setUserTokenCookie,
+      userToken,
+      setUserInfo,
+      userInfo,
+      userFisrtName,
+      setUserFisrtName,
+      userLastName,
+      setUserLastName,
+    ]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

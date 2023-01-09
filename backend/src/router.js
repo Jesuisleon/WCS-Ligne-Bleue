@@ -21,7 +21,7 @@ const themeControllers = require("./controllers/themeControllers");
 
 // public routes
 router.get("/home", themeControllers.browse);
-
+router.post("/users", hashPassword, userControllers.add);
 router.get("/tutorials", tutorialControllers.browse);
 router.get("/tutorials/:id", tutorialControllers.read);
 
@@ -37,7 +37,7 @@ router.use(verifyToken, verifyAdmin); // authentication wall : verifyToken is ac
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
 router.put("/users/:id", userControllers.edit);
-router.post("/users", hashPassword, userControllers.add);
+
 router.delete("/users/:id", userControllers.destroy);
 
 router.put("/tutorials/:id", tutorialControllers.edit);
