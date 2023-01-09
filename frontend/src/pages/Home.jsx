@@ -107,7 +107,7 @@ export default function Home() {
             >
               <img
                 src={data.icon}
-                alt={data.theme}
+                alt={data.themeName}
                 className="w-full h-full sm:h-[4em] lg:h-20"
               />
             </motion.div>
