@@ -7,6 +7,7 @@ const { VITE_BACKEND_URL } = import.meta.env;
 
 export default function Home() {
   const [themes, setThemes] = useState([]);
+
   useEffect(() => {
     axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
       setThemes(response.data);
@@ -57,7 +58,7 @@ export default function Home() {
         "
       >
         {themes.map((data) => (
-          <Link key={data.id} className={buttonStyle} to={`/${data.themeName}`}>
+          <Link key={data.id} className={buttonStyle} to={`/theme/${data.id}`}>
             <motion.div
               key={data.id}
               className="h-[4em] w-[4em] sm:h-fit sm:w-fit bg-amber-300 rounded-full p-3 m-2 border-2 sm:border-4 border-white"
