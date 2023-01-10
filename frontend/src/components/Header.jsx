@@ -1,10 +1,23 @@
 import { React, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function Header() {
   const { userToken, setUserTokenCookie, userFirstName, userLastName } =
     useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const handleDisconnect = (event) => {
+    event.stopPropagation();
+    setUserTokenCookie(null);
+    navigate("/home");
+  };
+
+  const handleRedirectToUserProfil = () => {
+    navigate("/UserProfil");
+  };
+
   return (
     <nav
       className="
@@ -50,28 +63,36 @@ function Header() {
               </h1>
             </Link>
           ) : (
-            <h1
-              className="
-              antialiased
-              font-medium
-              text-blue-800
-              sm:text-2xl
-              hover:text-blue-600
-              flex-col text-center
-              "
-            >
-              {`${userFirstName} ${userLastName} `}
-              <br />
-
+            <div>
               <button
                 type="button"
-                onClick={() => {
-                  setUserTokenCookie(null);
-                }}
+                className="
+                antialiased
+                font-medium
+                text-blue-800
+                sm:text-2xl
+                hover:text-blue-600
+            "
+                onClick={handleRedirectToUserProfil}
+              >
+                {`${userFirstName} ${userLastName} `}
+              </button>
+
+              <br />
+              <button
+                type="button"
+                className="inline-flex items-center
+                px-6 py-2 border border-transparent
+                shadow-sm text-base font-medium
+                rounded-md text-white bg-indigo-800
+               hover:bg-yellow-400 focus:outline-none
+                focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+                 "
+                onClick={handleDisconnect}
               >
                 Se déconnecter
               </button>
-            </h1>
+            </div>
           )}
         </li>
       </ul>
