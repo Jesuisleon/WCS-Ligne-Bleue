@@ -51,6 +51,26 @@ const verifyPassword = (req, res) => {
     });
 };
 
+const verifyPasswordBeforeChangingIt = (req, res, next) => {
+  argon2
+    .verify(req.user.hashedPassword.toString(), req.body.password)
+    .then((isVerified) => {
+      if (isVerified) {
+        req.body.password = req.body.newPassword;
+        req.body.id = req.user.id;
+        delete req.user.hashedPassword;
+        next();
+      } else {
+        res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      // do something with err
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const verifyToken = (req, res, next) => {
   try {
     const authorizationHeader = req.get("Authorization");
@@ -106,4 +126,5 @@ module.exports = {
   verifyToken,
   verifyAdmin,
   replaceReqParamIdByPayloadSub,
+  verifyPasswordBeforeChangingIt,
 };

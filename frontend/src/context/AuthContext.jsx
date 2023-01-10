@@ -7,6 +7,7 @@ export function AuthContextProvider({ children }) {
   const [userToken, setUserToken] = useState(Cookies.get("userToken") || null);
   const [userFirstName, setUserFirstName] = useState("");
   const [userLastName, setUserLastName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const setUserTokenCookie = useCallback((token) => {
     if (token) {
@@ -28,6 +29,8 @@ export function AuthContextProvider({ children }) {
       setUserLastName,
       setUserTokenCookie,
       userToken,
+      userEmail,
+      setUserEmail,
     }),
     [
       setUserTokenCookie,
@@ -36,6 +39,8 @@ export function AuthContextProvider({ children }) {
       setUserFirstName,
       userLastName,
       setUserLastName,
+      userEmail,
+      setUserEmail,
     ]
   );
 

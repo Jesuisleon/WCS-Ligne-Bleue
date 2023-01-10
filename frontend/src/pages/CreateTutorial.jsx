@@ -76,14 +76,14 @@ function CreateTutorial() {
     <div className="p-4 h-full w-full">
       <div className="absolute z-30 top-[2.9em] sm:top-[6.2em] flex justify-end gap-4 ">
         <button
-          className="button-black"
+          className="black-button"
           type="button"
           onClick={() => getDataFromStep()}
         >
           <p>Enregistrer</p>
         </button>
         <button
-          className="button-black"
+          className="black-button"
           type="button"
           onClick={() => submitData()}
         >
@@ -124,14 +124,14 @@ function CreateTutorial() {
       <div className="flex gap-4 m-4 w-full">
         <button
           type="button"
-          className="button-black"
+          className="black-button"
           onClick={() => setStep("editor")}
         >
           <p>Nouvelle section</p>
         </button>
         <button
           type="button"
-          className="button-black"
+          className="black-button"
           onClick={() => setStep("quiz")}
         >
           <p>Nouveau Quiz</p>
