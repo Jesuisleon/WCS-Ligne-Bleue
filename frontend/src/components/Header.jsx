@@ -67,7 +67,7 @@ function Header() {
               </h1>
             </Link>
           ) : (
-            <div>
+            <div className="flex justify-between items-center ">
               <button
                 type="button"
                 className="
@@ -76,6 +76,7 @@ function Header() {
                 text-blue-800
                 sm:text-2xl
                 hover:text-blue-600
+                mx-3
             "
                 onClick={handleRedirectToUserProfil}
               >
