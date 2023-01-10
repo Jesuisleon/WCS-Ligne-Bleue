@@ -4,10 +4,14 @@ export function TextInput({
   placeholder,
   defaultValue,
   handleInput,
+  invalid,
+  isSubmit,
 }) {
+  const validator = invalid && isSubmit ? "invalid" : null;
+
   return (
     <div className="flex flex-col">
-      <label htmlFor={type} className="text-2xl font-bold">
+      <label htmlFor={type} className={`text-2xl font-bold ${validator}`}>
         {name}
       </label>
       <input

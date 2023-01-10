@@ -106,8 +106,7 @@ export function HashtagInput({ handleInput, defaultValue }) {
           </button>
         )}
         {hashtags.map((hashtag, index) => (
-          <button
-            type="button"
+          <div
             className="hashtag-button"
             key={hashtag}
             style={index === currentIndex ? shake : {}}
@@ -120,7 +119,7 @@ export function HashtagInput({ handleInput, defaultValue }) {
             >
               X
             </button>
-          </button>
+          </div>
         ))}
       </div>
     </div>

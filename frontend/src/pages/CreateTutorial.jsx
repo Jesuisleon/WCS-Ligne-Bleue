@@ -42,16 +42,28 @@ function CreateTutorial() {
     setStepData(updatedStep);
   };
 
-  const getDataFromStep = () => {
+  const saveHeaderData = () => {
+    const updatedData = childsRefs.current[0].getData();
+    if (!updatedData) {
+      alert("Veuillez remplir tous les champs");
+    }
+    setBasicData(updatedData);
+  };
+
+  const saveStepData = () => {
     const updatedStep = [...stepData];
     childsRefs.current.forEach((child, index) => {
+      // bypass the header component childRef
       if (index === 0) return;
+      // update the stepData with the childRef data
       updatedStep[index - 1].content = child.getData();
+      setStepData(updatedStep);
     });
+  };
 
-    const updatedData = childsRefs.current[0].getData();
-    setBasicData(updatedData);
-    setStepData(updatedStep);
+  const saveData = () => {
+    saveHeaderData();
+    saveStepData();
   };
 
   const submitData = () => {
@@ -78,7 +90,7 @@ function CreateTutorial() {
         <button
           className="black-button"
           type="button"
-          onClick={() => getDataFromStep()}
+          onClick={() => saveData()}
         >
           <p>Enregistrer</p>
         </button>
