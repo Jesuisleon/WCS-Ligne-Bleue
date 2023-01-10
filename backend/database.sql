@@ -33,10 +33,10 @@ VALUES
  ('Utiliser ligne bleue', '/image/telephone.png'),
   ('Utiliser mon téléphone', '/image/phone3.gif'),
   ('Aller sur internet', '/image/internet.gif'),
-  ('Vie Courante', '/image/telephone.png'),
-  ('Me divertir', '/image/telephone.png'),
+  ('Vie Courante', '/image/vie_courante.png'),
+  ('Me divertir', '/image/divertir.png'),
   ('Mes mails', '/image/mail3.gif'),   
-  ('Communiquer', '/image/telephone.png'),
+  ('Communiquer', '/image/communiquer.png'),
   ('Utiliser mon téléphone en sécurité', '/image/securite.gif'),
   ('Se déplacer', '/image/deplacer.gif'),
   ('Se faire aider', '/image/aide.gif');
