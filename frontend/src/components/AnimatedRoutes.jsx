@@ -1,4 +1,10 @@
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import Home from "@pages/Home";
 import AdminPanel from "@pages/AdminPanel";
@@ -109,16 +115,17 @@ function AnimatedRoutes() {
         navigate={() => navigate(-1)}
       />
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Navigate replace to="/home" />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/adminPanel" element={<AdminPanel />} />
         <Route path="/login" element={<Login />} />
         <Route path="/journey" element={<Journey />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/:theme" element={<TutorialTheme />} />
-        <Route path="/:theme/:id" element={<Tutorial />} />
+        <Route path="/theme/:id" element={<TutorialTheme />} />
+        <Route path="/tutorial/:id" element={<Tutorial />} />
         <Route path="/createTutorial" element={<CreateTutorial />} />
-        <Route path="/UserProfil" element={<UserProfil />} />
-        <Route path="/Register" element={<Register />} />
+        <Route path="/userProfil" element={<UserProfil />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       {showTopArrow && (
         <motion.div
