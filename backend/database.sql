@@ -28,6 +28,7 @@ CREATE TABLE theme (
 
 ALTER TABLE theme ADD icon varchar(255);
 
+
 INSERT INTO theme (themeName, icon)
 VALUES
  ('Utiliser ligne bleue', '/image/telephone.png'),
