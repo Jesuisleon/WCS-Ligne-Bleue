@@ -121,11 +121,11 @@ function AnimatedRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/journey" element={<Journey />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/:theme" element={<TutorialTheme />} />
-        <Route path="/:theme/:id" element={<Tutorial />} />
+        <Route path="/theme/:id" element={<TutorialTheme />} />
+        <Route path="/tutorial/:id" element={<Tutorial />} />
         <Route path="/createTutorial" element={<CreateTutorial />} />
-        <Route path="/UserProfil" element={<UserProfil />} />
-        <Route path="/Register" element={<Register />} />
+        <Route path="/userProfil" element={<UserProfil />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       {showTopArrow && (
         <motion.div
