@@ -3,14 +3,55 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS Default Style */
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.button-black {
+input {
+  outline: 0;
+}
+/* End CSS Default Style */
+
+/* CSS Animation */
+/*  HashtagInput.jsx */
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(1px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-2px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(1px, 0, 0);
+  }
+}
+/* End CSS Animation */
+
+/* CSS Presets */
+.black-button {
   @apply antialiased bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-100;
+}
+
+.close-button {
+  @apply p-1 border text-sm text-black cursor-pointer;
+}
+
+.hashtag-button {
+  @apply bg-slate-100 mr-2 mb-2 p-1 text-sm text-black font-normal rounded cursor-pointer;
 }
 
 .tutorial-step {
@@ -43,3 +84,4 @@ body {
 .h2-font {
   @apply text-xl font-bold;
 }
+/* End CSS Presets */

@@ -5,68 +5,23 @@ import React, {
   useRef,
   forwardRef,
 } from "react";
+import axios from "axios";
 import { Editor } from "@tinymce/tinymce-react";
+import { HashtagInput } from "./inputs/HashtagInput";
+import { SelectInput } from "./inputs/SelectInput";
+import { TextInput } from "./inputs/TextInput";
 
-function SelectInput({ type, name, optionValues, handleInput }) {
-  return (
-    <div className="flex flex-col gap-2 items-start ">
-      <h2 className="text-2xl font-bold">{name}</h2>
-      <select onChange={handleInput} name={type} id={type}>
-        <option value="">Veuillez Selectionner</option>
-        {optionValues.map((option, index) => (
-          <option key={option} value={index + 1}>
-            {option}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
-
-function TextInput({ type, name, placeholder, defaultValue, handleInput }) {
-  return (
-    <div className="flex flex-col">
-      <label htmlFor={type} className="text-2xl font-bold">
-        {name}
-      </label>
-      <input
-        onChange={handleInput}
-        placeholder={placeholder}
-        name={type}
-        id={type}
-        type="text"
-        defaultValue={defaultValue}
-      />
-    </div>
-  );
-}
-
-function HashtagInput({ handleInput, defaultValue }) {
-  return (
-    <div className="flex flex-col items-start gap-2">
-      <h2 className="text-2xl font-bold">Hashtag</h2>
-      <input
-        onChange={handleInput}
-        placeholder="Vos hashtag"
-        name="hashtag"
-        id="hashtag"
-        type="textarea"
-        defaultValue={defaultValue}
-      />
-    </div>
-  );
-}
+const { VITE_BACKEND_URL } = import.meta.env;
 
 const HeaderTutorialEdit = forwardRef(({ handleImageEditor, getData }, ref) => {
   const [data, setData] = useState(null);
 
-  const themesName = [
-    "Utiliser ligne Bleue",
-    "Utiliser mon téléphone",
-    "Aller sur internet",
-  ];
+  const [themes, setThemes] = useState([]);
 
   useEffect(() => {
+    axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
+      setThemes(response.data.map((e) => e.themeName));
+    });
     if (getData) {
       setData(getData);
     }
@@ -89,7 +44,7 @@ const HeaderTutorialEdit = forwardRef(({ handleImageEditor, getData }, ref) => {
         <SelectInput
           type="theme"
           name="Théme"
-          optionValues={themesName}
+          optionValues={themes}
           handleInput={(e) => handleInput(e.target.value, { id: "theme" })}
         />
         <SelectInput
@@ -100,7 +55,7 @@ const HeaderTutorialEdit = forwardRef(({ handleImageEditor, getData }, ref) => {
         />
         <HashtagInput
           defaultValue=""
-          handleInput={(e) => handleInput(e.target.value, { id: "hashtag" })}
+          handleInput={(e) => handleInput(e, { id: "hashtag" })}
         />
       </div>
       <div className="tutorial-header">
