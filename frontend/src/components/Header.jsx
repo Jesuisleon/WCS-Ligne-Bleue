@@ -7,11 +7,15 @@ function Header() {
     useContext(AuthContext);
 
   const navigate = useNavigate();
+  // const location = useLocation();
 
   const handleDisconnect = (event) => {
     event.stopPropagation();
     setUserTokenCookie(null);
     navigate("/home");
+    // if (location.pathname === '/UserProfile') {
+    //   navigate('/home');
+    // }
   };
 
   const handleRedirectToUserProfil = () => {
