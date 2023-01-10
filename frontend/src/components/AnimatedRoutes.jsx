@@ -1,4 +1,10 @@
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import Home from "@pages/Home";
 import AdminPanel from "@pages/AdminPanel";
@@ -109,7 +115,8 @@ function AnimatedRoutes() {
         navigate={() => navigate(-1)}
       />
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Navigate replace to="/home" />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/adminPanel" element={<AdminPanel />} />
         <Route path="/login" element={<Login />} />
         <Route path="/journey" element={<Journey />} />
