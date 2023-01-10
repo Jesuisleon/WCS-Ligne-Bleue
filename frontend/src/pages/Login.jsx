@@ -4,7 +4,8 @@ import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 
 function Login() {
-  const { setUserTokenCookie, setUserFirstName , setUserLastName} = useContext(AuthContext);
+  const { setUserTokenCookie, setUserFirstName, setUserLastName } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [email, setemail] = useState("");
@@ -19,8 +20,8 @@ function Login() {
 
       if (response.data.token) {
         setUserTokenCookie(response.data.token);
-        setUserFirstName(response.data.user.firstname)
-        setUserLastName(response.data.user.lastname)
+        setUserFirstName(response.data.user.firstname);
+        setUserLastName(response.data.user.lastname);
         navigate("/");
       }
     } catch (error) {
