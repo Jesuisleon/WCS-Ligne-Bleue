@@ -19,7 +19,7 @@ function Header() {
   };
 
   const handleRedirectToUserProfil = () => {
-    navigate("/UserProfil");
+    navigate("/userprofile");
   };
 
   return (

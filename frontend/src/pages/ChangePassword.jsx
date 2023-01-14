@@ -10,6 +10,8 @@ export default function ChangePassword() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { userToken, userEmail } = useContext(AuthContext);
+  const [errorBadPassword, setErrorBadPassword] = useState("");
+
   const email = userEmail;
   const navigate = useNavigate();
 
@@ -29,8 +31,15 @@ export default function ChangePassword() {
           },
         }
       )
-      .then(function handleResponse() {
-        navigate("/userprofile");
+      .catch((error) => {
+        console.error(`ereuuuuuuuuuuur${error}`);
+        setErrorBadPassword(true);
+        return false;
+      })
+      .then((response) => {
+        if (response) {
+          navigate("/userprofile");
+        }
       });
   };
 
@@ -55,6 +64,11 @@ export default function ChangePassword() {
   return (
     <div className="mt-10 ml-8">
       <form onSubmit={handleSubmit}>
+        {errorBadPassword && (
+          <h1 className="text-red-500 font-medium mb-2">
+            Erreur dans le mot de passe renseigné !{" "}
+          </h1>
+        )}
         <div className="relative z-0 mb-6 w-full group">
           <input
             type="password"
