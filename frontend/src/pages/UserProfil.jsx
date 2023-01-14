@@ -1,8 +1,14 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function UserProfil() {
+  const navigate = useNavigate();
   const { userFirstName, userLastName, userEmail } = useContext(AuthContext);
+
+  const handleClick = () => {
+    navigate("/userprofil/changepassword");
+  };
 
   return (
     <div className=" flex justify-center items-center mt-12">
@@ -20,6 +26,15 @@ function UserProfil() {
           <span className="text-sm text-gray-700 dark:text-gray-200">
             {userEmail}
           </span>
+          <button
+            onClick={handleClick}
+            onKeyDown={handleClick}
+            tabIndex={0}
+            type="button"
+            className="text-slate-200 underline underline-offset-2 mt-2"
+          >
+            Changer votre mot de passe
+          </button>
         </div>
       </div>
     </div>

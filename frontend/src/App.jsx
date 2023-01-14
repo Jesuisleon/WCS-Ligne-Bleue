@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
+  // console.log(AuthContext)
   const { VITE_BACKEND_URL } = import.meta.env;
   const { setUserFirstName, setUserLastName, setUserEmail } =
     useContext(AuthContext);
