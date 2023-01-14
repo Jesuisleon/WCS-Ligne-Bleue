@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function ChangePassword() {
@@ -11,23 +11,27 @@ export default function ChangePassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const { userToken, userEmail } = useContext(AuthContext);
   const email = userEmail;
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(
-      `${VITE_BACKEND_URL}/changepassword`,
-      {
-        password,
-        email,
-        newPassword,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
+    axios
+      .post(
+        `${VITE_BACKEND_URL}/changepassword`,
+        {
+          password,
+          email,
+          newPassword,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      )
+      .then(function handleResponse() {
+        navigate("/userprofile");
+      });
   };
 
   const btn =
@@ -74,7 +78,7 @@ export default function ChangePassword() {
           <input
             type="password"
             name="floating_password"
-            id="password"
+            id="newpassword"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"

@@ -125,7 +125,7 @@ function AnimatedRoutes() {
         <Route path="/theme/:id" element={<TutorialTheme />} />
         <Route path="/tutorial/:id" element={<Tutorial />} />
         <Route path="/createTutorial" element={<CreateTutorial />} />
-        <Route path="/userProfil" element={<UserProfil />} />
+        <Route path="/userprofile" element={<UserProfil />} />
         <Route path="/userprofil/changepassword" element={<ChangePassword />} />
         <Route path="/register" element={<Register />} />
       </Routes>
