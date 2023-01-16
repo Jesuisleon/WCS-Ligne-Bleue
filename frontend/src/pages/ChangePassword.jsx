@@ -10,11 +10,11 @@ export default function ChangePassword() {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { userToken, userEmail } = useContext(AuthContext);
+  const { userToken, userInfos } = useContext(AuthContext);
   const [errorBadPassword, setErrorBadPassword] = useState("");
   const [errorText, setErrorText] = useState("");
 
-  const email = userEmail;
+  const email = userInfos.userEmail;
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
