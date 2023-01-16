@@ -1,10 +1,14 @@
+import Cookies from "js-cookie";
+
 const { VITE_BACKEND_URL } = import.meta.env;
 
 const handleImageEditor = (blobInfo, progress) => {
+  const token = Cookies.get("userToken");
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.withCredentials = false;
     xhr.open("POST", `${VITE_BACKEND_URL}/upload/image`);
+    xhr.setRequestHeader("Authorization", `Bearer ${token}`);
     xhr.upload.onprogress = (e) => {
       progress((e.loaded / e.total) * 100);
     };
