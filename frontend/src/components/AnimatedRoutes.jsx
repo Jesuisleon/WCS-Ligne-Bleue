@@ -17,6 +17,7 @@ import UserProfil from "@pages/UserProfil";
 import CreateTutorial from "@pages/CreateTutorial";
 import Register from "@pages/Register";
 import Header from "@components/Header";
+import ChangePassword from "@pages/ChangePassword";
 import { AnimatePresence, motion } from "framer-motion";
 import { GoArrowDown, GoArrowUp } from "react-icons/go";
 import NavigationBlock from "@components/NavigationBlock";
@@ -124,7 +125,8 @@ function AnimatedRoutes() {
         <Route path="/theme/:id" element={<TutorialTheme />} />
         <Route path="/tutorial/:id" element={<Tutorial />} />
         <Route path="/createTutorial" element={<CreateTutorial />} />
-        <Route path="/userProfil" element={<UserProfil />} />
+        <Route path="/userprofile" element={<UserProfil />} />
+        <Route path="/userprofil/changepassword" element={<ChangePassword />} />
         <Route path="/register" element={<Register />} />
       </Routes>
       {showTopArrow && (
