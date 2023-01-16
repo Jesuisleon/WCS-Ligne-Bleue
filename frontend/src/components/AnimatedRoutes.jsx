@@ -5,7 +5,7 @@ import {
   useNavigate,
   Navigate,
 } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Home from "@pages/Home";
 import AdminPanel from "@pages/AdminPanel";
 import Login from "@pages/Login";
@@ -27,49 +27,46 @@ function AnimatedRoutes() {
   const location = useLocation();
   let titleForPage = "";
 
-  if (location.pathname === "/") {
-    titleForPage = "Bienvenue";
+  switch (location.pathname) {
+    case "/home":
+      titleForPage = "Bienvenue";
+      break;
+    case "/adminPanel":
+      titleForPage = "Admin Panel";
+      break;
+    case "/login":
+      titleForPage = "Login";
+      break;
+    case "/journey":
+      titleForPage = "Journey";
+      break;
+    case "/search":
+      titleForPage = "Search";
+      break;
+    case "/theme/:id":
+      titleForPage = "Theme";
+      break;
+    case "/tutorial/:id":
+      titleForPage = "Tutorial";
+      break;
+    case "/userProfil":
+      titleForPage = "User Profil";
+      break;
+    case "/createTutorial":
+      titleForPage = "Create Tutorial";
+      break;
+    case "/register":
+      titleForPage = "Register";
+      break;
+    case "/changePassword":
+      titleForPage = "Change Password";
+      break;
+    default:
+      titleForPage = "Bienvenue";
   }
-  if (location.pathname === "/journey") {
-    titleForPage = "Parcours";
-  }
-  if (location.pathname === "/search") {
-    titleForPage = "Recherche";
-  }
-  if (location.pathname === "/adminPanel") {
-    titleForPage = "Admin Panel";
-  }
-  if (location.pathname === "/login") {
-    titleForPage = "Connexion";
-  }
-  if (location.pathname === "/register") {
-    titleForPage = "Inscription";
-  }
-  if (location.pathname === "/createTutorial") {
-    titleForPage = "Créer un tutoriel";
-  }
-  if (location.pathname === "/UserProfil") {
-    titleForPage = "Profil";
-  }
-  if (location.pathname === "/:theme") {
-    titleForPage = "Thème";
-  }
-  if (location.pathname === "/:theme/:id") {
-    titleForPage = "Tutoriel";
-  }
-  const [showBottomArrow, setShowBottomArrow] = useState(true);
-  const [showTopArrow, setShowTopArrow] = useState(false);
 
-  useEffect(() => {
-    if (
-      location.pathname === "/login" ||
-      location.pathname === "/Register" ||
-      location.pathname === "/createTutorial"
-    ) {
-      setShowBottomArrow(false);
-      setShowTopArrow(false);
-    }
-  }, [location]);
+  const [showBottomArrow] = useState(false);
+  const [showTopArrow] = useState(false);
 
   const [isScrollUpPlaying, setIsScrollUpPlaying] = useState(true);
   const [isScrollDownPlaying, setIsScrollDownPlaying] = useState(true);
@@ -82,30 +79,19 @@ function AnimatedRoutes() {
     window.scrollTo(0, window.scrollY - window.innerHeight);
   }
 
-  function handleScroll() {
-    setShowBottomArrow(
-      window.scrollY < document.body.offsetHeight - window.innerHeight
-    );
-    setShowTopArrow(window.scrollY > 0);
-  }
+  // function handleScroll() {
+  //   setShowBottomArrow(
+  //     window.scrollY < document.body.offsetHeight - window.innerHeight
+  //   );
+  //   setShowTopArrow(window.scrollY > 0);
+  // }
 
-  useEffect(() => {
-    if (
-      location.pathname === "/login" ||
-      location.pathname === "/register" ||
-      location.pathname === "/createTutorial"
-    ) {
-      setShowBottomArrow(false);
-      setShowTopArrow(false);
-    } else {
-      setShowBottomArrow(true);
-      setShowTopArrow(false);
-    }
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
   return (
     <AnimatePresence>
