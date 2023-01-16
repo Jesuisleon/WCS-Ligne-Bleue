@@ -3,15 +3,88 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS Default Style */
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* To overStyle TinyMCE */
-
-/* The Toolbar border */
-.tox-editor-header {
-  border: none !important;
+input {
+  outline: 0;
 }
+/* End CSS Default Style */
+
+/* CSS Animation */
+/*  HashtagInput.jsx */
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(1px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-2px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(1px, 0, 0);
+  }
+}
+/* End CSS Animation */
+
+/* CSS Presets */
+.invalid {
+  @apply text-red-600;
+}
+.black-button {
+  @apply antialiased bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-100;
+}
+
+.close-button {
+  @apply p-1 border text-sm text-black cursor-pointer;
+}
+
+.hashtag-button {
+  @apply bg-slate-100 mr-2 mb-2 p-1 text-sm text-black font-normal rounded cursor-pointer;
+}
+
+.tutorial-step {
+  @apply bg-white rounded-xl my-4 mx-4 px-4 py-2;
+}
+
+.tutorial-header {
+  @apply bg-white p-6 w-full grid justify-center items-center gap-4 grid-cols-4 lg:grid-cols-6 auto-rows-auto lg:grid-rows-1 border-y-2;
+}
+
+.tutorial-h-1 {
+  @apply col-span-1 m-auto;
+}
+
+.tutorial-h-description {
+  @apply flex flex-col gap-2 col-span-4 lg:col-span-3 lg:row-auto h-full;
+}
+
+.tutorial-h-2 {
+  @apply col-span-3 lg:col-span-2 flex flex-col gap-4;
+}
+.col {
+  @apply w-full h-full flex flex-col items-center;
+}
+
+.h1-font {
+  @apply text-2xl font-bold;
+}
+
+.h2-font {
+  @apply text-xl font-bold;
+}
+/* End CSS Presets */
