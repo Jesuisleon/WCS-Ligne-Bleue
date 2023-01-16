@@ -1,3 +1,4 @@
+-- Active: 1667382451940@@127.0.0.1@3306@mvc_express
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
