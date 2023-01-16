@@ -56,13 +56,15 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const tutorial = req.body;
-
   // TODO validations (length, format...)
 
   models.tutorial
     .insert(tutorial)
     .then(([result]) => {
-      res.location(`/tutorials/${result.insertId}`).sendStatus(201);
+      res.status(201).json({
+        id: result.insertId,
+        location: `/tutorial/${result.insertId}`,
+      });
     })
     .catch((err) => {
       console.error(err);

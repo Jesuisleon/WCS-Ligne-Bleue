@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import QuizTutorialEdit from "@components/create_tutorial/QuizTutorialEdit";
 import HeaderTutorialEdit from "@components/create_tutorial/HeaderTutorialEdit";
 import EditorTutorialEdit from "@components/create_tutorial/EditorTutorialEdit";
@@ -8,10 +9,19 @@ import Cookies from "js-cookie";
 const { VITE_BACKEND_URL } = import.meta.env;
 
 function CreateTutorial() {
+  const navigate = useNavigate();
+
   const token = Cookies.get("userToken");
-  const author = Cookies.get("firstName");
 
   const childsRefs = useRef([]);
+
+  const [publish, setPublish] = useState(false);
+  useEffect(() => {
+    if (publish) {
+      alert("Votre tutoriel a bien été publié");
+    }
+  }, [publish]);
+
   const [stepData, setStepData] = useState([]);
 
   const [basicData, setBasicData] = useState({
@@ -72,16 +82,26 @@ function CreateTutorial() {
       objective: basicData.objective,
       description: basicData.description,
       difficulty: basicData.difficulty,
-      hashtag: basicData.hashtag,
+      hashtag: JSON.stringify(basicData.hashtag),
       theme: basicData.theme,
       step: JSON.stringify(stepData),
-      author,
+      author: "admin",
+      online: 1,
     };
-    axios.post(`${VITE_BACKEND_URL}/tutorials`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    axios
+      .post(`${VITE_BACKEND_URL}/tutorials`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setPublish(true);
+        setPublish(false);
+        navigate(res.data.location);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
