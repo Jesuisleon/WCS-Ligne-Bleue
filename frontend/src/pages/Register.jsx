@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import ErrorAlert from "@components/ErrorAlert";
 
 function Register() {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorText, setErrorText] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,8 +33,17 @@ function Register() {
           },
         }
       )
-      .then(function handleResponse() {
-        navigate("/login");
+      .then((response) => {
+        if (!response) {
+          throw new Error("La connection a échoué");
+        } else {
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        setErrorMessage(true);
+        setErrorText(error.response.statusText);
+        console.error(error);
       });
   };
 
@@ -59,6 +71,7 @@ function Register() {
 
   return (
     <div className="mt-10 ml-8">
+      {errorMessage && <ErrorAlert alertMessage={errorText} />}
       <form onSubmit={handleSubmit}>
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 mb-6 w-full group">
@@ -156,7 +169,6 @@ function Register() {
         <div className="grid md:grid-cols-2 md:gap-6" />
         {btn}
       </form>
-
       <div>
         <Link to="/Login">connectez-vous</Link>
       </div>

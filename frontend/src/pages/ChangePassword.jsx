@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ErrorAlert from "@components/ErrorAlert";
 import { AuthContext } from "../context/AuthContext";
 
 export default function ChangePassword() {
@@ -11,6 +12,7 @@ export default function ChangePassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const { userToken, userEmail } = useContext(AuthContext);
   const [errorBadPassword, setErrorBadPassword] = useState("");
+  const [errorText, setErrorText] = useState("");
 
   const email = userEmail;
   const navigate = useNavigate();
@@ -32,11 +34,15 @@ export default function ChangePassword() {
         }
       )
       .catch((error) => {
-        console.error(`ereuuuuuuuuuuur${error}`);
         setErrorBadPassword(true);
+        setErrorText(error.response.statusText);
+        console.error(error.response.statusText);
         return false;
       })
       .then((response) => {
+        if (!response) {
+          throw new Error("la connection a échoué");
+        }
         if (response) {
           navigate("/userprofile");
         }
@@ -64,11 +70,7 @@ export default function ChangePassword() {
   return (
     <div className="mt-10 ml-8">
       <form onSubmit={handleSubmit}>
-        {errorBadPassword && (
-          <h1 className="text-red-500 font-medium mb-2">
-            Erreur dans le mot de passe renseigné !{" "}
-          </h1>
-        )}
+        {errorBadPassword && <ErrorAlert alertMessage={errorText} />}
         <div className="relative z-0 mb-6 w-full group">
           <input
             type="password"
