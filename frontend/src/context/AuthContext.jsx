@@ -5,8 +5,7 @@ export const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
   const [userToken, setUserToken] = useState(Cookies.get("userToken") || null);
-  const [userFirstName, setUserFirstName] = useState("");
-  const [userLastName, setUserLastName] = useState("");
+  const [userInfos, setUserInfos] = useState({});
 
   const setUserTokenCookie = useCallback((token) => {
     if (token) {
@@ -22,21 +21,12 @@ export function AuthContextProvider({ children }) {
 
   const value = useMemo(
     () => ({
-      userFirstName,
-      setUserFirstName,
-      userLastName,
-      setUserLastName,
       setUserTokenCookie,
       userToken,
+      userInfos,
+      setUserInfos,
     }),
-    [
-      setUserTokenCookie,
-      userToken,
-      userFirstName,
-      setUserFirstName,
-      userLastName,
-      setUserLastName,
-    ]
+    [userToken, userInfos]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

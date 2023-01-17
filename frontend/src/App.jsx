@@ -7,7 +7,7 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { VITE_BACKEND_URL } = import.meta.env;
-  const { setUserFirstName, setUserLastName } = useContext(AuthContext);
+  const { setUserInfos } = useContext(AuthContext);
 
   useEffect(() => {
     const token = Cookies.get("userToken");
@@ -20,8 +20,12 @@ function App() {
           },
         })
         .then((response) => {
-          setUserFirstName(response.data.firstname);
-          setUserLastName(response.data.lastname);
+          setUserInfos({
+            userFirstName: response.data.firstname,
+            userLastName: response.data.lastname,
+            userEmail: response.data.email,
+            isAdmin: response.data.isadmin,
+          });
         });
     }
   }, []);

@@ -9,14 +9,14 @@ const { Link, useParams } = ReactRouter;
 
 export default function TutorialTheme() {
   const { VITE_BACKEND_URL } = import.meta.env;
-
-  const [dataFromAxios, setDataFromAxios] = useState();
+  const [data, setData] = useState();
+  const { id } = useParams();
 
   useEffect(() => {
     axios
-      .get(`${VITE_BACKEND_URL}/tutorials/?theme=2`)
+      .get(`${VITE_BACKEND_URL}/tutorials/?theme=${id}`)
       .then((response) => {
-        setDataFromAxios(response.data);
+        setData(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -53,8 +53,8 @@ export default function TutorialTheme() {
         lg:auto-rows-[minmax(220px,_2fr)]
       "
     >
-      {dataFromAxios &&
-        dataFromAxios.map((tutorial) => (
+      {data &&
+        data.map((tutorial) => (
           <motion.div
             key={tutorial.id}
             initial={{ x: "200%" }}
@@ -87,7 +87,7 @@ export default function TutorialTheme() {
                 shadow-yellow-400
                 text-center
                 "
-              to={`/${theme}/${tutorial.id}`}
+              to={`/tutorial/${tutorial.id}`}
             >
               <HiCheckCircle className="text-4xl fill-green-500 m-auto" />
               <h1 className="text-xl font-bold">{tutorial.title}</h1>
@@ -152,7 +152,7 @@ export default function TutorialTheme() {
                 shadow-yellow-400
                 text-center
                 "
-              to={`/${theme}/${tutorial.id}`}
+              to={`/tutorial/${tutorial.id}`}
             >
               <HiCheckCircle className="text-4xl fill-green-500 m-auto" />
               <h1 className="text-xl font-bold">{tutorial.title}</h1>
