@@ -25,44 +25,44 @@ import NavigationBlock from "@components/NavigationBlock";
 function AnimatedRoutes() {
   const navigate = useNavigate();
   const location = useLocation();
-  let titleForPage = "";
+  let navTitle = "";
 
   switch (location.pathname) {
     case "/home":
-      titleForPage = "Bienvenue";
+      navTitle = "Bienvenue";
       break;
     case "/adminPanel":
-      titleForPage = "Admin Panel";
+      navTitle = "Admin Panel";
       break;
     case "/login":
-      titleForPage = "Login";
+      navTitle = "Login";
       break;
     case "/journey":
-      titleForPage = "Journey";
+      navTitle = "Journey";
       break;
     case "/search":
-      titleForPage = "Search";
+      navTitle = "Search";
       break;
     case "/theme/:id":
-      titleForPage = "Theme";
+      navTitle = "Theme";
       break;
     case "/tutorial/:id":
-      titleForPage = "Tutorial";
+      navTitle = "Tutorial";
       break;
     case "/userProfil":
-      titleForPage = "User Profil";
+      navTitle = "User Profil";
       break;
     case "/createTutorial":
-      titleForPage = "Create Tutorial";
+      navTitle = "Create Tutorial";
       break;
     case "/register":
-      titleForPage = "Register";
+      navTitle = "Register";
       break;
     case "/changePassword":
-      titleForPage = "Change Password";
+      navTitle = "Change Password";
       break;
     default:
-      titleForPage = "Bienvenue";
+      navTitle = "Bienvenue";
   }
 
   const [showBottomArrow, setShowBottomArrow] = useState(false);
@@ -98,7 +98,7 @@ function AnimatedRoutes() {
       <Header key="header" />
       <NavigationBlock
         key="navigation"
-        title={titleForPage}
+        title={navTitle}
         navigate={() => navigate(-1)}
       />
       <Routes location={location} key={location.pathname}>

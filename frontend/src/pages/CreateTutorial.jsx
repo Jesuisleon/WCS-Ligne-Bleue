@@ -1,16 +1,20 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { AuthContext } from "@context/AuthContext";
 import QuizTutorialEdit from "@components/create_tutorial/QuizTutorialEdit";
 import HeaderTutorialEdit from "@components/create_tutorial/HeaderTutorialEdit";
 import EditorTutorialEdit from "@components/create_tutorial/EditorTutorialEdit";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
 function CreateTutorial() {
+  const { userInfos } = useContext(AuthContext);
   const token = Cookies.get("userToken");
-
   const childsRefs = useRef([]);
+
+  const navigate = useNavigate();
 
   const [save, setSave] = useState(false);
 
@@ -26,6 +30,12 @@ function CreateTutorial() {
     hashtag: "",
     theme: "",
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("admin") !== "1") {
+      navigate("/home");
+    }
+  }, [headerData]);
 
   const setStep = (type) => {
     const step = { id: stepData.length + 1, type, content: null };
@@ -127,6 +137,8 @@ function CreateTutorial() {
 
   useEffect(() => {
     setSave(false);
+    if (Object.entries(userInfos).length !== 0)
+      localStorage.setItem("admin", userInfos.isAdmin);
   }, []);
 
   return (

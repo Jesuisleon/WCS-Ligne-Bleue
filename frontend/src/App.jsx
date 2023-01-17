@@ -24,7 +24,7 @@ function App() {
             userFirstName: response.data.firstname,
             userLastName: response.data.lastname,
             userEmail: response.data.email,
-            isAdmin: response.data.isadmin,
+            isAdmin: response.data.admin,
           });
         });
     }
