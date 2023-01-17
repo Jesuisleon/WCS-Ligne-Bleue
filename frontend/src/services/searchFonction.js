@@ -4,21 +4,15 @@ const SearchTutorial = (searchPhrases, tutorialsToFind) => {
   const match1 = [];
 
   searchToString.forEach(function (element, index) {
-    let i = 0;
     const matchElement = tutorialsToFind.filter((e) =>
       e.hashtag.includes(element)
     );
-    console.log(matchElement);
-    matchElement;
-
     if (matchElement[0]) {
       match1.push(matchElement.slice());
       matchElement.splice(0);
     }
   });
-
   const match2 = match1.flat();
-
   match2.forEach(function (element, index) {});
   const duplicateIds = match2.reduce((acc, curr) => {
     if (acc.hasOwnProperty(curr.id)) {
@@ -32,7 +26,6 @@ const SearchTutorial = (searchPhrases, tutorialsToFind) => {
     (a, b) => b.count - a.count
   );
   sortedMatches;
-
   return sortedMatches;
 };
 
