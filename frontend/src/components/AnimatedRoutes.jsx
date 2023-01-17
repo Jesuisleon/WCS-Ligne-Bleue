@@ -5,7 +5,7 @@ import {
   useNavigate,
   Navigate,
 } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Home from "@pages/Home";
 import AdminPanel from "@pages/AdminPanel";
 import Login from "@pages/Login";
@@ -65,8 +65,8 @@ function AnimatedRoutes() {
       titleForPage = "Bienvenue";
   }
 
-  const [showBottomArrow] = useState(false);
-  const [showTopArrow] = useState(false);
+  const [showBottomArrow, setShowBottomArrow] = useState(false);
+  const [showTopArrow, setShowTopArrow] = useState(false);
 
   const [isScrollUpPlaying, setIsScrollUpPlaying] = useState(true);
   const [isScrollDownPlaying, setIsScrollDownPlaying] = useState(true);
@@ -79,19 +79,19 @@ function AnimatedRoutes() {
     window.scrollTo(0, window.scrollY - window.innerHeight);
   }
 
-  // function handleScroll() {
-  //   setShowBottomArrow(
-  //     window.scrollY < document.body.offsetHeight - window.innerHeight
-  //   );
-  //   setShowTopArrow(window.scrollY > 0);
-  // }
+  function handleScroll() {
+    setShowBottomArrow(
+      window.scrollY < document.body.offsetHeight - window.innerHeight
+    );
+    setShowTopArrow(window.scrollY > 0);
+  }
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <AnimatePresence>
