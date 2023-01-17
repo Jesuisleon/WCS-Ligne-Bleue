@@ -103,7 +103,7 @@ function CreateTutorial() {
       objective: headerData.objective,
       description: headerData.description,
       difficulty: headerData.difficulty,
-      hashtag: JSON.stringify(headerData.hashtag),
+      hashtag: headerData.hashtag,
       theme: headerData.theme,
       step: JSON.stringify(stepData),
       author: "admin",
