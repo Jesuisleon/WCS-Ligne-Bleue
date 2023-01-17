@@ -5,22 +5,23 @@ class TutorialManager extends AbstractManager {
     super({ table: "tutorial" });
   }
 
+  // `select ${this.table}.id, ${this.table}.name, ${this.table}.idBrand, brand.name as brand from  ${this.table} join brand on brand.id=${this.table}.idBrand  where ${this.table}.id = ?`
   findTutorial(id) {
     return this.connection.query(
-      `select id,theme_id, difficulty, title, objective,description, step, hashtag, author, online, creation_date, edition_date from  ${this.table} where id = ?`,
+      `select id,theme_id, difficulty, title, objective,description, step, author, online,  creation_date, edition_date from  ${this.table} where id = ?`,
       [id]
     );
   }
 
   findAllTutorials(where) {
     return this.connection.query(
-      `select id,theme_id, difficulty, title, objective,description, step, hashtag, author, online,  creation_date, edition_date from  ${this.table}${where}`
+      `select id,theme_id, difficulty, title, objective,description, step, author, online,  creation_date, edition_date from  ${this.table}${where}`
     );
   }
 
   insert(tutorial) {
     return this.connection.query(
-      `insert into ${this.table} (theme_id, difficulty, title, objective,description, step, hashtag, author, online) values (?,?,?,?,?,?,?,?,?)`,
+      `insert into ${this.table} (theme_id, difficulty, title, objective,description, step, author, online) values (?,?,?,?,?,?,?,?)`,
       [
         tutorial.theme,
         tutorial.difficulty,
@@ -28,7 +29,6 @@ class TutorialManager extends AbstractManager {
         tutorial.objective,
         tutorial.description,
         tutorial.step,
-        tutorial.hashtag,
         tutorial.author,
         tutorial.online,
       ]
@@ -37,19 +37,25 @@ class TutorialManager extends AbstractManager {
 
   update(tutorial) {
     return this.connection.query(
-      `update ${this.table} set theme_id = ?, difficulty = ?, title = ?, objective = ?,description = ?, step = ?, hashtag = ?, author = ?, online = ?, edition_date = NOW() where id = ?`,
+      `update ${this.table} set theme_id = ?, difficulty = ?, title = ?, objective = ?,description = ?, step = ?, author = ?, online = ?, edition_date = NOW() where id = ?`,
       [
-        tutorial.theme,
+        tutorial.theme_id,
         tutorial.difficulty,
         tutorial.title,
         tutorial.objective,
         tutorial.description,
         tutorial.step,
-        tutorial.hashtag,
         tutorial.author,
         tutorial.online,
         tutorial.id,
       ]
+    );
+  }
+
+  updateOnline(tutorial) {
+    return this.connection.query(
+      `update ${this.table} set online = ?, edition_date = NOW() where id = ?`,
+      [tutorial.online, tutorial.id]
     );
   }
 }

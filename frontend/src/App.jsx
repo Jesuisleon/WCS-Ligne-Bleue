@@ -6,10 +6,8 @@ import Cookies from "js-cookie";
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  // console.log(AuthContext)
   const { VITE_BACKEND_URL } = import.meta.env;
-  const { setUserFirstName, setUserLastName, setUserEmail } =
-    useContext(AuthContext);
+  const { setUserInfos } = useContext(AuthContext);
 
   useEffect(() => {
     const token = Cookies.get("userToken");
@@ -22,9 +20,12 @@ function App() {
           },
         })
         .then((response) => {
-          setUserFirstName(response.data.firstname);
-          setUserLastName(response.data.lastname);
-          setUserEmail(response.data.email);
+          setUserInfos({
+            userFirstName: response.data.firstname,
+            userLastName: response.data.lastname,
+            userEmail: response.data.email,
+            isAdmin: response.data.isadmin,
+          });
         });
     }
   }, []);

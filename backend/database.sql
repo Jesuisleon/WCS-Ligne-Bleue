@@ -22,13 +22,12 @@ DROP TABLE IF EXISTS theme;
 
 CREATE TABLE theme (
     id int primary key NOT NULL AUTO_INCREMENT,
-    themeName varchar(255) NOT NULL,
-    icon VARCHAR(255) NOT NULL
+    name varchar(255) NOT NULL,
+    icon varchar(255) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+INSERT INTO theme (name, icon)
 
-
-INSERT INTO theme (themeName, icon)
 VALUES
  ('Utiliser ligne bleue', '/image/telephone.png'),
   ('Utiliser mon téléphone', '/image/phone3.gif'),
@@ -51,28 +50,50 @@ CREATE TABLE tutorial (
     title varchar(255) NOT NULL,    
     objective varchar(255) NOT NULL,
     description varchar(1000) NOT NULL,
-    step LONGTEXT NOT NULL,
-    hashtag varchar(255) NOT NULL,
+    step LONGTEXT NOT NULL,    
     author varchar(255) NOT NULL,
     online BOOLEAN not NULL DEFAULT 0,
     creation_date DATETIME default NOW(),
     edition_date DATETIME default NOW(),
-
-    FOREIGN KEY (theme_id) REFERENCES theme(id)
+    FOREIGN KEY (theme_id) REFERENCES theme(id) ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 INSERT INTO
-  tutorial (theme_id, difficulty, title, objective, description,step,hashtag,author,online)
+  tutorial (theme_id, difficulty, title, objective, description,step,author,online)
 VALUES
-  (2,'débutant', 'Step 1dsqddsq', 'lunedsqddsq','<p>This is step 1dsqd</p>','[{"step":1,"text":"Voici du contenu pour la main data","content":"<p>DSQDSQDdsqd</p>"}]{"step":"2","quiz":[{"id":1,"question":"Quelle est la capitale de la France?","answers":[{"id":1,"text":"Londres","correct":false},{"id":2,"text":"Paris","correct":false},{"id":3,"text":"Berlin","correct":true},{"id":4,"text":"New York","correct":false}]},{"id":2,"question":"Combien y a-t-il de jours dans une année?","answers":[{"id":1,"text":"365","correct":true},{"id":2,"text":"366","correct":false},{"id":3,"text":"364","correct":false},{"id":4,"text":"360","correct":false}]}]}','dsqddsqd','Michel',1);
+  (2,'débutant', 'Step 1dsqddsq', 'lunedsqddsq','<p>This is step 1dsqd</p>','[{"step":1,"text":"Voici du contenu pour la main data","content":"<p>DSQDSQDdsqd</p>"}]{"step":"2","quiz":[{"id":1,"question":"Quelle est la capitale de la France?","answers":[{"id":1,"text":"Londres","correct":false},{"id":2,"text":"Paris","correct":false},{"id":3,"text":"Berlin","correct":true},{"id":4,"text":"New York","correct":false}]},{"id":2,"question":"Combien y a-t-il de jours dans une année?","answers":[{"id":1,"text":"365","correct":true},{"id":2,"text":"366","correct":false},{"id":3,"text":"364","correct":false},{"id":4,"text":"360","correct":false}]}]}','Michel',1);
+
+
+DROP TABLE IF EXISTS hashtag;
+
+CREATE TABLE hashtag (
+    id int primary key NOT NULL AUTO_INCREMENT,
+    text varchar(255) NOT NULL    
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+INSERT INTO hashtag (text)
+VALUES
+ ('phone'),('internet'),('login');
+
+DROP TABLE IF EXISTS tuto_hashtag;
+
+CREATE TABLE tuto_hashtag (
+    tutorial_id INTEGER REFERENCES tutorial (id) ON DELETE CASCADE,
+    hashtag_id INTEGER REFERENCES hashtag (id) ON DELETE CASCADE,
+    PRIMARY KEY (tutorial_id, hashtag_id)  
+) ;
+
+INSERT INTO tuto_hashtag (tutorial_id, hashtag_id)
+VALUES
+ (1,1),(1,2);
 
 
 DROP TABLE IF EXISTS user_journey;
 
 CREATE TABLE user_journey (
-    id_user INTEGER REFERENCES user (id) ON DELETE CASCADE,
-    id_tutorial INTEGER REFERENCES user (id) ON DELETE CASCADE,
-    PRIMARY KEY (id_user, id_tutorial)
+    user_id INTEGER REFERENCES user (id) ON DELETE CASCADE,
+    tutorial_id INTEGER REFERENCES tutorial (id) ON DELETE CASCADE,
+    PRIMARY KEY (user_id, tutorial_id)
 );
 
 

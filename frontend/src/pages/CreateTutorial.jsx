@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import QuizTutorialEdit from "@components/create_tutorial/QuizTutorialEdit";
 import HeaderTutorialEdit from "@components/create_tutorial/HeaderTutorialEdit";
 import EditorTutorialEdit from "@components/create_tutorial/EditorTutorialEdit";
@@ -9,12 +9,16 @@ const { VITE_BACKEND_URL } = import.meta.env;
 
 function CreateTutorial() {
   const token = Cookies.get("userToken");
-  const author = Cookies.get("firstName");
 
   const childsRefs = useRef([]);
+
+  const [save, setSave] = useState(false);
+
+  const [tutorialId, setTutorialId] = useState(null);
+
   const [stepData, setStepData] = useState([]);
 
-  const [basicData, setBasicData] = useState({
+  const [headerData, setHeaderData] = useState({
     title: "",
     objective: "",
     description: "",
@@ -42,35 +46,88 @@ function CreateTutorial() {
     setStepData(updatedStep);
   };
 
-  const getDataFromStep = () => {
+  const getHeaderData = () => {
+    const updatedData = childsRefs.current[0].getData();
+    if (!updatedData) {
+      alert("Veuillez remplir tous les champs");
+      setSave(false);
+      return;
+    }
+    setHeaderData(updatedData);
+  };
+
+  const getStepData = () => {
     const updatedStep = [...stepData];
     childsRefs.current.forEach((child, index) => {
+      // bypass the header component childRef
       if (index === 0) return;
+      // update the stepData with the childRef data
       updatedStep[index - 1].content = child.getData();
+      setStepData(updatedStep);
     });
-
-    const updatedData = childsRefs.current[0].getData();
-    setBasicData(updatedData);
-    setStepData(updatedStep);
   };
 
-  const submitData = () => {
+  const postTutorial = (data) => {
+    axios
+      .post(`${VITE_BACKEND_URL}/tutorials`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setTutorialId(res.data.id);
+        alert("Votre tutoriel a bien été enregistrer");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const putTutorial = (data) => {
+    axios
+      .put(`${VITE_BACKEND_URL}/tutorials/${tutorialId}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        alert("Votre tutoriel a bien été mis à jour");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const saveData = () => {
     const data = {
-      title: basicData.title,
-      objective: basicData.objective,
-      description: basicData.description,
-      difficulty: basicData.difficulty,
-      hashtag: basicData.hashtag,
-      theme: basicData.theme,
+      title: headerData.title,
+      objective: headerData.objective,
+      description: headerData.description,
+      difficulty: headerData.difficulty,
+      hashtag: JSON.stringify(headerData.hashtag),
+      theme: headerData.theme,
       step: JSON.stringify(stepData),
-      author,
+      author: "admin",
+      online: false,
     };
-    axios.post(`${VITE_BACKEND_URL}/tutorials`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    if (tutorialId) putTutorial(data);
+    else postTutorial(data);
+    setSave(false);
   };
+
+  const getData = () => {
+    setSave(true);
+    getHeaderData();
+    getStepData();
+  };
+
+  useEffect(() => {
+    if (save) saveData();
+  }, [save]);
+
+  useEffect(() => {
+    setSave(false);
+  }, []);
 
   return (
     <div className="p-4 h-full w-full">
@@ -78,15 +135,11 @@ function CreateTutorial() {
         <button
           className="black-button"
           type="button"
-          onClick={() => getDataFromStep()}
+          onClick={() => getData()}
         >
           <p>Enregistrer</p>
         </button>
-        <button
-          className="black-button"
-          type="button"
-          onClick={() => submitData()}
-        >
+        <button className="black-button" type="button">
           <p>Publier</p>
         </button>
       </div>
@@ -94,7 +147,7 @@ function CreateTutorial() {
         ref={(ref) => {
           childsRefs.current[0] = ref;
         }}
-        getData={basicData}
+        getData={headerData}
       />
       {stepData.map((step, stepIndex) => {
         return (

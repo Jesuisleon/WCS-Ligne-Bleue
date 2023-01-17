@@ -50,6 +50,7 @@ router.post(
 
 router.delete("/users/:id", userControllers.destroy);
 router.put("/tutorials/:id", tutorialControllers.edit);
+router.put("/tutorialsonline/:id", tutorialControllers.editOnline);
 router.post("/tutorials", tutorialControllers.add);
 router.delete("/tutorials/:id", tutorialControllers.destroy);
 
