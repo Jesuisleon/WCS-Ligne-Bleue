@@ -9,9 +9,15 @@ export default function TutorialTheme() {
   const { id } = useParams();
   const [data, setData] = useState();
   const [themeForIcon, setThemeForIcon] = useState([]);
-  const currentThemeId = themeForIcon.filter(
-    (theme) => theme.id === data.theme_id
-  );
+  const [currentThemeId, setCurrentThemeId] = useState([]);
+
+  // const currentThemeId = useMemo(() => {
+  //   if(data){
+  //     return themeForIcon.filter((theme) => theme.id === data.theme_id);
+  //   }
+  //   return []
+  // }, [data, themeForIcon]);
+  // deuxieme solution si jamais soucis pour charger les icon (Lucas)
 
   useEffect(() => {
     axios
@@ -34,7 +40,12 @@ export default function TutorialTheme() {
     axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
       setThemeForIcon(response.data);
     });
-  }, []);
+    if (data) {
+      setCurrentThemeId(
+        themeForIcon.filter((theme) => theme.id === data.theme_id)
+      );
+    }
+  }, [data, themeForIcon]);
 
   return (
     <div>
