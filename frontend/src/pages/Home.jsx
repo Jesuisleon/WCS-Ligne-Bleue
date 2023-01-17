@@ -65,11 +65,11 @@ export default function Home() {
             >
               <img
                 src={data.icon}
-                alt={data.themeName}
+                alt={data.name}
                 className="w-full h-full sm:h-[4em] lg:h-20"
               />
             </motion.div>
-            <p>{data.themeName}</p>
+            <p>{data.name}</p>
           </Link>
         ))}
 
