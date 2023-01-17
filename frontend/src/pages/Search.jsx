@@ -1,50 +1,54 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import SearchTutorial from "../services/searchFonction";
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState("");
+  const [searchResult, setSearchResult] = useState("");
 
   const tutorials = [
     {
-      id :1,
-      tutorialName : "Conecter son téléphone aux wi-fi",
-      hastag : ["téléphone","wi-fi"]
+      id: 1,
+      tutorialName: "Conecter son téléphone aux wi-fi",
+      hashtag: ["téléphone"],
     },
     {
-      id :2,
-      tutorialName : "Utiliser son téléphone mobile",
-      hastag : ["utiliser","téléphone","mobile"]
+      id: 2,
+      tutorialName: "Utiliser son téléphone mobile",
+      hashtag: ["utiliser", "téléphone", "mobile"],
     },
     {
-      id :3,
-      tutorialName : "Eteindre son ordinateur",
-      hastag : ["eteindre","ordinateur"]
+      id: 3,
+      tutorialName: "Eteindre son ordinateur",
+      hashtag: ["eteindre", "ordinateur"],
     },
     {
-      id :4,
-      tutorialName : "Eteindre son téléphone",
-      hastag : ["eteindre","téléphone"]
+      id: 4,
+      tutorialName: "Eteindre son téléphone",
+      hashtag: ["eteindre", "téléphone"],
     },
     {
-      id :5,
-      tutorialName : "Utiliser son ordinateur",
-      hastag : ["utiliser","ordinateur"]
+      id: 5,
+      tutorialName: "Utiliser son ordinateur",
+      hashtag: ["utiliser", "ordinateur"],
     },
     {
-      id :6,
-      tutorialName : "Utiliser sa tablette",
-      hastag : ["utiliser","tablette"]
+      id: 6,
+      tutorialName: "Utiliser sa tablette",
+      hashtag: ["utiliser", "tablette"],
     },
     {
-      id :7,
-      tutorialName : "Eteindre sa tablette",
-      hastag : ["eteindre","tablette"]
+      id: 7,
+      tutorialName: "Eteindre sa tablette",
+      hashtag: ["eteindre", "tablette"],
     },
+  ];
 
-  ]
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const searchResulteArray = SearchTutorial(searchValue, tutorials);
+    setSearchResult(searchResulteArray);
+  };
 
- 
-
-  const email= "blabla"
   return (
     <div
       className="
@@ -55,7 +59,7 @@ export default function Search() {
     align-center
     "
     >
-      <form onSubmit={()=> console.log("blabla")}>
+      <form onSubmit={handleSubmit}>
         <div className="mb-6">
           <label
             htmlFor="email"
@@ -64,8 +68,8 @@ export default function Search() {
             Veuillez renseigner ci-dessous votre recherche
           </label>
           <input
-            type="search"
-            id="email"
+            type="input"
+            id="search"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -74,15 +78,13 @@ export default function Search() {
           />
         </div>
       </form>
-      {tutorials
-      .filter((e)=> e.hastag.includes(searchValue) )
-      .map((e)=>
-      <div className="mt-2">
-       <h1>{e.tutorialName}</h1> 
-       <h2>{e.hastag}</h2> 
-      </div>
-      )}
-
+      {searchResult &&
+        searchResult.map((e) => (
+          <div key={e.id} className="mt-2">
+            <h1>{e.tutorialName}</h1>
+            <h2>{e.hastag}</h2>
+          </div>
+        ))}
     </div>
-    )
+  );
 }
