@@ -1,20 +1,15 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { AuthContext } from "@context/AuthContext";
+import React, { useState, useRef, useEffect } from "react";
 import QuizTutorialEdit from "@components/create_tutorial/QuizTutorialEdit";
 import HeaderTutorialEdit from "@components/create_tutorial/HeaderTutorialEdit";
 import EditorTutorialEdit from "@components/create_tutorial/EditorTutorialEdit";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
 function CreateTutorial() {
-  const { userInfos } = useContext(AuthContext);
   const token = Cookies.get("userToken");
   const childsRefs = useRef([]);
-
-  const navigate = useNavigate();
 
   const [save, setSave] = useState(false);
 
@@ -30,12 +25,6 @@ function CreateTutorial() {
     hashtag: "",
     theme: "",
   });
-
-  useEffect(() => {
-    if (localStorage.getItem("admin") !== "1") {
-      navigate("/home");
-    }
-  }, [headerData]);
 
   const setStep = (type) => {
     const step = { id: stepData.length + 1, type, content: null };
@@ -135,10 +124,11 @@ function CreateTutorial() {
     if (save) saveData();
   }, [save]);
 
+  const [preview, setPreview] = useState(false);
+
   useEffect(() => {
     setSave(false);
-    if (Object.entries(userInfos).length !== 0)
-      localStorage.setItem("admin", userInfos.isAdmin);
+    setPreview(false);
   }, []);
 
   return (
@@ -154,12 +144,20 @@ function CreateTutorial() {
         <button className="black-button" type="button">
           <p>Publier</p>
         </button>
+        <button
+          className="black-button"
+          type="button"
+          onClick={() => setPreview(!preview)}
+        >
+          <p>{preview ? "Edit" : "Preview"}</p>
+        </button>
       </div>
       <HeaderTutorialEdit
         ref={(ref) => {
           childsRefs.current[0] = ref;
         }}
         getData={headerData}
+        preview={preview}
       />
       {stepData.map((step, stepIndex) => {
         return (
@@ -171,6 +169,7 @@ function CreateTutorial() {
                 }}
                 data={stepData[stepIndex] ? stepData[stepIndex].content : ""}
                 close={() => removeStep(stepIndex)}
+                previewAll={preview}
               />
             ) : (
               <QuizTutorialEdit
@@ -181,27 +180,30 @@ function CreateTutorial() {
                   stepData[stepIndex] ? stepData[stepIndex].content : null
                 }
                 close={() => removeStep(stepIndex)}
+                previewAll={preview}
               />
             )}
           </div>
         );
       })}
-      <div className="flex gap-4 m-4 w-full">
-        <button
-          type="button"
-          className="black-button"
-          onClick={() => setStep("editor")}
-        >
-          <p>Nouvelle section</p>
-        </button>
-        <button
-          type="button"
-          className="black-button"
-          onClick={() => setStep("quiz")}
-        >
-          <p>Nouveau Quiz</p>
-        </button>
-      </div>
+      {preview === false && (
+        <div className="flex gap-4 m-4 w-full">
+          <button
+            type="button"
+            className="black-button"
+            onClick={() => setStep("editor")}
+          >
+            <p>Nouvelle section</p>
+          </button>
+          <button
+            type="button"
+            className="black-button"
+            onClick={() => setStep("quiz")}
+          >
+            <p>Nouveau Quiz</p>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
