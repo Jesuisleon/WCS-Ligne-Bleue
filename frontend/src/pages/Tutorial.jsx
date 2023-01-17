@@ -5,7 +5,7 @@ import Quiz from "@components/tutorial/Quiz";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
-export default function TutorialTheme() {
+export default function Tutorial() {
   const { id } = useParams();
 
   const [data, setData] = useState();

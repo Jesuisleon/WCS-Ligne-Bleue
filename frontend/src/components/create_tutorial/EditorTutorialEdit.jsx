@@ -9,7 +9,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { HiOutlineTrash } from "react-icons/hi";
 import handleImageEditor from "./handleImageEditor";
 
-const EditorTutorialEdit = forwardRef(({ data, close }, ref) => {
+const EditorTutorialEdit = forwardRef(({ data, close, previewAll }, ref) => {
   const childRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
@@ -18,42 +18,57 @@ const EditorTutorialEdit = forwardRef(({ data, close }, ref) => {
     },
   }));
 
-  const [editMode, setEditMode] = useState(true);
-  const [content, setContent] = useState();
+  const [content, setContent] = useState(data);
 
-  const handlePreview = () => {
-    if (editMode) setContent(childRef.current.editor.getContent());
-    setEditMode(!editMode);
-  };
+  const [preview, setPreview] = useState(false);
 
   useEffect(() => {
-    if (!editMode) return;
-    setTimeout(() => {
-      childRef.current.editor.setContent(content || "");
-    }, 100);
-  }, [editMode]);
+    if (!preview) {
+      setTimeout(() => {
+        childRef.current.editor.setContent(content || "");
+      }, 1000);
+    }
+  }, [preview]);
 
   useEffect(() => {
-    setEditMode(true);
-    setContent(data);
+    if (previewAll) {
+      setPreview(true);
+    } else {
+      setPreview(false);
+    }
+  }, [previewAll]);
+
+  useEffect(() => {
+    setPreview(false);
   }, []);
 
   return (
     <>
-      <div className="flex justify-between mb-4 mt-2">
-        <button className="px-2 " type="button" onClick={() => close()}>
-          <HiOutlineTrash color="red" size={20} />
-        </button>
-        <button className="px-2" type="button" onClick={() => handlePreview()}>
-          {editMode ? "Voir" : "Editer"}
-        </button>
-      </div>
-      {editMode ? (
+      {previewAll === false && (
+        <div className="flex justify-between mb-4 mt-2">
+          <button className="px-2 " type="button" onClick={() => close()}>
+            <HiOutlineTrash color="red" size={20} />
+          </button>
+          <button
+            className="px-2"
+            type="button"
+            onClick={() => setPreview(!preview)}
+          >
+            {preview ? "Éditer" : "Voir"}
+          </button>
+        </div>
+      )}
+      {preview ? (
+        <div className="p-4" dangerouslySetInnerHTML={{ __html: content }} />
+      ) : (
         <Editor
           ref={childRef}
           apiKey="9t40bxm0c2coeb5xw6ui3a8g1ng5eywiv3elxxlq6vtclsdy"
           sameSite="None"
           defaultValue={content}
+          onChange={(e) => {
+            setContent(e.target.getContent());
+          }}
           init={{
             selector: "#theEditorForMainData",
             statusbar: false,
@@ -108,8 +123,6 @@ const EditorTutorialEdit = forwardRef(({ data, close }, ref) => {
             images_upload_handler: handleImageEditor,
           }}
         />
-      ) : (
-        <div className="p-4" dangerouslySetInnerHTML={{ __html: content }} />
       )}
     </>
   );
