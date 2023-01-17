@@ -4,8 +4,8 @@ import { AuthContext } from "../context/AuthContext";
 
 function UserProfil() {
   const navigate = useNavigate();
-  const { userFirstName, userLastName, userEmail } = useContext(AuthContext);
-
+  const { userInfos } = useContext(AuthContext);
+  const { userFirstName, userLastName, userEmail } = userInfos;
   const handleClick = () => {
     navigate("/userprofil/changepassword");
   };

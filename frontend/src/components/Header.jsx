@@ -3,19 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function Header() {
-  const { userToken, setUserTokenCookie, userFirstName, userLastName } =
-    useContext(AuthContext);
+  const { userToken, setUserTokenCookie, userInfos } = useContext(AuthContext);
 
+  const { userFirstName, userLastName } = userInfos;
   const navigate = useNavigate();
-  // const location = useLocation();
 
   const handleDisconnect = (event) => {
     event.stopPropagation();
     setUserTokenCookie(null);
     navigate("/home");
-    // if (location.pathname === '/UserProfile') {
-    //   navigate('/home');
-    // }
   };
 
   const handleRedirectToUserProfil = () => {
