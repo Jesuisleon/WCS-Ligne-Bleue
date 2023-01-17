@@ -110,7 +110,7 @@ function Question({
         }`}
         >
           {answers.map((answer, index) => (
-            <div key={answer.id} className="my-2 mx-4">
+            <div key={answer.id} className="mt-2 mx-4">
               <input
                 type="radio"
                 name={`question-${questionIndex}`}
@@ -138,7 +138,7 @@ function Question({
           <button
             type="submit"
             disabled={!selectedAnswer}
-            className={`font-button antialiased font-semibold rounded-lg text-white px-4 py-2 
+            className={`font-button antialiased font-semibold rounded-lg text-white px-4 py-2 mt-4 
             ${isSubmitted && isCorrect ? "bg-green-500" : "bg-red-500"} 
             ${!isSubmitted && "bg-gray-800 hover:bg-gray-700"}
             `}
