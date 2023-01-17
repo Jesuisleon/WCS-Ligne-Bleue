@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+
 const tutorials = [
     {
       id :1,
@@ -37,37 +38,17 @@ const tutorials = [
     },
   ]
 
-  const phrases = ["téléphone", "tablette", "voiture" ]
+  const phrases = ["téléphone", "tablette", "voiture" ];
 
+  const search = "je veux eteindre mon téléphone";
 
-  console.log(tutorials.filter((e)=> e.hashtag.includes("téléphone") || e.hashtag.includes("blabla") ))
+  const searchTostring = search.split(" ");
+  console.log(searchTostring) 
+  console.log(searchTostring[0])
+  console.log(tutorials.filter((e)=> e.hashtag.includes(searchTostring[2])))
 
-  tutorials.filter((e)=>e.hashtag.includes())
+  searchTostring
 
-
-
-
-
-
-
-
-
-  console.log(tutorials[0].hastag[0])
-
-const searchValue = "téléphone téléphone téléphone téléphone "
-
-
-const splitPhrasing = (phrase, tableToConvert) =>{
-    const phraseSplit = phrase.split(" ")
-    console.log(phraseSplit)
-    console.log(tableToConvert.filter((e)=> e.hastag.includes(phraseSplit.map((e) => e))))
-
-    return phraseSplit
-  }
-
-  splitPhrasing(searchValue, tutorials)
-
-  tutorials.filter((e)=>e.hastag.includes(phraseSplit.map((a)=> a)))
 
 
 
