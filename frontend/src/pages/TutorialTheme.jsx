@@ -1,9 +1,10 @@
 import * as ReactRouter from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { motion } from "framer-motion";
 import { HiCheckCircle } from "react-icons/hi";
 import axios from "axios";
 import { themeTutorialData } from "../data";
+import { AuthContext } from "../context/AuthContext";
 
 const { Link, useParams } = ReactRouter;
 
@@ -11,6 +12,7 @@ export default function TutorialTheme() {
   const { VITE_BACKEND_URL } = import.meta.env;
   const [data, setData] = useState();
   const { id } = useParams();
+  const { userInfos } = useContext(AuthContext);
 
   useEffect(() => {
     axios
@@ -182,13 +184,17 @@ export default function TutorialTheme() {
           </motion.div>
         ))}
 
-      <Link
-        className="text-red-700 text-xl font-button mx-2"
-        to="/createTutorial"
-      >
-        {" "}
-        <p>Créer un tutoriel</p>
-      </Link>
+      <div className="flex">
+        {userInfos.isAdmin ? (
+          <Link
+            className="text-red-700 text-xl font-button mx-2"
+            to="/createTutorial"
+          >
+            {" "}
+            <p>Créer un tutoriel</p>
+          </Link>
+        ) : null}
+      </div>
     </div>
   );
 }
