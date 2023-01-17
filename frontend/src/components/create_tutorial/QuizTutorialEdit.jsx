@@ -8,7 +8,7 @@ import React, {
 import Quiz from "@components/tutorial/Quiz";
 import { HiOutlineTrash } from "react-icons/hi";
 
-const QuizTutorialEdit = forwardRef(({ getData, close }, ref) => {
+const QuizTutorialEdit = forwardRef(({ getData, close, previewAll }, ref) => {
   const [quizData, setQuizData] = useState([]);
 
   const childRef = useRef([]);
@@ -18,13 +18,21 @@ const QuizTutorialEdit = forwardRef(({ getData, close }, ref) => {
     },
   }));
 
-  const [editMode, setEditMode] = useState(true);
+  const [preview, setPreview] = useState(false);
+
+  useEffect(() => {
+    if (previewAll) {
+      setPreview(true);
+    } else {
+      setPreview(false);
+    }
+  }, [previewAll]);
 
   useEffect(() => {
     if (getData) {
       setQuizData(getData);
     }
-    setEditMode(true);
+    setPreview(false);
   }, []);
 
   const setQuestion = () => {
@@ -102,20 +110,24 @@ const QuizTutorialEdit = forwardRef(({ getData, close }, ref) => {
 
   return (
     <div ref={childRef} className="p-4 relative w-full">
-      <div className="flex justify-between ">
-        <button type="button" className="text-xl font-bold" onClick={close}>
-          <HiOutlineTrash color="red" />
-        </button>
-        <button
-          type="button"
-          className=""
-          onClick={() => setEditMode(!editMode)}
-        >
-          {editMode ? "Voir le quiz" : "Modifier le quiz"}
-        </button>
-      </div>
+      {previewAll === false && (
+        <div className="flex justify-between ">
+          <button type="button" className="text-xl font-bold" onClick={close}>
+            <HiOutlineTrash color="red" />
+          </button>
+          <button
+            type="button"
+            className=""
+            onClick={() => setPreview(!preview)}
+          >
+            {preview ? "Editer" : "Voir"}
+          </button>
+        </div>
+      )}
 
-      {editMode ? (
+      {preview ? (
+        <Quiz data={quizData} />
+      ) : (
         <>
           <div className="flex flex-col items-center gap-4">
             <h1 className="text-2xl font-bold">Créer un quiz</h1>
@@ -203,8 +215,6 @@ const QuizTutorialEdit = forwardRef(({ getData, close }, ref) => {
             </div>
           ))}
         </>
-      ) : (
-        <Quiz data={quizData} />
       )}
     </div>
   );
