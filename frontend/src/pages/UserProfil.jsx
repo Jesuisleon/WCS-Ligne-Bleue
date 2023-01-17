@@ -6,20 +6,17 @@ import { AuthContext } from "../context/AuthContext";
 
 function UserProfil() {
   const navigate = useNavigate();
-  const { userFirstName, userLastName, userEmail, userToken } =
-    useContext(AuthContext);
+
   const { VITE_BACKEND_URL } = import.meta.env;
 
+  const { userInfos, userToken } = useContext(AuthContext);
+  const { userFirstName, userLastName, userEmail } = userInfos;
+  const email = userInfos.userEmail;
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const [errorBadPassword, setErrorBadPassword] = useState("");
   const [errorText, setErrorText] = useState("");
-
-  // const handleClick = () => {
-  //   navigate("/userprofil/changepassword");
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +25,7 @@ function UserProfil() {
         `${VITE_BACKEND_URL}/changepassword`,
         {
           password,
-          // email,
+          email,
           newPassword,
         },
         {
@@ -48,10 +45,14 @@ function UserProfil() {
           throw new Error("la connection a échoué");
         }
         if (response) {
-          navigate("/userprofile");
+          navigate("/login");
         }
       });
   };
+
+  // const handleClick = () => {
+  //   navigate("/userprofil/changepassword");
+  // };
 
   const btn =
     password === "" || newPassword !== confirmPassword ? (
@@ -108,7 +109,7 @@ function UserProfil() {
                 />
                 <label
                   htmlFor="floating_password"
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-700 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   Mot de passe actuel
                 </label>
@@ -127,7 +128,7 @@ function UserProfil() {
                 />
                 <label
                   htmlFor="floating_password"
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-700 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   Nouveau mot de passe
                 </label>
@@ -145,7 +146,7 @@ function UserProfil() {
                 />
                 <label
                   htmlFor="floating_repeat_password"
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-700 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   Confirmer le mot de passe
                 </label>

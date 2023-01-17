@@ -5,12 +5,7 @@ import ErrorAlert from "@components/ErrorAlert";
 import { AuthContext } from "../context/AuthContext";
 
 function Login() {
-  const {
-    setUserTokenCookie,
-    setUserFirstName,
-    setUserLastName,
-    setUserEmail,
-  } = useContext(AuthContext);
+  const { setUserTokenCookie, setUserInfos } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
@@ -45,9 +40,12 @@ function Login() {
         }
         if (response.data.token) {
           setUserTokenCookie(response.data.token);
-          setUserFirstName(response.data.user.firstname);
-          setUserLastName(response.data.user.lastname);
-          setUserEmail(response.data.user.email);
+          setUserInfos({
+            userFirstName: response.data.user.firstname,
+            userLastName: response.data.user.lastname,
+            userEmail: response.data.user.email,
+            isAdmin: response.data.user.admin,
+          });
           navigate("/");
         }
       });
