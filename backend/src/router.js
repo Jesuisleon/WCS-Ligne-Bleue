@@ -27,7 +27,7 @@ router.get("/home", themeControllers.browse);
 router.post("/users", hashPassword, userControllers.add);
 router.get("/tutorials", tutorialControllers.browse);
 router.get("/tutorials/:id", tutorialControllers.read);
-router.get("/tutorialssearch", tutorialControllers.browseForSearch);
+router.get("/tutorials-search", tutorialControllers.browseForSearch);
 router.get("/hashtags", hashtagControllers.browse);
 
 router.post(
@@ -53,7 +53,7 @@ router.post(
 
 router.delete("/users/:id", userControllers.destroy);
 router.put("/tutorials/:id", tutorialControllers.edit);
-router.put("/tutorialsonline/:id", tutorialControllers.editOnline);
+router.put("/tutorials-published/:id", tutorialControllers.editOnline);
 router.post("/tutorials", tutorialControllers.add);
 router.delete("/tutorials/:id", tutorialControllers.destroy);
 
