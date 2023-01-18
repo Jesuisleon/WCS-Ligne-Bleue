@@ -37,15 +37,17 @@ export default function Tutorial() {
   };
 
   useEffect(() => {
-    axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
-      setThemeForIcon(response.data);
-    });
+    if (!data) {
+      axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
+        setThemeForIcon(response.data);
+      });
+    }
     if (data) {
       setCurrentThemeId(
         themeForIcon.filter((theme) => theme.id === data.theme_id)
       );
     }
-  }, [data, themeForIcon]);
+  }, [data]);
 
   return (
     <div>
