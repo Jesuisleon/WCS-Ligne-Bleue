@@ -20,12 +20,15 @@ const router = express.Router();
 const userControllers = require("./controllers/userControllers");
 const tutorialControllers = require("./controllers/tutorialControllers");
 const themeControllers = require("./controllers/themeControllers");
+const hashtagControllers = require("./controllers/hashtagControllers");
 
 // public routes
 router.get("/home", themeControllers.browse);
 router.post("/users", hashPassword, userControllers.add);
 router.get("/tutorials", tutorialControllers.browse);
 router.get("/tutorials/:id", tutorialControllers.read);
+router.get("/tutorialssearch", tutorialControllers.browseForSearch);
+router.get("/hashtags", hashtagControllers.browse);
 
 router.post(
   "/login",

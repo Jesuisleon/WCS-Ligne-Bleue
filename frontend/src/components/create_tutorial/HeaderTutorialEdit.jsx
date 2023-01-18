@@ -21,7 +21,7 @@ const HeaderTutorialEdit = forwardRef(
     useEffect(() => {
       // get themes from database
       axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
-        setThemes(response.data.map((e) => e.themeName));
+        setThemes(response.data.map((e) => e.name));
       });
       // get datas if already exists
       if (getData) {
