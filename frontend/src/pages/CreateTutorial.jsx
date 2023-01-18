@@ -124,7 +124,7 @@ function CreateTutorial() {
 
   const publishTutorial = (data) => {
     axios
-      .put(`${VITE_BACKEND_URL}/tutorialsonline/${tutorialId}`, data, {
+      .put(`${VITE_BACKEND_URL}/tutorials-published/${tutorialId}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -140,7 +140,7 @@ function CreateTutorial() {
 
   const publish = () => {
     const data = {
-      publised: !published,
+      published: !published,
     };
     if (!tutorialId) {
       alert("Veuillez enregistrer votre tutoriel avant de le publier");
