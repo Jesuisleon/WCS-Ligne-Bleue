@@ -109,7 +109,7 @@ function CreateTutorial() {
       theme: headerData.theme,
       step: JSON.stringify(stepData),
       author: "admin",
-      online: false,
+      published: false,
     };
     if (tutorialId) putTutorial(data);
     else postTutorial(data);
@@ -140,7 +140,7 @@ function CreateTutorial() {
 
   const publish = () => {
     const data = {
-      online: !published,
+      publised: !published,
     };
     if (!tutorialId) {
       alert("Veuillez enregistrer votre tutoriel avant de le publier");

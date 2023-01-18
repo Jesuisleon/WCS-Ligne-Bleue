@@ -5,10 +5,10 @@ import { HiCheckCircle } from "react-icons/hi";
 import axios from "axios";
 import { themeTutorialData } from "../data";
 
+const { VITE_BACKEND_URL } = import.meta.env;
 const { Link, useParams } = ReactRouter;
 
 export default function TutorialTheme() {
-  const { VITE_BACKEND_URL } = import.meta.env;
   const [data, setData] = useState();
   const { id } = useParams();
 
