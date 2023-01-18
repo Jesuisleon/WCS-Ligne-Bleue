@@ -73,6 +73,49 @@ const browse = (req, res) => {
     });
 };
 
+const browseForSearch = (req, res) => {
+  models.tutorial
+    .findAllTutorialsForSearch()
+    .then(([rows]) => {
+      const tuto = rows;
+      let promiseChain = Promise.resolve();
+      const modifiedTuto = tuto.map((element) => {
+        const newElement = { ...element };
+        promiseChain = promiseChain
+          .then(() => models.tuto_hashtag.findTutorialHashtag(newElement.id))
+          .then((results) => {
+            const resultsWithNewKey = results[0].map(
+              ({ hashtagId: oldKeyA, hashtagText: oldKeyB, ...others }) => ({
+                id: oldKeyA,
+                text: oldKeyB,
+                ...others,
+              })
+            );
+            newElement.hashtag = resultsWithNewKey.map(function f(obj) {
+              return obj;
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(500);
+          });
+        return newElement;
+      });
+      promiseChain
+        .then(() => {
+          res.send(modifiedTuto);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.tutorial
     .findTutorial(req.params.id)
@@ -217,6 +260,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseForSearch,
   read,
   edit,
   editOnline,
