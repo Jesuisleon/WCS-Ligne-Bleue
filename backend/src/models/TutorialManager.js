@@ -19,6 +19,12 @@ class TutorialManager extends AbstractManager {
     );
   }
 
+  findAllTutorialsForSearch() {
+    return this.connection.query(
+      `select tutorial.id,tutorial.theme_id, theme.name as theme, tutorial.title, tutorial.description, tutorial.online from ${this.table} inner join theme on theme.id = tutorial.theme_id`
+    );
+  }
+
   insert(tutorial) {
     return this.connection.query(
       `insert into ${this.table} (theme_id, difficulty, title, objective,description, step, author, online) values (?,?,?,?,?,?,?,?)`,
