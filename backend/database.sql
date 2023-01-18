@@ -1,4 +1,4 @@
--- Active: 1667382451940@@127.0.0.1@3306@mvc_express
+-- Active: 1667382451940@@127.0.0.1@3306@laposte
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
@@ -63,8 +63,8 @@ INSERT INTO
   tutorial (theme_id, difficulty, title, objective, description, step, author, online)
 
 VALUES
-  (2,'débutant', 'Step 1dsqddsq', 'lunedsqddsq', '<p>This is step 1dsqd</p>', '[{"step":1,"text":"Voici du contenu pour la main data","content":"<p>DSQDSQDdsqd</p>"}]{"step":"2","quiz":[{"id":1,"question":"Quelle est la capitale de la France?","answers":[{"id":1,"text":"Londres","correct":false},{"id":2,"text":"Paris","correct":false},{"id":3,"text":"Berlin","correct":true},{"id":4,"text":"New York","correct":false}]},{"id":2,"question":"Combien y a-t-il de jours dans une année?","answers":[{"id":1,"text":"365","correct":true},{"id":2,"text":"366","correct":false},{"id":3,"text":"364","correct":false},{"id":4,"text":"360","correct":false}]}]}', 'Michel', 1);
-
+  (2,'débutant', 'Step 1dsqddsq', 'lunedsqddsq', '<p>This is step 1dsqd</p>', '[{"step":1,"text":"Voici du contenu pour la main data","content":"<p>DSQDSQDdsqd</p>"}]{"step":"2","quiz":[{"id":1,"question":"Quelle est la capitale de la France?","answers":[{"id":1,"text":"Londres","correct":false},{"id":2,"text":"Paris","correct":false},{"id":3,"text":"Berlin","correct":true},{"id":4,"text":"New York","correct":false}]},{"id":2,"question":"Combien y a-t-il de jours dans une année?","answers":[{"id":1,"text":"365","correct":true},{"id":2,"text":"366","correct":false},{"id":3,"text":"364","correct":false},{"id":4,"text":"360","correct":false}]}]}', 'Michel', 1),
+  (6, '1', 'Mails', 'creer sa boite mail', '<p>TEST</p>', '[{"id":1,"type":"editor","content":"<p>je test le migrate</p>"}]', 'admin', 0);
 
 
 DROP TABLE IF EXISTS hashtag;
