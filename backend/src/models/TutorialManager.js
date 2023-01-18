@@ -5,7 +5,6 @@ class TutorialManager extends AbstractManager {
     super({ table: "tutorial" });
   }
 
-  // `select ${this.table}.id, ${this.table}.name, ${this.table}.idBrand, brand.name as brand from  ${this.table} join brand on brand.id=${this.table}.idBrand  where ${this.table}.id = ?`
   findTutorial(id) {
     return this.connection.query(
       `select id,theme_id, difficulty, title, objective,description, step, author, online,  creation_date, edition_date from  ${this.table} where id = ?`,
