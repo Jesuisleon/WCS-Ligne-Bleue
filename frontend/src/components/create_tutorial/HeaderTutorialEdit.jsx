@@ -16,6 +16,7 @@ const { VITE_BACKEND_URL } = import.meta.env;
 const HeaderTutorialEdit = forwardRef(
   ({ handleImageEditor, getData, preview }, ref) => {
     const [data, setData] = useState(null);
+
     const [themes, setThemes] = useState([]);
 
     useEffect(() => {
@@ -47,6 +48,9 @@ const HeaderTutorialEdit = forwardRef(
         }
         return false;
       },
+      handleData: () => {
+        return data;
+      },
     }));
 
     function handleInput(content, editor) {
@@ -70,7 +74,8 @@ const HeaderTutorialEdit = forwardRef(
           <div className="flex-col sm:flex-row flex items-center justify-around gap-4 mb-4 bg-white w-full  p-6">
             <SelectInput
               type="theme"
-              name="Théme"
+              name="Theme"
+              defaultValue={data ? data.theme : ""}
               optionValues={themes}
               handleInput={(e) => handleInput(e.target.value, { id: "theme" })}
               invalid={invalid.theme}
@@ -79,6 +84,7 @@ const HeaderTutorialEdit = forwardRef(
             <SelectInput
               type="difficulty"
               name="Niveau"
+              defaultValue={data ? data.difficulty : ""}
               optionValues={["Débutant", "Facile", "Novice"]}
               handleInput={(e) =>
                 handleInput(e.target.value, { id: "difficulty" })
@@ -87,7 +93,7 @@ const HeaderTutorialEdit = forwardRef(
               isSubmit={isSubmit}
             />
             <HashtagInput
-              defaultValue=""
+              defaultValue={data ? data.hashtag : ""}
               handleInput={(e) => handleInput(e, { id: "hashtag" })}
             />
           </div>
