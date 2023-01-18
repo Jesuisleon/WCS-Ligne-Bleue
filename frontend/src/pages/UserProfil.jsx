@@ -50,10 +50,6 @@ function UserProfil() {
       });
   };
 
-  // const handleClick = () => {
-  //   navigate("/userprofil/changepassword");
-  // };
-
   const btn =
     password === "" || newPassword !== confirmPassword ? (
       <button
@@ -82,11 +78,18 @@ function UserProfil() {
             src="/image/pigeon-voyageur.png"
             alt="img"
           />
-          <h5 className="mb-1 text-xl font-medium text-gray-700 dark:text-white">
-            {userFirstName} {userLastName}
+          <h1 className="mb-3 text-xl font-medium text-gray-700 dark:text-white">
+            {" "}
+            Mes informations personnelles:
+          </h1>
+          <h5 className="mb-1 text-sm font-medium text-gray-700 dark:text-white">
+            Prénom: {userFirstName}
           </h5>
-          <span className="text-sm text-gray-700 dark:text-gray-200 mb-6">
-            {userEmail}
+          <h5 className="mb-1 text-sm font-medium text-gray-700 dark:text-white">
+            Nom: {userLastName}
+          </h5>
+          <span className="text-sm text-gray-700 dark:text-gray-100 mb-6">
+            Adresse mail : {userEmail}
           </span>
 
           <h1 className="dark:text-white mt-4">
