@@ -103,7 +103,7 @@ function CreateTutorial() {
       objective: headerData.objective,
       description: headerData.description,
       difficulty: headerData.difficulty,
-      hashtag: JSON.stringify(headerData.hashtag),
+      hashtag: headerData.hashtag,
       theme: headerData.theme,
       step: JSON.stringify(stepData),
       author: "admin",
@@ -160,9 +160,9 @@ function CreateTutorial() {
         preview={preview}
       />
       {stepData.map((step, stepIndex) => {
-        return (
-          <div className="tutorial-step" key={step.id}>
-            {step.type === "editor" ? (
+        if (step.type === "editor") {
+          return (
+            <div className="tutorial-step" key={step.id}>
               <EditorTutorialEdit
                 ref={(ref) => {
                   childsRefs.current[stepIndex + 1] = ref;
@@ -171,7 +171,12 @@ function CreateTutorial() {
                 close={() => removeStep(stepIndex)}
                 previewAll={preview}
               />
-            ) : (
+            </div>
+          );
+        }
+        if (step.type === "quiz") {
+          return (
+            <div className="tutorial-step" key={step.id}>
               <QuizTutorialEdit
                 ref={(ref) => {
                   childsRefs.current[stepIndex + 1] = ref;
@@ -182,9 +187,10 @@ function CreateTutorial() {
                 close={() => removeStep(stepIndex)}
                 previewAll={preview}
               />
-            )}
-          </div>
-        );
+            </div>
+          );
+        }
+        return null;
       })}
       {preview === false && (
         <div className="flex gap-4 m-4 w-full">
@@ -201,6 +207,20 @@ function CreateTutorial() {
             onClick={() => setStep("quiz")}
           >
             <p>Nouveau Quiz</p>
+          </button>
+          <button
+            onClick={() => setStep("image")}
+            type="button"
+            className="black-button"
+          >
+            <p>Nouvelle image</p>
+          </button>
+          <button
+            onClick={() => setStep("video")}
+            type="button"
+            className="black-button"
+          >
+            <p>Nouvelle vidéo</p>
           </button>
         </div>
       )}
