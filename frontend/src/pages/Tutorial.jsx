@@ -17,7 +17,7 @@ export default function Tutorial() {
   //   }
   //   return []
   // }, [data, themeForIcon]);
-  // deuxieme solution si jamais soucis pour charger les icon (Lucas)
+  // deuxieme solution si jamais soucis pour charger les icon (Lucas) ps: fait pas attention à ca arthur ;)
 
   useEffect(() => {
     axios
