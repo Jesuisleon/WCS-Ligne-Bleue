@@ -7,26 +7,26 @@ class TutorialManager extends AbstractManager {
 
   findTutorial(id) {
     return this.connection.query(
-      `select id,theme_id, difficulty, title, objective,description, step, author, online,  creation_date, edition_date from  ${this.table} where id = ?`,
+      `select id,theme_id, difficulty, title, objective,description, step, author, published,  creation_date, edition_date from  ${this.table} where id = ?`,
       [id]
     );
   }
 
   findAllTutorials(where) {
     return this.connection.query(
-      `select id,theme_id, difficulty, title, objective,description, step, author, online,  creation_date, edition_date from  ${this.table}${where}`
+      `select id,theme_id, difficulty, title, objective,description, step, author, published,  creation_date, edition_date from  ${this.table}${where}`
     );
   }
 
   findAllTutorialsForSearch() {
     return this.connection.query(
-      `select tutorial.id,tutorial.theme_id, theme.name as theme, tutorial.title, tutorial.description, tutorial.online from ${this.table} inner join theme on theme.id = tutorial.theme_id`
+      `select tutorial.id,tutorial.theme_id, theme.name as theme, tutorial.title, tutorial.description, tutorial.published from ${this.table} inner join theme on theme.id = tutorial.theme_id`
     );
   }
 
   insert(tutorial) {
     return this.connection.query(
-      `insert into ${this.table} (theme_id, difficulty, title, objective,description, step, author, online) values (?,?,?,?,?,?,?,?)`,
+      `insert into ${this.table} (theme_id, difficulty, title, objective,description, step, author, published) values (?,?,?,?,?,?,?,?)`,
       [
         tutorial.theme,
         tutorial.difficulty,
@@ -35,14 +35,14 @@ class TutorialManager extends AbstractManager {
         tutorial.description,
         tutorial.step,
         tutorial.author,
-        tutorial.online,
+        tutorial.published,
       ]
     );
   }
 
   update(tutorial) {
     return this.connection.query(
-      `update ${this.table} set theme_id = ?, difficulty = ?, title = ?, objective = ?,description = ?, step = ?, author = ?, online = ?, edition_date = NOW() where id = ?`,
+      `update ${this.table} set theme_id = ?, difficulty = ?, title = ?, objective = ?,description = ?, step = ?, author = ?, published = ?, edition_date = NOW() where id = ?`,
       [
         tutorial.theme,
         tutorial.difficulty,
@@ -51,7 +51,7 @@ class TutorialManager extends AbstractManager {
         tutorial.description,
         tutorial.step,
         tutorial.author,
-        tutorial.online,
+        tutorial.published,
         tutorial.id,
       ]
     );
@@ -59,8 +59,8 @@ class TutorialManager extends AbstractManager {
 
   updateOnline(tutorial) {
     return this.connection.query(
-      `update ${this.table} set online = ?, edition_date = NOW() where id = ?`,
-      [tutorial.online, tutorial.id]
+      `update ${this.table} set published = ?, edition_date = NOW() where id = ?`,
+      [tutorial.published, tutorial.id]
     );
   }
 }
