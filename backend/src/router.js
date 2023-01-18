@@ -27,6 +27,7 @@ router.get("/home", themeControllers.browse);
 router.post("/users", hashPassword, userControllers.add);
 router.get("/tutorials", tutorialControllers.browse);
 router.get("/tutorials/:id", tutorialControllers.read);
+router.get("/tutorialssearch", tutorialControllers.browseForSearch);
 router.get("/hashtags", hashtagControllers.browse);
 
 router.post(

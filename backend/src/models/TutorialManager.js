@@ -5,7 +5,6 @@ class TutorialManager extends AbstractManager {
     super({ table: "tutorial" });
   }
 
-  // `select ${this.table}.id, ${this.table}.name, ${this.table}.idBrand, brand.name as brand from  ${this.table} join brand on brand.id=${this.table}.idBrand  where ${this.table}.id = ?`
   findTutorial(id) {
     return this.connection.query(
       `select id,theme_id, difficulty, title, objective,description, step, author, online,  creation_date, edition_date from  ${this.table} where id = ?`,
@@ -16,6 +15,12 @@ class TutorialManager extends AbstractManager {
   findAllTutorials(where) {
     return this.connection.query(
       `select id,theme_id, difficulty, title, objective,description, step, author, online,  creation_date, edition_date from  ${this.table}${where}`
+    );
+  }
+
+  findAllTutorialsForSearch() {
+    return this.connection.query(
+      `select tutorial.id,tutorial.theme_id, theme.name as theme, tutorial.title, tutorial.description, tutorial.online from ${this.table} inner join theme on theme.id = tutorial.theme_id`
     );
   }
 
