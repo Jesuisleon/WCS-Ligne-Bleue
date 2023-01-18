@@ -9,7 +9,6 @@ const { VITE_BACKEND_URL } = import.meta.env;
 
 function CreateTutorial() {
   const token = Cookies.get("userToken");
-
   const childsRefs = useRef([]);
 
   const [save, setSave] = useState(false);
@@ -104,7 +103,7 @@ function CreateTutorial() {
       objective: headerData.objective,
       description: headerData.description,
       difficulty: headerData.difficulty,
-      hashtag: JSON.stringify(headerData.hashtag),
+      hashtag: headerData.hashtag,
       theme: headerData.theme,
       step: JSON.stringify(stepData),
       author: "admin",
@@ -125,8 +124,11 @@ function CreateTutorial() {
     if (save) saveData();
   }, [save]);
 
+  const [preview, setPreview] = useState(false);
+
   useEffect(() => {
     setSave(false);
+    setPreview(false);
   }, []);
 
   return (
@@ -142,12 +144,20 @@ function CreateTutorial() {
         <button className="black-button" type="button">
           <p>Publier</p>
         </button>
+        <button
+          className="black-button"
+          type="button"
+          onClick={() => setPreview(!preview)}
+        >
+          <p>{preview ? "Edit" : "Preview"}</p>
+        </button>
       </div>
       <HeaderTutorialEdit
         ref={(ref) => {
           childsRefs.current[0] = ref;
         }}
         getData={headerData}
+        preview={preview}
       />
       {stepData.map((step, stepIndex) => {
         return (
@@ -159,6 +169,7 @@ function CreateTutorial() {
                 }}
                 data={stepData[stepIndex] ? stepData[stepIndex].content : ""}
                 close={() => removeStep(stepIndex)}
+                previewAll={preview}
               />
             ) : (
               <QuizTutorialEdit
@@ -169,27 +180,30 @@ function CreateTutorial() {
                   stepData[stepIndex] ? stepData[stepIndex].content : null
                 }
                 close={() => removeStep(stepIndex)}
+                previewAll={preview}
               />
             )}
           </div>
         );
       })}
-      <div className="flex gap-4 m-4 w-full">
-        <button
-          type="button"
-          className="black-button"
-          onClick={() => setStep("editor")}
-        >
-          <p>Nouvelle section</p>
-        </button>
-        <button
-          type="button"
-          className="black-button"
-          onClick={() => setStep("quiz")}
-        >
-          <p>Nouveau Quiz</p>
-        </button>
-      </div>
+      {preview === false && (
+        <div className="flex gap-4 m-4 w-full">
+          <button
+            type="button"
+            className="black-button"
+            onClick={() => setStep("editor")}
+          >
+            <p>Nouvelle section</p>
+          </button>
+          <button
+            type="button"
+            className="black-button"
+            onClick={() => setStep("quiz")}
+          >
+            <p>Nouveau Quiz</p>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
