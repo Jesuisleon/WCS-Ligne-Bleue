@@ -11,14 +11,6 @@ export default function Tutorial() {
   const [themeForIcon, setThemeForIcon] = useState([]);
   const [currentThemeId, setCurrentThemeId] = useState([]);
 
-  // const currentThemeId = useMemo(() => {
-  //   if(data){
-  //     return themeForIcon.filter((theme) => theme.id === data.theme_id);
-  //   }
-  //   return []
-  // }, [data, themeForIcon]);
-  // deuxieme solution si jamais soucis pour charger les icon (Lucas) ps: fait pas attention à ca arthur ;)
-
   useEffect(() => {
     axios
       .get(`${VITE_BACKEND_URL}/tutorials/${id}`)

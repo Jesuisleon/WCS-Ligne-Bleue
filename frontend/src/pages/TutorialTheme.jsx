@@ -23,7 +23,7 @@ export default function TutorialTheme() {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [userInfos.isAdmin]);
 
   const { theme } = useParams();
 
