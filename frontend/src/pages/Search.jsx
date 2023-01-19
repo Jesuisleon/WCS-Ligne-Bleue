@@ -10,7 +10,7 @@ export default function Search() {
 
   useEffect(() => {
     const { VITE_BACKEND_URL } = import.meta.env;
-    axios.get(`${VITE_BACKEND_URL}/tutorialssearch`).then((response) => {
+    axios.get(`${VITE_BACKEND_URL}/tutorials-search`).then((response) => {
       setTutorialInfos(response.data);
     });
   }, []);
