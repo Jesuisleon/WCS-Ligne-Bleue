@@ -13,7 +13,7 @@ function Quiz({ data }) {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg">
+    <div className="bg-white pb-6 rounded-lg">
       {data &&
         data.map((item, index) => (
           <Question
