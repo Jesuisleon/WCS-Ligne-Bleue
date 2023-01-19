@@ -13,6 +13,8 @@ function CreateTutorial() {
 
   const [save, setSave] = useState(false);
 
+  const [published, setPublished] = useState(false);
+
   const [tutorialId, setTutorialId] = useState(null);
 
   const [stepData, setStepData] = useState([]);
@@ -107,7 +109,7 @@ function CreateTutorial() {
       theme: headerData.theme,
       step: JSON.stringify(stepData),
       author: "admin",
-      online: false,
+      published: false,
     };
     if (tutorialId) putTutorial(data);
     else postTutorial(data);
@@ -118,6 +120,35 @@ function CreateTutorial() {
     setSave(true);
     getHeaderData();
     getStepData();
+  };
+
+  const publishTutorial = (data) => {
+    axios
+      .put(`${VITE_BACKEND_URL}/tutorials-published/${tutorialId}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        alert(`Votre tutoriel est ${published ? "hors ligne" : "en ligne"}`);
+        setPublished(!published);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const publish = () => {
+    const data = {
+      published: !published,
+    };
+    if (!tutorialId) {
+      alert("Veuillez enregistrer votre tutoriel avant de le publier");
+      return;
+    }
+    if (tutorialId) {
+      publishTutorial(data);
+    }
   };
 
   useEffect(() => {
@@ -141,8 +172,12 @@ function CreateTutorial() {
         >
           <p>Enregistrer</p>
         </button>
-        <button className="black-button" type="button">
-          <p>Publier</p>
+        <button
+          onClick={() => publish()}
+          className="black-button"
+          type="button"
+        >
+          <p>{published ? "Passer hors-ligne" : "Publier en ligne"}</p>
         </button>
         <button
           className="black-button"

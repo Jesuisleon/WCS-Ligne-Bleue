@@ -6,10 +6,10 @@ import axios from "axios";
 import { themeTutorialData } from "../data";
 import { AuthContext } from "../context/AuthContext";
 
+const { VITE_BACKEND_URL } = import.meta.env;
 const { Link, useParams } = ReactRouter;
 
 export default function TutorialTheme() {
-  const { VITE_BACKEND_URL } = import.meta.env;
   const [data, setData] = useState();
   const { id } = useParams();
   const { userInfos } = useContext(AuthContext);
@@ -23,7 +23,7 @@ export default function TutorialTheme() {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [userInfos.isAdmin]);
 
   const { theme } = useParams();
 

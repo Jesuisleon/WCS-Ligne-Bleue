@@ -2,16 +2,19 @@ import { useState, useEffect } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 
 export function HashtagInput({ handleInput, defaultValue }) {
+  function ToLettersOnLowerCase(str) {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-zA-Z0-9 ]/g, "")
+      .replace(/[0-9]/g, "")
+      .toLowerCase();
+  }
+
   const [hashtags, setHashtags] = useState([]);
   useEffect(() => {
     handleInput(hashtags);
   }, [hashtags]);
-
-  useEffect(() => {
-    if (defaultValue) {
-      setHashtags(defaultValue);
-    }
-  }, []);
 
   const [inputValue, setInputValue] = useState("");
 
@@ -34,6 +37,7 @@ export function HashtagInput({ handleInput, defaultValue }) {
 
   function handleValidateChange() {
     const newHashtag = inputValue.trim();
+
     if (newHashtag.length > 2 && !hashtags.includes(newHashtag)) {
       setHashtags([...hashtags, newHashtag]);
       setInputValue("");
@@ -41,15 +45,18 @@ export function HashtagInput({ handleInput, defaultValue }) {
   }
 
   function handleInputChange(event) {
-    setInputValue(event.target.value);
+    const { value } = event.target;
+    setInputValue(ToLettersOnLowerCase(value));
   }
 
   function handleKeyPress(event) {
     if (event.key === " " || event.key === "Enter") {
       const newHashtag = inputValue.trim();
+
       if (hashtags.includes(newHashtag)) {
         setCurrentIndex(hashtags.indexOf(newHashtag));
       }
+
       if (newHashtag.length > 2 && !hashtags.includes(newHashtag)) {
         setHashtags([...hashtags, newHashtag]);
         setInputValue("");
@@ -68,6 +75,12 @@ export function HashtagInput({ handleInput, defaultValue }) {
   function removeHashtagList() {
     setHashtags([]);
   }
+
+  useEffect(() => {
+    if (defaultValue) {
+      setHashtags(defaultValue);
+    }
+  }, []);
 
   return (
     <div className="flex flex-col items-start gap-2">
