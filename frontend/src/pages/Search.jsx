@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import SearchTutorial from "../services/searchFonction";
 
@@ -51,10 +52,12 @@ export default function Search() {
       <div>
         {searchResult &&
           searchResult.map((e) => (
-            <div key={e.id} className="mt-2">
-              <h1>{e.title}</h1>
-              <h2>{e.theme}</h2>
-            </div>
+            <Link key={e.id} to={`/tutorial/${e.id}`}>
+              <div key={e.id} className="mt-2">
+                <h1>{e.title}</h1>
+                <h2>{e.theme}</h2>
+              </div>
+            </Link>
           ))}
       </div>
     </div>
