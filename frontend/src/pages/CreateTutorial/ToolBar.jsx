@@ -22,13 +22,15 @@ export function ToolBar({
         <h1 className="uppercase font-bold">{type}</h1>
       </div>
       <div className="flex gap-4">
-        <button
-          onClick={() => setPreview()}
-          className="px-2 text-center w-20"
-          type="button"
-        >
-          <p>{preview ? "Edit" : "Preview"}</p>
-        </button>
+        {type !== "image" && (
+          <button
+            onClick={() => setPreview()}
+            className="px-2 text-center w-20"
+            type="button"
+          >
+            <p>{preview ? "Edit" : "Preview"}</p>
+          </button>
+        )}
         <div className="px-2 flex gap-2">
           <button
             disabled={stepIndex === 0}

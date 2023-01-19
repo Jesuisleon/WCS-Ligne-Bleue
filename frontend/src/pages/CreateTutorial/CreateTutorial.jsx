@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Header from "@pages/CreateTutorial/Header";
 import { ToolBar } from "@pages/CreateTutorial/ToolBar";
 import TextMaker from "@pages/CreateTutorial/TextMaker";
+import ImageMaker from "@pages/CreateTutorial/ImageMaker";
 import QuizMaker from "@pages/CreateTutorial/QuizMaker";
 
 import axios from "axios";
@@ -236,65 +237,97 @@ function CreateTutorial() {
       />
 
       {/* Steppers */}
-      {stepsData.map((step, stepIndex) => {
-        if (step.type === "text") {
-          return (
-            <div key={step.id}>
-              {preview === false && (
-                <ToolBar
-                  type={step.type}
-                  stepIndex={stepIndex}
-                  lastStepIndex={stepsData.length - 1}
-                  setPreview={() => setPreviewSingle(stepIndex)}
-                  preview={step.preview}
-                  moveStep={(direction) => {
-                    getStepsData();
-                    moveStep(stepIndex, direction);
+      <div className="mt-4 flex flex-col gap-4">
+        {stepsData.map((step, stepIndex) => {
+          if (step.type === "text") {
+            return (
+              <div key={step.id}>
+                {preview === false && (
+                  <ToolBar
+                    type={step.type}
+                    stepIndex={stepIndex}
+                    lastStepIndex={stepsData.length - 1}
+                    setPreview={() => setPreviewSingle(stepIndex)}
+                    preview={step.preview}
+                    moveStep={(direction) => {
+                      getStepsData();
+                      moveStep(stepIndex, direction);
+                    }}
+                    close={() => removeStep(stepIndex)}
+                  />
+                )}
+                <TextMaker
+                  ref={(ref) => {
+                    childsRefs.current[stepIndex + 1] = ref;
                   }}
-                  close={() => removeStep(stepIndex)}
-                />
-              )}
-              <TextMaker
-                ref={(ref) => {
-                  childsRefs.current[stepIndex + 1] = ref;
-                }}
-                data={stepsData[stepIndex] ? stepsData[stepIndex].content : ""}
-                preview={step.preview}
-              />
-            </div>
-          );
-        }
-        if (step.type === "quiz") {
-          return (
-            <div key={step.id}>
-              {preview === false && (
-                <ToolBar
-                  type={step.type}
-                  stepIndex={stepIndex}
-                  lastStepIndex={stepsData.length - 1}
-                  setPreview={() => setPreviewSingle(stepIndex)}
+                  data={
+                    stepsData[stepIndex] ? stepsData[stepIndex].content : ""
+                  }
                   preview={step.preview}
-                  moveStep={(direction) => {
-                    getStepsData();
-                    moveStep(stepIndex, direction);
-                  }}
-                  close={() => removeStep(stepIndex)}
                 />
-              )}
-              <QuizMaker
-                ref={(ref) => {
-                  childsRefs.current[stepIndex + 1] = ref;
-                }}
-                data={
-                  stepsData[stepIndex] ? stepsData[stepIndex].content : null
-                }
-                preview={step.preview}
-              />
-            </div>
-          );
-        }
-        return null;
-      })}
+              </div>
+            );
+          }
+          if (step.type === "image") {
+            return (
+              <div key={step.id}>
+                {preview === false && (
+                  <ToolBar
+                    type={step.type}
+                    stepIndex={stepIndex}
+                    lastStepIndex={stepsData.length - 1}
+                    preview={step.preview}
+                    moveStep={(direction) => {
+                      getStepsData();
+                      moveStep(stepIndex, direction);
+                    }}
+                    close={() => removeStep(stepIndex)}
+                  />
+                )}
+                <ImageMaker
+                  ref={(ref) => {
+                    childsRefs.current[stepIndex + 1] = ref;
+                  }}
+                  data={
+                    stepsData[stepIndex] ? stepsData[stepIndex].content : ""
+                  }
+                  previewAll={step.preview}
+                />
+              </div>
+            );
+          }
+          if (step.type === "quiz") {
+            return (
+              <div key={step.id}>
+                {preview === false && (
+                  <ToolBar
+                    type={step.type}
+                    stepIndex={stepIndex}
+                    lastStepIndex={stepsData.length - 1}
+                    setPreview={() => setPreviewSingle(stepIndex)}
+                    preview={step.preview}
+                    moveStep={(direction) => {
+                      getStepsData();
+                      moveStep(stepIndex, direction);
+                    }}
+                    close={() => removeStep(stepIndex)}
+                  />
+                )}
+                <QuizMaker
+                  ref={(ref) => {
+                    childsRefs.current[stepIndex + 1] = ref;
+                  }}
+                  data={
+                    stepsData[stepIndex] ? stepsData[stepIndex].content : null
+                  }
+                  preview={step.preview}
+                />
+              </div>
+            );
+          }
+          return null;
+        })}
+      </div>
 
       {/* Set new Stepper by type */}
       {preview === false && (
@@ -307,25 +340,26 @@ function CreateTutorial() {
             <p>Text</p>
           </button>
           <button
-            type="button"
-            className="black-button"
-            onClick={() => setStep("quiz")}
-          >
-            <p>Quiz</p>
-          </button>
-          <button
             onClick={() => setStep("image")}
             type="button"
             className="black-button"
           >
             <p>image</p>
           </button>
+
           <button
             onClick={() => setStep("video")}
             type="button"
             className="black-button"
           >
             <p>vidéo</p>
+          </button>
+          <button
+            type="button"
+            className="black-button"
+            onClick={() => setStep("quiz")}
+          >
+            <p>Quiz</p>
           </button>
         </div>
       )}
