@@ -1,17 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 
-import HeaderMaker from "@pages/CreateTutorial/HeaderMaker";
-import { ToolBar } from "@pages/CreateTutorial/ToolBar";
-import TextMaker from "@pages/CreateTutorial/TextMaker";
-import MediaMaker from "@pages/CreateTutorial/MediaMaker";
-import QuizMaker from "@pages/CreateTutorial/QuizMaker";
+import HeaderMaker from "@pages/TutorialMaker/HeaderMaker";
+import { ToolBar } from "@pages/TutorialMaker/ToolBar";
+import TextMaker from "@pages/TutorialMaker/TextMaker";
+import MediaMaker from "@pages/TutorialMaker/MediaMaker";
+import QuizMaker from "@pages/TutorialMaker/QuizMaker";
 
 import axios from "axios";
 import Cookies from "js-cookie";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
-function CreateTutorial() {
+function TutorialMaker() {
   const token = Cookies.get("userToken");
   const childsRefs = useRef([]);
 
@@ -125,7 +125,7 @@ function CreateTutorial() {
 
   const publishTutorial = (data) => {
     axios
-      .put(`${VITE_BACKEND_URL}/tutorials-online/${tutorialId}`, data, {
+      .put(`${VITE_BACKEND_URL}/tutorials-published/${tutorialId}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -377,4 +377,4 @@ function CreateTutorial() {
   );
 }
 
-export default CreateTutorial;
+export default TutorialMaker;
