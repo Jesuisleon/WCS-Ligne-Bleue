@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
-import Header from "@pages/CreateTutorial/Header";
+import HeaderMaker from "@pages/CreateTutorial/HeaderMaker";
 import { ToolBar } from "@pages/CreateTutorial/ToolBar";
 import TextMaker from "@pages/CreateTutorial/TextMaker";
 import ImageMaker from "@pages/CreateTutorial/ImageMaker";
@@ -228,7 +228,7 @@ function CreateTutorial() {
       </div>
 
       {/* Headers */}
-      <Header
+      <HeaderMaker
         ref={(ref) => {
           childsRefs.current[0] = ref;
         }}
@@ -270,7 +270,10 @@ function CreateTutorial() {
           }
           if (step.type === "image") {
             return (
-              <div key={step.id}>
+              <div
+                key={step.id}
+                className={step.content === "" ? "hidden" : ""}
+              >
                 {preview === false && (
                   <ToolBar
                     type={step.type}
@@ -291,6 +294,11 @@ function CreateTutorial() {
                   data={
                     stepsData[stepIndex] ? stepsData[stepIndex].content : ""
                   }
+                  setData={(data) => {
+                    const updatedStep = [...stepsData];
+                    updatedStep[stepIndex].content = data;
+                    setStepsData(updatedStep);
+                  }}
                   previewAll={step.preview}
                   close={() => removeStep(stepIndex)}
                 />

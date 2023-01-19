@@ -8,8 +8,11 @@ import React, {
 import { Editor } from "@tinymce/tinymce-react";
 import UploadImageEditor from "./UploadImageEditor";
 
-const TextMaker = forwardRef(({ data, previewAll, close }, ref) => {
+const TextMaker = forwardRef(({ data, setData, previewAll, close }, ref) => {
   const [content, setContent] = useState("");
+  useEffect(() => {
+    setData(content);
+  }, [content]);
 
   // ref
   const childRef = useRef(null);
