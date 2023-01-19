@@ -51,6 +51,19 @@ const TextMaker = forwardRef(({ data, preview }, ref) => {
         setContent(e);
       }}
       init={{
+        setup: (editor) => {
+          editor.ui.registry.addGroupToolbarButton("alignment", {
+            icon: "align-left",
+            tooltip: "Alignment",
+            items:
+              "alignleft aligncenter alignright alignjustify || outdent indent",
+          });
+          editor.ui.registry.addGroupToolbarButton("list", {
+            icon: "ordered-list",
+            tooltip: "List",
+            items: "numlist bullist",
+          });
+        },
         selector: "#theEditorForMainData",
         statusbar: false,
         toolbar_sticky: true,
@@ -58,49 +71,14 @@ const TextMaker = forwardRef(({ data, preview }, ref) => {
         autoresize_bottom_margin: 0,
         image_advtab: true,
         noneditable_class: "mceNonEditable",
-        toolbar_mode: "wrap",
-        contextmenu: "link image",
+        contextmenu: "link",
         content_style:
           "body { font-family:roboto ,sans-serif; font-size:16px }",
         plugins:
-          "autoresize preview searchreplace autolink save directionality visualblocks visualchars fullscreen image link media charmap nonbreaking advlist lists wordcount help charmap emoticons",
+          "autoresize searchreplace autolink save directionality visualblocks visualchars link charmap nonbreaking advlist lists wordcount help charmap emoticons",
         editimage_cors_hosts: ["picsum.photos"],
         toolbar:
-          "undo redo removeformat bold italic underline fontsize| forecolor backcolor emoticons insertfile image media link | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist |",
-        setup(editor) {
-          editor.ui.registry.addButton("closeButton", {
-            text: "Fermer",
-            icon: "cancel",
-            onAction: () => {
-              editor.windowManager.open({
-                title: "Fermer",
-                body: {
-                  type: "panel",
-                  items: [
-                    {
-                      type: "htmlpanel",
-                      html: "Voulez-vous vraiment fermer l'éditeur ?",
-                    },
-                  ],
-                },
-                buttons: [
-                  {
-                    type: "cancel",
-                    text: "Annuler",
-                  },
-                  {
-                    type: "submit",
-                    text: "Fermer",
-                    primary: true,
-                  },
-                ],
-                onSubmit: (api) => {
-                  api.close();
-                },
-              });
-            },
-          });
-        },
+          "undo redo removeformat | bold italic underline | link |fontsize | forecolor backcolor | emoticons | alignment | list |",
         images_upload_handler: UploadImageEditor,
       }}
     />
