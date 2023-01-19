@@ -1,51 +1,24 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import SearchTutorial from "../services/searchFonction";
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState("");
-
-  const tutorials = [
-    {
-      id: 1,
-      tutorialName: "Conecter son téléphone aux wi-fi",
-      hashtag: ["téléphone"],
-    },
-    {
-      id: 2,
-      tutorialName: "Utiliser son téléphone mobile",
-      hashtag: ["utiliser", "téléphone", "mobile"],
-    },
-    {
-      id: 3,
-      tutorialName: "Eteindre son ordinateur",
-      hashtag: ["eteindre", "ordinateur"],
-    },
-    {
-      id: 4,
-      tutorialName: "Eteindre son téléphone",
-      hashtag: ["eteindre", "téléphone"],
-    },
-    {
-      id: 5,
-      tutorialName: "Utiliser son ordinateur",
-      hashtag: ["utiliser", "ordinateur"],
-    },
-    {
-      id: 6,
-      tutorialName: "Utiliser sa tablette",
-      hashtag: ["utiliser", "tablette"],
-    },
-    {
-      id: 7,
-      tutorialName: "Eteindre sa tablette",
-      hashtag: ["eteindre", "tablette"],
-    },
-  ];
+  const [tutorialInfos, setTutorialInfos] = useState("");
 
   useEffect(() => {
-    const searchResulteArray = SearchTutorial(searchValue, tutorials);
-    setSearchResult(searchResulteArray);
+    const { VITE_BACKEND_URL } = import.meta.env;
+    axios.get(`${VITE_BACKEND_URL}/tutorialssearch`).then((response) => {
+      setTutorialInfos(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (tutorialInfos) {
+      const searchResulteArray = SearchTutorial(searchValue, tutorialInfos);
+      setSearchResult(searchResulteArray);
+    }
   }, [searchValue]);
 
   return (
@@ -75,13 +48,15 @@ export default function Search() {
           required
         />
       </div>
-      {searchResult &&
-        searchResult.map((e) => (
-          <div key={e.id} className="mt-2">
-            <h1>{e.tutorialName}</h1>
-            <h2>{e.hastag}</h2>
-          </div>
-        ))}
+      <div>
+        {searchResult &&
+          searchResult.map((e) => (
+            <div key={e.id} className="mt-2">
+              <h1>{e.title}</h1>
+              <h2>{e.theme}</h2>
+            </div>
+          ))}
+      </div>
     </div>
   );
 }

@@ -1,9 +1,31 @@
-const SearchTutorial = (searchPhrases, tutorialsToFind) => {
+const SearchTutorial = (searchPhrases, tuto) => {
   const search = searchPhrases;
   const searchToString = search.split(" ");
+  const searchValueRegexTrad = [];
+
+  function ToLettersOnLowerCase(str) {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-zA-Z0-9 ]/g, "")
+      .replace(/[0-9]/g, "")
+      .toLowerCase();
+  }
+
+  searchToString.forEach(function (element) {
+    const searchTradToRegex = ToLettersOnLowerCase(element);
+    searchValueRegexTrad.push(searchTradToRegex);
+  });
+
+  const tutorialsToFind = tuto.map((tutorial) => {
+    return {
+      ...tutorial,
+      hashtag: tutorial.hashtag.map((hashtag) => hashtag.text),
+    };
+  });
   const match1 = [];
 
-  searchToString.forEach(function (element, index) {
+  searchValueRegexTrad.forEach(function (element, index) {
     const matchElement = tutorialsToFind.filter((e) =>
       e.hashtag.includes(element)
     );
@@ -25,7 +47,6 @@ const SearchTutorial = (searchPhrases, tutorialsToFind) => {
   const sortedMatches = Object.values(duplicateIds).sort(
     (a, b) => b.count - a.count
   );
-  sortedMatches;
   return sortedMatches;
 };
 
