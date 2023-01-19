@@ -154,6 +154,7 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const tutorial = req.body;
+
   tutorial.id = parseInt(req.params.id, 10);
   if (req.body.admin !== 1) {
     res.sendStatus(403);

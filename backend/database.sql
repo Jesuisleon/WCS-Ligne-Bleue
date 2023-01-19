@@ -1,4 +1,4 @@
--- Active: 1667382451940@@127.0.0.1@3306@laposte
+-- Active: 1670837724115@@127.0.0.1@3306@laposte
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
@@ -53,14 +53,14 @@ CREATE TABLE tutorial (
     description varchar(1000) NOT NULL,
     step LONGTEXT NOT NULL,    
     author varchar(255) NOT NULL,
-    online BOOLEAN not NULL DEFAULT 0,
+    published BOOLEAN not NULL DEFAULT 0,
     creation_date DATETIME default NOW(),
     edition_date DATETIME default NOW(),
     FOREIGN KEY (theme_id) REFERENCES theme(id) ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 INSERT INTO
-  tutorial (theme_id, difficulty, title, objective, description, step, author, online)
+  tutorial (theme_id, difficulty, title, objective, description, step, author, published)
 
 VALUES
   (2, '1', 'test', 'migrate', '<p>test pour migrate</p>', '[{"id":1,"type":"editor","content":"<p>remplacmeent</p>"}]', 'admin', 0),
@@ -85,7 +85,9 @@ CREATE TABLE hashtag (
 
 INSERT INTO hashtag (text)
 VALUES
+
  ('phone'),('internet'),('login'),('telephone'),('chargeur'),('appareil'),('batterie'),('electrique'),('prise'),('chargement'),('charge'),('rechargement'),('recherche'),('navigateur'),('web'),('information'),('mail'),('email'),('adresse'),('boite'),('creer'),('creation'),('proteger'),('securite'),('fausse'),('proche'),('mots'),('cle'),('utiliser'),('itineraire'),('cheque'),('energie'),('etat'),('aide');
+
 
 DROP TABLE IF EXISTS tuto_hashtag;
 
@@ -97,7 +99,7 @@ CREATE TABLE tuto_hashtag (
 
 INSERT INTO tuto_hashtag (tutorial_id, hashtag_id)
 VALUES
- (1,1),(1,2);
+ (1,1),(1,2),(2,2),(2,7),(2,8),(3,15),(4,2),(4,13),(4,14),(5,5),(5,10),(5,11),(5,12),(5,9),(5,8),(5,7),(5,6);
 
 
 DROP TABLE IF EXISTS user_journey;
