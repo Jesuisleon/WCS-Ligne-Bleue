@@ -35,6 +35,7 @@ const UploadImageEditor = (blobInfo, progress) => {
         )
       );
     };
+
     const formData = new FormData();
     formData.append("image", blobInfo.blob(), blobInfo.filename());
     xhr.send(formData);

@@ -8,13 +8,10 @@ import React, {
 import { Editor } from "@tinymce/tinymce-react";
 import UploadImageEditor from "./UploadImageEditor";
 
-const TextMaker = forwardRef(({ data, previewAll }, ref) => {
-  const [preview, setPreview] = useState(false);
-  const [content, setContent] = useState();
-  useEffect(() => {
-    if (content) setPreview(true);
-  }, [content]);
+const TextMaker = forwardRef(({ data, previewAll, close }, ref) => {
+  const [content, setContent] = useState("");
 
+  // ref
   const childRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
@@ -23,8 +20,26 @@ const TextMaker = forwardRef(({ data, previewAll }, ref) => {
     },
   }));
 
+  const [preview, setPreview] = useState(false);
   useEffect(() => {
-    if (data) setContent(data);
+    if (preview && content === "") {
+      close();
+    }
+  }, [preview]);
+
+  const [dialogClose, setDialogClose] = useState(false);
+  useEffect(() => {
+    if (dialogClose) {
+      setPreview(true);
+    }
+  }, [dialogClose]);
+
+  // init data
+  useEffect(() => {
+    if (data) {
+      setContent(data);
+      setPreview(true);
+    }
   }, []);
 
   if (preview) {
@@ -49,11 +64,6 @@ const TextMaker = forwardRef(({ data, previewAll }, ref) => {
       }}
       init={{
         only_image_upload: true,
-        setup(editor) {
-          editor.on("init", function () {
-            editor.execCommand("mceImage");
-          });
-        },
         content_style: "body { text-align: center; }",
         selector: "#image-editor",
         statusbar: false,
@@ -64,6 +74,18 @@ const TextMaker = forwardRef(({ data, previewAll }, ref) => {
         plugins: "autoresize image",
         editimage_cors_hosts: ["picsum.photos"],
         images_upload_handler: UploadImageEditor,
+        setup(editor) {
+          editor.on("init", function () {
+            // when editor is open for the first time open the image dialog
+            editor.execCommand("mceImage");
+          });
+        },
+        init_instance_callback(editor) {
+          editor.on("ExecCommand", function () {
+            // when the image dialog is closed, set the uploadSuccess to true
+            setDialogClose(true);
+          });
+        },
       }}
     />
   );

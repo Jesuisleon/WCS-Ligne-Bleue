@@ -292,6 +292,7 @@ function CreateTutorial() {
                     stepsData[stepIndex] ? stepsData[stepIndex].content : ""
                   }
                   previewAll={step.preview}
+                  close={() => removeStep(stepIndex)}
                 />
               </div>
             );
