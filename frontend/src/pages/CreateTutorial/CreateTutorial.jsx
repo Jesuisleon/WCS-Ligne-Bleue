@@ -22,7 +22,6 @@ function CreateTutorial() {
 
   const [stepsData, setStepsData] = useState([]);
 
-
   const [headerData, setHeaderData] = useState({
     title: "",
     objective: "",
