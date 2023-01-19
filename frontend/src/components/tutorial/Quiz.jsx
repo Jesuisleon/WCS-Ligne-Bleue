@@ -13,21 +13,7 @@ function Quiz({ data }) {
   };
 
   return (
-<<<<<<< HEAD
     <div className="bg-white pb-6 rounded-lg">
-      {data.map((item, index) => (
-        <Question
-          key={item.id}
-          questionIndex={index}
-          currentQuestion={currentQuestion}
-          question={item.question}
-          answers={item.answers}
-          onValidate={(correct) => handleValidate(correct)}
-        />
-      ))}
-      {currentQuestion === data.length && (
-=======
-    <div className="bg-white p-4 rounded-lg">
       {data &&
         data.map((item, index) => (
           <Question
@@ -40,7 +26,6 @@ function Quiz({ data }) {
           />
         ))}
       {data && currentQuestion === data.length && (
->>>>>>> dev
         <div className="pt-2">
           <h2 className="text-xl font-bold w-fit">
             {`Vous avez trouvé ${score} réponse sur ${data.length}`}

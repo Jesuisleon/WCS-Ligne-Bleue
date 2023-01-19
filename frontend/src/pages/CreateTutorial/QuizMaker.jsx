@@ -54,28 +54,27 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
   };
 
   const updateIndex = (element) => {
-    element.map((item, index) => {
-      return item.id === index + 1;
+    const updatedIndex = element.map((item, index) => {
+      return { ...item, id: index + 1 };
     });
+    return updatedIndex;
   };
 
   const removeQuestion = (id) => {
     const updatedQuestion = content.filter((question) => question.id !== id);
-    updateIndex(updatedQuestion);
-    setContent(updatedQuestion);
+    setContent(updateIndex(updatedQuestion));
   };
 
   const removeAnswer = (questionId, answerId) => {
     const updatedAnswer = content[questionId - 1].answers.filter(
       (answer) => answer.id !== answerId
     );
-    updateIndex(updatedAnswer);
 
     const updatedQuestion = content.map((question) => {
       if (question.id === questionId) {
         return {
           ...question,
-          answers: updatedAnswer,
+          answers: updateIndex(updatedAnswer),
         };
       }
       return question;

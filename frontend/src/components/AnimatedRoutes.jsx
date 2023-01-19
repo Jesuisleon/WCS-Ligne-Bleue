@@ -14,7 +14,7 @@ import Search from "@pages/Search";
 import Tutorial from "@pages/Tutorial";
 import TutorialTheme from "@pages/TutorialTheme";
 import UserProfil from "@pages/UserProfil";
-import CreateTutorial from "@pages/CreateTutorial";
+import CreateTutorial from "@pages/CreateTutorial/CreateTutorial";
 import Register from "@pages/Register";
 import Header from "@components/Header";
 import ChangePassword from "@pages/ChangePassword";

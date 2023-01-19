@@ -18,7 +18,6 @@
   },
   "plugins": ["react", "import"],
   "rules": {
-    "no-param-reassign": "off",
     "no-alert": "off",
     "no-console": "off",
     "react/prop-types": "off",

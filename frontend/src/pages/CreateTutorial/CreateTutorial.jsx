@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 
-import Header from "@components/create_tutorial/Header";
-import { ToolBar } from "@components/create_tutorial/ToolBar";
-import TextMaker from "@components/create_tutorial/TextMaker";
-import QuizMaker from "@components/create_tutorial/QuizMaker";
+import Header from "@pages/CreateTutorial/Header";
+import { ToolBar } from "@pages/CreateTutorial/ToolBar";
+import TextMaker from "@pages/CreateTutorial/TextMaker";
+import QuizMaker from "@pages/CreateTutorial/QuizMaker";
 
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -21,6 +21,7 @@ function CreateTutorial() {
   const [tutorialId, setTutorialId] = useState(null);
 
   const [stepsData, setStepsData] = useState([]);
+
 
   const [headerData, setHeaderData] = useState({
     title: "",
@@ -43,9 +44,10 @@ function CreateTutorial() {
   };
 
   const updateIndex = (element) => {
-    return element.forEach((item, i) => {
-      item.id = i + 1;
+    const updatedIndex = element.map((item, index) => {
+      return { ...item, id: index + 1 };
     });
+    return updatedIndex;
   };
 
   const moveStep = (index, direction) => {
@@ -59,15 +61,14 @@ function CreateTutorial() {
       updatedStep[index] = updatedStep[index + 1];
       updatedStep[index + 1] = step;
     }
-    updateIndex(updatedStep);
-    setStepsData(updatedStep);
+
+    setStepsData(updateIndex(updatedStep));
   };
 
   const removeStep = (index) => {
     const updatedStep = [...stepsData];
     updatedStep.splice(index, 1);
-    updateIndex(updatedStep);
-    setStepsData(updatedStep);
+    setStepsData(updateIndex(updatedStep));
   };
 
   const getHeaderData = () => {
