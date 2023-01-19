@@ -22,7 +22,7 @@ export function ToolBar({
         <h1 className="uppercase font-bold">{type}</h1>
       </div>
       <div className="flex gap-4">
-        {type !== "image" && (
+        {type !== "image" && type !== "video" && (
           <button
             onClick={() => setPreview()}
             className="px-2 text-center w-20"

@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import HeaderMaker from "@pages/CreateTutorial/HeaderMaker";
 import { ToolBar } from "@pages/CreateTutorial/ToolBar";
 import TextMaker from "@pages/CreateTutorial/TextMaker";
-import ImageMaker from "@pages/CreateTutorial/ImageMaker";
+import MediaMaker from "@pages/CreateTutorial/MediaMaker";
 import QuizMaker from "@pages/CreateTutorial/QuizMaker";
 
 import axios from "axios";
@@ -268,7 +268,7 @@ function CreateTutorial() {
               </div>
             );
           }
-          if (step.type === "image") {
+          if (step.type === "image" || step.type === "video") {
             return (
               <div
                 key={step.id}
@@ -287,10 +287,11 @@ function CreateTutorial() {
                     close={() => removeStep(stepIndex)}
                   />
                 )}
-                <ImageMaker
+                <MediaMaker
                   ref={(ref) => {
                     childsRefs.current[stepIndex + 1] = ref;
                   }}
+                  type={step.type}
                   data={
                     stepsData[stepIndex] ? stepsData[stepIndex].content : ""
                   }
