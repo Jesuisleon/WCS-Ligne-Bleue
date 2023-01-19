@@ -13,7 +13,8 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
   const childRef = useRef([]);
   useImperativeHandle(ref, () => ({
     getData: () => {
-      return content;
+      if (content.length > 0) return content;
+      return null;
     },
     setData: () => {
       setContent(data);
