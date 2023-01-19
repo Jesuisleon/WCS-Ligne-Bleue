@@ -6,56 +6,41 @@ import React, {
   forwardRef,
 } from "react";
 import Quiz from "@components/tutorial/Quiz";
-import { HiOutlineTrash } from "react-icons/hi";
 
-const QuizTutorialEdit = forwardRef(({ getData, close, previewAll }, ref) => {
-  const [quizData, setQuizData] = useState([]);
+const QuizMaker = forwardRef(({ data, preview }, ref) => {
+  const [content, setContent] = useState([]);
 
   const childRef = useRef([]);
   useImperativeHandle(ref, () => ({
     getData: () => {
-      return quizData;
+      return content;
+    },
+    setData: () => {
+      setContent(data);
     },
   }));
 
-  const [preview, setPreview] = useState(false);
-
-  useEffect(() => {
-    if (previewAll) {
-      setPreview(true);
-    } else {
-      setPreview(false);
-    }
-  }, [previewAll]);
-
-  useEffect(() => {
-    if (getData) {
-      setQuizData(getData);
-    }
-    setPreview(false);
-  }, []);
-
   const setQuestion = () => {
     const question = {
-      id: quizData.length + 1,
+      id: content.length + 1,
       question: "",
       answers: [
         { id: 1, text: "", correct: false },
         { id: 2, text: "", correct: false },
       ],
     };
-    const newQuestion = [...quizData, question];
-    setQuizData(newQuestion);
+    const newQuestion = [...content, question];
+    setContent(newQuestion);
   };
 
   const setAnswer = (questionIndex) => {
     const answer = {
-      id: quizData[questionIndex].answers.length + 1,
+      id: content[questionIndex].answers.length + 1,
       text: "",
       correct: false,
     };
 
-    const newAnswer = quizData.map((question) => {
+    const newAnswer = content.map((question) => {
       if (question.id === questionIndex + 1) {
         return {
           ...question,
@@ -65,7 +50,7 @@ const QuizTutorialEdit = forwardRef(({ getData, close, previewAll }, ref) => {
       return question;
     });
 
-    setQuizData(newAnswer);
+    setContent(newAnswer);
   };
 
   const updateIndex = (element) => {
@@ -75,18 +60,18 @@ const QuizTutorialEdit = forwardRef(({ getData, close, previewAll }, ref) => {
   };
 
   const removeQuestion = (id) => {
-    const updatedQuestion = quizData.filter((question) => question.id !== id);
+    const updatedQuestion = content.filter((question) => question.id !== id);
     updateIndex(updatedQuestion);
-    setQuizData(updatedQuestion);
+    setContent(updatedQuestion);
   };
 
   const removeAnswer = (questionId, answerId) => {
-    const updatedAnswer = quizData[questionId - 1].answers.filter(
+    const updatedAnswer = content[questionId - 1].answers.filter(
       (answer) => answer.id !== answerId
     );
     updateIndex(updatedAnswer);
 
-    const updatedQuestion = quizData.map((question) => {
+    const updatedQuestion = content.map((question) => {
       if (question.id === questionId) {
         return {
           ...question,
@@ -95,12 +80,12 @@ const QuizTutorialEdit = forwardRef(({ getData, close, previewAll }, ref) => {
       }
       return question;
     });
-    setQuizData(updatedQuestion);
+    setContent(updatedQuestion);
   };
 
   const handleChange = (element) => {
     const { value, id, name } = element.target;
-    const updatedQuestion = [...quizData];
+    const updatedQuestion = [...content];
     const answerIndex = name.split(":")[1];
 
     if (element.target.name.includes("question")) {
@@ -112,45 +97,25 @@ const QuizTutorialEdit = forwardRef(({ getData, close, previewAll }, ref) => {
         !updatedQuestion[id].answers[answerIndex].correct;
     }
 
-    setQuizData(updatedQuestion);
+    setContent(updatedQuestion);
   };
 
-  return (
-    <div ref={childRef} className="p-4 relative w-full">
-      {previewAll === false && (
-        <div className="flex justify-between ">
-          <button type="button" className="text-xl font-bold" onClick={close}>
-            <HiOutlineTrash color="red" />
-          </button>
-          <button
-            type="button"
-            className=""
-            onClick={() => setPreview(!preview)}
-          >
-            {preview ? "Editer" : "Voir"}
-          </button>
-        </div>
-      )}
+  useEffect(() => {
+    if (data) {
+      setContent(data);
+    }
+  }, [data]);
 
+  return (
+    <div ref={childRef} className="bg-white py-4 px-8">
       {preview ? (
-        <Quiz data={quizData} />
+        <Quiz data={content} />
       ) : (
         <>
-          <div className="flex flex-col items-center gap-4">
-            <h1 className="text-2xl font-bold">Créer un quiz</h1>
-            <button
-              type="button"
-              className="bg-green-500 text-white font-bold py-2 px-4 rounded"
-              onClick={setQuestion}
-            >
-              Ajouter une question
-            </button>
-          </div>
-
-          {quizData.map((question, questionIndex) => (
+          {content.map((question, questionIndex) => (
             <div
               key={question.id}
-              className="flex flex-col items-start gap-4 mb-4"
+              className="flex flex-col items-start gap-4 mb-4 pt-4"
             >
               <div className="border-b-[1px] flex gap-4 items-center w-full">
                 <button
@@ -221,10 +186,19 @@ const QuizTutorialEdit = forwardRef(({ getData, close, previewAll }, ref) => {
               </button>
             </div>
           ))}
+          <div className="flex flex-col items-center">
+            <button
+              type="button"
+              className="bg-green-500 text-white font-bold py-2 px-4 rounded"
+              onClick={setQuestion}
+            >
+              Ajouter une question
+            </button>
+          </div>
         </>
       )}
     </div>
   );
 });
 
-export default QuizTutorialEdit;
+export default QuizMaker;

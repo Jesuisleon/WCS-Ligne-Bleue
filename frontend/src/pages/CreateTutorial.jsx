@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import QuizTutorialEdit from "@components/create_tutorial/QuizTutorialEdit";
-import HeaderTutorialEdit from "@components/create_tutorial/HeaderTutorialEdit";
-import EditorTutorialEdit from "@components/create_tutorial/EditorTutorialEdit";
+
+import Header from "@components/create_tutorial/Header";
+import { ToolBar } from "@components/create_tutorial/ToolBar";
+import TextMaker from "@components/create_tutorial/TextMaker";
+import QuizMaker from "@components/create_tutorial/QuizMaker";
+
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -17,7 +20,7 @@ function CreateTutorial() {
 
   const [tutorialId, setTutorialId] = useState(null);
 
-  const [stepData, setStepData] = useState([]);
+  const [stepsData, setStepsData] = useState([]);
 
   const [headerData, setHeaderData] = useState({
     title: "",
@@ -29,22 +32,42 @@ function CreateTutorial() {
   });
 
   const setStep = (type) => {
-    const step = { id: stepData.length + 1, type, content: null };
-    const updatedStep = [...stepData, step];
-    setStepData(updatedStep);
+    const step = {
+      id: stepsData.length + 1,
+      type,
+      content: null,
+      preview: false,
+    };
+    const updatedStep = [...stepsData, step];
+    setStepsData(updatedStep);
   };
 
   const updateIndex = (element) => {
-    element.map((item, index) => {
-      return item.id === index + 1;
+    return element.forEach((item, i) => {
+      item.id = i + 1;
     });
   };
 
+  const moveStep = (index, direction) => {
+    const updatedStep = [...stepsData];
+    const step = updatedStep[index];
+    if (direction === "up") {
+      updatedStep[index] = updatedStep[index - 1];
+      updatedStep[index - 1] = step;
+    }
+    if (direction === "down") {
+      updatedStep[index] = updatedStep[index + 1];
+      updatedStep[index + 1] = step;
+    }
+    updateIndex(updatedStep);
+    setStepsData(updatedStep);
+  };
+
   const removeStep = (index) => {
-    const updatedStep = [...stepData];
+    const updatedStep = [...stepsData];
     updatedStep.splice(index, 1);
     updateIndex(updatedStep);
-    setStepData(updatedStep);
+    setStepsData(updatedStep);
   };
 
   const getHeaderData = () => {
@@ -57,14 +80,14 @@ function CreateTutorial() {
     setHeaderData(updatedData);
   };
 
-  const getStepData = () => {
-    const updatedStep = [...stepData];
+  const getStepsData = () => {
+    const updatedStep = [...stepsData];
     childsRefs.current.forEach((child, index) => {
       // bypass the header component childRef
       if (index === 0) return;
       // update the stepData with the childRef data
       updatedStep[index - 1].content = child.getData();
-      setStepData(updatedStep);
+      setStepsData(updatedStep);
     });
   };
 
@@ -99,32 +122,9 @@ function CreateTutorial() {
       });
   };
 
-  const saveData = () => {
-    const data = {
-      title: headerData.title,
-      objective: headerData.objective,
-      description: headerData.description,
-      difficulty: headerData.difficulty,
-      hashtag: headerData.hashtag,
-      theme: headerData.theme,
-      step: JSON.stringify(stepData),
-      author: "admin",
-      published: false,
-    };
-    if (tutorialId) putTutorial(data);
-    else postTutorial(data);
-    setSave(false);
-  };
-
-  const getData = () => {
-    setSave(true);
-    getHeaderData();
-    getStepData();
-  };
-
   const publishTutorial = (data) => {
     axios
-      .put(`${VITE_BACKEND_URL}/tutorialsonline/${tutorialId}`, data, {
+      .put(`${VITE_BACKEND_URL}/tutorials-online/${tutorialId}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -138,9 +138,26 @@ function CreateTutorial() {
       });
   };
 
+  const saveData = () => {
+    const data = {
+      title: headerData.title,
+      objective: headerData.objective,
+      description: headerData.description,
+      difficulty: headerData.difficulty,
+      hashtag: headerData.hashtag,
+      theme: headerData.theme,
+      step: JSON.stringify(stepsData),
+      author: "admin",
+      published: false,
+    };
+    if (tutorialId) putTutorial(data);
+    else postTutorial(data);
+    setSave(false);
+  };
+
   const publish = () => {
     const data = {
-      publised: !published,
+      published: !published,
     };
     if (!tutorialId) {
       alert("Veuillez enregistrer votre tutoriel avant de le publier");
@@ -157,6 +174,20 @@ function CreateTutorial() {
 
   const [preview, setPreview] = useState(false);
 
+  const setPreviewSingle = (index) => {
+    const updatedStep = [...stepsData];
+    updatedStep[index].preview = !updatedStep[index].preview;
+    setStepsData(updatedStep);
+  };
+
+  const setPreviewAll = () => {
+    const updatedStep = stepsData.map((step) => {
+      return { ...step, preview: !preview };
+    });
+    setPreview(!preview);
+    setStepsData(updatedStep);
+  };
+
   useEffect(() => {
     setSave(false);
     setPreview(false);
@@ -164,11 +195,16 @@ function CreateTutorial() {
 
   return (
     <div className="p-4 h-full w-full">
+      {/* admin dashboard */}
       <div className="absolute z-30 top-[2.9em] sm:top-[6.2em] flex justify-end gap-4 ">
         <button
           className="black-button"
           type="button"
-          onClick={() => getData()}
+          onClick={() => {
+            getStepsData();
+            getHeaderData();
+            setSave(true);
+          }}
         >
           <p>Enregistrer</p>
         </button>
@@ -182,80 +218,114 @@ function CreateTutorial() {
         <button
           className="black-button"
           type="button"
-          onClick={() => setPreview(!preview)}
+          onClick={() => {
+            setPreviewAll();
+          }}
         >
           <p>{preview ? "Edit" : "Preview"}</p>
         </button>
       </div>
-      <HeaderTutorialEdit
+
+      {/* Headers */}
+      <Header
         ref={(ref) => {
           childsRefs.current[0] = ref;
         }}
         getData={headerData}
         preview={preview}
       />
-      {stepData.map((step, stepIndex) => {
-        if (step.type === "editor") {
+
+      {/* Steppers */}
+      {stepsData.map((step, stepIndex) => {
+        if (step.type === "text") {
           return (
-            <div className="tutorial-step" key={step.id}>
-              <EditorTutorialEdit
+            <div key={step.id}>
+              {preview === false && (
+                <ToolBar
+                  type={step.type}
+                  stepIndex={stepIndex}
+                  lastStepIndex={stepsData.length - 1}
+                  setPreview={() => setPreviewSingle(stepIndex)}
+                  preview={step.preview}
+                  moveStep={(direction) => {
+                    getStepsData();
+                    moveStep(stepIndex, direction);
+                  }}
+                  close={() => removeStep(stepIndex)}
+                />
+              )}
+              <TextMaker
                 ref={(ref) => {
                   childsRefs.current[stepIndex + 1] = ref;
                 }}
-                data={stepData[stepIndex] ? stepData[stepIndex].content : ""}
-                close={() => removeStep(stepIndex)}
-                previewAll={preview}
+                data={stepsData[stepIndex] ? stepsData[stepIndex].content : ""}
+                preview={step.preview}
               />
             </div>
           );
         }
         if (step.type === "quiz") {
           return (
-            <div className="tutorial-step" key={step.id}>
-              <QuizTutorialEdit
+            <div key={step.id}>
+              {preview === false && (
+                <ToolBar
+                  type={step.type}
+                  stepIndex={stepIndex}
+                  lastStepIndex={stepsData.length - 1}
+                  setPreview={() => setPreviewSingle(stepIndex)}
+                  preview={step.preview}
+                  moveStep={(direction) => {
+                    getStepsData();
+                    moveStep(stepIndex, direction);
+                  }}
+                  close={() => removeStep(stepIndex)}
+                />
+              )}
+              <QuizMaker
                 ref={(ref) => {
                   childsRefs.current[stepIndex + 1] = ref;
                 }}
-                getData={
-                  stepData[stepIndex] ? stepData[stepIndex].content : null
+                data={
+                  stepsData[stepIndex] ? stepsData[stepIndex].content : null
                 }
-                close={() => removeStep(stepIndex)}
-                previewAll={preview}
+                preview={step.preview}
               />
             </div>
           );
         }
         return null;
       })}
+
+      {/* Set new Stepper by type */}
       {preview === false && (
-        <div className="flex gap-4 m-4 w-full">
+        <div className="flex justify-center gap-4 m-4 w-full">
           <button
             type="button"
             className="black-button"
-            onClick={() => setStep("editor")}
+            onClick={() => setStep("text")}
           >
-            <p>Nouvelle section</p>
+            <p>Text</p>
           </button>
           <button
             type="button"
             className="black-button"
             onClick={() => setStep("quiz")}
           >
-            <p>Nouveau Quiz</p>
+            <p>Quiz</p>
           </button>
           <button
             onClick={() => setStep("image")}
             type="button"
             className="black-button"
           >
-            <p>Nouvelle image</p>
+            <p>image</p>
           </button>
           <button
             onClick={() => setStep("video")}
             type="button"
             className="black-button"
           >
-            <p>Nouvelle vidéo</p>
+            <p>vidéo</p>
           </button>
         </div>
       )}

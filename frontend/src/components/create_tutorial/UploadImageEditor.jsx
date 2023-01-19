@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
-const handleImageEditor = (blobInfo, progress) => {
+const UploadImageEditor = (blobInfo, progress) => {
   const token = Cookies.get("userToken");
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -41,4 +41,4 @@ const handleImageEditor = (blobInfo, progress) => {
   });
 };
 
-export default handleImageEditor;
+export default UploadImageEditor;
