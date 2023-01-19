@@ -7,8 +7,17 @@ const { VITE_BACKEND_URL } = import.meta.env;
 
 export default function Tutorial() {
   const { id } = useParams();
-
   const [data, setData] = useState();
+  const [themeForIcon, setThemeForIcon] = useState([]);
+  const [currentThemeId, setCurrentThemeId] = useState([]);
+
+  // const currentThemeId = useMemo(() => {
+  //   if(data){
+  //     return themeForIcon.filter((theme) => theme.id === data.theme_id);
+  //   }
+  //   return []
+  // }, [data, themeForIcon]);
+  // deuxieme solution si jamais soucis pour charger les icon (Lucas) ps: fait pas attention à ca arthur ;)
 
   useEffect(() => {
     axios
@@ -27,13 +36,32 @@ export default function Tutorial() {
     return { __html: content };
   };
 
+  useEffect(() => {
+    if (!data) {
+      axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
+        setThemeForIcon(response.data);
+      });
+    }
+    if (data) {
+      setCurrentThemeId(
+        themeForIcon.filter((theme) => theme.id === data.theme_id)
+      );
+    }
+  }, [data]);
+
   return (
-    <>
+    <div>
       <div className="flex flex-col justify-center items-start mx-2" />
       <div className="tutorial-header">
-        <div className="tutorial-h-1">
-          <img src="https://via.placeholder.com/150" alt="logo" />
-        </div>
+        {currentThemeId.map((dataTheme) => (
+          <div
+            key={dataTheme.id}
+            to={`/theme/${dataTheme.id}`}
+            className="tutorial-h-1"
+          >
+            <img src={dataTheme.icon} alt={dataTheme.themeName} />
+          </div>
+        ))}
         <div className="tutorial-h-2">
           <h1 className="h1-font">{data && data.title}</h1>
           <h2 className="h2-font">{data && data.objective}</h2>
@@ -60,6 +88,6 @@ export default function Tutorial() {
             </div>
           ))}
       </div>
-    </>
+    </div>
   );
 }

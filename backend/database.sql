@@ -1,3 +1,4 @@
+-- Active: 1667382451940@@127.0.0.1@3306@mvc_express
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
@@ -52,16 +53,17 @@ CREATE TABLE tutorial (
     description varchar(1000) NOT NULL,
     step LONGTEXT NOT NULL,    
     author varchar(255) NOT NULL,
-    online BOOLEAN not NULL DEFAULT 0,
+    published BOOLEAN not NULL DEFAULT 0,
     creation_date DATETIME default NOW(),
     edition_date DATETIME default NOW(),
     FOREIGN KEY (theme_id) REFERENCES theme(id) ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 INSERT INTO
-  tutorial (theme_id, difficulty, title, objective, description,step,author,online)
+  tutorial (theme_id, difficulty, title, objective, description,step,author,published)
 VALUES
-  (2,'débutant', 'Step 1dsqddsq', 'lunedsqddsq','<p>This is step 1dsqd</p>','[{"step":1,"text":"Voici du contenu pour la main data","content":"<p>DSQDSQDdsqd</p>"}]{"step":"2","quiz":[{"id":1,"question":"Quelle est la capitale de la France?","answers":[{"id":1,"text":"Londres","correct":false},{"id":2,"text":"Paris","correct":false},{"id":3,"text":"Berlin","correct":true},{"id":4,"text":"New York","correct":false}]},{"id":2,"question":"Combien y a-t-il de jours dans une année?","answers":[{"id":1,"text":"365","correct":true},{"id":2,"text":"366","correct":false},{"id":3,"text":"364","correct":false},{"id":4,"text":"360","correct":false}]}]}','Michel',1);
+  (2,'1', 'naviguer sur l écran', 'naviguer sur l écran','<p>naviguer sur l écran avec le doigt</p>','[{"id":1,"type":"editor","content":"<p>naviguer sur l écran avec le doigt</p>"},{"id":2,"type":"image","content":null}]','Michel',1),
+  (1,'1', 'naviguer sur l écran avec le doigt', 'naviguer sur l écran avec le doigt','<p>naviguer sur l écran avec le doigt</p>','[{"id":1,"type":"editor","content":"<p>naviguer sur l écran avec le doigt</p>"},{"id":2,"type":"image","content":null}]','Admin',1);
 
 
 DROP TABLE IF EXISTS hashtag;
@@ -73,7 +75,7 @@ CREATE TABLE hashtag (
 
 INSERT INTO hashtag (text)
 VALUES
- ('phone'),('internet'),('login');
+ ('phone'),('internet'),('login'),('touch'),('zoom'),('telephone'),('reseau'),('wifi');
 
 DROP TABLE IF EXISTS tuto_hashtag;
 
@@ -85,7 +87,7 @@ CREATE TABLE tuto_hashtag (
 
 INSERT INTO tuto_hashtag (tutorial_id, hashtag_id)
 VALUES
- (1,1),(1,2);
+ (1,1),(1,2),(2,2),(2,7),(2,8);
 
 
 DROP TABLE IF EXISTS user_journey;
