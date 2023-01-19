@@ -10,6 +10,11 @@ export default function Tutorial() {
   const [theme, setTheme] = useState([]);
 
   const [data, setData] = useState();
+  useEffect(() => {
+    if (data) {
+      document.title = data.title;
+    }
+  }, [data]);
 
   const getThemeIcon = () => {
     axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
@@ -45,11 +50,15 @@ export default function Tutorial() {
     return { __html: content };
   };
 
+  if (data === undefined) return <div>Loading...</div>;
+
   return (
     <div>
       <div className="flex flex-col justify-center items-start mx-2" />
       <div className="tutorial-header">
-        {theme.length !== 0 && <img src={theme[0].icon} alt={theme[0].name} />}
+        {theme.length !== 0 && (
+          <img className="h-20 ml-10" src={theme[0].icon} alt={theme[0].name} />
+        )}
         <div className="tutorial-h-2">
           <h1 className="h1-font">{data && data.title}</h1>
           <h2 className="h2-font">{data && data.objective}</h2>
@@ -61,21 +70,20 @@ export default function Tutorial() {
           )}
         </div>
       </div>
-
-      <div>
-        {data &&
-          data.step.map((step) => (
+      {data.step.map((step) => {
+        if (step.type === "quiz") {
+          return (
             <div key={step.id} className="tutorial-step">
-              {step.type === "editor" ? (
-                <div key={step.id}>
-                  <div dangerouslySetInnerHTML={createMarkup(step.content)} />
-                </div>
-              ) : (
-                <Quiz key={step.id} data={step.content} />
-              )}
+              <Quiz key={step.id} data={step.content} />
             </div>
-          ))}
-      </div>
+          );
+        }
+        return (
+          <div key={step.id} className="tutorial-step">
+            <div dangerouslySetInnerHTML={createMarkup(step.content)} />
+          </div>
+        );
+      })}
     </div>
   );
 }
