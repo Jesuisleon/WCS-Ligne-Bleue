@@ -14,17 +14,18 @@ function Quiz({ data }) {
 
   return (
     <div className="bg-white p-4 rounded-lg">
-      {data.map((item, index) => (
-        <Question
-          key={item.id}
-          questionIndex={index}
-          currentQuestion={currentQuestion}
-          question={item.question}
-          answers={item.answers}
-          onValidate={(correct) => handleValidate(correct)}
-        />
-      ))}
-      {currentQuestion === data.length && (
+      {data &&
+        data.map((item, index) => (
+          <Question
+            key={item.id}
+            questionIndex={index}
+            currentQuestion={currentQuestion}
+            question={item.question}
+            answers={item.answers}
+            onValidate={(correct) => handleValidate(correct)}
+          />
+        ))}
+      {data && currentQuestion === data.length && (
         <div className="pt-2">
           <h2 className="text-xl font-bold w-fit">
             {`Vous avez trouvé ${score} réponse sur ${data.length}`}
@@ -42,13 +43,27 @@ function Question({
   answers,
   onValidate,
 }) {
+  const correctAnswers = answers.filter((answer) => answer.correct);
+  const isMultipleCorrect = correctAnswers.length > 1;
+
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [isCorrect, setIsCorrect] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showAnswers, setShowAnswers] = useState(false);
 
   const handleChange = (event) => {
-    setSelectedAnswer(event.target.value);
+    if (!isMultipleCorrect) {
+      setSelectedAnswer(event.target.value);
+      return;
+    }
+    if (isMultipleCorrect) {
+      const { id } = event.target;
+      if (selectedAnswer.includes(id)) {
+        setSelectedAnswer(selectedAnswer.replace(`${id},`, ""));
+        return;
+      }
+      setSelectedAnswer(`${selectedAnswer}${id},`);
+    }
   };
 
   const handleValidate = () => {
@@ -57,7 +72,23 @@ function Question({
     }
     if (!isSubmitted) {
       setIsSubmitted(true);
-      setIsCorrect(selectedAnswer === "correct");
+      if (!isMultipleCorrect) {
+        setIsCorrect(selectedAnswer === "correct");
+      } else if (isMultipleCorrect) {
+        const selectedAnswers = selectedAnswer
+          .split(",")
+          .filter((answer) => answer)
+          .map((answer) => parseInt(answer, 10));
+        const correctAnswersIds = correctAnswers.map((answer) => answer.id);
+        const selectedAnswersIds = selectedAnswers.map((answer) => answer);
+
+        const validate =
+          correctAnswersIds.length === selectedAnswersIds.length &&
+          correctAnswersIds.every((answer) =>
+            selectedAnswersIds.includes(answer)
+          );
+        setIsCorrect(validate);
+      }
     }
     if (isSubmitted) {
       onValidate(isCorrect);
@@ -109,19 +140,19 @@ function Question({
             : "max-h-fit"
         }`}
         >
-          {answers.map((answer, index) => (
+          {answers.map((answer, answerIndex) => (
             <div key={answer.id} className="mt-2 mx-4">
               <input
-                type="radio"
+                type={isMultipleCorrect ? "checkbox" : "radio"}
                 name={`question-${questionIndex}`}
-                id={`question-${questionIndex}-answer-${index}`}
+                id={`${answerIndex + 1}`}
                 disabled={isSubmitted}
                 value={answer.correct ? "correct" : "incorrect"}
-                onChange={(response) => handleChange(response)}
+                onChange={(e) => handleChange(e)}
               />
 
               <label
-                htmlFor={`question-${questionIndex}-answer-${index}`}
+                htmlFor={`${answerIndex + 1}`}
                 className={`ml-2 ${
                   isSubmitted &&
                   answer.correct &&

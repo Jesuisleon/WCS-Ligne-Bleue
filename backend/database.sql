@@ -53,7 +53,7 @@ CREATE TABLE tutorial (
     description varchar(1000) NOT NULL,
     step LONGTEXT NOT NULL,    
     author varchar(255) NOT NULL,
-    online BOOLEAN not NULL DEFAULT 0,
+    published BOOLEAN not NULL DEFAULT 0,
     creation_date DATETIME default NOW(),
     edition_date DATETIME default NOW(),
     FOREIGN KEY (theme_id) REFERENCES theme(id) ON DELETE CASCADE
@@ -70,6 +70,8 @@ VALUES
   (2, '1', 'Charger un appareil', 'reussir a mettre un appareil en charge', '<h1 class="fr-view">Introduction</h1>', '[{"id":1,"type":"editor","content":"<p style=\\"text-align: center;\\"><strong>Les tablettes et smartphone fonctionnent avec une batterie...</strong><br><strong>Ce qui n&eacute;cessite de les charger r&eacute;guli&egrave;rement avec le courant electrique.</strong></p>"},{"id":2,"type":"editor","content":"<p><img style=\\"display: block; margin-left: auto; margin-right: auto;\\" src=\\"http://localhost:5000/images/cef604b2-4fd4-4a05-8555-1177793d12c3batt.png\\" alt=\\"\\" width=\\"512\\" height=\\"512\\"></p>"},{"id":3,"type":"editor","content":"<p><img style=\\"display: block; margin-left: auto; margin-right: auto;\\" src=\\"http://localhost:5000/images/2f98bc4d-b21d-4019-b867-8cc355e97289tablette.png\\" alt=\\"\\" width=\\"900\\" height=\\"433\\"></p>"},{"id":4,"type":"quiz","content":[{"id":1,"question":"Sur la tablette ci-dessus, ou se situe le \\"port de charge\\" ?","answers":[{"id":1,"text":"Réponse A","correct":true},{"id":2,"text":"Réponse B","correct":false},{"id":3,"text":"Réponse C","correct":false}]}]}]', 'admin', 0);
 
 
+
+
 DROP TABLE IF EXISTS hashtag;
 
 CREATE TABLE hashtag (
@@ -79,7 +81,9 @@ CREATE TABLE hashtag (
 
 INSERT INTO hashtag (text)
 VALUES
+
  ('phone'),('internet'),('login'),('telephone'),('chargeur'),('appareil'),('batterie'),('electrique'),('prise'),('chargement'),('charge'),('rechargement');
+
 
 DROP TABLE IF EXISTS tuto_hashtag;
 
@@ -91,7 +95,7 @@ CREATE TABLE tuto_hashtag (
 
 INSERT INTO tuto_hashtag (tutorial_id, hashtag_id)
 VALUES
- (1,1),(1,2);
+ (1,1),(1,2),(2,2),(2,7),(2,8);
 
 
 DROP TABLE IF EXISTS user_journey;

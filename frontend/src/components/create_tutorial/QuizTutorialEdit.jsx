@@ -36,7 +36,14 @@ const QuizTutorialEdit = forwardRef(({ getData, close, previewAll }, ref) => {
   }, []);
 
   const setQuestion = () => {
-    const question = { id: quizData.length + 1, question: "", answers: [] };
+    const question = {
+      id: quizData.length + 1,
+      question: "",
+      answers: [
+        { id: 1, text: "", correct: false },
+        { id: 2, text: "", correct: false },
+      ],
+    };
     const newQuestion = [...quizData, question];
     setQuizData(newQuestion);
   };
