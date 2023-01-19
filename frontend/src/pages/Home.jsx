@@ -18,14 +18,14 @@ export default function Home() {
     <img
       src="/image/search.gif"
       alt="tutorial"
-      className="w-full h-full sm:h-[4em] lg:h-20 "
+      className="w-full h-full sm:h-[4em] lg:h-20 p-1"
     />
   );
   const icon4 = (
     <img
       src="/image/poursuivre.gif"
       alt="tutorial"
-      className="w-full h-full sm:h-[4em] lg:h-20 "
+      className="w-full h-full sm:h-[4em] lg:h-20 p-4 "
     />
   );
 
@@ -66,7 +66,7 @@ export default function Home() {
               <img
                 src={data.icon}
                 alt={data.name}
-                className="w-full h-full sm:h-[4em] lg:h-20"
+                className="w-full h-full sm:h-[4em] lg:h-20 p-4"
               />
             </motion.div>
             <p>{data.name}</p>

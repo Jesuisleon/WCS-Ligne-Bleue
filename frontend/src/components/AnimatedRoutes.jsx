@@ -12,7 +12,7 @@ import Login from "@pages/Login";
 import Journey from "@pages/Journey";
 import Search from "@pages/Search";
 import Tutorial from "@pages/Tutorial";
-import TutorialTheme from "@pages/TutorialTheme";
+import TutorialTheme from "@pages/TutorialsByTheme";
 import UserProfil from "@pages/UserProfil";
 import CreateTutorial from "@pages/CreateTutorial/CreateTutorial";
 import Register from "@pages/Register";
