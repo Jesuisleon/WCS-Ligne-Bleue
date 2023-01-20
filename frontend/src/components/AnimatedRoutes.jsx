@@ -5,7 +5,7 @@ import {
   useNavigate,
   Navigate,
 } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Home from "@pages/Home";
 import AdminPanel from "@pages/AdminPanel";
 import Login from "@pages/Login";
@@ -21,11 +21,18 @@ import ChangePassword from "@pages/ChangePassword";
 import { AnimatePresence, motion } from "framer-motion";
 import { GoArrowDown, GoArrowUp } from "react-icons/go";
 import NavigationBlock from "@components/NavigationBlock";
+import Cookies from "js-cookie";
+import { AuthContext } from "../context/AuthContext";
+import NotFound404 from "./NotFound404";
+import ProtectedRoute from "./ProtectedRoute";
 
 function AnimatedRoutes() {
+  const { userInfos } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   let navTitle = "";
+  const admin = userInfos.isAdmin === 1;
+  const isLog = Cookies.get("userToken");
 
   switch (location.pathname) {
     case "/home":
@@ -64,12 +71,17 @@ function AnimatedRoutes() {
     default:
       navTitle = "Bienvenue";
   }
-
   const [showBottomArrow, setShowBottomArrow] = useState(false);
   const [showTopArrow, setShowTopArrow] = useState(false);
 
   const [isScrollUpPlaying, setIsScrollUpPlaying] = useState(true);
   const [isScrollDownPlaying, setIsScrollDownPlaying] = useState(true);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isLoading === true);
+  }, [isLoading]);
 
   function scrollDown() {
     window.scrollTo(0, window.scrollY + window.innerHeight);
@@ -93,6 +105,12 @@ function AnimatedRoutes() {
     };
   }, []);
 
+  useEffect(() => {
+    if (userInfos.userFirstName) {
+      setIsLoading(true);
+    }
+  }, [userInfos]);
+
   return (
     <AnimatePresence>
       <Header key="header" />
@@ -102,18 +120,77 @@ function AnimatedRoutes() {
         navigate={() => navigate(-1)}
       />
       <Routes location={location} key={location.pathname}>
+        {/* routes public */}
         <Route path="/" element={<Navigate replace to="/home" />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/adminPanel" element={<AdminPanel />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/journey" element={<Journey />} />
         <Route path="/search" element={<Search />} />
         <Route path="/theme/:id" element={<TutorialTheme />} />
         <Route path="/tutorial/:id" element={<Tutorial />} />
-        <Route path="/createTutorial" element={<TutorialMaker />} />
-        <Route path="/userprofile" element={<UserProfil />} />
-        <Route path="/userprofil/changepassword" element={<ChangePassword />} />
         <Route path="/register" element={<Register />} />
+        {/* routes protégé si utilisateur est loggé */}
+        {isLoading && (
+          <Route>
+            <Route
+              path="/userProfile"
+              element={
+                <ProtectedRoute status={isLog}>
+                  <UserProfil />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/journey"
+              element={
+                <ProtectedRoute status={isLog}>
+                  <Journey />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/userprofil/changepassword"
+              element={
+                <ProtectedRoute status={isLog}>
+                  <ChangePassword />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        )}
+
+        {/* Route protégé admin */}
+        {isLoading && (
+          <Route>
+            <Route
+              path="/userProfile"
+              element={
+                <ProtectedRoute status={admin}>
+                  <UserProfil />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/createTutorial"
+              element={
+                <ProtectedRoute status={admin}>
+                  <TutorialMaker />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/adminPanel"
+              element={
+                <ProtectedRoute status={admin}>
+                  <AdminPanel />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        )}
+
+        {/* Si la route est différente que toute les routes existantes renvois 404NotFound */}
+        <Route path="*" element={<NotFound404 />} />
       </Routes>
       {showTopArrow && (
         <motion.div
