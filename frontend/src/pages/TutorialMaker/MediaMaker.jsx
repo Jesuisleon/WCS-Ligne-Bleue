@@ -114,6 +114,7 @@ const MediaMaker = forwardRef(
           toolbar: false,
           plugins: "autoresize image",
           editimage_cors_hosts: ["picsum.photos"],
+          a11y_advanced_options: true,
           images_upload_handler: UploadImageEditor,
           setup(editor) {
             editor.on("init", function () {

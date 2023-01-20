@@ -107,7 +107,11 @@ const HeaderMaker = forwardRef(
         <div className="tutorial-header">
           <div className="tutorial-h-1">
             {themeIcon && (
-              <img src={`${VITE_FRONTEND_URL}${themeIcon}`} alt="logo" />
+              <img
+                className="h-20 ml-10"
+                src={`${VITE_FRONTEND_URL}${themeIcon}`}
+                alt="logo"
+              />
             )}
           </div>
           <div className="tutorial-h-2">

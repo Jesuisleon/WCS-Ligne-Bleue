@@ -78,7 +78,7 @@ const TextMaker = forwardRef(({ data, preview }, ref) => {
           "autoresize searchreplace autolink save directionality visualblocks visualchars link charmap nonbreaking advlist lists wordcount help charmap emoticons",
         editimage_cors_hosts: ["picsum.photos"],
         toolbar:
-          "undo redo removeformat | bold italic underline | link |fontsize | forecolor backcolor | emoticons | alignment | list |",
+          "undo redo removeformat | bold italic underline | link |fontsize | forecolor backcolor | alignment | list |",
         images_upload_handler: UploadImageEditor,
       }}
     />

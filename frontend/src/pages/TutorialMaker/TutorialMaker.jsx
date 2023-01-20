@@ -139,7 +139,40 @@ function TutorialMaker() {
       });
   };
 
+  const getImageSteps = (data) => {
+    const image = data.filter(({ type }) => type === "image");
+    return image;
+  };
+
+  const getSrcImage = (data) => {
+    return data.map(
+      ({ content }) => content.split("src")[1].split("alt")[0].split('"')[1]
+    );
+  };
+
+  const getDeletedHost = (data) => {
+    return data.map((item) => item.split(VITE_BACKEND_URL)[1]);
+  };
+
+  const setDeletedHostToContent = (data) => {
+    return stepsData.map((item) => {
+      if (item.type === "image") {
+        return {
+          ...item,
+          content: `${item.content.split("src")[0]}src="${data[0]}"${
+            item.content.split("src")[1].split("alt")[1]
+          }`,
+        };
+      }
+      return item;
+    });
+  };
+
   const saveData = () => {
+    const updatedStepsData = setDeletedHostToContent(
+      getDeletedHost(getSrcImage(getImageSteps(stepsData)))
+    );
+
     const data = {
       title: headerData.title,
       objective: headerData.objective,
@@ -147,7 +180,7 @@ function TutorialMaker() {
       difficulty: headerData.difficulty,
       hashtag: headerData.hashtag,
       theme: headerData.theme,
-      step: JSON.stringify(stepsData),
+      step: JSON.stringify(updatedStepsData),
       author: "admin",
       published: false,
     };
