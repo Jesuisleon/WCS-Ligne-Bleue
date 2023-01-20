@@ -99,7 +99,7 @@ export default function TutorialTheme() {
                   <div className="bg-pink-400 w-1/4 h-full rounded-lg shadow-md" />
                 </div>
                 <p className="text-gray-600 mt-5 italic">
-                  {tutorial.difficulty}
+                  {tutorial.difficulty_name}
                 </p>
               </div>
               <button

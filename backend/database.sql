@@ -41,13 +41,26 @@ VALUES
   ('Se déplacer', '/image/deplacer.gif'),
   ('Se faire aider', '/image/aide.gif');
 
+DROP TABLE IF EXISTS difficulty;
+
+CREATE TABLE difficulty (
+    id int primary key NOT NULL AUTO_INCREMENT,
+    name varchar(255) NOT NULL    
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+INSERT INTO difficulty (name)
+
+VALUES
+ ('Débutant'),
+  ('Intermédiaire'),
+  ('Avancé');
 
 DROP TABLE IF EXISTS tutorial;
 
 CREATE TABLE tutorial (
     id int primary key NOT NULL AUTO_INCREMENT,
-    theme_id int NOT NULL,
-    difficulty varchar(255) NOT NULL,
+    theme_id int DEFAULT 1,
+    difficulty_id int NOT NULL DEFAULT 1,
     title varchar(255) NOT NULL,    
     objective varchar(255) NOT NULL,
     description varchar(1000) NOT NULL,
@@ -56,11 +69,12 @@ CREATE TABLE tutorial (
     published BOOLEAN not NULL DEFAULT 0,
     creation_date DATETIME default NOW(),
     edition_date DATETIME default NOW(),
-    FOREIGN KEY (theme_id) REFERENCES theme(id) ON DELETE CASCADE
+    FOREIGN KEY (theme_id) REFERENCES theme(id) ON DELETE CASCADE,
+    FOREIGN KEY (difficulty_id) REFERENCES difficulty(id) ON DELETE SET DEFAULT
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 INSERT INTO
-  tutorial (theme_id, difficulty, title, objective, description, step, author, published)
+  tutorial (theme_id, difficulty_id, title, objective, description, step, author, published)
 
 VALUES
   (2, '1', 'test', 'migrate', '<p>test pour migrate</p>', '[{"id":1,"type":"editor","content":"<p>remplacmeent</p>"}]', 'admin', 0),
@@ -107,6 +121,8 @@ DROP TABLE IF EXISTS user_journey;
 CREATE TABLE user_journey (
     user_id INTEGER REFERENCES user (id) ON DELETE CASCADE,
     tutorial_id INTEGER REFERENCES tutorial (id) ON DELETE CASCADE,
+    rating INTEGER,
+    comment varchar(255),
     PRIMARY KEY (user_id, tutorial_id)
 );
 
