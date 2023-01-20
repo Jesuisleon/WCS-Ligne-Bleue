@@ -157,7 +157,6 @@ function AnimatedRoutes() {
             />
           </Route>
         )}
-
         {/* Route protégé admin */}
         {isLoading && (
           <Route>
@@ -169,7 +168,6 @@ function AnimatedRoutes() {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/createTutorial"
               element={
@@ -188,7 +186,6 @@ function AnimatedRoutes() {
             />
           </Route>
         )}
-
         {/* Si la route est différente que toute les routes existantes renvois 404NotFound */}
         <Route path="*" element={<NotFound404 />} />
       </Routes>
