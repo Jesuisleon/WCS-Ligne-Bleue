@@ -1,13 +1,20 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Quiz from "@components/tutorial/Quiz";
+import Quiz from "@components/Quiz";
+import Rating from "./Rating";
+import Comments from "./Comments";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
 export default function Tutorial() {
   const { id } = useParams();
   const [theme, setTheme] = useState([]);
+
+  const [newData, setNewData] = useState({ rating: null, comments: null });
+
+  const [validate, setValidata] = useState(false);
+  useEffect(() => {}, [validate]);
 
   const [data, setData] = useState();
   useEffect(() => {
@@ -64,7 +71,7 @@ export default function Tutorial() {
 
   return (
     <div>
-      <div className="flex flex-col justify-center items-start mx-2" />
+      <div className="flex flex-col justify-center items-center mx-2" />
       <div className="tutorial-header">
         {theme.length !== 0 && (
           <img className="h-20 ml-10" src={theme[0].icon} alt={theme[0].name} />
@@ -97,6 +104,20 @@ export default function Tutorial() {
           </div>
         );
       })}
+      <div className=" bg-blue-900 bg-gradient-to-br from-blue-400 rounded-xl w-1/2 text-white flex flex-col justify-center items-center gap-4 py-4 mx-auto mt-4">
+        {validate === false && <h2 className="h2-font">Donnez votre avis</h2>}
+        <Rating validate={validate} setData={setNewData} data={newData} />
+        <Comments validate={validate} setData={setNewData} data={newData} />
+        <button
+          className="bg-blue-500 text-white py-2 rounded-lg px-5"
+          type="submit"
+          onClick={() => {
+            setValidata(true);
+          }}
+        >
+          Ok, c'est compris !
+        </button>
+      </div>
     </div>
   );
 }
