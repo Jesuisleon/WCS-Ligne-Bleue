@@ -78,13 +78,13 @@ const MediaMaker = forwardRef(
             plugins: "autoresize media",
             media_alt_source: false,
             setup(editor) {
-              editor.on("init", function () {
+              editor.on("init", function f() {
                 // when editor is open for the first time open the dialog
                 editor.execCommand("mceMedia");
               });
             },
             init_instance_callback(editor) {
-              editor.on("ExecCommand", function () {
+              editor.on("ExecCommand", function f() {
                 // when the image dialog is closed, set the uploadSuccess to true
                 setDialogClose(true);
               });
@@ -117,13 +117,13 @@ const MediaMaker = forwardRef(
           a11y_advanced_options: true,
           images_upload_handler: UploadImageEditor,
           setup(editor) {
-            editor.on("init", function () {
+            editor.on("init", function f() {
               // when editor is open for the first time open the image dialog
               editor.execCommand("mceImage");
             });
           },
           init_instance_callback(editor) {
-            editor.on("ExecCommand", function () {
+            editor.on("ExecCommand", function f() {
               // when the image dialog is closed, set the uploadSuccess to true
               setDialogClose(true);
             });

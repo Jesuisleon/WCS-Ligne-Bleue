@@ -18,6 +18,7 @@ const HeaderMaker = forwardRef(
   ({ handleImageEditor, getData, preview }, ref) => {
     const [themes, setThemes] = useState([]);
     const [themeIcon, setThemeIcon] = useState("");
+    const [difficulties, setDifficulties] = useState([]);
 
     const [data, setData] = useState({});
 
@@ -31,7 +32,10 @@ const HeaderMaker = forwardRef(
     useEffect(() => {
       // get themes from database
       axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
-        setThemes(response.data);
+        axios.get(`${VITE_BACKEND_URL}/difficulties`).then((response2) => {
+          setDifficulties(response2.data);
+          setThemes(response.data);
+        });
       });
       // get datas if already exists
       if (getData) {
@@ -91,7 +95,10 @@ const HeaderMaker = forwardRef(
               type="difficulty"
               name="Niveau"
               defaultValue={data ? data.difficulty : ""}
-              optionValues={["Débutant", "Facile", "Novice"]}
+              // optionValues={["Débutant", "Facile", "Novice"]}
+              optionValues={difficulties.map(
+                (object) => Object.values(object)[0]
+              )}
               handleInput={(e) =>
                 handleInput(e.target.value, { id: "difficulty" })
               }
