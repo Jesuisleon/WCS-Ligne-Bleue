@@ -1,7 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Quiz from "@components/tutorial/Quiz";
+import Quiz from "@components/Quiz";
+import Rating from "./Rating";
+import Comments from "./Comments";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
@@ -97,6 +99,8 @@ export default function Tutorial() {
           </div>
         );
       })}
+      <Rating />
+      <Comments />
     </div>
   );
 }

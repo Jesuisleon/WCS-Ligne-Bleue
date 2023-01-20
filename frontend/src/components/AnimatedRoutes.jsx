@@ -11,7 +11,7 @@ import AdminPanel from "@pages/AdminPanel";
 import Login from "@pages/Login";
 import Journey from "@pages/Journey";
 import Search from "@pages/Search";
-import Tutorial from "@pages/Tutorial";
+import Tutorial from "@pages/Tutorial/Tutorial";
 import TutorialTheme from "@pages/TutorialsByTheme";
 import UserProfil from "@pages/UserProfil";
 import TutorialMaker from "@pages/TutorialMaker/TutorialMaker";

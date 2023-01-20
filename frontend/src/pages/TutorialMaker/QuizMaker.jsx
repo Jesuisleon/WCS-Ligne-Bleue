@@ -5,7 +5,7 @@ import React, {
   useRef,
   forwardRef,
 } from "react";
-import Quiz from "@components/tutorial/Quiz";
+import Quiz from "@components/Quiz";
 
 const QuizMaker = forwardRef(({ data, preview }, ref) => {
   const [content, setContent] = useState([]);
