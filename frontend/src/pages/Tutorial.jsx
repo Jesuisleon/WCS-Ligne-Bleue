@@ -7,11 +7,29 @@ const { VITE_BACKEND_URL } = import.meta.env;
 
 export default function Tutorial() {
   const { id } = useParams();
+  const [theme, setTheme] = useState([]);
+
   const [data, setData] = useState();
-  const [themeForIcon, setThemeForIcon] = useState([]);
-  const [currentThemeId, setCurrentThemeId] = useState([]);
+  useEffect(() => {
+    if (data) {
+      document.title = data.title;
+    }
+  }, [data]);
+
+  const getThemeIcon = () => {
+    axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
+      const selectedTheme = response.data.filter(
+        (res) => res.id === data.theme_id
+      );
+      setTheme(selectedTheme);
+    });
+  };
 
   useEffect(() => {
+    if (data) getThemeIcon();
+  }, [data]);
+
+  const getTutorialContent = () => {
     axios
       .get(`${VITE_BACKEND_URL}/tutorials/${id}`)
       .then((response) => {
@@ -22,38 +40,25 @@ export default function Tutorial() {
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  useEffect(() => {
+    getTutorialContent();
   }, []);
 
   const createMarkup = (content) => {
     return { __html: content };
   };
 
-  useEffect(() => {
-    if (!data) {
-      axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
-        setThemeForIcon(response.data);
-      });
-    }
-    if (data) {
-      setCurrentThemeId(
-        themeForIcon.filter((theme) => theme.id === data.theme_id)
-      );
-    }
-  }, [data]);
+  if (data === undefined) return <div>Loading...</div>;
 
   return (
     <div>
       <div className="flex flex-col justify-center items-start mx-2" />
       <div className="tutorial-header">
-        {currentThemeId.map((dataTheme) => (
-          <div
-            key={dataTheme.id}
-            to={`/theme/${dataTheme.id}`}
-            className="tutorial-h-1"
-          >
-            <img src={dataTheme.icon} alt={dataTheme.themeName} />
-          </div>
-        ))}
+        {theme.length !== 0 && (
+          <img className="h-20 ml-10" src={theme[0].icon} alt={theme[0].name} />
+        )}
         <div className="tutorial-h-2">
           <h1 className="h1-font">{data && data.title}</h1>
           <h2 className="h2-font">{data && data.objective}</h2>
@@ -65,21 +70,20 @@ export default function Tutorial() {
           )}
         </div>
       </div>
-
-      <div>
-        {data &&
-          data.step.map((step) => (
+      {data.step.map((step) => {
+        if (step.type === "quiz") {
+          return (
             <div key={step.id} className="tutorial-step">
-              {step.type === "editor" ? (
-                <div key={step.id}>
-                  <div dangerouslySetInnerHTML={createMarkup(step.content)} />
-                </div>
-              ) : (
-                <Quiz key={step.id} data={step.content} />
-              )}
+              <Quiz key={step.id} data={step.content} />
             </div>
-          ))}
-      </div>
+          );
+        }
+        return (
+          <div key={step.id} className="tutorial-step">
+            <div dangerouslySetInnerHTML={createMarkup(step.content)} />
+          </div>
+        );
+      })}
     </div>
   );
 }

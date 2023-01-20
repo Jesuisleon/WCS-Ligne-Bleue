@@ -12,9 +12,9 @@ import Login from "@pages/Login";
 import Journey from "@pages/Journey";
 import Search from "@pages/Search";
 import Tutorial from "@pages/Tutorial";
-import TutorialTheme from "@pages/TutorialTheme";
+import TutorialTheme from "@pages/TutorialsByTheme";
 import UserProfil from "@pages/UserProfil";
-import CreateTutorial from "@pages/CreateTutorial/CreateTutorial";
+import TutorialMaker from "@pages/TutorialMaker/TutorialMaker";
 import Register from "@pages/Register";
 import Header from "@components/Header";
 import ChangePassword from "@pages/ChangePassword";
@@ -110,7 +110,7 @@ function AnimatedRoutes() {
         <Route path="/search" element={<Search />} />
         <Route path="/theme/:id" element={<TutorialTheme />} />
         <Route path="/tutorial/:id" element={<Tutorial />} />
-        <Route path="/createTutorial" element={<CreateTutorial />} />
+        <Route path="/createTutorial" element={<TutorialMaker />} />
         <Route path="/userprofile" element={<UserProfil />} />
         <Route path="/userprofil/changepassword" element={<ChangePassword />} />
         <Route path="/register" element={<Register />} />
