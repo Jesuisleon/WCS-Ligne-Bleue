@@ -34,7 +34,17 @@ export default function Tutorial() {
       .get(`${VITE_BACKEND_URL}/tutorials/${id}`)
       .then((response) => {
         const step = JSON.parse(response.data.step);
-        response.data.step = step;
+        const updateSrcImage = step
+          .filter(({ type }) => type === "image")
+          .map((image) => {
+            const regex = /src="([^"])*"/;
+            const src = regex.exec(image.content)[0].split('"')[1];
+            const newSrc = `${VITE_BACKEND_URL}${src}`;
+            const updatedContent = image.content.replace(src, newSrc);
+            return { ...image, content: updatedContent };
+          });
+        response.data.step = updateSrcImage;
+
         setData(response.data);
       })
       .catch((error) => {
@@ -80,7 +90,10 @@ export default function Tutorial() {
         }
         return (
           <div key={step.id} className="tutorial-step">
-            <div dangerouslySetInnerHTML={createMarkup(step.content)} />
+            <div
+              className="flex justify-center"
+              dangerouslySetInnerHTML={createMarkup(step.content)}
+            />
           </div>
         );
       })}

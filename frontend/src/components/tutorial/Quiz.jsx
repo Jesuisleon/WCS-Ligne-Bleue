@@ -110,6 +110,9 @@ function Question({
         >
           {questionIndex + 1}. {question}
         </h2>
+        {isSubmitted === false && (
+          <p>{isMultipleCorrect && "(Plusieurs réponses sont possible)"}</p>
+        )}
         {currentQuestion > questionIndex && (
           <div
             onKeyDown={(event) => {
