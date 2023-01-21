@@ -21,6 +21,7 @@ const userControllers = require("./controllers/userControllers");
 const tutorialControllers = require("./controllers/tutorialControllers");
 const themeControllers = require("./controllers/themeControllers");
 const hashtagControllers = require("./controllers/hashtagControllers");
+const journeyControllers = require("./controllers/journeyControllers");
 
 // public routes
 router.get("/home", themeControllers.browse);
@@ -35,6 +36,9 @@ router.post(
   userControllers.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );
+
+router.get("/user-journeys/:id", journeyControllers.read);
+router.post("/user-journey/:id", journeyControllers.add);
 
 // Not public routes
 router.use(verifyToken, verifyAdmin); // authentication wall : verifyToken is activated for each route after this line

@@ -7,7 +7,7 @@ class UserManager extends AbstractManager {
 
   findUser(id) {
     return this.connection.query(
-      `select firstname, lastname, email, admin from  ${this.table} where id = ?`,
+      `select id, firstname, lastname, email, admin from  ${this.table} where id = ?`,
       [id]
     );
   }

@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "@context/AuthContext";
+import Cookies from "js-cookie";
 import axios from "axios";
 import Quiz from "@components/Quiz";
 import Rating from "./Rating";
@@ -8,13 +10,31 @@ import Comments from "./Comments";
 const { VITE_BACKEND_URL } = import.meta.env;
 
 export default function Tutorial() {
+  const token = Cookies.get("userToken");
   const { id } = useParams();
   const [theme, setTheme] = useState([]);
+  const { userInfos } = useContext(AuthContext);
 
   const [newData, setNewData] = useState({ rating: null, comments: null });
 
   const [validate, setValidata] = useState(false);
-  useEffect(() => {}, [validate]);
+  useEffect(() => {
+    if (validate) {
+      axios
+        .post(`${VITE_BACKEND_URL}/user-journey/${userInfos.userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          tutorialId: id,
+        })
+        .then(() => {
+          alert("Vous avez validé ce tutoriel !");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [validate]);
 
   const [data, setData] = useState();
   useEffect(() => {
@@ -104,20 +124,22 @@ export default function Tutorial() {
           </div>
         );
       })}
-      <div className=" bg-blue-900 bg-gradient-to-br from-blue-400 rounded-xl w-1/2 text-white flex flex-col justify-center items-center gap-4 py-4 mx-auto mt-4">
-        {validate === false && <h2 className="h2-font">Donnez votre avis</h2>}
-        <Rating validate={validate} setData={setNewData} data={newData} />
-        <Comments validate={validate} setData={setNewData} data={newData} />
-        <button
-          className="bg-blue-500 text-white py-2 rounded-lg px-5"
-          type="submit"
-          onClick={() => {
-            setValidata(true);
-          }}
-        >
-          Ok, c'est compris !
-        </button>
-      </div>
+      {userInfos.userId && (
+        <div className=" bg-blue-900 bg-gradient-to-br from-blue-400 rounded-xl w-1/2 text-white flex flex-col justify-center items-center gap-4 py-4 mx-auto mt-4">
+          {validate === false && <h2 className="h2-font">Donnez votre avis</h2>}
+          <Rating validate={validate} setData={setNewData} data={newData} />
+          <Comments validate={validate} setData={setNewData} data={newData} />
+          <button
+            className="bg-blue-500 text-white py-2 rounded-lg px-5"
+            type="submit"
+            onClick={() => {
+              setValidata(true);
+            }}
+          >
+            Ok, c'est compris !
+          </button>
+        </div>
+      )}
     </div>
   );
 }

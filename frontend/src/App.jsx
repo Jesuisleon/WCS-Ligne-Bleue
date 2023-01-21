@@ -21,11 +21,15 @@ function App() {
         })
         .then((response) => {
           setUserInfos({
+            userId: response.data.id,
             userFirstName: response.data.firstname,
             userLastName: response.data.lastname,
             userEmail: response.data.email,
             isAdmin: response.data.admin,
           });
+        })
+        .catch((error) => {
+          console.error(error);
         });
     }
   }, []);

@@ -17,6 +17,7 @@ function Header() {
   const handleDisconnect = (event) => {
     event.stopPropagation();
     setUserTokenCookie(null);
+    localStorage.clear();
     navigate("/home");
   };
 
