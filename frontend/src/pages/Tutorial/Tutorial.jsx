@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "@context/AuthContext";
-import Cookies from "js-cookie";
 import axios from "axios";
 import Quiz from "@components/Quiz";
 import Rating from "./Rating";
@@ -10,7 +9,6 @@ import Comments from "./Comments";
 const { VITE_BACKEND_URL } = import.meta.env;
 
 export default function Tutorial() {
-  const token = Cookies.get("userToken");
   const { id } = useParams();
   const [theme, setTheme] = useState([]);
   const { userInfos } = useContext(AuthContext);
@@ -18,22 +16,40 @@ export default function Tutorial() {
   const [newData, setNewData] = useState({ rating: null, comments: null });
 
   const [validate, setValidata] = useState(false);
+
+  const postJourney = (tutorialId, userId) => {
+    axios
+      .post(`/journey`, { tutorialId, userId })
+      .then(() => {
+        alert("Vous avez validé ce tutoriel !");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const postRating = (tutorialId, userId, rating) => {
+    axios.post(`/rating`, {
+      tutorialId,
+      userId,
+      rating,
+    });
+  };
+
+  const postComments = (tutorialId, userId, comment) => {
+    axios.post(`/comment`, {
+      tutorialId,
+      userId,
+      comment,
+    });
+  };
+
   useEffect(() => {
-    if (validate) {
-      axios
-        .post(`${VITE_BACKEND_URL}/user-journey/${userInfos.userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          tutorialId: id,
-        })
-        .then(() => {
-          alert("Vous avez validé ce tutoriel !");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+    if (validate) postJourney(id, userInfos.userId);
+    if (validate && newData.rating)
+      postRating(id, userInfos.userId, newData.rating);
+    if (validate && newData.comments)
+      postComments(id, userInfos.userId, newData.comments);
   }, [validate]);
 
   const [data, setData] = useState();
@@ -44,7 +60,7 @@ export default function Tutorial() {
   }, [data]);
 
   const getThemeIcon = () => {
-    axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
+    axios.get(`/home`).then((response) => {
       const selectedTheme = response.data.filter(
         (res) => res.id === data.theme_id
       );
@@ -58,7 +74,7 @@ export default function Tutorial() {
 
   const getTutorialContent = () => {
     axios
-      .get(`${VITE_BACKEND_URL}/tutorials/${id}`)
+      .get(`/tutorials/${id}`)
       .then((response) => {
         const step = JSON.parse(response.data.step);
         const updateSrcImage = step

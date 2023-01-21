@@ -3,8 +3,9 @@ const models = require("../models");
 const add = (req, res) => {
   const userId = parseInt(req.body.userId, 10);
   const tutorialId = parseInt(req.body.tutorialId, 10);
-  models.user_journey
-    .insert({ userId, tutorialId })
+  const { comment } = req.body;
+  models.comment
+    .insert({ userId, tutorialId, comment })
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -19,7 +20,7 @@ const add = (req, res) => {
 };
 
 const browse = (req, res) => {
-  models.user_journey
+  models.comment
     .findAll()
     .then(([rows]) => {
       res.send(rows);
@@ -30,16 +31,12 @@ const browse = (req, res) => {
     });
 };
 
-const readAllForUser = (req, res) => {
-  const userId = parseInt(req.params.id, 10);
-  models.user_journey
-    .findAllForUser(userId)
+const readAllForTutorial = (req, res) => {
+  const tutorialId = parseInt(req.params.id, 10);
+  models.comment
+    .findAllForTutorial(tutorialId)
     .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
-      } else {
-        res.send(rows);
-      }
+      res.send(rows);
     })
     .catch((err) => {
       console.error(err);
@@ -50,5 +47,5 @@ const readAllForUser = (req, res) => {
 module.exports = {
   add,
   browse,
-  readAllForUser,
+  readAllForTutorial,
 };

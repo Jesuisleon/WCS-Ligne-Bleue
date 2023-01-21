@@ -12,38 +12,10 @@ class JourneyManager extends AbstractManager {
     );
   }
 
-  findAllJourneysForUser(userId) {
+  findAllForUser(userId) {
     return this.connection.query(
       `select tutorial_id from ${this.table} where user_id = ?`,
       [userId]
-    );
-  }
-
-  findAllJourneysForTutorial(tutorialId) {
-    return this.connection.query(
-      `select user_id from ${this.table} where tutorial_id = ?`,
-      [tutorialId]
-    );
-  }
-
-  deleteJourneyForUser(userId, tutorialId) {
-    return this.connection.query(
-      `delete from ${this.table} where user_id = ? and tutorial_id = ?`,
-      [userId, tutorialId]
-    );
-  }
-
-  deleteAllJourneysForUser(userId) {
-    return this.connection.query(
-      `delete from ${this.table} where user_id = ?`,
-      [userId]
-    );
-  }
-
-  deleteAllJourneysForTutorial(tutorialId) {
-    return this.connection.query(
-      `delete from ${this.table} where tutorial_id = ?`,
-      [tutorialId]
     );
   }
 }
