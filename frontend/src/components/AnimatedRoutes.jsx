@@ -5,6 +5,11 @@ import {
   useNavigate,
   Navigate,
 } from "react-router-dom";
+
+import { AnimatePresence } from "framer-motion";
+import Header from "@components/Header";
+import NavigationBlock from "@components/NavigationBlock";
+
 import Home from "@pages/Home";
 import AdminPanel from "@pages/AdminPanel";
 import Login from "@pages/Login";
@@ -15,10 +20,9 @@ import TutorialTheme from "@pages/TutorialsByTheme";
 import UserProfil from "@pages/UserProfil";
 import TutorialMaker from "@pages/TutorialMaker/TutorialMaker";
 import Register from "@pages/Register";
-import Header from "@components/Header";
 import ChangePassword from "@pages/ChangePassword";
-import { AnimatePresence } from "framer-motion";
-import NavigationBlock from "@components/NavigationBlock";
+
+import Sticky from "react-stickynode";
 
 function AnimatedRoutes() {
   const navigate = useNavigate();
@@ -66,11 +70,13 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence>
       <Header key="header" />
-      <NavigationBlock
-        key="navigation"
-        title={navTitle}
-        navigate={() => navigate(-1)}
-      />
+      <Sticky enabled top={0} innerZ={1000} activeClass="sticky-nav-active">
+        <NavigationBlock
+          key="navigation"
+          title={navTitle}
+          navigate={() => navigate(-1)}
+        />
+      </Sticky>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Navigate replace to="/home" />} />
         <Route path="/home" element={<Home />} />

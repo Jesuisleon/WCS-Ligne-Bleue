@@ -1,8 +1,10 @@
 import { BrowserRouter as Router } from "react-router-dom";
-import AnimatedRoutes from "@components/AnimatedRoutes";
 import { useContext, useEffect } from "react";
+
 import axios from "axios";
 import Cookies from "js-cookie";
+
+import AnimatedRoutes from "@components/AnimatedRoutes";
 import { AuthContext } from "./context/AuthContext";
 
 function App() {

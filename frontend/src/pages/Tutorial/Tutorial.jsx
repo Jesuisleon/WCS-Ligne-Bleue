@@ -1,35 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "@context/AuthContext";
-import { motion } from "framer-motion";
 import axios from "axios";
 
 import Quiz from "@components/Quiz";
-import { GoArrowDown, GoArrowUp } from "react-icons/go";
+
 import Rating from "./Rating";
 import Comments from "./Comments";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
 export default function Tutorial() {
-  const [showBottomArrow] = useState(true);
-  const [showTopArrow, setShowTopArrow] = useState(false);
-
-  const [isScrollUpPlaying, setIsScrollUpPlaying] = useState(true);
-  const [isScrollDownPlaying, setIsScrollDownPlaying] = useState(true);
-
-  function scrollDown() {
-    window.scrollTo(0, window.scrollY + window.innerHeight);
-  }
-
-  function scrollUp() {
-    window.scrollTo(0, window.scrollY - window.innerHeight);
-  }
-
-  function handleScroll() {
-    setShowTopArrow(window.scrollY > 0);
-  }
-
   const { id } = useParams();
   const [theme, setTheme] = useState([]);
   const { userInfos } = useContext(AuthContext);
@@ -118,11 +99,6 @@ export default function Tutorial() {
 
   useEffect(() => {
     getTutorialContent();
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
   }, []);
 
   const createMarkup = (content) => {
@@ -181,61 +157,6 @@ export default function Tutorial() {
             Ok, c'est compris !
           </button>
         </div>
-      )}
-      {showTopArrow && (
-        <motion.div
-          className="fixed top-10 right-5 sm:right-10"
-          animate={
-            isScrollUpPlaying
-              ? {
-                  y: 10,
-                  transition: {
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 50,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    duration: 2,
-                    delay: 0.5,
-                  },
-                }
-              : "init"
-          }
-          initial="init"
-          onHoverStart={() => setIsScrollUpPlaying(false)}
-          onHoverEnd={() => setIsScrollUpPlaying(true)}
-          onClick={scrollUp}
-          key="scrollUp"
-        >
-          <GoArrowUp className="bg-blue-700 hover:bg-blue-600 rounded-full p-3 text-6xl sm:text-7xl lg:text-7xl text-white cursor-pointer z-10" />
-        </motion.div>
-      )}
-      {showBottomArrow && (
-        <motion.div
-          className="fixed bottom-10 right-5 sm:right-10"
-          animate={
-            isScrollDownPlaying
-              ? {
-                  y: -10,
-                  transition: {
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 50,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    duration: 2,
-                  },
-                }
-              : "init"
-          }
-          initial="init"
-          onHoverStart={() => setIsScrollDownPlaying(false)}
-          onHoverEnd={() => setIsScrollDownPlaying(true)}
-          onClick={scrollDown}
-          key="scrollDown"
-        >
-          <GoArrowDown className="bg-blue-700 hover:bg-blue-600 rounded-full p-3 text-6xl sm:text-7xl lg:text-7xl text-white cursor-pointer " />
-        </motion.div>
       )}
     </div>
   );
