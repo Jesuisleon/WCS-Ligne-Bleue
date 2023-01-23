@@ -70,7 +70,7 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence>
       <Header key="header" />
-      <Sticky enabled top={0} innerZ={1000} activeClass="sticky-nav-active">
+      <Sticky enabled top={0} innerZ={0} activeClass="sticky-nav-active">
         <NavigationBlock
           key="navigation"
           title={navTitle}
