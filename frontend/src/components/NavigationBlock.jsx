@@ -5,8 +5,7 @@ function NavigationBlock({ title }) {
       min-w-screen
       h-[4em]
       sm:h-20
-     bg-gray-50
-      shadow-xl
+     bg-white
       z-20
       flex
       justify-center
