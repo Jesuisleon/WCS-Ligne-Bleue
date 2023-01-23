@@ -39,6 +39,12 @@ const MediaMaker = forwardRef(
       }
     }, [dialogClose]);
 
+    useEffect(() => {
+      if (data !== content && content !== "") {
+        setContent(data);
+      }
+    }, [data]);
+
     // init data
     useEffect(() => {
       if (data) {
@@ -115,7 +121,6 @@ const MediaMaker = forwardRef(
           toolbar: false,
           plugins: "autoresize image",
           editimage_cors_hosts: ["picsum.photos"],
-          a11y_advanced_options: true,
           images_upload_handler: UploadImageEditor,
           setup(editor) {
             editor.on("init", function f() {

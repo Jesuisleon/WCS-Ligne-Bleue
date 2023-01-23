@@ -21,6 +21,10 @@ function TutorialMaker() {
 
   const [stepsData, setStepsData] = useState([]);
 
+  useEffect(() => {
+    childsRefs.current = childsRefs.current.filter((item) => item !== null);
+  }, [stepsData]);
+
   const [headerData, setHeaderData] = useState({
     title: "",
     objective: "",
@@ -50,14 +54,12 @@ function TutorialMaker() {
 
   const moveStep = (index, direction) => {
     const updatedStep = [...stepsData];
-    const step = updatedStep[index];
+    const step = updatedStep.splice(index, 1);
     if (direction === "up") {
-      updatedStep[index] = updatedStep[index - 1];
-      updatedStep[index - 1] = step;
+      updatedStep.splice(index - 1, 0, step[0]);
     }
     if (direction === "down") {
-      updatedStep[index] = updatedStep[index + 1];
-      updatedStep[index + 1] = step;
+      updatedStep.splice(index + 1, 0, step[0]);
     }
 
     setStepsData(updateIndex(updatedStep));
@@ -145,9 +147,7 @@ function TutorialMaker() {
       if (item.type === "image") {
         return {
           ...item,
-          content: `${item.content.split("src")[0]}src="${data[0]}"${
-            item.content.split("src")[1].split("alt")[1]
-          }`,
+          content: item.content.replace(/src="[^"]+"/, `src="${data}"`),
         };
       }
       return item;
@@ -168,8 +168,8 @@ function TutorialMaker() {
       theme: headerData.theme,
       step: JSON.stringify(updatedStepsData),
       author: "admin",
-      published: false,
     };
+
     if (tutorialId) putTutorial(data);
     else postTutorial(data);
     setSave(false);
