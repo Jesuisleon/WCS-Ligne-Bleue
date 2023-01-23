@@ -180,7 +180,7 @@ export default function TutorialByTheme() {
         grid
         grid-cols-1
         sm:grid-cols-2
-        xl:grid-cols-3
+        xl:grid-cols-2
         2xl:grid-cols-5
         gap-7
         auto-rows-[minmax(100px,_1fr)]
