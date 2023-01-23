@@ -22,8 +22,6 @@ const tutorialControllers = require("./controllers/tutorialControllers");
 const themeControllers = require("./controllers/themeControllers");
 const hashtagControllers = require("./controllers/hashtagControllers");
 const journeyControllers = require("./controllers/journeyControllers");
-const ratingControllers = require("./controllers/ratingControllers");
-const commentControllers = require("./controllers/commentControllers");
 const difficultyControllers = require("./controllers/difficultyControllers");
 
 // public routes
@@ -45,19 +43,9 @@ router.post(
 router.use(verifyToken, verifyAdmin); // authentication wall : verifyToken is activated for each route after this line
 
 // Journey routes
-router.get("/journeys/:id", journeyControllers.readAllForUser);
+router.get("/journeys/:userId", journeyControllers.readAllForUser);
 router.get("/journeys", journeyControllers.browse);
 router.post("/journey", journeyControllers.add);
-
-// Rating routes
-router.get("/ratings/:id", ratingControllers.readAllForTutorial);
-router.get("/ratings", ratingControllers.browse);
-router.post("/rating", ratingControllers.add);
-
-// Comment routes
-router.get("/comments/:id", commentControllers.readAllForTutorial);
-router.get("/comments", commentControllers.browse);
-router.post("/comment", commentControllers.add);
 
 router.get("/reconnect", replaceReqParamIdByPayloadSub, userControllers.read);
 router.get("/users", userControllers.browse);

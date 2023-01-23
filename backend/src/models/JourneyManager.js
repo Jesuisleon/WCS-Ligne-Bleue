@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const AbstractManager = require("./AbstractManager");
 
 class JourneyManager extends AbstractManager {
@@ -6,15 +7,22 @@ class JourneyManager extends AbstractManager {
   }
 
   insert(journey) {
+    if (!journey.comment) {
+      journey.comment = null;
+    }
+    if (!journey.rating) {
+      journey.rating = null;
+    }
+
     return this.connection.query(
-      `insert into ${this.table} (user_id, tutorial_id) values (?, ?)`,
-      [journey.userId, journey.tutorialId]
+      `insert into ${this.table} (user_id, tutorial_id, rating, comment) values (?, ?, ?, ?)`,
+      [journey.userId, journey.tutorialId, journey.rating, journey.comment]
     );
   }
 
   findAllForUser(userId) {
     return this.connection.query(
-      `select tutorial_id from ${this.table} where user_id = ?`,
+      `select tutorial_id, rating, comment from ${this.table} where user_id = ?`,
       [userId]
     );
   }

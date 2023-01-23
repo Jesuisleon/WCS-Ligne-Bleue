@@ -19,9 +19,9 @@ export default function Tutorial() {
 
   const [validate, setValidata] = useState(false);
 
-  const postJourney = (tutorialId, userId) => {
+  const postJourney = (tutorialId, userId, rating, comment) => {
     axios
-      .post(`/journey`, { tutorialId, userId })
+      .post(`/journey`, { tutorialId, userId, rating, comment })
       .then(() => {
         alert("Vous avez validé ce tutoriel !");
       })
@@ -30,36 +30,12 @@ export default function Tutorial() {
       });
   };
 
-  const postRating = (tutorialId, userId, rating) => {
-    axios.post(`/rating`, {
-      tutorialId,
-      userId,
-      rating,
-    });
-  };
-
-  const postComments = (tutorialId, userId, comment) => {
-    axios.post(`/comment`, {
-      tutorialId,
-      userId,
-      comment,
-    });
-  };
-
   useEffect(() => {
-    if (validate) postJourney(id, userInfos.userId);
-    if (validate && newData.rating)
-      postRating(id, userInfos.userId, newData.rating);
-    if (validate && newData.comments)
-      postComments(id, userInfos.userId, newData.comments);
+    if (validate)
+      postJourney(id, userInfos.userId, newData.rating, newData.comments);
   }, [validate]);
 
-  const [data, setData] = useState();
-  useEffect(() => {
-    if (data) {
-      document.title = data.title;
-    }
-  }, [data]);
+  const [data, setData] = useState(null);
 
   const getThemeIcon = () => {
     axios.get(`/home`).then((response) => {
@@ -71,15 +47,19 @@ export default function Tutorial() {
   };
 
   useEffect(() => {
-    if (data) getThemeIcon();
+    if (data) {
+      document.title = data.title;
+      getThemeIcon();
+    }
   }, [data]);
 
   const getTutorialContent = () => {
     axios
       .get(`/tutorials/${id}`)
       .then((response) => {
-        const step = JSON.parse(response.data.step);
-        const updateSrcImage = step
+        response.data.step = JSON.parse(response.data.step);
+
+        const updateSrcImage = response.data.step
           .filter(({ type }) => type === "image")
           .map((image) => {
             const regex = /src="([^"])*"/;
@@ -88,7 +68,11 @@ export default function Tutorial() {
             const updatedContent = image.content.replace(src, newSrc);
             return { ...image, content: updatedContent };
           });
-        response.data.step = updateSrcImage;
+
+        response.data.step = [
+          ...response.data.step.filter(({ type }) => type !== "image"),
+          ...updateSrcImage,
+        ];
 
         setData(response.data);
       })
@@ -125,23 +109,24 @@ export default function Tutorial() {
           )}
         </div>
       </div>
-      {data.step.map((step) => {
-        if (step.type === "quiz") {
+      {data !== null &&
+        data.step.map((step) => {
+          if (step.type === "quiz") {
+            return (
+              <div key={step.id} className="tutorial-step">
+                <Quiz key={step.id} data={step.content} />
+              </div>
+            );
+          }
           return (
             <div key={step.id} className="tutorial-step">
-              <Quiz key={step.id} data={step.content} />
+              <div
+                className="flex justify-center"
+                dangerouslySetInnerHTML={createMarkup(step.content)}
+              />
             </div>
           );
-        }
-        return (
-          <div key={step.id} className="tutorial-step">
-            <div
-              className="flex justify-center"
-              dangerouslySetInnerHTML={createMarkup(step.content)}
-            />
-          </div>
-        );
-      })}
+        })}
       {userInfos.userId && (
         <div className=" bg-blue-900 bg-gradient-to-br from-blue-400 rounded-xl w-1/2 text-white flex flex-col justify-center items-center gap-4 py-4 mx-auto mt-4">
           {validate === false && <h2 className="h2-font">Donnez votre avis</h2>}
