@@ -7,12 +7,10 @@ import MediaMaker from "@pages/TutorialMaker/MediaMaker";
 import QuizMaker from "@pages/TutorialMaker/QuizMaker";
 
 import axios from "axios";
-import Cookies from "js-cookie";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
 function TutorialMaker() {
-  const token = Cookies.get("userToken");
   const childsRefs = useRef([]);
 
   const [save, setSave] = useState(false);
@@ -94,11 +92,7 @@ function TutorialMaker() {
 
   const postTutorial = (data) => {
     axios
-      .post(`${VITE_BACKEND_URL}/tutorials`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(`/tutorials`, data)
       .then((res) => {
         setTutorialId(res.data.id);
         alert("Votre tutoriel a bien été enregistrer");
@@ -110,11 +104,7 @@ function TutorialMaker() {
 
   const putTutorial = (data) => {
     axios
-      .put(`${VITE_BACKEND_URL}/tutorials/${tutorialId}`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .put(`/tutorials/${tutorialId}`, data)
       .then(() => {
         alert("Votre tutoriel a bien été mis à jour");
       })
@@ -125,11 +115,7 @@ function TutorialMaker() {
 
   const publishTutorial = (data) => {
     axios
-      .put(`${VITE_BACKEND_URL}/tutorials-published/${tutorialId}`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .put(`/tutorials-published/${tutorialId}`, data)
       .then(() => {
         alert(`Votre tutoriel est ${published ? "hors ligne" : "en ligne"}`);
         setPublished(!published);

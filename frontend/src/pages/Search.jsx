@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import axios from "axios";
-import SearchTutorial from "../services/searchFonction";
+
+import SearchTutorial from "../services/utils/searchFonction";
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState("");
@@ -9,8 +11,7 @@ export default function Search() {
   const [tutorialInfos, setTutorialInfos] = useState("");
 
   useEffect(() => {
-    const { VITE_BACKEND_URL } = import.meta.env;
-    axios.get(`${VITE_BACKEND_URL}/tutorials-search`).then((response) => {
+    axios.get(`/tutorials-search`).then((response) => {
       setTutorialInfos(response.data);
     });
   }, []);

@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const navigation = [
-  { name: "Solutions", href: "#" },
-  { name: "Pricing", href: "#" },
-  { name: "Docs", href: "#" },
-  { name: "Company", href: "#" },
+  // { name: "Solutions", href: "#" },
+  // { name: "Pricing", href: "#" },
+  // { name: "Docs", href: "#" },
+  // { name: "Company", href: "#" },
 ];
 
 export default function Header() {
@@ -62,7 +62,7 @@ export default function Header() {
             </div>
           </div>
 
-          {userToken === false ? (
+          {userToken === null ? (
             <div className="ml-10 space-x-4">
               <Link
                 to="/login"
@@ -106,7 +106,7 @@ export default function Header() {
               {showDropdown && (
                 <div
                   id="dropdown"
-                  className=" absolute  bg-white divide-y divide-gray-100 rounded shadow w-30 dark:bg-gray-600"
+                  className=" absolute z-10 bg-white divide-y divide-gray-100 rounded shadow w-30 dark:bg-gray-600"
                 >
                   <ul
                     className="py-1 text-sm text-gray-700 dark:text-gray-200"
@@ -124,7 +124,6 @@ export default function Header() {
                     </li>
                     <li>
                       <button
-                        href="#"
                         onClick={handleDisconnect}
                         className="block  px-4 py-2 hover:bg-gray-600 dark:hover:bg-gray-600 dark:hover:text-red-600"
                         type="button"

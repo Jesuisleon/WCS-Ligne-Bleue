@@ -24,6 +24,7 @@ const hashtagControllers = require("./controllers/hashtagControllers");
 const journeyControllers = require("./controllers/journeyControllers");
 const ratingControllers = require("./controllers/ratingControllers");
 const commentControllers = require("./controllers/commentControllers");
+const difficultyControllers = require("./controllers/difficultyControllers");
 
 // public routes
 router.get("/home", themeControllers.browse);
@@ -32,6 +33,7 @@ router.get("/tutorials", tutorialControllers.browse);
 router.get("/tutorials/:id", tutorialControllers.read);
 router.get("/tutorials-search", tutorialControllers.browseForSearch);
 router.get("/hashtags", hashtagControllers.browse);
+router.get("/difficulties", difficultyControllers.browse);
 
 router.post(
   "/login",

@@ -1,6 +1,7 @@
-import "./css/index.css";
+import "./setup.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 import Cookies from "js-cookie";
 import axios from "axios";
 import { AuthContextProvider } from "./context/AuthContext";
