@@ -3,17 +3,19 @@ function NavigationBlock({ title }) {
     <div
       className="
       min-w-screen
-      h-11
+      h-[4em]
       sm:h-20
      bg-gray-50
-      relative
       shadow-xl
       z-20
+      flex
+      justify-center
+      items-center
        "
     >
       <p
         className="
-        text-gray-700
+        text-blue-700
         text-xl
         sm:text-3xl
         py-2
