@@ -1,16 +1,17 @@
 import React, { useState, useContext } from "react";
+
 import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
+
 import ErrorAlert from "@components/ErrorAlert";
 import { AuthContext } from "../context/AuthContext";
 
 export default function ChangePassword() {
-  const { VITE_BACKEND_URL } = import.meta.env;
-
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { userToken, userInfos } = useContext(AuthContext);
+  const { userInfos } = useContext(AuthContext);
   const [errorBadPassword, setErrorBadPassword] = useState("");
   const [errorText, setErrorText] = useState("");
 
@@ -20,19 +21,11 @@ export default function ChangePassword() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(
-        `${VITE_BACKEND_URL}/changepassword`,
-        {
-          password,
-          email,
-          newPassword,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
-      )
+      .post(`/changepassword`, {
+        password,
+        email,
+        newPassword,
+      })
       .catch((error) => {
         setErrorBadPassword(true);
         setErrorText(error.response.statusText);

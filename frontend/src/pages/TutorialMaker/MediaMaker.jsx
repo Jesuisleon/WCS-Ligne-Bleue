@@ -5,6 +5,7 @@ import React, {
   useRef,
   forwardRef,
 } from "react";
+
 import { Editor } from "@tinymce/tinymce-react";
 import UploadImageEditor from "./UploadImageEditor";
 

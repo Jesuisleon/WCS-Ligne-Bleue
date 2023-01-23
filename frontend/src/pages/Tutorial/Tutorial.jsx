@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "@context/AuthContext";
 import axios from "axios";
+
 import Quiz from "@components/Quiz";
+
 import Rating from "./Rating";
 import Comments from "./Comments";
 
@@ -10,11 +13,46 @@ const { VITE_BACKEND_URL } = import.meta.env;
 export default function Tutorial() {
   const { id } = useParams();
   const [theme, setTheme] = useState([]);
+  const { userInfos } = useContext(AuthContext);
 
   const [newData, setNewData] = useState({ rating: null, comments: null });
 
   const [validate, setValidata] = useState(false);
-  useEffect(() => {}, [validate]);
+
+  const postJourney = (tutorialId, userId) => {
+    axios
+      .post(`/journey`, { tutorialId, userId })
+      .then(() => {
+        alert("Vous avez validé ce tutoriel !");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const postRating = (tutorialId, userId, rating) => {
+    axios.post(`/rating`, {
+      tutorialId,
+      userId,
+      rating,
+    });
+  };
+
+  const postComments = (tutorialId, userId, comment) => {
+    axios.post(`/comment`, {
+      tutorialId,
+      userId,
+      comment,
+    });
+  };
+
+  useEffect(() => {
+    if (validate) postJourney(id, userInfos.userId);
+    if (validate && newData.rating)
+      postRating(id, userInfos.userId, newData.rating);
+    if (validate && newData.comments)
+      postComments(id, userInfos.userId, newData.comments);
+  }, [validate]);
 
   const [data, setData] = useState();
   useEffect(() => {
@@ -24,7 +62,7 @@ export default function Tutorial() {
   }, [data]);
 
   const getThemeIcon = () => {
-    axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
+    axios.get(`/home`).then((response) => {
       const selectedTheme = response.data.filter(
         (res) => res.id === data.theme_id
       );
@@ -38,7 +76,7 @@ export default function Tutorial() {
 
   const getTutorialContent = () => {
     axios
-      .get(`${VITE_BACKEND_URL}/tutorials/${id}`)
+      .get(`/tutorials/${id}`)
       .then((response) => {
         const step = JSON.parse(response.data.step);
         const updateSrcImage = step
@@ -104,20 +142,22 @@ export default function Tutorial() {
           </div>
         );
       })}
-      <div className=" bg-blue-900 bg-gradient-to-br from-blue-400 rounded-xl w-1/2 text-white flex flex-col justify-center items-center gap-4 py-4 mx-auto mt-4">
-        {validate === false && <h2 className="h2-font">Donnez votre avis</h2>}
-        <Rating validate={validate} setData={setNewData} data={newData} />
-        <Comments validate={validate} setData={setNewData} data={newData} />
-        <button
-          className="bg-blue-500 text-white py-2 rounded-lg px-5"
-          type="submit"
-          onClick={() => {
-            setValidata(true);
-          }}
-        >
-          Ok, c'est compris !
-        </button>
-      </div>
+      {userInfos.userId && (
+        <div className=" bg-blue-900 bg-gradient-to-br from-blue-400 rounded-xl w-1/2 text-white flex flex-col justify-center items-center gap-4 py-4 mx-auto mt-4">
+          {validate === false && <h2 className="h2-font">Donnez votre avis</h2>}
+          <Rating validate={validate} setData={setNewData} data={newData} />
+          <Comments validate={validate} setData={setNewData} data={newData} />
+          <button
+            className="bg-blue-500 text-white py-2 rounded-lg px-5"
+            type="submit"
+            onClick={() => {
+              setValidata(true);
+            }}
+          >
+            Ok, c'est compris !
+          </button>
+        </div>
+      )}
     </div>
   );
 }

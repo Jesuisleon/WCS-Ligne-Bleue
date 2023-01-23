@@ -3,13 +3,11 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const { VITE_BACKEND_URL } = import.meta.env;
-
 export default function Home() {
   const [themes, setThemes] = useState([]);
 
   useEffect(() => {
-    axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
+    axios.get(`/home`).then((response) => {
       setThemes(response.data);
     });
   }, []);

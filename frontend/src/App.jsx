@@ -1,31 +1,31 @@
 import { BrowserRouter as Router } from "react-router-dom";
-import AnimatedRoutes from "@components/AnimatedRoutes";
 import { useContext, useEffect } from "react";
+
 import axios from "axios";
 import Cookies from "js-cookie";
+
+import Routes from "@services/routes/AllRoutes";
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const { VITE_BACKEND_URL } = import.meta.env;
   const { setUserInfos } = useContext(AuthContext);
 
   useEffect(() => {
     const token = Cookies.get("userToken");
-
     if (token) {
       axios
-        .get(`${VITE_BACKEND_URL}/reconnect`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .get(`/reconnect`)
         .then((response) => {
           setUserInfos({
+            userId: response.data.id,
             userFirstName: response.data.firstname,
             userLastName: response.data.lastname,
             userEmail: response.data.email,
             isAdmin: response.data.admin,
           });
+        })
+        .catch((error) => {
+          console.error(error);
         });
     }
   }, []);
@@ -44,7 +44,7 @@ function App() {
       "
     >
       <Router>
-        <AnimatedRoutes />
+        <Routes />
       </Router>
     </div>
   );
