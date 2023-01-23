@@ -54,7 +54,7 @@ export default function Tutorial() {
       postComments(id, userInfos.userId, newData.comments);
   }, [validate]);
 
-  const [data, setData] = useState();
+  const [data, setData] = useState(null);
   useEffect(() => {
     if (data) {
       document.title = data.title;
@@ -89,7 +89,6 @@ export default function Tutorial() {
             return { ...image, content: updatedContent };
           });
         response.data.step = updateSrcImage;
-
         setData(response.data);
       })
       .catch((error) => {
@@ -125,23 +124,24 @@ export default function Tutorial() {
           )}
         </div>
       </div>
-      {data.step.map((step) => {
-        if (step.type === "quiz") {
+      {data &&
+        data.step.map((step) => {
+          if (step.type === "quiz") {
+            return (
+              <div key={step.id} className="tutorial-step">
+                <Quiz key={step.id} data={step.content} />
+              </div>
+            );
+          }
           return (
             <div key={step.id} className="tutorial-step">
-              <Quiz key={step.id} data={step.content} />
+              <div
+                className="flex justify-center"
+                dangerouslySetInnerHTML={createMarkup(step.content)}
+              />
             </div>
           );
-        }
-        return (
-          <div key={step.id} className="tutorial-step">
-            <div
-              className="flex justify-center"
-              dangerouslySetInnerHTML={createMarkup(step.content)}
-            />
-          </div>
-        );
-      })}
+        })}
       {userInfos.userId && (
         <div className=" bg-blue-900 bg-gradient-to-br from-blue-400 rounded-xl w-1/2 text-white flex flex-col justify-center items-center gap-4 py-4 mx-auto mt-4">
           {validate === false && <h2 className="h2-font">Donnez votre avis</h2>}
