@@ -134,7 +134,7 @@ export default function ChangePassword() {
             <div className="flex items-center justify-between">
               <div className="text-sm">
                 <Link
-                  to="/Register"
+                  to="/home"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
                   Retour à la page d'acceuil
