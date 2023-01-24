@@ -21,6 +21,8 @@ const userControllers = require("./controllers/userControllers");
 const tutorialControllers = require("./controllers/tutorialControllers");
 const themeControllers = require("./controllers/themeControllers");
 const hashtagControllers = require("./controllers/hashtagControllers");
+const journeyControllers = require("./controllers/journeyControllers");
+const difficultyControllers = require("./controllers/difficultyControllers");
 
 // public routes
 router.get("/home", themeControllers.browse);
@@ -29,6 +31,7 @@ router.get("/tutorials", tutorialControllers.browse);
 router.get("/tutorials/:id", tutorialControllers.read);
 router.get("/tutorials-search", tutorialControllers.browseForSearch);
 router.get("/hashtags", hashtagControllers.browse);
+router.get("/difficulties", difficultyControllers.browse);
 
 router.post(
   "/login",
@@ -38,6 +41,11 @@ router.post(
 
 // Not public routes
 router.use(verifyToken, verifyAdmin); // authentication wall : verifyToken is activated for each route after this line
+
+// Journey routes
+router.get("/journeys/:userId", journeyControllers.readAllForUser);
+router.get("/journeys", journeyControllers.browse);
+router.post("/journey", journeyControllers.add);
 
 router.get("/reconnect", replaceReqParamIdByPayloadSub, userControllers.read);
 router.get("/users", userControllers.browse);

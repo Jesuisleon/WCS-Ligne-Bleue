@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import ErrorAlert from "@components/ErrorAlert";
 import { AuthContext } from "../context/AuthContext";
@@ -14,21 +15,12 @@ function Login() {
   const [errorText, setErrorText] = useState(false);
 
   const handleSubmit = (e) => {
-    const { VITE_BACKEND_URL } = import.meta.env;
     e.preventDefault();
     axios
-      .post(
-        `${VITE_BACKEND_URL}/login`,
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post(`/login`, {
+        email,
+        password,
+      })
       .catch((error) => {
         setErrorMessage(true);
         setErrorText(error.response.statusText);

@@ -5,31 +5,39 @@ import {
   useNavigate,
   Navigate,
 } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+
+import { useContext } from "react";
+import Cookies from "js-cookie";
+
+import { AnimatePresence } from "framer-motion";
+import Sticky from "react-stickynode";
+
+import Header from "@components/Header";
+import NavigationBlock from "@components/NavigationBlock";
+
 import Home from "@pages/Home";
 import AdminPanel from "@pages/AdminPanel";
 import Login from "@pages/Login";
 import Journey from "@pages/Journey";
 import Search from "@pages/Search";
-import Tutorial from "@pages/Tutorial";
-import TutorialTheme from "@pages/TutorialsByTheme";
+import Tutorial from "@pages/Tutorial/Tutorial";
+import TutorialByTheme from "@pages/TutorialsByTheme";
 import UserProfil from "@pages/UserProfil";
 import TutorialMaker from "@pages/TutorialMaker/TutorialMaker";
 import Register from "@pages/Register";
-import Header from "@components/Header";
 import ChangePassword from "@pages/ChangePassword";
-import { AnimatePresence, motion } from "framer-motion";
-import { GoArrowDown, GoArrowUp } from "react-icons/go";
-import NavigationBlock from "@components/NavigationBlock";
-import Cookies from "js-cookie";
-import { AuthContext } from "../context/AuthContext";
-import NotFound404 from "./NotFound404";
 import ProtectedRoute from "./ProtectedRoute";
+import { AuthContext } from "../../context/AuthContext";
 
-function AnimatedRoutes() {
+import NotFound404 from "../../components/NotFound404";
+
+export default function AllRoutes() {
   const { userInfos } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const isLoading = userInfos !== null;
+
   let navTitle = "";
   const admin = userInfos.isAdmin === 1;
   const isLog = Cookies.get("userToken");
@@ -71,61 +79,24 @@ function AnimatedRoutes() {
     default:
       navTitle = "Bienvenue";
   }
-  const [showBottomArrow, setShowBottomArrow] = useState(false);
-  const [showTopArrow, setShowTopArrow] = useState(false);
-
-  const [isScrollUpPlaying, setIsScrollUpPlaying] = useState(true);
-  const [isScrollDownPlaying, setIsScrollDownPlaying] = useState(true);
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (isLoading === true);
-  }, [isLoading]);
-
-  function scrollDown() {
-    window.scrollTo(0, window.scrollY + window.innerHeight);
-  }
-
-  function scrollUp() {
-    window.scrollTo(0, window.scrollY - window.innerHeight);
-  }
-
-  function handleScroll() {
-    setShowBottomArrow(
-      window.scrollY < document.body.offsetHeight - window.innerHeight
-    );
-    setShowTopArrow(window.scrollY > 0);
-  }
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (userInfos.userFirstName) {
-      setIsLoading(true);
-    }
-  }, [userInfos]);
 
   return (
     <AnimatePresence>
       <Header key="header" />
-      <NavigationBlock
-        key="navigation"
-        title={navTitle}
-        navigate={() => navigate(-1)}
-      />
+      <Sticky enabled top={0} innerZ={20} activeClass="sticky-nav-active">
+        <NavigationBlock
+          key="navigation"
+          title={navTitle}
+          navigate={() => navigate(-1)}
+        />
+      </Sticky>
       <Routes location={location} key={location.pathname}>
         {/* routes public */}
         <Route path="/" element={<Navigate replace to="/home" />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/theme/:id" element={<TutorialTheme />} />
+        <Route path="/theme/:id" element={<TutorialByTheme />} />
         <Route path="/tutorial/:id" element={<Tutorial />} />
         <Route path="/register" element={<Register />} />
         {/* routes protégé si utilisateur est loggé */}
@@ -189,63 +160,6 @@ function AnimatedRoutes() {
         {/* Si la route est différente que toute les routes existantes renvois 404NotFound */}
         <Route path="*" element={<NotFound404 />} />
       </Routes>
-      {showTopArrow && (
-        <motion.div
-          className="fixed top-10 right-5 sm:right-10"
-          animate={
-            isScrollUpPlaying
-              ? {
-                  y: 10,
-                  transition: {
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 50,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    duration: 2,
-                    delay: 0.5,
-                  },
-                }
-              : "init"
-          }
-          initial="init"
-          onHoverStart={() => setIsScrollUpPlaying(false)}
-          onHoverEnd={() => setIsScrollUpPlaying(true)}
-          onClick={scrollUp}
-          key="scrollUp"
-        >
-          <GoArrowUp className="bg-blue-700 hover:bg-blue-600 rounded-full p-3 text-6xl sm:text-7xl lg:text-7xl text-white cursor-pointer z-10" />
-        </motion.div>
-      )}
-      {showBottomArrow && (
-        <motion.div
-          className="fixed bottom-10 right-5 sm:right-10"
-          animate={
-            isScrollDownPlaying
-              ? {
-                  y: -10,
-                  transition: {
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 50,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    duration: 2,
-                  },
-                }
-              : "init"
-          }
-          initial="init"
-          onHoverStart={() => setIsScrollDownPlaying(false)}
-          onHoverEnd={() => setIsScrollDownPlaying(true)}
-          onClick={scrollDown}
-          key="scrollDown"
-        >
-          <GoArrowDown className="bg-blue-700 hover:bg-blue-600 rounded-full p-3 text-6xl sm:text-7xl lg:text-7xl text-white cursor-pointer " />
-        </motion.div>
-      )}
     </AnimatePresence>
   );
 }
-
-export default AnimatedRoutes;

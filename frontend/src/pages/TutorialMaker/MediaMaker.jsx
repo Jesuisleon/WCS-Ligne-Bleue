@@ -5,6 +5,7 @@ import React, {
   useRef,
   forwardRef,
 } from "react";
+
 import { Editor } from "@tinymce/tinymce-react";
 import UploadImageEditor from "./UploadImageEditor";
 
@@ -37,6 +38,12 @@ const MediaMaker = forwardRef(
         setPreview(true);
       }
     }, [dialogClose]);
+
+    useEffect(() => {
+      if (data !== content && content !== "") {
+        setContent(data);
+      }
+    }, [data]);
 
     // init data
     useEffect(() => {
@@ -78,13 +85,13 @@ const MediaMaker = forwardRef(
             plugins: "autoresize media",
             media_alt_source: false,
             setup(editor) {
-              editor.on("init", function () {
+              editor.on("init", function f() {
                 // when editor is open for the first time open the dialog
                 editor.execCommand("mceMedia");
               });
             },
             init_instance_callback(editor) {
-              editor.on("ExecCommand", function () {
+              editor.on("ExecCommand", function f() {
                 // when the image dialog is closed, set the uploadSuccess to true
                 setDialogClose(true);
               });
@@ -114,16 +121,15 @@ const MediaMaker = forwardRef(
           toolbar: false,
           plugins: "autoresize image",
           editimage_cors_hosts: ["picsum.photos"],
-          a11y_advanced_options: true,
           images_upload_handler: UploadImageEditor,
           setup(editor) {
-            editor.on("init", function () {
+            editor.on("init", function f() {
               // when editor is open for the first time open the image dialog
               editor.execCommand("mceImage");
             });
           },
           init_instance_callback(editor) {
-            editor.on("ExecCommand", function () {
+            editor.on("ExecCommand", function f() {
               // when the image dialog is closed, set the uploadSuccess to true
               setDialogClose(true);
             });
