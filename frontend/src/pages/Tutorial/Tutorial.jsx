@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "@context/AuthContext";
 import axios from "axios";
+
 import Quiz from "@components/Quiz";
+
 import Rating from "./Rating";
 import Comments from "./Comments";
 
@@ -10,21 +13,32 @@ const { VITE_BACKEND_URL } = import.meta.env;
 export default function Tutorial() {
   const { id } = useParams();
   const [theme, setTheme] = useState([]);
+  const { userInfos } = useContext(AuthContext);
 
   const [newData, setNewData] = useState({ rating: null, comments: null });
 
   const [validate, setValidata] = useState(false);
-  useEffect(() => {}, [validate]);
 
-  const [data, setData] = useState();
+  const postJourney = (tutorialId, userId, rating, comment) => {
+    axios
+      .post(`/journey`, { tutorialId, userId, rating, comment })
+      .then(() => {
+        alert("Vous avez validé ce tutoriel !");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   useEffect(() => {
-    if (data) {
-      document.title = data.title;
-    }
-  }, [data]);
+    if (validate)
+      postJourney(id, userInfos.userId, newData.rating, newData.comments);
+  }, [validate]);
+
+  const [data, setData] = useState(null);
 
   const getThemeIcon = () => {
-    axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
+    axios.get(`/home`).then((response) => {
       const selectedTheme = response.data.filter(
         (res) => res.id === data.theme_id
       );
@@ -33,15 +47,19 @@ export default function Tutorial() {
   };
 
   useEffect(() => {
-    if (data) getThemeIcon();
+    if (data) {
+      document.title = data.title;
+      getThemeIcon();
+    }
   }, [data]);
 
   const getTutorialContent = () => {
     axios
-      .get(`${VITE_BACKEND_URL}/tutorials/${id}`)
+      .get(`/tutorials/${id}`)
       .then((response) => {
-        const step = JSON.parse(response.data.step);
-        const updateSrcImage = step
+        response.data.step = JSON.parse(response.data.step);
+
+        const updateSrcImage = response.data.step
           .filter(({ type }) => type === "image")
           .map((image) => {
             const regex = /src="([^"])*"/;
@@ -50,7 +68,11 @@ export default function Tutorial() {
             const updatedContent = image.content.replace(src, newSrc);
             return { ...image, content: updatedContent };
           });
-        response.data.step = updateSrcImage;
+
+        response.data.step = [
+          ...response.data.step.filter(({ type }) => type !== "image"),
+          ...updateSrcImage,
+        ];
 
         setData(response.data);
       })
@@ -87,37 +109,40 @@ export default function Tutorial() {
           )}
         </div>
       </div>
-      {data.step.map((step) => {
-        if (step.type === "quiz") {
+      {data !== null &&
+        data.step.map((step) => {
+          if (step.type === "quiz") {
+            return (
+              <div key={step.id} className="tutorial-step">
+                <Quiz key={step.id} data={step.content} />
+              </div>
+            );
+          }
           return (
             <div key={step.id} className="tutorial-step">
-              <Quiz key={step.id} data={step.content} />
+              <div
+                className="flex justify-center"
+                dangerouslySetInnerHTML={createMarkup(step.content)}
+              />
             </div>
           );
-        }
-        return (
-          <div key={step.id} className="tutorial-step">
-            <div
-              className="flex justify-center"
-              dangerouslySetInnerHTML={createMarkup(step.content)}
-            />
-          </div>
-        );
-      })}
-      <div className=" bg-blue-900 bg-gradient-to-br from-blue-400 rounded-xl w-1/2 text-white flex flex-col justify-center items-center gap-4 py-4 mx-auto mt-4">
-        {validate === false && <h2 className="h2-font">Donnez votre avis</h2>}
-        <Rating validate={validate} setData={setNewData} data={newData} />
-        <Comments validate={validate} setData={setNewData} data={newData} />
-        <button
-          className="bg-blue-500 text-white py-2 rounded-lg px-5"
-          type="submit"
-          onClick={() => {
-            setValidata(true);
-          }}
-        >
-          Ok, c'est compris !
-        </button>
-      </div>
+        })}
+      {userInfos.userId && (
+        <div className=" bg-blue-900 bg-gradient-to-br from-blue-400 rounded-xl w-1/2 text-white flex flex-col justify-center items-center gap-4 py-4 mx-auto mt-4">
+          {validate === false && <h2 className="h2-font">Donnez votre avis</h2>}
+          <Rating validate={validate} setData={setNewData} data={newData} />
+          <Comments validate={validate} setData={setNewData} data={newData} />
+          <button
+            className="bg-blue-500 text-white py-2 rounded-lg px-5"
+            type="submit"
+            onClick={() => {
+              setValidata(true);
+            }}
+          >
+            Ok, c'est compris !
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -5,13 +5,14 @@ import React, {
   useRef,
   forwardRef,
 } from "react";
+
 import axios from "axios";
+
 import { SelectInput } from "./inputs/SelectInput";
 import { TextInput } from "./inputs/TextInput";
 import { HashtagInput } from "./inputs/HashtagInput";
 import { EditorInput } from "./inputs/EditorInput";
 
-const { VITE_BACKEND_URL } = import.meta.env;
 const { VITE_FRONTEND_URL } = import.meta.env;
 
 const HeaderMaker = forwardRef(
@@ -31,8 +32,8 @@ const HeaderMaker = forwardRef(
 
     useEffect(() => {
       // get themes from database
-      axios.get(`${VITE_BACKEND_URL}/home`).then((response) => {
-        axios.get(`${VITE_BACKEND_URL}/difficulties`).then((response2) => {
+      axios.get(`/home`).then((response) => {
+        axios.get(`/difficulties`).then((response2) => {
           setDifficulties(response2.data);
           setThemes(response.data);
         });

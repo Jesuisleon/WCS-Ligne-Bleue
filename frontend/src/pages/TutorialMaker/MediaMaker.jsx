@@ -5,6 +5,7 @@ import React, {
   useRef,
   forwardRef,
 } from "react";
+
 import { Editor } from "@tinymce/tinymce-react";
 import UploadImageEditor from "./UploadImageEditor";
 
@@ -37,6 +38,12 @@ const MediaMaker = forwardRef(
         setPreview(true);
       }
     }, [dialogClose]);
+
+    useEffect(() => {
+      if (data !== content && content !== "") {
+        setContent(data);
+      }
+    }, [data]);
 
     // init data
     useEffect(() => {
@@ -114,7 +121,6 @@ const MediaMaker = forwardRef(
           toolbar: false,
           plugins: "autoresize image",
           editimage_cors_hosts: ["picsum.photos"],
-          a11y_advanced_options: true,
           images_upload_handler: UploadImageEditor,
           setup(editor) {
             editor.on("init", function f() {

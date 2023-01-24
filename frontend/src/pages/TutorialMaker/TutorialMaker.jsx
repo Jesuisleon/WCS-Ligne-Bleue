@@ -7,12 +7,10 @@ import MediaMaker from "@pages/TutorialMaker/MediaMaker";
 import QuizMaker from "@pages/TutorialMaker/QuizMaker";
 
 import axios from "axios";
-import Cookies from "js-cookie";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
 function TutorialMaker() {
-  const token = Cookies.get("userToken");
   const childsRefs = useRef([]);
 
   const [save, setSave] = useState(false);
@@ -22,6 +20,10 @@ function TutorialMaker() {
   const [tutorialId, setTutorialId] = useState(null);
 
   const [stepsData, setStepsData] = useState([]);
+
+  useEffect(() => {
+    childsRefs.current = childsRefs.current.filter((item) => item !== null);
+  }, [stepsData]);
 
   const [headerData, setHeaderData] = useState({
     title: "",
@@ -52,14 +54,12 @@ function TutorialMaker() {
 
   const moveStep = (index, direction) => {
     const updatedStep = [...stepsData];
-    const step = updatedStep[index];
+    const step = updatedStep.splice(index, 1);
     if (direction === "up") {
-      updatedStep[index] = updatedStep[index - 1];
-      updatedStep[index - 1] = step;
+      updatedStep.splice(index - 1, 0, step[0]);
     }
     if (direction === "down") {
-      updatedStep[index] = updatedStep[index + 1];
-      updatedStep[index + 1] = step;
+      updatedStep.splice(index + 1, 0, step[0]);
     }
 
     setStepsData(updateIndex(updatedStep));
@@ -94,11 +94,7 @@ function TutorialMaker() {
 
   const postTutorial = (data) => {
     axios
-      .post(`${VITE_BACKEND_URL}/tutorials`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(`/tutorials`, data)
       .then((res) => {
         setTutorialId(res.data.id);
         alert("Votre tutoriel a bien été enregistrer");
@@ -110,11 +106,7 @@ function TutorialMaker() {
 
   const putTutorial = (data) => {
     axios
-      .put(`${VITE_BACKEND_URL}/tutorials/${tutorialId}`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .put(`/tutorials/${tutorialId}`, data)
       .then(() => {
         alert("Votre tutoriel a bien été mis à jour");
       })
@@ -125,11 +117,7 @@ function TutorialMaker() {
 
   const publishTutorial = (data) => {
     axios
-      .put(`${VITE_BACKEND_URL}/tutorials-published/${tutorialId}`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .put(`/tutorials-published/${tutorialId}`, data)
       .then(() => {
         alert(`Votre tutoriel est ${published ? "hors ligne" : "en ligne"}`);
         setPublished(!published);
@@ -159,9 +147,7 @@ function TutorialMaker() {
       if (item.type === "image") {
         return {
           ...item,
-          content: `${item.content.split("src")[0]}src="${data[0]}"${
-            item.content.split("src")[1].split("alt")[1]
-          }`,
+          content: item.content.replace(/src="[^"]+"/, `src="${data}"`),
         };
       }
       return item;
@@ -182,8 +168,8 @@ function TutorialMaker() {
       theme: headerData.theme,
       step: JSON.stringify(updatedStepsData),
       author: "admin",
-      published: false,
     };
+
     if (tutorialId) putTutorial(data);
     else postTutorial(data);
     setSave(false);

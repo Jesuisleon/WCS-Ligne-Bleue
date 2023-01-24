@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+
 import axios from "axios";
+
 import { Link, useNavigate } from "react-router-dom";
+
 import ErrorAlert from "@components/ErrorAlert";
 
 function Register() {
   const navigate = useNavigate();
-
-  const { VITE_BACKEND_URL } = import.meta.env;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,20 +20,12 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(
-        `${VITE_BACKEND_URL}/users`,
-        {
-          email,
-          password,
-          firstname: firstName,
-          lastname,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post(`/users`, {
+        email,
+        password,
+        firstname: firstName,
+        lastname,
+      })
       .then((response) => {
         if (!response) {
           throw new Error("La connection a échoué");

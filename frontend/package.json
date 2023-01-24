@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@fontsource/roboto": "^4.5.8",
+    "@headlessui/react": "^1.7.7",
+    "@heroicons/react": "^1.0.6",
     "@tinymce/tinymce-react": "^4.2.0",
     "axios": "^1.2.1",
     "framer-motion": "^8.0.2",
@@ -20,6 +22,7 @@
     "react-dom": "^18.0.0",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.6.2",
+    "react-stickynode": "^4.1.0",
     "template-fullstack": "file:..",
     "tinymce": "^6.3.1"
   },

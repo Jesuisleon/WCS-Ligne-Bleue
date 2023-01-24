@@ -1,39 +1,20 @@
-import { IoArrowBackSharp } from "react-icons/io5";
-
-function NavigationBlock({ title, navigate }) {
+function NavigationBlock({ title }) {
   return (
     <div
       className="
       min-w-screen
-      h-11
+      h-[4em]
       sm:h-20
-     bg-blue-800
-      relative
-      shadow-xl
+     bg-white
       z-20
+      flex
+      justify-center
+      items-center
        "
     >
-      {title !== "Bienvenue" && (
-        <button
-          type="button"
-          onClick={navigate}
-          className="
-            text-white
-            text-4xl
-            font-title
-            float-left
-            absolute
-            top-3
-            sm:top-5
-            left-3
-            "
-        >
-          <IoArrowBackSharp className="text-2xl sm:text-4xl" />
-        </button>
-      )}
       <p
         className="
-        text-white
+        text-blue-700
         text-xl
         sm:text-3xl
         py-2
