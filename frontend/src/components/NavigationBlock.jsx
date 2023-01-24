@@ -10,6 +10,8 @@ function NavigationBlock({ title }) {
       flex
       justify-center
       items-center
+      border-b-2
+      border-yellow-300
        "
     >
       <p

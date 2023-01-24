@@ -1,15 +1,20 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { NavigationContext } from "@context/NavigationContext";
+
 import axios from "axios";
 
 export default function Home() {
+  const { setNavigationTitle } = useContext(NavigationContext);
+
   const [themes, setThemes] = useState([]);
 
   useEffect(() => {
     axios.get(`/home`).then((response) => {
       setThemes(response.data);
     });
+    setNavigationTitle("Bienvenue");
   }, []);
 
   const otherThemes = [
@@ -26,12 +31,17 @@ export default function Home() {
   ];
 
   const iconsContainerStyled =
-    "h-[5em] w-[5em] sm:h-fit sm:w-fit bg-amber-300 rounded-full p-3 m-2 border-2 sm:border-4 border-white";
+    "h-[5em] w-[5em] sm:h-fit sm:w-fit bg-yellow-400 rounded-full p-3 m-2 border-2 sm:border-4 border-white";
 
   const iconStyled = "w-full h-full sm:h-[4em] lg:h-20 p-1 sm:p-4";
 
-  const themeCardStyled =
-    "px-10 bg-white text-blue-700 text-l sm:text-xl antialiased font-bold 2xl:font-bold flex flex-col items-center justify-center text-center h-30 w-30 rounded-xl hover:bg-blue-700 hover:text-white transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl hover:border-transparent shadow-lg shadow-yellow-400";
+  const themeCard =
+    "px-10 bg-white text-blue-700 text-l sm:text-xl antialiased font-bold 2xl:font-bold flex flex-col items-center justify-center text-center h-30 w-30 rounded-lg shadow-lg shadow-yellow-400 border-2 border-yellow-400 border-opacity-50 hover:border-transparent";
+
+  const themeCardFx =
+    "hover:bg-blue-700 hover:text-white transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl hover:border-transparent";
+
+  const themeCardStyled = `${themeCard} ${themeCardFx}`;
 
   return (
     <motion.div

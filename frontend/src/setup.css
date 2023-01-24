@@ -62,7 +62,7 @@ input {
 }
 
 .tutorial-header {
-  @apply bg-white p-6 w-full grid justify-center items-center gap-4 grid-cols-4 lg:grid-cols-6 auto-rows-auto lg:grid-rows-1 border-y-2;
+  @apply p-6 w-full grid justify-center items-center gap-4 grid-cols-4 lg:grid-cols-6 auto-rows-auto lg:grid-rows-1 border-b-2;
 }
 
 .tutorial-h-1 {

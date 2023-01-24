@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { AuthContext } from "@context/AuthContext";
+
+import { NavigationContext } from "@context/NavigationContext";
+
 import axios from "axios";
+import { AuthContext } from "@context/AuthContext";
 
 import Quiz from "@components/Quiz";
 
@@ -11,17 +14,27 @@ import Comments from "./Comments";
 const { VITE_BACKEND_URL } = import.meta.env;
 
 export default function Tutorial() {
-  const { id } = useParams();
-  const [theme, setTheme] = useState([]);
   const { userInfos } = useContext(AuthContext);
+  const { setNavigationTitle } = useContext(NavigationContext);
+
+  const { tutorialId } = useParams();
+
+  const [theme, setTheme] = useState([]);
+
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    if (data) {
+      setNavigationTitle(data.title);
+    }
+  }, [data]);
 
   const [newData, setNewData] = useState({ rating: null, comments: null });
 
   const [validate, setValidata] = useState(false);
 
-  const postJourney = (tutorialId, userId, rating, comment) => {
+  const postJourney = (tutoId, userId, rating, comment) => {
     axios
-      .post(`/journey`, { tutorialId, userId, rating, comment })
+      .post(`/journey`, { tutorialId: tutoId, userId, rating, comment })
       .then(() => {
         alert("Vous avez validé ce tutoriel !");
       })
@@ -32,10 +45,13 @@ export default function Tutorial() {
 
   useEffect(() => {
     if (validate)
-      postJourney(id, userInfos.userId, newData.rating, newData.comments);
+      postJourney(
+        tutorialId,
+        userInfos.userId,
+        newData.rating,
+        newData.comments
+      );
   }, [validate]);
-
-  const [data, setData] = useState(null);
 
   const getThemeIcon = () => {
     axios.get(`/home`).then((response) => {
@@ -55,7 +71,7 @@ export default function Tutorial() {
 
   const getTutorialContent = () => {
     axios
-      .get(`/tutorials/${id}`)
+      .get(`/tutorials/${tutorialId}`)
       .then((response) => {
         response.data.step = JSON.parse(response.data.step);
 
@@ -92,7 +108,7 @@ export default function Tutorial() {
   if (data === undefined) return <div>Loading...</div>;
 
   return (
-    <div>
+    <div className="">
       <div className="flex flex-col justify-center items-center mx-2" />
       <div className="tutorial-header">
         {theme.length !== 0 && (
