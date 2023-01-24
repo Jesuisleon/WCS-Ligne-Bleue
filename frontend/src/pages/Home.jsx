@@ -36,10 +36,10 @@ export default function Home() {
   const iconStyled = "w-full h-full sm:h-[4em] lg:h-20 p-1 sm:p-4";
 
   const themeCard =
-    "px-10 bg-blue-700 text-white text-l sm:text-xl antialiased font-bold 2xl:font-bold flex flex-col items-center justify-center text-center h-30 w-30 rounded-lg shadow-md shadow-blue-200 ";
+    "px-10 bg-blue-700 text-white border-opacity-25 text-l sm:text-xl antialiased font-bold 2xl:font-bold flex flex-col items-center justify-center text-center h-30 w-30 rounded-xl shadow-xl shadow-blue-200 ";
 
   const themeCardFx =
-    "hover:bg-blue-400 hover:text-white transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl hover:border-transparent hover:border-transparent";
+    "hover:bg-yellow-400 hover:text-blue-700 transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110";
 
   const themeCardStyled = `${themeCard} ${themeCardFx}`;
 
