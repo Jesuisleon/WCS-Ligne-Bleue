@@ -4,11 +4,13 @@ import { useContext, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-import Routes from "@services/routes/AllRoutes";
+import AllRoutes from "@services/routes/AllRoutes";
 import { AuthContext } from "./context/AuthContext";
+import { NavigationContext } from "./context/NavigationContext";
 
 function App() {
   const { setUserInfos } = useContext(AuthContext);
+  const { setNavigationTheme } = useContext(NavigationContext);
 
   useEffect(() => {
     const token = Cookies.get("userToken");
@@ -28,6 +30,9 @@ function App() {
           console.error(error);
         });
     }
+    axios.get(`/home`).then((response) => {
+      setNavigationTheme(response.data);
+    });
   }, []);
 
   return (
@@ -38,13 +43,10 @@ function App() {
       flex-col
       min-h-screen
       w-screen 
-      bg-gradient-to-b 
-      from-yellow-100 
-      to-yellow-200
       "
     >
       <Router>
-        <Routes />
+        <AllRoutes />
       </Router>
     </div>
   );

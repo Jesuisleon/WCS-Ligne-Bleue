@@ -19,8 +19,6 @@ export default function Tutorial() {
 
   const { tutorialId } = useParams();
 
-  const [theme, setTheme] = useState([]);
-
   const [data, setData] = useState(null);
   useEffect(() => {
     if (data) {
@@ -53,19 +51,9 @@ export default function Tutorial() {
       );
   }, [validate]);
 
-  const getThemeIcon = () => {
-    axios.get(`/home`).then((response) => {
-      const selectedTheme = response.data.filter(
-        (res) => res.id === data.theme_id
-      );
-      setTheme(selectedTheme);
-    });
-  };
-
   useEffect(() => {
     if (data) {
       document.title = data.title;
-      getThemeIcon();
     }
   }, [data]);
 
@@ -105,47 +93,50 @@ export default function Tutorial() {
     return { __html: content };
   };
 
-  if (data === undefined) return <div>Loading...</div>;
+  if (data === null) return <div>Loading...</div>;
 
   return (
-    <div className="">
-      <div className="flex flex-col justify-center items-center mx-2" />
+    <div className="flex flex-col gap-10 my-10 px-20">
+      {/* HEADER */}
       <div className="tutorial-header">
-        {theme.length !== 0 && (
-          <img className="h-20 ml-10" src={theme[0].icon} alt={theme[0].name} />
-        )}
-        <div className="tutorial-h-2">
-          <h1 className="h1-font">{data && data.title}</h1>
-          <h2 className="h2-font">{data && data.objective}</h2>
+        <div className="flex gap-2 items-end">
+          <div className="flex flex-col items-start gap-2">
+            <h1 className="h1-font">Objectif</h1>
+            <p className="p-font">{data.objective}</p>
+          </div>
         </div>
-        <div className="tutorial-h-description">
-          <h2 className="h2-font">Description</h2>
-          {data && (
-            <div dangerouslySetInnerHTML={createMarkup(data.description)} />
-          )}
+        <div className="flex flex-col gap-2">
+          <h2 className="h1-font">Description</h2>
+          <div
+            className="p-font"
+            dangerouslySetInnerHTML={createMarkup(data.description)}
+          />
         </div>
       </div>
-      {data !== null &&
-        data.step.map((step) => {
-          if (step.type === "quiz") {
-            return (
-              <div key={step.id} className="tutorial-step">
-                <Quiz key={step.id} data={step.content} />
-              </div>
-            );
-          }
+
+      {/* STEPPERS */}
+      {data.step.map((step) => {
+        if (step.type === "quiz") {
           return (
             <div key={step.id} className="tutorial-step">
-              <div
-                className="flex justify-center"
-                dangerouslySetInnerHTML={createMarkup(step.content)}
-              />
+              <Quiz key={step.id} data={step.content} />
             </div>
           );
-        })}
+        }
+        return (
+          <div key={step.id} className="tutorial-step">
+            <div
+              className="flex justify-center"
+              dangerouslySetInnerHTML={createMarkup(step.content)}
+            />
+          </div>
+        );
+      })}
+
+      {/* VALIDATOR */}
       {userInfos.userId && (
-        <div className=" bg-blue-900 bg-gradient-to-br from-blue-400 rounded-xl w-1/2 text-white flex flex-col justify-center items-center gap-4 py-4 mx-auto mt-4">
-          {validate === false && <h2 className="h2-font">Donnez votre avis</h2>}
+        <div className="bg-blue-700 w-full lg:w-1/2 rounded-md text-white flex flex-col justify-center items-center gap-6 py-4 mx-auto mt-4">
+          {validate === false && <h2 className="h1-font">L'envie d'avis</h2>}
           <Rating validate={validate} setData={setNewData} data={newData} />
           <Comments validate={validate} setData={setNewData} data={newData} />
           <button

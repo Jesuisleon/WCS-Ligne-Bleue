@@ -38,43 +38,47 @@ function Rating({ validate, data, setData }) {
   // if validate is true, the rating is displayed
   if (validate) {
     return (
-      <div className="flex gap-4 items-center w-full px-10">
-        <p>Ma note: </p>
-        {[...Array(5)].map((star, i) => {
-          const ratingValue = i + 1;
-          return (
-            <div key={ratingValue}>
-              <FaStar
-                className="star"
-                color={ratingValue <= rating ? "#ffc107" : "#e4e5e9"}
-                size={35}
-              />
-            </div>
-          );
-        })}
+      <div className="flex-col md:flex-row flex gap-2 md:gap-4 md:items-center w-full px-10">
+        <p className="h1-font">Ma note : </p>
+        <div className="flex gap-2">
+          {[...Array(5)].map((star, i) => {
+            const ratingValue = i + 1;
+            return (
+              <div key={ratingValue}>
+                <FaStar
+                  className="star"
+                  color={ratingValue <= rating ? "#ffc107" : "#e4e5e9"}
+                  size={35}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
 
   // if validate is false, the rating is editable
   return (
-    <div className="flex gap-4 items-center w-full px-10">
-      <p>Ma note: </p>
-      {[...Array(5)].map((star, i) => {
-        const ratingValue = i + 1;
-        return (
-          <div key={ratingValue}>
-            <FaStar
-              className="star"
-              color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
-              size={35}
-              onClick={() => handleRating(ratingValue)}
-              onMouseEnter={() => handleHover(ratingValue)}
-              onMouseLeave={handleLeave}
-            />
-          </div>
-        );
-      })}
+    <div className="flex-col md:flex-row flex gap-2 md:gap-4 md:items-center w-full px-10">
+      <p className="h1-font">Ma note : </p>
+      <div className="flex gap-2">
+        {[...Array(5)].map((star, i) => {
+          const ratingValue = i + 1;
+          return (
+            <div key={ratingValue}>
+              <FaStar
+                className="star"
+                color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                size={35}
+                onClick={() => handleRating(ratingValue)}
+                onMouseEnter={() => handleHover(ratingValue)}
+                onMouseLeave={handleLeave}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
