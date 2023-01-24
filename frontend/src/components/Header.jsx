@@ -1,28 +1,14 @@
-import { React, useContext, useState } from "react";
+import { React, useContext, Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { Popover, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { AuthContext } from "../context/AuthContext";
 
-const navigation = [
-  // { name: "Solutions", href: "#" },
-  // { name: "Pricing", href: "#" },
-  // { name: "Docs", href: "#" },
-  // { name: "Company", href: "#" },
-];
-
 export default function Header() {
-  // function classNames(...classes) {
-  //   return classes.filter(Boolean).join(" ");
-  // }
-
   const { userToken, setUserTokenCookie, userInfos } = useContext(AuthContext);
 
-  const [showDropdown, setShowDropdown] = useState(false);
-
-  const handleDropdownToggle = () => {
-    setShowDropdown(!showDropdown);
-  };
-
-  const { userFirstName, userLastName } = userInfos;
+  const { userLastName } = userInfos;
   const navigate = useNavigate();
 
   const handleDisconnect = (event) => {
@@ -32,14 +18,10 @@ export default function Header() {
     navigate("/home");
   };
 
-  const handleRedirectToUserProfil = () => {
-    navigate("/userprofile");
-  };
-
   return (
-    <header className="bg-blue-700">
+    <header className="bg-blue-700 z-40 shadow-xl">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
-        <div className="w-full py-6 flex items-center justify-between border-b border-blue-500 lg:border-none">
+        <div className="w-full py-6 flex items-center justify-between lg:border-none">
           <div className="flex items-center">
             <Link to="/">
               <span className="sr-only">Ligne Bleue</span>
@@ -49,17 +31,6 @@ export default function Header() {
                 alt=""
               />
             </Link>
-            <div className="hidden ml-10 space-x-8 lg:block">
-              {navigation.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-base font-medium text-white hover:text-blue-50"
-                >
-                  {link.name}
-                </a>
-              ))}
-            </div>
           </div>
 
           {userToken === null ? (
@@ -68,86 +39,84 @@ export default function Header() {
                 to="/login"
                 className="inline-block bg-blue-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
               >
-                SE CONNECTER
+                Se connecter
               </Link>
               <Link
                 to="/register"
                 className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-blue-600 hover:bg-blue-50"
               >
-                S'INSCRIRE
+                Créer un compte
               </Link>
             </div>
           ) : (
-            <div className="flex-col justify-between items-center ">
-              <button
-                id="dropdownDefaultButton"
-                onClick={handleDropdownToggle}
-                data-dropdown-toggle="dropdown"
-                className=" z-40 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                type="button"
-              >
-                {`${userFirstName} ${userLastName} `}{" "}
-                <svg
-                  className="w-4 h-4 ml-2"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-              {showDropdown && (
-                <div
-                  id="dropdown"
-                  className=" absolute z-10 bg-white divide-y divide-gray-100 rounded shadow w-30 dark:bg-gray-600"
-                >
-                  <ul
-                    className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                    aria-labelledby="dropdownDefaultButton"
+            <Popover className="relative">
+              {({ open }) => (
+                <>
+                  <Popover.Button
+                    className={`
+                  ${open ? "" : "text-opacity-90"}
+                  group inline-flex items-center rounded-md bg-blue-500 px-3 py-2 text-base font-medium text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                   >
-                    <li>
-                      <button
-                        href="#"
-                        onClick={handleRedirectToUserProfil}
-                        className="block px-4 py-2 hover:bg-gray-600 dark:hover:bg-gray-600 dark:hover:text-black"
-                        type="button"
-                      >
-                        Mon compte
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={handleDisconnect}
-                        className="block  px-4 py-2 hover:bg-gray-600 dark:hover:bg-gray-600 dark:hover:text-red-600"
-                        type="button"
-                      >
-                        Déconnexion
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
+                    <span>{`Bienvenue ${userLastName} `}</span>
+                    <ChevronDownIcon
+                      className={`${open ? "" : "text-opacity-70"}
+                    ml-2 h-5 w-5 text-blue-300 transition duration-150 ease-in-out group-hover:text-opacity-80`}
+                      aria-hidden="true"
+                    />
+                  </Popover.Button>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-200"
+                    enterFrom="opacity-0 translate-y-1"
+                    enterTo="opacity-100 translate-y-0"
+                    leave="transition ease-in duration-150"
+                    leaveFrom="opacity-100 translate-y-0"
+                    leaveTo="opacity-0 translate-y-1"
+                  >
+                    <Popover.Panel className="absolute z-40 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0">
+                      <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                        <div className="relative grid gap-8 bg-white p-7">
+                          <Link to="/userprofile">
+                            <Popover.Button className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start">
+                              <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-500 text-white sm:h-12 sm:w-12">
+                                {/* Heroicon name: outline/support */}
+                              </div>
+                              <div className="ml-4">
+                                <p className="text-base font-medium text-gray-900">
+                                  Mon profil
+                                </p>
+                                <p className="mt-1 text-sm text-gray-500">
+                                  Gérer mon profil
+                                </p>
+                              </div>
+                            </Popover.Button>
+                          </Link>
 
-        <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
-          {navigation.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-base font-medium text-white hover:text-blue-50"
-            >
-              {link.name}
-            </a>
-          ))}
+                          <button
+                            type="button"
+                            onClick={handleDisconnect}
+                            className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                          >
+                            <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-500 text-white sm:h-12 sm:w-12">
+                              {/* Heroicon name: outline/support */}
+                            </div>
+                            <div className="ml-4 text-start">
+                              <p className="text-base font-medium text-gray-900">
+                                Se déconnecter
+                              </p>
+                              <p className="mt-1 text-sm text-gray-500">
+                                Se déconnecter de mon compte
+                              </p>
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+                    </Popover.Panel>
+                  </Transition>
+                </>
+              )}
+            </Popover>
+          )}
         </div>
       </nav>
     </header>

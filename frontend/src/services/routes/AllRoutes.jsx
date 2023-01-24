@@ -83,7 +83,7 @@ export default function AllRoutes() {
   return (
     <AnimatePresence>
       <Header key="header" />
-      <Sticky enabled top={0} innerZ={0} activeClass="sticky-nav-active">
+      <Sticky enabled top={0} innerZ={20} activeClass="sticky-nav-active">
         <NavigationBlock
           key="navigation"
           title={navTitle}
