@@ -1,5 +1,6 @@
 import * as ReactRouter from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
+import { NavigationContext } from "@context/NavigationContext";
 
 import axios from "axios";
 
@@ -10,19 +11,25 @@ import { AuthContext } from "../context/AuthContext";
 const { Link, useParams } = ReactRouter;
 
 export default function TutorialByTheme() {
+  const { setNavigationTitle } = useContext(NavigationContext);
+
   const [data, setData] = useState();
-  const { id } = useParams();
+  const { themeId } = useParams();
   const { userInfos } = useContext(AuthContext);
 
   useEffect(() => {
     axios
-      .get(`/tutorials/?theme=${id}`)
+      .get(`/tutorials/?theme=${themeId}`)
       .then((response) => {
         setData(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
+  }, [userInfos.isAdmin]);
+
+  useEffect(() => {
+    setNavigationTitle("Theme");
   }, []);
 
   return (
@@ -34,7 +41,7 @@ export default function TutorialByTheme() {
         grid
         grid-cols-1
         sm:grid-cols-2
-        xl:grid-cols-3
+        xl:grid-cols-
         2xl:grid-cols-5
         gap-7
         auto-rows-[minmax(100px,_1fr)]
@@ -76,7 +83,7 @@ export default function TutorialByTheme() {
                 shadow-yellow-400
                 text-center
                 "
-              to={`/tutorial/${tutorial.id}`}
+              to={`/theme/${themeId}/tutorial/${tutorial.id}`}
             >
               <HiCheckCircle className="text-4xl fill-green-500 m-auto" />
               <h1 className="text-xl font-bold">{tutorial.title}</h1>
@@ -107,7 +114,6 @@ export default function TutorialByTheme() {
             </Link>
           </motion.div>
         ))}
-
       <div className="flex">
         {userInfos.isAdmin ? (
           <Link
