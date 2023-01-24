@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@fontsource/roboto": "^4.5.8",
+    "@headlessui/react": "^1.7.7",
+    "@heroicons/react": "^1.0.6",
     "@tinymce/tinymce-react": "^4.2.0",
     "axios": "^1.2.1",
     "framer-motion": "^8.0.2",

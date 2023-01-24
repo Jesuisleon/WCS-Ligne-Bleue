@@ -1,11 +1,14 @@
 import { createContext, useState, useMemo, useCallback } from "react";
 import Cookies from "js-cookie";
 
+
 export const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
   const [userToken, setUserToken] = useState(Cookies.get("userToken") || null);
   const [userInfos, setUserInfos] = useState({});
+  const [checkBoxFilter, setCheckBoxFilter] = useState("")
+
 
   const setUserTokenCookie = useCallback((token) => {
     if (token) {
@@ -21,12 +24,14 @@ export function AuthContextProvider({ children }) {
 
   const value = useMemo(
     () => ({
+      checkBoxFilter,
+      setCheckBoxFilter,
       setUserTokenCookie,
       userToken,
       userInfos,
       setUserInfos,
     }),
-    [userToken, userInfos]
+    [userToken, userInfos, checkBoxFilter]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

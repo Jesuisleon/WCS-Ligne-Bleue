@@ -44,7 +44,7 @@ function Login() {
             userFirstName: response.data.user.firstname,
             userLastName: response.data.user.lastname,
             userEmail: response.data.user.email,
-            isAdmin: response.data.user.admin,
+            isAdmin: response.data.user.isAdmin,
           });
           navigate("/");
         }
