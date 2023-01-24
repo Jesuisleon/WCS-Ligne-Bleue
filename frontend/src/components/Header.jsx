@@ -19,7 +19,18 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-blue-700 z-40 shadow-xl">
+    <header
+      className="
+    w-screen
+    bg-white 
+    z-40 
+    bg-gradient-to-b 
+    from-yellow-100 
+    to-yellow-300
+    border-b-2
+    border-yellow-300
+    "
+    >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
         <div className="w-full py-6 flex items-center justify-between lg:border-none">
           <div className="flex items-center">
@@ -37,7 +48,7 @@ export default function Header() {
             <div className="ml-10 space-x-4">
               <Link
                 to="/login"
-                className="inline-block bg-blue-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
+                className="inline-block bg-blue-700 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
               >
                 Se connecter
               </Link>
@@ -55,9 +66,9 @@ export default function Header() {
                   <Popover.Button
                     className={`
                   ${open ? "" : "text-opacity-90"}
-                  group inline-flex items-center rounded-md bg-blue-500 px-3 py-2 text-base font-medium text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                  group inline-flex items-center rounded-md bg-blue-700 px-3 py-2 text-base font-medium text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                   >
-                    <span>{`Bienvenue ${userLastName} `}</span>
+                    <span>{`Bonjour ${userLastName} `}</span>
                     <ChevronDownIcon
                       className={`${open ? "" : "text-opacity-70"}
                     ml-2 h-5 w-5 text-blue-300 transition duration-150 ease-in-out group-hover:text-opacity-80`}
@@ -78,7 +89,7 @@ export default function Header() {
                         <div className="relative grid gap-8 bg-white p-7">
                           <Link to="/userprofile">
                             <Popover.Button className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start">
-                              <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-500 text-white sm:h-12 sm:w-12">
+                              <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-700 text-white sm:h-12 sm:w-12">
                                 {/* Heroicon name: outline/support */}
                               </div>
                               <div className="ml-4">
@@ -97,7 +108,7 @@ export default function Header() {
                             onClick={handleDisconnect}
                             className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                           >
-                            <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-500 text-white sm:h-12 sm:w-12">
+                            <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-700 text-white sm:h-12 sm:w-12">
                               {/* Heroicon name: outline/support */}
                             </div>
                             <div className="ml-4 text-start">
