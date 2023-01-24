@@ -10,7 +10,7 @@ export function AuthContextProvider({ children }) {
   const setUserTokenCookie = useCallback((token) => {
     if (token) {
       Cookies.set("userToken", token, {
-        expires: 1 / 24,
+        expires: 24 / 24,
       });
       setUserToken(token);
     } else {
