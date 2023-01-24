@@ -1,4 +1,3 @@
-
 // const blabla = [
 //     {
 // author: "admin",
@@ -6,7 +5,7 @@
 // description: "<p>test pour migrate</p>",
 // difficulty: "1",
 // edition_date: "2023-01-20T10:58:47.000Z",
-// hashtag:  
+// hashtag:
 // [
 // {id: 1, text: 'phone'},
 // {id: 2, text: 'internet'},
@@ -24,7 +23,7 @@
 // description: "<p>test pour migrate</p>",
 // difficulty: "1",
 // edition_date: "2023-01-20T10:58:47.000Z",
-// hashtag:  
+// hashtag:
 // [
 // {id: 1, text: 'phone'},
 // {id: 2, text: 'internet'},
@@ -43,7 +42,7 @@
 //     description: "<p>test pour migrate</p>",
 //     difficulty: "1",
 //     edition_date: "2023-01-20T10:58:47.000Z",
-//     hashtag:  
+//     hashtag:
 //     [
 //     {id: 1, text: 'phone'},
 //     {id: 2, text: 'internet'},
@@ -62,7 +61,7 @@
 //         description: "<p>test pour migrate</p>",
 //         difficulty: "1",
 //         edition_date: "2023-01-20T10:58:47.000Z",
-//         hashtag:  
+//         hashtag:
 //         [
 //         {id: 1, text: 'phone'},
 //         {id: 2, text: 'internet'},
@@ -77,13 +76,12 @@
 
 // ]
 
-
 const filterTutorialByThemeId = (themeId, arrayTofilter) => {
-    return arrayTofilter.filter(tutorial => tutorial.theme_id === themeId);
-  }
+  return arrayTofilter.filter((tutorial) => tutorial.theme_id === themeId);
+};
 
 //   const blibli = filterTutorialByThemeId(2, blabla)
 
 //   console.log(blibli)
 
-  export default filterTutorialByThemeId
+export default filterTutorialByThemeId;
