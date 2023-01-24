@@ -21,7 +21,7 @@ function Comments({ validate, data, setData }) {
   if (validate) {
     return (
       <div className="flex flex-col gap-2 w-full px-10">
-        <p>Mon Commentaire: </p>
+        <p className="h1-font">Mon Commentaire: </p>
         <p className="bg-white w-full text-black p-2">{comments}</p>
       </div>
     );
@@ -29,7 +29,9 @@ function Comments({ validate, data, setData }) {
 
   return (
     <div className="flex flex-col gap-2 w-full px-10">
-      <label htmlFor="comments">Mon commentaire: </label>
+      <label htmlFor="comments" className="h1-font">
+        Mon commentaire:{" "}
+      </label>
       <textarea
         className="w-full text-black p-2"
         name="comments"
