@@ -64,7 +64,7 @@ export default function Home() {
               <img
                 src={data.icon}
                 alt={data.name}
-                className="w-full h-full sm:h-[4em] lg:h-20 p-4"
+                className="w-full h-full sm:h-20 lg:h-20  object-cover"
               />
             </motion.div>
             <p>{data.name}</p>
