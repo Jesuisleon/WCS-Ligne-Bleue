@@ -58,33 +58,22 @@ input {
 }
 
 .tutorial-step {
-  @apply bg-white rounded-xl my-4 mx-4 px-4 py-2;
+  @apply bg-white rounded-xl my-4 px-4 py-2;
 }
 
 .tutorial-header {
-  @apply bg-white p-6 w-full grid justify-center items-center gap-4 grid-cols-4 lg:grid-cols-6 auto-rows-auto lg:grid-rows-1 border-y-2;
+  @apply flex flex-col gap-6 p-10 border-2 border-dashed border-gray-300 rounded-md;
 }
 
-.tutorial-h-1 {
-  @apply col-span-1 m-auto;
-}
-
-.tutorial-h-description {
-  @apply flex flex-col gap-2 col-span-4 lg:col-span-3 lg:row-auto h-full;
-}
-
-.tutorial-h-2 {
-  @apply col-span-3 lg:col-span-2 flex flex-col gap-4;
-}
 .col {
   @apply w-full h-full flex flex-col items-center;
 }
 
 .h1-font {
-  @apply text-2xl font-bold;
+  @apply text-xl font-semibold;
 }
 
-.h2-font {
-  @apply text-xl font-bold;
+.p-font {
+  @apply text-gray-500 first-letter:capitalize;
 }
 /* End CSS Presets */

@@ -13,7 +13,7 @@ function Quiz({ data }) {
   };
 
   return (
-    <div className="bg-white pb-6 rounded-lg">
+    <div className="bg-white p-6 border-2 rounded-md">
       {data &&
         data.map((item, index) => (
           <Question
@@ -98,10 +98,10 @@ function Question({
   return (
     <div>
       <div
-        className={`border-b-2 pt-4 pl-4 flex gap-4 items-center ${
-          isSubmitted && isCorrect && "bg-green-500 text-white"
+        className={`pt-4 pb-2 pl-4 flex gap-4 items-center bg-blue-700 text-white ${
+          isSubmitted && isCorrect && "bg-green-500"
         }
-        ${isSubmitted && !isCorrect && "bg-red-500 text-white"}`}
+        ${isSubmitted && !isCorrect && "bg-red-500"}`}
       >
         <h2
           className={`text-xl font-bold ${
@@ -174,7 +174,7 @@ function Question({
             disabled={!selectedAnswer}
             className={`font-button antialiased font-semibold rounded-lg text-white px-4 py-2 mt-4 
             ${isSubmitted && isCorrect ? "bg-green-500" : "bg-red-500"} 
-            ${!isSubmitted && "bg-gray-800 hover:bg-gray-700"}
+            ${!isSubmitted && "bg-blue-600 hover:opacity-75"}
             `}
           >
             {isSubmitted && isCorrect && "Bravo, c'est la bonne réponse !"}

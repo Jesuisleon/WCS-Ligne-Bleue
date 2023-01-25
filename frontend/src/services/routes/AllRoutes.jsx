@@ -1,19 +1,15 @@
-import {
-  Routes,
-  Route,
-  useLocation,
-  useNavigate,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import { useContext } from "react";
+
 import Cookies from "js-cookie";
 
 import { AnimatePresence } from "framer-motion";
 import Sticky from "react-stickynode";
 
 import Header from "@components/Header";
-import NavigationBlock from "@components/NavigationBlock";
+import SubHeader from "@components/SubHeader";
+import { NavigationContext } from "@context/NavigationContext";
 
 import Home from "@pages/Home";
 import AdminPanel from "@pages/AdminPanel";
@@ -32,63 +28,36 @@ import { AuthContext } from "../../context/AuthContext";
 import NotFound404 from "../../components/NotFound404";
 
 export default function AllRoutes() {
-  const { userInfos } = useContext(AuthContext);
-  const navigate = useNavigate();
   const location = useLocation();
+
+  const themeId =
+    location.pathname.includes("theme") && location.pathname.split("/")[2];
+
+  // Set the icon of the theme as props
+  const { navigationTheme } = useContext(NavigationContext);
+  let themeIcon;
+  if (navigationTheme && themeId) {
+    themeIcon = navigationTheme.filter((e) => e.id === parseInt(themeId, 10))[0]
+      .icon;
+  }
+
+  // Set the title of the page as props
+  const { navigationTitle } = useContext(NavigationContext);
+  const navTitle = navigationTitle || "Bienvenue";
+
+  // Wait for the userInfos to be loaded
+  const { userInfos } = useContext(AuthContext);
 
   const isLoading = userInfos !== null;
 
-  let navTitle = "";
   const admin = userInfos.isAdmin === 1;
   const isLog = Cookies.get("userToken");
-
-  switch (location.pathname) {
-    case "/home":
-      navTitle = "Bienvenue";
-      break;
-    case "/adminPanel":
-      navTitle = "Menu Admin";
-      break;
-    case "/login":
-      navTitle = "Login";
-      break;
-    case "/journey":
-      navTitle = "Mon Parcours";
-      break;
-    case "/search":
-      navTitle = "Search";
-      break;
-    case "/theme/:id":
-      navTitle = "Theme";
-      break;
-    case "/tutorial/:id":
-      navTitle = "Tutorial";
-      break;
-    case "/userprofil":
-      navTitle = "Mon Profile";
-      break;
-    case "/createTutorial":
-      navTitle = "Create Tutorial";
-      break;
-    case "/register":
-      navTitle = "Créer un compte";
-      break;
-    case "/userprofil/changepassword":
-      navTitle = "Changer le mot de passe";
-      break;
-    default:
-      navTitle = "Bienvenue";
-  }
 
   return (
     <AnimatePresence>
       <Header key="header" />
       <Sticky enabled top={0} innerZ={20} activeClass="sticky-nav-active">
-        <NavigationBlock
-          key="navigation"
-          title={navTitle}
-          navigate={() => navigate(-1)}
-        />
+        <SubHeader key="navigation" title={navTitle} />
       </Sticky>
       <Routes location={location} key={location.pathname}>
         {/* routes public */}
@@ -96,8 +65,11 @@ export default function AllRoutes() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/theme/:id" element={<TutorialByTheme />} />
-        <Route path="/tutorial/:id" element={<Tutorial />} />
+        <Route path="/theme/:themeId/" element={<TutorialByTheme />} />
+        <Route
+          path="/theme/:themeID/tutorial/:tutorialId"
+          element={<Tutorial themeIcon={themeIcon} />}
+        />
         <Route path="/register" element={<Register />} />
         {/* routes protégé si utilisateur est loggé */}
         {isLoading && (
