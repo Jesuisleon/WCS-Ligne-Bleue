@@ -70,7 +70,7 @@ input {
 }
 
 .h1-font {
-  @apply text-2xl font-semibold;
+  @apply text-xl font-semibold;
 }
 
 .p-font {

@@ -33,7 +33,7 @@ export default function Header() {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
         <div className="w-full py-4 sm:py-6 flex items-center justify-between lg:border-none">
-          <div className="flex items-center">
+          <div className="hidden xs:flex items-center">
             <Link to="/">
               <span className="sr-only">Ligne Bleue</span>
               <img

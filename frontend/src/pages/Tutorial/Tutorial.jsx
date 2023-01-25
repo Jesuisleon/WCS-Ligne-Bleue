@@ -135,7 +135,7 @@ export default function Tutorial() {
 
       {/* VALIDATOR */}
       {userInfos.userId && (
-        <div className="bg-blue-700 w-full lg:w-1/2 rounded-md text-white flex flex-col justify-center items-center gap-6 py-4 mx-auto mt-4">
+        <div className="bg-gradient-to-b from-blue-600 to-blue-900 w-full xl:w-1/2 rounded-md text-white flex flex-col justify-center items-center gap-6 py-4 mx-auto mt-4">
           {validate === false && <h2 className="h1-font">L'envie d'avis</h2>}
           <Rating validate={validate} setData={setNewData} data={newData} />
           <Comments validate={validate} setData={setNewData} data={newData} />
