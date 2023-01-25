@@ -86,11 +86,7 @@ export default function Home() {
         ))}
 
         {otherThemes.map((data) => (
-          <Link
-            key={data.id}
-            className={themeCardStyled}
-            to={`/search`}
-          >
+          <Link key={data.id} className={themeCardStyled} to="/search">
             <motion.div key={data.id} className={iconsContainerStyled}>
               <img src={data.src} alt={data.name} className={iconStyled} />
             </motion.div>
