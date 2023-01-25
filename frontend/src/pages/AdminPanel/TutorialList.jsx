@@ -1,41 +1,66 @@
+import * as ReactRouter from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { HiChevronDown } from "react-icons/hi";
 import axios from "axios";
+import regexDate from "../../services/utils/utilFunctions";
 
-const { VITE_BACKEND_URL } = import.meta.env;
+const { Link } = ReactRouter;
 
-export default function TutorialList() {
+export default function TutorialList({ adminThemes, render }) {
   const [data, setData] = useState();
+  const [tutoList, setTutoList] = useState();
 
   useEffect(() => {
     if (!data) {
       axios
-        .get(`${VITE_BACKEND_URL}/tutorials`)
+        .get(`/tutorials`)
         .then((response) => {
           setData(response.data);
+          setTutoList(response.data);
         })
         .catch((error) => {
           console.error(error);
         });
     }
-  }, [data]);
+  }, []);
 
+  // eslint-disable-next-line consistent-return
+  const filterTuto = (tuto) => {
+    let themeId = [];
+    themeId = adminThemes.map((e) => themeId.push(e.id));
+    if (adminThemes[themeId.indexOf(tuto.theme_id)].isChecked) {
+      return true;
+    }
+  };
+
+  useEffect(() => {
+    if (adminThemes && data) {
+      let filteredTuto = data;
+      filteredTuto = filteredTuto.filter((tuto) => filterTuto(tuto));
+      setTutoList([...filteredTuto]);
+    }
+  }, [adminThemes, render]);
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-xl font-semibold text-gray-900">Tutorials</h1>
+          <h1 className="text-xl font-semibold text-gray-900">
+            Liste des tutoriels
+          </h1>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
           <button
             type="button"
             className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
           >
-            Ajouter un Tutoriel
+            <Link className="" to="/createTutorial">
+              {" "}
+              <p>Ajouter un Tutoriel</p>
+            </Link>
           </button>
         </div>
       </div>
-      <div className="mt-8 flex flex-col">
+      <div className="mt-4 flex flex-col">
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
@@ -149,8 +174,8 @@ export default function TutorialList() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {data &&
-                    data.map((dataTuto) => (
+                  {tutoList &&
+                    tutoList.map((dataTuto) => (
                       <tr key={dataTuto.id}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                           {dataTuto.theme_name}
@@ -162,25 +187,28 @@ export default function TutorialList() {
                           <span
                             className={`${
                               dataTuto.published
-                                ? "text-green-900"
-                                : "text-red-900"
-                            } inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100`}
+                                ? "bg-green-200 text-green-800"
+                                : "bg-red-200 text-red-800"
+                            } inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium`}
                           >
                             {dataTuto.published ? "En ligne" : "hors ligne"}
                           </span>
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {dataTuto.creation_date}
+                          {regexDate(dataTuto.creation_date)}
                         </td>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                          {dataTuto.edition_date}
+                          {regexDate(dataTuto.edition_date)}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           <button
                             type="button"
                             className="text-indigo-600 hover:text-indigo-900"
                           >
-                            Afficher
+                            <Link className="" to={`/tutorial/${dataTuto.id}`}>
+                              {" "}
+                              <p>Afficher</p>
+                            </Link>
                           </button>
                         </td>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
@@ -189,9 +217,18 @@ export default function TutorialList() {
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                           <button
                             type="button"
-                            className="text-indigo-600 hover:text-indigo-900"
+                            className="text-indigo-600 hover:text-indigo-900 px-3"
                           >
                             Modifier
+                          </button>
+                          <button
+                            type="button"
+                            className="text-indigo-600 hover:text-indigo-900"
+                          >
+                            <Link className="" to={`/tutorial/${dataTuto.id}`}>
+                              {" "}
+                              <p>Afficher</p>
+                            </Link>
                           </button>
                         </td>
                       </tr>

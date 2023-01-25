@@ -47,13 +47,13 @@ export default function AllRoutes() {
       navTitle = "Bienvenue";
       break;
     case "/adminPanel":
-      navTitle = "Admin Panel";
+      navTitle = "Menu Admin";
       break;
     case "/login":
       navTitle = "Login";
       break;
     case "/journey":
-      navTitle = "Journey";
+      navTitle = "Mon Parcours";
       break;
     case "/search":
       navTitle = "Search";
@@ -64,17 +64,17 @@ export default function AllRoutes() {
     case "/tutorial/:id":
       navTitle = "Tutorial";
       break;
-    case "/userProfil":
-      navTitle = "User Profil";
+    case "/userprofil":
+      navTitle = "Mon Profile";
       break;
     case "/createTutorial":
       navTitle = "Create Tutorial";
       break;
     case "/register":
-      navTitle = "Register";
+      navTitle = "Créer un compte";
       break;
-    case "/changePassword":
-      navTitle = "Change Password";
+    case "/userprofil/changepassword":
+      navTitle = "Changer le mot de passe";
       break;
     default:
       navTitle = "Bienvenue";
