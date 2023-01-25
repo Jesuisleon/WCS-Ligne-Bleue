@@ -80,8 +80,8 @@ function Register() {
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className=" py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
+      <div className="mt-8 sm:mx-auto  sm:w-full sm:max-w-md">
+        <div className=" py-8 px-4 bg-[#1e3a8a] shadow-lg sm:rounded-lg sm:px-10">
           {errorMessage && <ErrorAlert alertMessage={errorText} />}
           <form
             onSubmit={handleSubmit}
@@ -93,7 +93,7 @@ function Register() {
               <div className="relative z-0 w-full  group">
                 <label
                   htmlFor="floating_last_name"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-200"
                 >
                   Nom
                 </label>
@@ -114,7 +114,7 @@ function Register() {
               <div className="relative z-0 w-full mb-6 group">
                 <label
                   htmlFor="floating_first_name"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-200"
                 >
                   Prénom
                 </label>
@@ -136,7 +136,7 @@ function Register() {
             <div>
               <label
                 htmlFor="floating_email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-200"
               >
                 Adresse email
               </label>
@@ -158,7 +158,7 @@ function Register() {
               <div className="relative z-0 w-full  group">
                 <label
                   htmlFor="floating_password"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-200"
                 >
                   Mot de passe
                 </label>
@@ -178,7 +178,7 @@ function Register() {
               <div className="relative z-0 w-full mb-6 group">
                 <label
                   htmlFor="floating_repeat_password"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-200"
                 >
                   Comfirmer mot de passe
                 </label>
@@ -201,7 +201,7 @@ function Register() {
               <div className="text-sm">
                 <Link
                   to="/Login"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  className="font-medium text-yellow-400 hover:text-yellow-400"
                 >
                   Déjà inscrit·e sur La Poste ? CONNEXION
                 </Link>
@@ -217,7 +217,7 @@ function Register() {
                 <div className="w-full border-t border-gray-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-[#fef08a] text-gray-500">
+                <span className="px-2 bg-white text-gray-500">
                   Ou continue avec
                 </span>
               </div>
