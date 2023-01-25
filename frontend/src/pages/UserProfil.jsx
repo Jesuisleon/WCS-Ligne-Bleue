@@ -8,11 +8,14 @@ import filterTutorialByThemeId from "../services/filterTutorialByThemeId";
 
 function UserProfil() {
   const { userInfos } = useContext(AuthContext);
-  const { userFirstName, userLastName, userEmail } = userInfos;
+  const { userFirstName, userLastName, userEmail, userId } = userInfos;
   const [tutorials, setTutorials] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [themeFilters, setThemeFilters] = useState("");
+  const [userJourney, setUserJourney] = useState("");
+
+  console.error(userJourney);
 
   useEffect(() => {
     const theme = [];
@@ -28,9 +31,16 @@ function UserProfil() {
           setTutorials(res.data);
           setIsLoading(false);
         });
+      })
+      .then(() => {
+        if (userId) {
+          axios.get(`/journeys/${userId}`).then((res) => {
+            setUserJourney(res.data);
+          });
+        }
       });
     setThemeFilters(theme);
-  }, []);
+  }, [userId]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -129,8 +139,8 @@ function UserProfil() {
           {themeFilters
             .filter((e) => e.isChecked === true)
             .map((e) => (
-              <div className="w-full px-4 pt-2">
-                <div className="mx-auto w-full rounded-2xl bg-white p-2 ">
+              <div key={e.id} className="w-full px-4 pt-2">
+                <div className="mx-auto w-full rounded-2xl bg-white p-0 ">
                   <Disclosure>
                     {({ open }) => (
                       <>
@@ -152,7 +162,10 @@ function UserProfil() {
                                       e.id,
                                       tutorials
                                     ).map((a) => (
-                                      <tbody className="divide-y divide-gray-200 bg-white">
+                                      <tbody
+                                        key={e.id}
+                                        className="divide-y divide-gray-200 bg-white"
+                                      >
                                         <tr key="blabla">
                                           <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                                             <div className="flex items-center">

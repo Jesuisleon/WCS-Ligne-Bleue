@@ -35,6 +35,7 @@ function Login() {
         if (response.data.token) {
           setUserTokenCookie(response.data.token);
           setUserInfos({
+            userId: response.data.user.id,
             userFirstName: response.data.user.firstname,
             userLastName: response.data.user.lastname,
             userEmail: response.data.user.email,
