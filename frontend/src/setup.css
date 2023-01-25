@@ -42,9 +42,7 @@ input {
 /* End CSS Animation */
 
 /* CSS Presets */
-.invalid {
-  @apply text-red-600;
-}
+
 .black-button {
   @apply antialiased bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-100;
 }
@@ -54,7 +52,7 @@ input {
 }
 
 .hashtag-button {
-  @apply bg-slate-100 mr-2 mb-2 p-1 text-sm text-black font-normal rounded cursor-pointer;
+  @apply rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 h-10;
 }
 
 .tutorial-step {

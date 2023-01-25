@@ -112,7 +112,7 @@ export default function AllRoutes() {
               }
             />
             <Route
-              path="/createTutorial"
+              path="/createTutorial/"
               element={
                 <ProtectedRoute status={admin}>
                   <TutorialMaker />

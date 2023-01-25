@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
-import HeaderMaker from "@pages/TutorialMaker/HeaderMaker";
 import { ToolBar } from "@pages/TutorialMaker/ToolBar";
+import SideBar from "@pages/TutorialMaker/SideBar";
 import TextMaker from "@pages/TutorialMaker/TextMaker";
 import MediaMaker from "@pages/TutorialMaker/MediaMaker";
 import QuizMaker from "@pages/TutorialMaker/QuizMaker";
@@ -13,9 +13,11 @@ const { VITE_BACKEND_URL } = import.meta.env;
 function TutorialMaker() {
   const childsRefs = useRef([]);
 
+  const [openSideBar, setOpenSideBar] = useState(true);
+
   const [save, setSave] = useState(false);
 
-  const [published, setPublished] = useState(false);
+  // const [published, setPublished] = useState(false);
 
   const [tutorialId, setTutorialId] = useState(null);
 
@@ -30,8 +32,9 @@ function TutorialMaker() {
     objective: "",
     description: "",
     difficulty: "",
-    hashtag: "",
+    hashtag: [],
     theme: "",
+    published: false,
   });
 
   const setStep = (type) => {
@@ -115,17 +118,17 @@ function TutorialMaker() {
       });
   };
 
-  const publishTutorial = (data) => {
-    axios
-      .put(`/tutorials-published/${tutorialId}`, data)
-      .then(() => {
-        alert(`Votre tutoriel est ${published ? "hors ligne" : "en ligne"}`);
-        setPublished(!published);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  // const publishTutorial = (data) => {
+  //   axios
+  //     .put(`/tutorials-published/${tutorialId}`, data)
+  //     .then(() => {
+  //       alert(`Votre tutoriel est ${published ? "hors ligne" : "en ligne"}`);
+  //       setPublished(!published);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
 
   const getImageSteps = (data) => {
     const image = data.filter(({ type }) => type === "image");
@@ -175,18 +178,18 @@ function TutorialMaker() {
     setSave(false);
   };
 
-  const publish = () => {
-    const data = {
-      published: !published,
-    };
-    if (!tutorialId) {
-      alert("Veuillez enregistrer votre tutoriel avant de le publier");
-      return;
-    }
-    if (tutorialId) {
-      publishTutorial(data);
-    }
-  };
+  // const publish = () => {
+  //   const data = {
+  //     published: !published,
+  //   };
+  //   if (!tutorialId) {
+  //     alert("Veuillez enregistrer votre tutoriel avant de le publier");
+  //     return;
+  //   }
+  //   if (tutorialId) {
+  //     publishTutorial(data);
+  //   }
+  // };
 
   useEffect(() => {
     if (save) saveData();
@@ -200,13 +203,13 @@ function TutorialMaker() {
     setStepsData(updatedStep);
   };
 
-  const setPreviewAll = () => {
-    const updatedStep = stepsData.map((step) => {
-      return { ...step, preview: !preview };
-    });
-    setPreview(!preview);
-    setStepsData(updatedStep);
-  };
+  // const setPreviewAll = () => {
+  //   const updatedStep = stepsData.map((step) => {
+  //     return { ...step, preview: !preview };
+  //   });
+  //   setPreview(!preview);
+  //   setStepsData(updatedStep);
+  // };
 
   useEffect(() => {
     setSave(false);
@@ -215,44 +218,39 @@ function TutorialMaker() {
 
   return (
     <div className="p-4 h-full w-full">
-      {/* admin dashboard */}
-      <div className="absolute z-30 top-[2.9em] sm:top-[6.2em] flex justify-end gap-4 ">
-        <button
-          className="black-button"
-          type="button"
-          onClick={() => {
-            getStepsData();
-            getHeaderData();
-            setSave(true);
-          }}
-        >
-          <p>Enregistrer</p>
-        </button>
-        <button
-          onClick={() => publish()}
-          className="black-button"
-          type="button"
-        >
-          <p>{published ? "Passer hors-ligne" : "Publier en ligne"}</p>
-        </button>
-        <button
-          className="black-button"
-          type="button"
-          onClick={() => {
-            setPreviewAll();
-          }}
-        >
-          <p>{preview ? "Edit" : "Preview"}</p>
+      {/* SideBar */}
+
+      <div className="absolute z-30 top-[2.9em] sm:top-[6.2em] right-[1em] flex justify-end gap-4 ">
+        <button type="button" onClick={() => setOpenSideBar(!openSideBar)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
+            />
+          </svg>
         </button>
       </div>
 
-      {/* Headers */}
-      <HeaderMaker
+      <SideBar
         ref={(ref) => {
           childsRefs.current[0] = ref;
         }}
+        open={openSideBar}
+        setOpen={setOpenSideBar}
         getData={headerData}
-        preview={preview}
+        save={() => {
+          getStepsData();
+          getHeaderData();
+          setSave(true);
+        }}
       />
 
       {/* Steppers */}

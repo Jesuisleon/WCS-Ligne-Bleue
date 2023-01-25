@@ -1,7 +1,12 @@
+import { useLocation } from "react-router-dom";
+
 function SubHeader({ title }) {
+  const location = useLocation();
+
   return (
     <div
-      className="
+      className={`
+      ${location.pathname === "/createTutorial" && "hidden"}
       mx-10
       h-[4em]
       sm:h-20
@@ -12,7 +17,7 @@ function SubHeader({ title }) {
       items-center
       border-b-[0.1em]
       border-gray-200
-       "
+       `}
     >
       <p
         className="
