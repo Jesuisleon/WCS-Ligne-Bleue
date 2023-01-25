@@ -5,6 +5,7 @@ import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import { AuthContext } from "../context/AuthContext";
 import filterTutorialByThemeId from "../services/filterTutorialByThemeId";
+import { FilterByOptionsSelected } from "../services/utils/utils";
 
 function UserProfil() {
   const { userInfos } = useContext(AuthContext);
@@ -12,10 +13,13 @@ function UserProfil() {
   const [tutorials, setTutorials] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
   const [themeFilters, setThemeFilters] = useState("");
-  const [userJourney, setUserJourney] = useState("");
+  const [selectedOption, setSelectedOption] = useState("Tout");
 
-  console.error(userJourney);
+  const handleSelectedOption = (e) => {
+    setSelectedOption(e.target.value);
+  };
 
   useEffect(() => {
     const theme = [];
@@ -27,15 +31,10 @@ function UserProfil() {
         );
       })
       .then(() => {
-        axios.get(`/tutorials`).then((res) => {
-          setTutorials(res.data);
-          setIsLoading(false);
-        });
-      })
-      .then(() => {
         if (userId) {
-          axios.get(`/journeys/${userId}`).then((res) => {
-            setUserJourney(res.data);
+          axios.get(`/journeys-validation/${userId}`).then((res) => {
+            setTutorials(res.data);
+            setIsLoading(false);
           });
         }
       });
@@ -44,6 +43,10 @@ function UserProfil() {
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleDropdown2 = () => {
+    setIsOpen2(!isOpen2);
   };
 
   const handleOptionChange = (index) => {
@@ -69,6 +72,8 @@ function UserProfil() {
     });
     setThemeFilters(themeFiltersChangedToTrue);
   };
+
+  const tutorialFiltred = FilterByOptionsSelected(tutorials, selectedOption);
 
   return (
     <div>
@@ -105,31 +110,80 @@ function UserProfil() {
       </div>
 
       {!isLoading && (
-        <div className="flex-col">
-          <div>
-            <button onClick={toggleDropdown} type="button">
-              Select options
-            </button>
-            {isOpen && (
-              <ul>
-                {themeFilters.map((themfilter, index) => (
-                  <li key={themfilter.value}>
-                    <input
-                      type="checkbox"
-                      checked={themfilter.isChecked}
-                      onChange={() => handleOptionChange(index)}
-                    />
-                    <label>{themfilter.value}</label>
+        <div>
+          <div className="flex-col">
+            <div>
+              <button onClick={toggleDropdown} type="button">
+                Filtrer par themes
+              </button>
+              {isOpen && (
+                <ul>
+                  {themeFilters.map((themfilter, index) => (
+                    <li key={themfilter.value}>
+                      <input
+                        type="checkbox"
+                        checked={themfilter.isChecked}
+                        onChange={() => handleOptionChange(index)}
+                      />
+                      <label>{themfilter.value}</label>
+                    </li>
+                  ))}
+                  <button onClick={handleUnSelect} type="button">
+                    Décocher tout
+                  </button>
+                  <button onClick={handleAllSelect} type="button">
+                    Cocher tout
+                  </button>
+                </ul>
+              )}
+            </div>
+          </div>
+          <div className="flex-col">
+            <div>
+              <button onClick={toggleDropdown2} type="button">
+                Filtrer par état des tutoriel
+              </button>
+              {isOpen2 && (
+                <ul>
+                  <li>
+                    <label>
+                      <input
+                        type="radio"
+                        name="Tout"
+                        value="Tout"
+                        checked={selectedOption === "Tout"}
+                        onChange={handleSelectedOption}
+                      />
+                      Tout
+                    </label>
                   </li>
-                ))}
-                <button onClick={handleUnSelect} type="button">
-                  Décocher tout
-                </button>
-                <button onClick={handleAllSelect} type="button">
-                  Cocher tout
-                </button>
-              </ul>
-            )}
+                  <li>
+                    <label>
+                      <input
+                        type="radio"
+                        name="Validé"
+                        value="Validé"
+                        checked={selectedOption === "Validé"}
+                        onChange={handleSelectedOption}
+                      />
+                      Validé
+                    </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input
+                        type="radio"
+                        name="A découvrir"
+                        value="A découvrir"
+                        checked={selectedOption === "A découvrir"}
+                        onChange={handleSelectedOption}
+                      />
+                      A découvrir
+                    </label>
+                  </li>
+                </ul>
+              )}
+            </div>
           </div>
         </div>
       )}
@@ -160,7 +214,7 @@ function UserProfil() {
                                   <table className="min-w-full divide-y divide-gray-300">
                                     {filterTutorialByThemeId(
                                       e.id,
-                                      tutorials
+                                      tutorialFiltred
                                     ).map((a) => (
                                       <tbody
                                         key={e.id}
@@ -177,11 +231,15 @@ function UserProfil() {
 
                                           <div className="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
                                             <Link to={`/tutorial/${e.id}`}>
-                                              Clique ici pour faire le tutoriel
+                                              {a.user_id
+                                                ? "re-faire le tutoriel"
+                                                : "Faire le tutoriel !"}
                                             </Link>
                                           </div>
-                                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                            Validé
+                                          <td className="whitespace-nowrap px-10 py-4 text-sm text-right text-gray-500">
+                                            {a.user_id
+                                              ? "Validé"
+                                              : "A découvrir"}
                                           </td>
                                         </tr>
                                       </tbody>
