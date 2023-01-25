@@ -5,6 +5,7 @@ import ReactDOM from "react-dom/client";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { AuthContextProvider } from "./context/AuthContext";
+import { NavigationContextProvider } from "./context/NavigationContext";
 
 // AXIOS CONFIG
 
@@ -48,7 +49,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <App />
+      <NavigationContextProvider>
+        <App />
+      </NavigationContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );
