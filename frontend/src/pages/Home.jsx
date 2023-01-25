@@ -69,7 +69,11 @@ export default function Home() {
         "
       >
         {themes.map((data) => (
-          <Link key={data.id} className={themeCardStyled} to="/">
+          <Link
+            key={data.id}
+            className={themeCardStyled}
+            to={`/theme/${data.id}`}
+          >
             <motion.div
               data-id={data.id}
               key={data.id}
