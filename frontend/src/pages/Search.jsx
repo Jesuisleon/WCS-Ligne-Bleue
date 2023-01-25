@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { BsFillArrowDownSquareFill } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
+import { motion } from "framer-motion";
 import logoPoste from "../../public/image/logo_la_poste.png";
 import SearchTutorial from "../services/utils/searchFonction";
 
@@ -66,15 +67,23 @@ export default function Search() {
         {searchResult &&
           searchResult.map((e) => (
             <Link key={e.id} to={`/tutorial/${e.id}`}>
-              <div
+              <motion.div
                 key={e.id}
-                className="bg-gradient-to-b from-yellow-300 to-yellow-500 p-8 rounded-xl shadow-lg transition duration-200 ease-in-out transform hover:scale-110 text-center "
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.2,
+                  delay: 0,
+                  ease: [0, 0.2, 0.2, 0.2],
+                }}
+                className="bg-gradient-to-b from-yellow-300 to-yellow-500 p-8 rounded-xl shadow-lg transition duration-300 ease-in-out transform hover:scale-110 text-center "
               >
                 <h1 className="text-lg font-medium overflow-hidden">
                   {e.title}
                 </h1>
+                {/* <h1 className="text-xl font-medium break-words">{e.title}</h1> */}
                 <h2 className="text-sm font-medium text-gray-700">{e.theme}</h2>
-              </div>
+              </motion.div>
             </Link>
           ))}
       </div>
