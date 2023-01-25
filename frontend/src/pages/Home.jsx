@@ -31,15 +31,15 @@ export default function Home() {
   ];
 
   const iconsContainerStyled =
-    "h-[5em] w-[5em] sm:h-fit sm:w-fit bg-yellow-400 rounded-full p-3 m-2 border-2 sm:border-4 border-white";
+    "hidden xs:block h-[5em] w-[5em] sm:h-fit sm:w-fit bg-yellow-400 rounded-full p-3 m-2 ";
 
-  const iconStyled = "w-full h-full sm:h-[4em] lg:h-20 p-1 sm:p-4";
+  const iconStyled = "w-full h-full sm:h-[4em] lg:h-20 p-1 sm:p-3";
 
   const themeCard =
-    "px-10 bg-blue-700 text-white text-l sm:text-xl antialiased font-bold 2xl:font-bold flex flex-col items-center justify-center text-center h-30 w-30 rounded-lg shadow-md shadow-blue-200 ";
+    "px-10 py-4 bg-gradient-to-b from-blue-700 to-blue-900 text-white border-opacity-25 text-l sm:text-xl antialiased font-bold 2xl:font-bold flex flex-col items-center justify-center text-center h-30 w-30 rounded-md shadow-md ";
 
   const themeCardFx =
-    "hover:bg-blue-400 hover:text-white transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl hover:border-transparent hover:border-transparent";
+    "hover:bg-yellow-400 transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110";
 
   const themeCardStyled = `${themeCard} ${themeCardFx}`;
 
@@ -69,12 +69,12 @@ export default function Home() {
         "
       >
         {themes.map((data) => (
-          <Link
-            key={data.id}
-            className={themeCardStyled}
-            to={`/theme/${data.id}`}
-          >
-            <motion.div key={data.id} className={iconsContainerStyled}>
+          <Link key={data.id} className={themeCardStyled} to="/">
+            <motion.div
+              data-id={data.id}
+              key={data.id}
+              className={iconsContainerStyled}
+            >
               <img src={data.icon} alt={data.name} className={iconStyled} />
             </motion.div>
             <p>{data.name}</p>
@@ -82,11 +82,7 @@ export default function Home() {
         ))}
 
         {otherThemes.map((data) => (
-          <Link
-            key={data.id}
-            className={themeCardStyled}
-            to={`/theme/${data.id}`}
-          >
+          <Link key={data.id} className={themeCardStyled} to="/search">
             <motion.div key={data.id} className={iconsContainerStyled}>
               <img src={data.src} alt={data.name} className={iconStyled} />
             </motion.div>

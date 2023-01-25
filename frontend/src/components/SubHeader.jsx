@@ -16,8 +16,7 @@ function SubHeader({ title }) {
     >
       <p
         className="
-         text-gray-700
-         hover:text-blue-700
+        text-blue-700
           text-xl
           sm:text-3xl
           py-2
