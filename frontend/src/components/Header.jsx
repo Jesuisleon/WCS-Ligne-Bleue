@@ -25,19 +25,19 @@ export default function Header() {
     bg-white 
     z-40 
     bg-gradient-to-b 
-    from-yellow-100 
-    to-yellow-300
+    from-blue-700 
+    to-blue-900
     border-b-2
-    border-yellow-300
+    border-blue-900
     "
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
-        <div className="w-full py-6 flex items-center justify-between lg:border-none">
-          <div className="flex items-center">
+        <div className="w-full py-4 sm:py-6 flex items-center justify-between lg:border-none">
+          <div className="hidden xs:flex items-center">
             <Link to="/">
               <span className="sr-only">Ligne Bleue</span>
               <img
-                className="h-10 w-auto"
+                className="h-8 sm:h-10 w-auto"
                 src="/image/logo_la_poste.png"
                 alt=""
               />
@@ -45,10 +45,10 @@ export default function Header() {
           </div>
 
           {userToken === null ? (
-            <div className="ml-10 space-x-4">
+            <div className="ml-10 flex items-center space-x-2 sm:space-x-5">
               <Link
                 to="/login"
-                className="inline-block bg-blue-700 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
+                className="inline-block bg-yellow-400 py-2 px-2 sm:px-4 border border-transparent rounded-md text-base font-medium text-blue-700 hover:bg-blue-100"
               >
                 Se connecter
               </Link>
@@ -66,12 +66,12 @@ export default function Header() {
                   <Popover.Button
                     className={`
                   ${open ? "" : "text-opacity-90"}
-                  group inline-flex items-center rounded-md bg-blue-700 px-3 py-2 text-base font-medium text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                  group inline-flex items-center rounded-md bg-yellow-400 px-3 py-2 text-base font-medium text-blue-700 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                   >
                     <span>{`Bonjour ${userLastName} `}</span>
                     <ChevronDownIcon
                       className={`${open ? "" : "text-opacity-70"}
-                    ml-2 h-5 w-5 text-blue-300 transition duration-150 ease-in-out group-hover:text-opacity-80`}
+                    ml-2 h-5 w-5 text-blue-700 transition duration-150 ease-in-out group-hover:text-opacity-80`}
                       aria-hidden="true"
                     />
                   </Popover.Button>
