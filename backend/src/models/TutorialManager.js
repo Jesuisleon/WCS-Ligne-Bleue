@@ -61,6 +61,14 @@ class TutorialManager extends AbstractManager {
       [tutorial.published, tutorial.id]
     );
   }
+
+  findAllTutorialsAndSayIfValidated(userId) {
+    return this.connection.query(
+      `SELECT tutorial.id, tutorial.theme_id, tutorial.title, user_Journey.user_id
+      FROM ${this.table} left JOIN user_journey ON tutorial.id = user_Journey.tutorial_id and user_Journey.user_id = ? `,
+      [userId]
+    );
+  }
 }
 
 module.exports = TutorialManager;

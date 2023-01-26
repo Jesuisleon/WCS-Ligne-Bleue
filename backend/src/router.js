@@ -44,6 +44,10 @@ router.use(verifyToken, verifyAdmin); // authentication wall : verifyToken is ac
 
 // Journey routes
 router.get("/journeys/:userId", journeyControllers.readAllForUser);
+router.get(
+  "/journeys-validation/:userId",
+  tutorialControllers.readAllTutorialAndSayIfUserValidateIt
+);
 router.get("/journeys", journeyControllers.browse);
 router.post("/journey", journeyControllers.add);
 

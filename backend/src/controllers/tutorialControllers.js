@@ -259,6 +259,23 @@ const destroy = (req, res) => {
     });
 };
 
+const readAllTutorialAndSayIfUserValidateIt = (req, res) => {
+  const userId = parseInt(req.params.userId, 10);
+  models.tutorial
+    .findAllTutorialsAndSayIfValidated(userId)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   browseForSearch,
@@ -267,4 +284,5 @@ module.exports = {
   editOnline,
   add,
   destroy,
+  readAllTutorialAndSayIfUserValidateIt,
 };
