@@ -33,7 +33,7 @@ export default function NotFound404() {
               Page introuvable.
             </h1>
             <p className="mt-2 text-base text-gray-500">
-              désoler nous n'avons pas pu trouver votre courrier
+              désolé nous n'avons pas pu trouver votre courrier
             </p>
             <div className="mt-6">
               <Link
