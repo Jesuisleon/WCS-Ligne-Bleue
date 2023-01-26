@@ -33,11 +33,10 @@ function Comments({ validate, data, setData }) {
         Mon commentaire:{" "}
       </label>
       <textarea
-        className="w-full text-black p-2"
+        style={{ resize: "none" }}
+        className="w-full text-black p-2 rounded-md"
         name="comments"
         id="comments"
-        cols="30"
-        rows="10"
         value={comments}
         onChange={(e) => setComments(e.target.value)}
       />
