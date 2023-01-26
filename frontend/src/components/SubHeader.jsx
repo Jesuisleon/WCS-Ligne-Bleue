@@ -5,7 +5,6 @@ function SubHeader({ title }) {
       mx-10
       h-[4em]
       sm:h-20
-     bg-white
       z-20
       flex
       justify-center

@@ -6,23 +6,38 @@ import regexDate from "../../services/utils/utilFunctions";
 
 const { Link } = ReactRouter;
 
-export default function TutorialList({ adminThemes, render }) {
+export default function TutorialList({
+  adminThemes,
+  render,
+  setCommentTutoId,
+  setOpen,
+}) {
   const [data, setData] = useState();
   const [tutoList, setTutoList] = useState();
+  const [refreshList, setRefreshList] = useState(false);
 
   useEffect(() => {
-    if (!data) {
-      axios
-        .get(`/tutorials`)
-        .then((response) => {
-          setData(response.data);
-          setTutoList(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, []);
+    axios
+      .get(`/tutorials-rating`)
+      .then((response) => {
+        setData(response.data);
+        setTutoList(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [refreshList]);
+
+  const publishTutorial = (publish, tutoId) => {
+    axios
+      .put(`/tutorials-published/${tutoId}`, publish)
+      .then(() => {
+        setRefreshList(!refreshList);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   // eslint-disable-next-line consistent-return
   const filterTuto = (tuto) => {
@@ -40,6 +55,11 @@ export default function TutorialList({ adminThemes, render }) {
       setTutoList([...filteredTuto]);
     }
   }, [adminThemes, render]);
+
+  const handleCommentList = (id) => {
+    setCommentTutoId(id);
+    setOpen(true);
+  };
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -184,7 +204,14 @@ export default function TutorialList({ adminThemes, render }) {
                           {dataTuto.title}
                         </td>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium  sm:pl-6">
-                          <span
+                          <button
+                            type="submit"
+                            onClick={() =>
+                              publishTutorial(
+                                { published: !dataTuto.published },
+                                dataTuto.id
+                              )
+                            }
                             className={`${
                               dataTuto.published
                                 ? "bg-green-200 text-green-800"
@@ -192,7 +219,7 @@ export default function TutorialList({ adminThemes, render }) {
                             } inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium`}
                           >
                             {dataTuto.published ? "En ligne" : "hors ligne"}
-                          </span>
+                          </button>
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {regexDate(dataTuto.creation_date)}
@@ -203,16 +230,16 @@ export default function TutorialList({ adminThemes, render }) {
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           <button
                             type="button"
+                            onClick={() => handleCommentList(dataTuto.id)}
                             className="text-indigo-600 hover:text-indigo-900"
                           >
-                            <Link className="" to={`/tutorial/${dataTuto.id}`}>
-                              {" "}
-                              <p>Afficher</p>
-                            </Link>
+                            Afficher
                           </button>
                         </td>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                          {dataTuto.id}
+                          {dataTuto.rating
+                            ? Math.round(dataTuto.rating * 100) / 100
+                            : "-"}
                         </td>
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                           <button
@@ -225,7 +252,10 @@ export default function TutorialList({ adminThemes, render }) {
                             type="button"
                             className="text-indigo-600 hover:text-indigo-900"
                           >
-                            <Link className="" to={`/tutorial/${dataTuto.id}`}>
+                            <Link
+                              className=""
+                              to={`/theme/${dataTuto.theme_id}/tutorial/${dataTuto.id}`}
+                            >
                               {" "}
                               <p>Afficher</p>
                             </Link>

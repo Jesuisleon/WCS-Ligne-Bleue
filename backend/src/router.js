@@ -32,6 +32,11 @@ router.get("/tutorials/:id", tutorialControllers.read);
 router.get("/tutorials-search", tutorialControllers.browseForSearch);
 router.get("/hashtags", hashtagControllers.browse);
 router.get("/difficulties", difficultyControllers.browse);
+router.get(
+  "/tutorials-rating",
+  tutorialControllers.browseForAdminPanel,
+  journeyControllers.browseTutoRating
+);
 
 router.post(
   "/login",
@@ -46,6 +51,7 @@ router.use(verifyToken, verifyAdmin); // authentication wall : verifyToken is ac
 router.get("/journeys/:userId", journeyControllers.readAllForUser);
 router.get("/journeys", journeyControllers.browse);
 router.post("/journey", journeyControllers.add);
+router.get("/journeys-comments/:id", journeyControllers.browseTutoComments);
 
 router.get("/reconnect", replaceReqParamIdByPayloadSub, userControllers.read);
 router.get("/users", userControllers.browse);
