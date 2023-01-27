@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
+import { HiChevronDown } from "react-icons/hi";
 import { AuthContext } from "../context/AuthContext";
 import filterTutorialByThemeId from "../services/filterTutorialByThemeId";
 import { FilterByOptionsSelected } from "../services/utils/utils";
@@ -21,6 +22,9 @@ function UserProfil() {
   const handleSelectedOption = (e) => {
     setSelectedOption(e.target.value);
   };
+
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown2, setShowDropdown2] = useState(false);
 
   useEffect(() => {
     const theme = [];
@@ -119,169 +123,169 @@ function UserProfil() {
       )}
 
       {!isLoading && (
-        <div>
-          <div className="inline-flex">
+        <fieldset
+          onMouseEnter={() => setShowDropdown(true)}
+          onMouseLeave={() => setShowDropdown(false)}
+          className="w-1/4 px-4 sm:px-6 lg:px-8 mt-2"
+        >
+          <button
+            id="dropdownDefaultButton"
+            onClick={toggleDropdown}
+            data-dropdown-toggle="dropdown"
+            className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            type="button"
+          >
+            Filtrer par themes <HiChevronDown size="20" />
+          </button>
+          <div
+            className={`${
+              showDropdown ? "absolute" : "hidden"
+            }  bg-gradient-to-b 
+          from-gray-100 
+          to-gray-200 border-t border-b border-gray-200 divide-y divide-gray-200 py-1`}
+          >
             <button
-              onClick={toggleDropdown}
-              className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button"
+              className="inline-flex items-center mx-2 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={handleUnSelect}
             >
-              Filtrer par themes{" "}
-              <svg
-                className="w-4 h-4 ml-2"
-                aria-hidden="true"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+              Aucun
             </button>
-            {isOpen && (
-              <div
-                id="ouverture"
-                className="z-10  bg-white  rounded-lg shadow w-60 dark:bg-gray-700"
-              >
-                <ul className="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200">
-                  {themeFilters.map((themfilter, index) => (
-                    <li key={themfilter.value}>
-                      <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                        <input
-                          type="checkbox"
-                          checked={themfilter.isChecked}
-                          onChange={() => handleOptionChange(index)}
-                          id="checkbox-item-11"
-                          value=""
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="checkbox-item-11"
-                          className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-                        >
-                          {themfilter.value}
-                        </label>
-                      </div>
-                    </li>
-                  ))}
-                  <button onClick={handleUnSelect} type="button">
-                    Décocher tout
-                  </button>
-                  <button onClick={handleAllSelect} type="button">
-                    Cocher tout
-                  </button>
-                </ul>
-              </div>
-            )}
-          </div>
-
-          <div className="inline-flex">
             <button
-              onClick={toggleDropdown2}
-              className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button"
+              className="inline-flex items-center mx-2 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 "
+              onClick={handleAllSelect}
             >
-              Filtrer par état des tutoriel{" "}
-              <svg
-                className="w-4 h-4 ml-2"
-                aria-hidden="true"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+              Tous
             </button>
-            {isOpen2 && (
-              <div
-                id="ouverture"
-                className="z-10  bg-white  rounded-lg shadow w-60 dark:bg-gray-700"
-              >
-                <ul className="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200">
-                  <li>
-                    <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                      <input
-                        type="radio"
-                        name="Tout"
-                        value="Tout"
-                        checked={selectedOption === "Tout"}
-                        onChange={handleSelectedOption}
-                        id="checkbox-item-11"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                      />
-                      <label
-                        htmlFor="checkbox-item-11"
-                        className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-                      >
-                        Tout
-                      </label>
-                    </div>
-                  </li>
-
-                  <li>
-                    <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                      <input
-                        type="radio"
-                        name="Validé"
-                        value="Validé"
-                        checked={selectedOption === "Validé"}
-                        onChange={handleSelectedOption}
-                        id="checkbox-item-11"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                      />
-                      <label
-                        htmlFor="checkbox-item-11"
-                        className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-                      >
-                        Validé
-                      </label>
-                    </div>
-                  </li>
-
-                  <li>
-                    <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                      <input
-                        type="radio"
-                        name="A découvrir"
-                        value="A découvrir"
-                        checked={selectedOption === "A découvrir"}
-                        onChange={handleSelectedOption}
-                        id="checkbox-item-11"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                      />
-                      <label
-                        htmlFor="checkbox-item-11"
-                        className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-                      >
-                        A découvrir
-                      </label>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            )}
+            {themeFilters &&
+              themeFilters.map((themfilter, index) => (
+                <div
+                  key={themfilter.value}
+                  className="relative flex items-start px-2 py-2"
+                >
+                  <div className="min-w-0 flex-1 text-sm">
+                    <label
+                      htmlFor="checkbox-item-11"
+                      className="font-medium text-gray-700 select-none"
+                    >
+                      {themfilter.value}
+                    </label>
+                  </div>
+                  <div className="ml-3 flex items-center h-5">
+                    <input
+                      id="checkbox-item-11"
+                      value=""
+                      type="checkbox"
+                      checked={themfilter.isChecked}
+                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                      onChange={() => handleOptionChange(index)}
+                    />
+                  </div>
+                </div>
+              ))}
           </div>
-        </div>
+        </fieldset>
+      )}
+
+      {!isLoading && (
+        <fieldset
+          onMouseEnter={() => setShowDropdown2(true)}
+          onMouseLeave={() => setShowDropdown2(false)}
+          className="w-1/4 px-4 sm:px-6 lg:px-8 mt-2"
+        >
+          <button
+            id="dropdownDefaultButton"
+            onClick={toggleDropdown2}
+            data-dropdown-toggle="dropdown"
+            className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            type="button"
+          >
+            Filtrer par état des tutoriel <HiChevronDown size="20" />
+          </button>
+          <div
+            className={`${
+              showDropdown2 ? "absolute" : "hidden"
+            }  bg-gradient-to-b 
+          from-gray-100 
+          to-gray-200 border-t border-b border-gray-200 divide-y divide-gray-200 py-1`}
+          >
+            <div className="relative flex items-start px-2 py-2">
+              <div className="min-w-0 flex-1 text-sm">
+                <label
+                  htmlFor="checkbox-item-11"
+                  className="font-medium text-gray-700 select-none"
+                >
+                  Tout
+                </label>
+              </div>
+              <div className="ml-3 flex items-center h-5">
+                <input
+                  id="checkbox-item-11"
+                  name="Tout"
+                  value="Tout"
+                  type="radio"
+                  checked={selectedOption === "Tout"}
+                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                  onChange={handleSelectedOption}
+                />
+              </div>
+            </div>
+
+            <div className="relative flex items-start px-2 py-2">
+              <div className="min-w-0 flex-1 text-sm">
+                <label
+                  htmlFor="checkbox-item-11"
+                  className="font-medium text-gray-700 select-none"
+                >
+                  Validé
+                </label>
+              </div>
+              <div className="ml-3 flex items-center h-5">
+                <input
+                  id="checkbox-item-11"
+                  type="radio"
+                  name="Validé"
+                  value="Validé"
+                  checked={selectedOption === "Validé"}
+                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                  onChange={handleSelectedOption}
+                />
+              </div>
+            </div>
+
+            <div className="relative flex items-start px-2 py-2">
+              <div className="min-w-0 flex-1 text-sm">
+                <label
+                  htmlFor="checkbox-item-11"
+                  className="font-medium text-gray-700 select-none"
+                >
+                  A découvrir
+                </label>
+              </div>
+              <div className="ml-3 flex items-center h-5">
+                <input
+                  type="radio"
+                  name="A découvrir"
+                  value="A découvrir"
+                  checked={selectedOption === "A découvrir"}
+                  onChange={handleSelectedOption}
+                  id="checkbox-item-11"
+                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+              </div>
+            </div>
+          </div>
+        </fieldset>
       )}
 
       {!isLoading && (
         <div className="    ">
           <div className=" flex  items-center flex-col ">
-            <h1 className="sm:text-3x1 font-bold py-2 mt-8">Mes Tutoriels</h1>
+            <h1 className="text-2xl font-bold py-2 mt-8">Mes Tutoriels</h1>
           </div>
 
-          <div className="  flex  flex-col items-center ">
+          <div className="  flex  flex-col items-center  ">
             {themeFilters
               .filter((e) => e.isChecked === true)
               .map((e) => (
@@ -290,7 +294,7 @@ function UserProfil() {
                     <Disclosure>
                       {({ open }) => (
                         <>
-                          <Disclosure.Button className="flex w-full  font-bold h-20 justify-between border-gray-300 items-center text-dark rounded-lg bg-gray-50 border px-4 py-2 text-left text-sm  focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                          <Disclosure.Button className="flex w-full  font-bold h-20 justify-between border-gray-400 items-center text-dark rounded-lg bg-gray-200 border px-4 py-2 text-left text-sm  focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
                             <span>{e.value}</span>
                             <ChevronUpIcon
                               className={`${
@@ -301,21 +305,21 @@ function UserProfil() {
                           <Disclosure.Panel className="  mb-4">
                             <div className="mt-0 flex flex-col">
                               <div className="overflow-x-auto">
-                                <div className="inline-block min-w-full py-2 align-middle">
-                                  <div className="overflow-hidden shadow font-ligther text-gray-600 rounded-lg ">
-                                    <table className="min-w-full divide-y  divide-gray-300">
+                                <div className="inline-block min-w-full w-1/2 align-middle">
+                                  <div className="overflow-hidden shadow font-ligther text-gray-600 rounded ">
+                                    <table className="min-w-full divide-y  ">
                                       {filterTutorialByThemeId(
                                         e.id,
                                         tutorialFiltred
                                       ).map((a) => (
                                         <tbody
                                           key={e.id}
-                                          className="divide-y divide-black"
+                                          className=" divide-black"
                                         >
                                           <tr className="border rounded-md  border-gray-400">
                                             <td className="py-4 pl-4 pr-3 text-sm">
                                               <div className="flex items-center">
-                                                <div className="px-4 py-2 text-sm text-right">
+                                                <div className=" py-2 text-sm text-right">
                                                   {a.title}
                                                 </div>
                                               </div>
@@ -328,8 +332,14 @@ function UserProfil() {
                                               </Link>
                                             </td>
 
-                                            <td className=" ">
-                                              <div className=" flex text-center bg-indigo-100 text-indigo-800  text-xs font-medium   py-1 rounded-full max-w-max ">
+                                            <td>
+                                              <div
+                                                className={`flex text-center text-xs font-medium py-1 rounded-full max-w-max ${
+                                                  a.user_id
+                                                    ? "bg-green-500 text-green-100"
+                                                    : "bg-indigo-100 text-indigo-800"
+                                                }`}
+                                              >
                                                 {a.user_id
                                                   ? "Validé"
                                                   : "A découvrir"}
