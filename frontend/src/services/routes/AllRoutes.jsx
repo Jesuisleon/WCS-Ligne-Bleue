@@ -36,9 +36,13 @@ export default function AllRoutes() {
   // Set the icon of the theme as props
   const { navigationTheme } = useContext(NavigationContext);
   let themeIcon;
+  let themeTitle;
   if (navigationTheme && themeId) {
     themeIcon = navigationTheme.filter((e) => e.id === parseInt(themeId, 10))[0]
       .icon;
+    themeTitle = navigationTheme.filter(
+      (e) => e.id === parseInt(themeId, 10)
+    )[0].name;
   }
 
   // Set the title of the page as props
@@ -56,19 +60,58 @@ export default function AllRoutes() {
   return (
     <AnimatePresence>
       <Header key="header" />
-      <Sticky enabled top={0} innerZ={20} activeClass="sticky-nav-active">
-        <SubHeader key="navigation" title={navTitle} />
-      </Sticky>
       <Routes location={location} key={location.pathname}>
         {/* routes public */}
         <Route path="/" element={<Navigate replace to="/home" />} />
-        <Route path="/home" element={<Home />} />
+        <Route
+          path="/home"
+          element={
+            <>
+              <Sticky
+                enabled
+                top={0}
+                innerZ={20}
+                activeClass="sticky-nav-active"
+              >
+                <SubHeader title="Bienvenue" />
+              </Sticky>
+              <Home />
+            </>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/theme/:themeId/" element={<TutorialByTheme />} />
+        <Route
+          path="/theme/:themeId/"
+          element={
+            <>
+              <Sticky
+                enabled
+                top={0}
+                innerZ={20}
+                activeClass="sticky-nav-active"
+              >
+                <SubHeader title={themeTitle} />
+              </Sticky>
+              <TutorialByTheme />
+            </>
+          }
+        />
         <Route
           path="/theme/:themeID/tutorial/:tutorialId"
-          element={<Tutorial themeIcon={themeIcon} />}
+          element={
+            <>
+              <Sticky
+                enabled
+                top={0}
+                innerZ={20}
+                activeClass="sticky-nav-active"
+              >
+                <SubHeader title={navTitle} />
+              </Sticky>
+              <Tutorial themeIcon={themeIcon} />
+            </>
+          }
         />
         <Route path="/register" element={<Register />} />
         {/* routes protégé si utilisateur est loggé */}
