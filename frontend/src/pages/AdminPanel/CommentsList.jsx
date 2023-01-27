@@ -11,7 +11,12 @@ function classNames(...classes) {
 
 const { Link } = ReactRouter;
 
-export default function Example({ commentTutoId, open, setOpen }) {
+export default function Example({
+  commentTutoId,
+  commentTitle,
+  open,
+  setOpen,
+}) {
   const [commentData, setCommentData] = useState();
 
   useEffect(() => {
@@ -65,7 +70,7 @@ export default function Example({ commentTutoId, open, setOpen }) {
           >
             <div className="h-[70vh] w-3/4 inline-block align-bottom bg-white rounded-lg py-3 px-4 text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:p-6">
               <div className="flex justify-between">
-                <h2>Tutoriel: {commentData && commentData[0].title}</h2>
+                <h2>Tutoriel: {commentData && commentTitle}</h2>
                 <button
                   type="button"
                   className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-500 rounded-lg text-3xl p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -80,52 +85,56 @@ export default function Example({ commentTutoId, open, setOpen }) {
                     <div className="overflow-y-scroll box-border">
                       <h2 className="">Commentaires</h2>
                       <div className="border rounded-2xl box-border">
-                        {commentData.map((comment) => (
-                          <div
-                            key={comment.user_id}
-                            className="flex flex-col text-sm text-gray-500 space-x-4 p-2"
-                          >
-                            <button
-                              type="button"
-                              className="inline-flex items-start w-fit  px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-gradient-to-b 
-                              from-blue-700 
-                              to-blue-900 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        {commentData[0] ? (
+                          commentData.map((comment) => (
+                            <div
+                              key={comment.user_id}
+                              className="flex flex-col text-sm text-gray-500 space-x-4 p-2"
                             >
-                              <Link
-                                className="box-content  "
-                                to={`/user/${comment.user_id}`}
+                              <button
+                                type="button"
+                                className="inline-flex items-start w-fit  px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-gradient-to-b 
+                              from-blue-700 
+                              to-blue-900 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                               >
-                                <h3 className="font-medium text-white">
-                                  {comment.firstname} {comment.lastname}
-                                </h3>
-                              </Link>
-                            </button>
+                                <Link
+                                  className="box-content  "
+                                  to={`/user/${comment.user_id}`}
+                                >
+                                  <h3 className="font-medium text-white">
+                                    {comment.firstname} {comment.lastname}
+                                  </h3>
+                                </Link>
+                              </button>
 
-                            <p>
-                              <time dateTime={comment.creation_date}>
-                                {regexDate(comment.creation_date)}
-                              </time>
-                            </p>
+                              <p>
+                                <time dateTime={comment.creation_date}>
+                                  {regexDate(comment.creation_date)}
+                                </time>
+                              </p>
 
-                            <div className="flex items-center">
-                              {[0, 1, 2, 3, 4].map((rating) => (
-                                <StarIcon
-                                  key={rating}
-                                  className={classNames(
-                                    comment.rating > rating
-                                      ? "text-yellow-400"
-                                      : "text-gray-300",
-                                    "h-5 w-5 flex-shrink-0"
-                                  )}
-                                  aria-hidden="true"
-                                />
-                              ))}
+                              <div className="flex items-center">
+                                {[0, 1, 2, 3, 4].map((rating) => (
+                                  <StarIcon
+                                    key={rating}
+                                    className={classNames(
+                                      comment.rating > rating
+                                        ? "text-yellow-400"
+                                        : "text-gray-300",
+                                      "h-5 w-5 flex-shrink-0"
+                                    )}
+                                    aria-hidden="true"
+                                  />
+                                ))}
+                              </div>
+                              <p className="pb-4 text-gray-900">
+                                {comment.comment}
+                              </p>
                             </div>
-                            <p className="pb-4 text-gray-900">
-                              {comment.comment}
-                            </p>
-                          </div>
-                        ))}
+                          ))
+                        ) : (
+                          <div>pas de commentaire pour ce tutoriel</div>
+                        )}
                       </div>
                     </div>
                   </div>

@@ -75,7 +75,7 @@ export default function AllRoutes() {
         {isLoading && (
           <Route>
             <Route
-              path="/userprofile"
+              path="/userProfile/:id"
               element={
                 <ProtectedRoute status={isLog}>
                   <UserProfil />

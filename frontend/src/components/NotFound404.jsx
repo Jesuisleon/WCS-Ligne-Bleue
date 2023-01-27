@@ -12,7 +12,7 @@ export default function NotFound404() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Chargement...</div>;
   }
 
   return (
@@ -30,10 +30,10 @@ export default function NotFound404() {
               404 error
             </p>
             <h1 className="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
-              Page non trouvée
+              Page introuvable.
             </h1>
             <p className="mt-2 text-base text-gray-500">
-              désoler nous n'avons pas pu trouver votre courrier
+              désolé nous n'avons pas pu trouver votre courrier
             </p>
             <div className="mt-6">
               <Link
