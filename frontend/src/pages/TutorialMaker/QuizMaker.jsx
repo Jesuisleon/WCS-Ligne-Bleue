@@ -5,6 +5,7 @@ import React, {
   useRef,
   forwardRef,
 } from "react";
+
 import Quiz from "@components/Quiz";
 
 const QuizMaker = forwardRef(({ data, preview }, ref) => {
@@ -120,15 +121,21 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
               <div className="border-b-[1px] flex gap-4 items-center w-full">
                 <button
                   type="button"
-                  className="bg-red-600 text-sm text-white rounded px-1"
                   onClick={() => {
                     removeQuestion(question.id);
                   }}
+                  className="px-2 rounded-md border border-red-100 bg-red-50 text-md font-medium text-red-300 hover:text-red-500 hover:border-red-200 focus:z-10 focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500"
                 >
                   -
                 </button>
-                <label htmlFor="question" className="text-xl font-bold">
-                  {question.id}.
+                <label
+                  htmlFor="question"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  {question.id}
+                </label>
+
+                <div className="mt-1 border-b border-gray-300 focus-within:border-indigo-600">
                   <input
                     type="text"
                     id={questionIndex}
@@ -139,18 +146,18 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
                     }}
                     placeholder="Votre Question"
                     size={question.question.length}
-                    className="text-xl font-bold"
+                    className="block w-full border-0 border-b border-transparent focus:border-blue-700 focus:ring-0 sm:text-sm"
                   />
-                </label>
+                </div>
               </div>
               {question.answers.map((answer, answerIndex) => (
                 <div key={answer.id} className="flex gap-4 items-center w-full">
                   <button
                     type="button"
-                    className="bg-red-600 text-sm text-white rounded px-1"
                     onClick={() => {
                       removeAnswer(question.id, answer.id);
                     }}
+                    className="px-2 rounded-md border border-red-100 bg-red-50 text-md font-medium text-red-300 hover:text-red-500 hover:border-red-200 focus:z-10 focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500"
                   >
                     -
                   </button>
@@ -162,36 +169,69 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
                       handleChange(e);
                     }}
                     checked={answer.correct}
+                    className="focus:ring-green-500 h-4 w-4 text-green-600 border-gray-300"
                   />
-                  <input
-                    type="text"
-                    id={questionIndex}
-                    name={`answer:${answerIndex}`}
-                    value={answer.text}
-                    onChange={(e) => {
-                      handleChange(e);
-                    }}
-                    placeholder="Votre réponse"
-                    className={`${answer.correct && "text-green-500"}`}
-                    size={answer.text.length}
-                  />
+                  <div className="mt-1 border-b border-gray-300 focus-within:border-green-600">
+                    <input
+                      type="text"
+                      id={questionIndex}
+                      name={`answer:${answerIndex}`}
+                      value={answer.text}
+                      onChange={(e) => {
+                        handleChange(e);
+                      }}
+                      placeholder="Votre réponse"
+                      className={`block w-full border-0 border-b border-transparent focus:border-blue-700 focus:ring-0 sm:text-sm ${
+                        answer.correct && "text-green-500"
+                      }`}
+                      size={answer.text.length}
+                    />
+                  </div>
                 </div>
               ))}
               <button
-                className="bg-green-500 text-white text-sm px-1 rounded"
+                className="relative inline-flex items-center gap-2 px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 type="button"
                 onClick={() => setAnswer(questionIndex)}
               >
-                +
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-4 h-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4.5v15m7.5-7.5h-15"
+                  />
+                </svg>
+                Ajouter une réponse
               </button>
             </div>
           ))}
           <div className="flex flex-col items-center">
             <button
               type="button"
-              className="bg-green-500 text-white font-bold py-2 px-4 rounded"
+              className="relative inline-flex items-center gap-2 px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
               onClick={setQuestion}
             >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                />
+              </svg>
               Ajouter une question
             </button>
           </div>

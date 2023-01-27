@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 
-export function HashtagInput({ handleInput, defaultValue }) {
+export function HashtagInput({ defaultValue, handleInput, isSubmit }) {
   function ToLettersOnLowerCase(str) {
     return str
       .normalize("NFD")
@@ -101,7 +101,11 @@ export function HashtagInput({ handleInput, defaultValue }) {
             name="hashtag"
             id="hashtag"
             type="text"
-            className="block w-fit rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+            className={`block w-fit rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
+              hashtags.length < 1 && isSubmit
+                ? "border-red-500"
+                : "border-gray-300"
+            }`}
           />
           <button
             type="button"

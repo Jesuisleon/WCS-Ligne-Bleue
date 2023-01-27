@@ -6,17 +6,17 @@ function SubHeader({ title }) {
   return (
     <div
       className={`
-      ${location.pathname === "/createTutorial" && "hidden"}
+      ${location.pathname.includes("createTutorial") && "hidden"}
       mx-10
       h-[4em]
       sm:h-20
-     bg-white
+     bg-gray-50
       z-20
       flex
       justify-center
       items-center
-      border-b-[0.1em]
-      border-gray-200
+      border-b-[0.2em]
+      border-blue-700
        `}
     >
       <p

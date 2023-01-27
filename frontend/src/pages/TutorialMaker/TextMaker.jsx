@@ -67,7 +67,6 @@ const TextMaker = forwardRef(({ data, preview }, ref) => {
         },
         selector: "#theEditorForMainData",
         statusbar: false,
-        toolbar_sticky: true,
         menubar: false,
         autoresize_bottom_margin: 0,
         image_advtab: true,

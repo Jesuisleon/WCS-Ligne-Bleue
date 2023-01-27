@@ -26,7 +26,7 @@ class TutorialManager extends AbstractManager {
 
   insert(tutorial) {
     return this.connection.query(
-      `insert into ${this.table} (theme_id, difficulty_id, title, objective,description, step, author) values (?,?,?,?,?,?,?)`,
+      `insert into ${this.table} (theme_id, difficulty_id, title, objective,description, step, author, published) values (?,?,?,?,?,?,?,?)`,
       [
         tutorial.theme,
         tutorial.difficulty,
@@ -35,6 +35,7 @@ class TutorialManager extends AbstractManager {
         tutorial.description,
         tutorial.step,
         tutorial.author,
+        tutorial.published,
       ]
     );
   }

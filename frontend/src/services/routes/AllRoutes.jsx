@@ -112,6 +112,14 @@ export default function AllRoutes() {
               }
             />
             <Route
+              path="/createTutorial/:tutorialId"
+              element={
+                <ProtectedRoute status={admin}>
+                  <TutorialMaker />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/createTutorial/"
               element={
                 <ProtectedRoute status={admin}>

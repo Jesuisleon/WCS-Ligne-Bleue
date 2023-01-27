@@ -17,7 +17,8 @@ export function TextInput({
           {name}
         </label>
       </div>
-      <div className="sm:col-span-2">
+
+      <div className="sm:col-span-2 flex items-center gap-5">
         <input
           onChange={handleInput}
           placeholder={placeholder}
@@ -25,13 +26,10 @@ export function TextInput({
           id={type}
           type="text"
           defaultValue={defaultValue}
-          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+          className={`block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
+            invalid && isSubmit ? "border-red-500 " : "border-gray-300"
+          }`}
         />
-        {invalid && isSubmit ? (
-          <p className="text-red-500 text-sm italic sm:mt-px sm:pt-2">
-            *** Ce champ est requis ***
-          </p>
-        ) : null}
       </div>
     </div>
   );

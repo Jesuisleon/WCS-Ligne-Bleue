@@ -224,16 +224,9 @@ const add = (req, res) => {
     models.tutorial
       .insert(tutorial)
       .then(([result]) => {
-        models.tuto_hashtag
-          .insert(hashtagId, result.insertId)
-          .then(() => {})
-          .catch((err) => {
-            console.error(err);
-            res.sendStatus(500);
-          });
+        models.tuto_hashtag.insert(hashtagId, result.insertId);
         res.status(201).json({
           id: result.insertId,
-          location: `/tutorial/${result.insertId}`,
         });
       })
       .catch((err) => {
