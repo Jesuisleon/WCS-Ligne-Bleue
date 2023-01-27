@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 
 import { HomeIcon } from "@heroicons/react/solid";
 
-export default function SubHeader({ navigation, themeTitle, tutorialTitle }) {
+export default function Breadcrumb({ navigation, themeTitle, tutorialTitle }) {
   const pages = [];
 
   if (navigation === "home") {
@@ -26,14 +26,14 @@ export default function SubHeader({ navigation, themeTitle, tutorialTitle }) {
 
   return (
     <nav
-      className="bg-white border-b h-14 border-gray-300 flex"
+      className="bg-white border-b h-16 border-gray-300 flex"
       aria-label="Breadcrumb"
     >
       <ol className="max-w-screen-xl w-full mx-auto px-4 flex space-x-4 sm:px-6 lg:px-8">
         <li className="flex">
           <div className="flex items-center">
             <Link to="/home" className="text-gray-600 hover:text-gray-500">
-              <HomeIcon className="flex-shrink-0 h-5 w-5" aria-hidden="true" />
+              <HomeIcon className="flex-shrink-0 h-7 w-7" aria-hidden="true" />
               <span className="sr-only">Home</span>
             </Link>
           </div>
@@ -42,7 +42,7 @@ export default function SubHeader({ navigation, themeTitle, tutorialTitle }) {
           <li key={page.name} className="flex">
             <div className="flex items-center">
               <svg
-                className="flex-shrink-0 w-6 h-full text-gray-200"
+                className="flex-shrink-0 w-6 h-full text-gray-300"
                 viewBox="0 0 24 44"
                 preserveAspectRatio="none"
                 fill="currentColor"
@@ -53,7 +53,7 @@ export default function SubHeader({ navigation, themeTitle, tutorialTitle }) {
               </svg>
               <Link
                 to={page.href}
-                className="ml-4 text-md font-medium text-gray-600 hover:text-gray-500"
+                className="ml-4 text-lg font-semibold antialiased text-gray-600 hover:text-gray-500"
                 aria-current={page.current ? "page" : undefined}
               >
                 {page.name}

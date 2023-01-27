@@ -8,7 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import Sticky from "react-stickynode";
 
 import Header from "@components/Header";
-import SubHeader from "@components/SubHeader";
+import Breadcrumb from "@components/Breadcrumb";
 import { NavigationContext } from "@context/NavigationContext";
 
 import Home from "@pages/Home";
@@ -72,7 +72,7 @@ export default function AllRoutes() {
                 innerZ={20}
                 activeClass="sticky-nav-active"
               >
-                <SubHeader navigation="home" title="Bienvenue" />
+                <Breadcrumb navigation="home" title="Bienvenue" />
               </Sticky>
               <Home />
             </>
@@ -90,7 +90,7 @@ export default function AllRoutes() {
                 innerZ={20}
                 activeClass="sticky-nav-active"
               >
-                <SubHeader navigation="theme" themeTitle={themeTitle} />
+                <Breadcrumb navigation="theme" themeTitle={themeTitle} />
               </Sticky>
               <TutorialByTheme />
             </>
@@ -106,7 +106,7 @@ export default function AllRoutes() {
                 innerZ={20}
                 activeClass="sticky-nav-active"
               >
-                <SubHeader
+                <Breadcrumb
                   navigation="tutorial"
                   themeTitle={themeTitle}
                   tutorialTitle={navigationTitle}
