@@ -22,7 +22,7 @@ export default function Header() {
       className="
     w-screen
     bg-white 
-    z-20
+    z-30
     bg-gradient-to-b 
     from-blue-700 
     to-blue-900
@@ -96,7 +96,10 @@ export default function Header() {
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-8 bg-white p-7">
                           <Link to="/userprofile">
-                            <Popover.Button className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start">
+                            <button
+                              type="button"
+                              className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start"
+                            >
                               <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-700 text-white sm:h-12 sm:w-12">
                                 {/* Heroicon name: outline/support */}
                               </div>
@@ -108,7 +111,7 @@ export default function Header() {
                                   Gérer mon profil
                                 </p>
                               </div>
-                            </Popover.Button>
+                            </button>
                           </Link>
 
                           <button

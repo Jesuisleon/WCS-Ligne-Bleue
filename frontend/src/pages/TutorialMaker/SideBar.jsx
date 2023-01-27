@@ -44,9 +44,8 @@ const SideBar = forwardRef(
       title: true,
       objective: true,
       description: true,
+      hashtag: true,
     });
-
-    // const [isWrongSubmit, setIsSubmit] = useState(true);
 
     const childRef = useRef(null);
     useImperativeHandle(ref, () => ({
@@ -62,7 +61,7 @@ const SideBar = forwardRef(
       // store the data
       setData({ ...data, [editor.id]: content });
       // check if input is valid
-      if (content === "" || content === null)
+      if (content === "" || content === null || content.length === 0)
         setInvalid({ ...invalid, [editor.id]: true });
       else setInvalid({ ...invalid, [editor.id]: false });
     }
@@ -147,9 +146,9 @@ const SideBar = forwardRef(
                           {/* Tutorial Description */}
                           <TextAreaInput
                             handleInput={(e) =>
-                              handleInput(e, { id: "description" })
+                              handleInput(e.target.value, { id: "description" })
                             }
-                            data={data ? data.description : ""}
+                            defaultValue={data ? data.description : ""}
                             invalid={invalid.description}
                             isSubmit={isWrongSubmit}
                           />

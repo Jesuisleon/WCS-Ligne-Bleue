@@ -74,7 +74,6 @@ export default function TutorialMaker() {
     if (direction === "down") {
       updatedStep.splice(index + 1, 0, step[0]);
     }
-
     setStepsData(updateIndex(updatedStep));
   };
 
@@ -121,20 +120,22 @@ export default function TutorialMaker() {
       setOpenModalSimple(true);
       setIsWrongSubmit(true);
       setSave(false);
-      return;
+    } else {
+      setSideBarData(updatedData);
+      setSave(true);
     }
-    setSideBarData(updatedData);
   };
 
   const getStepsData = () => {
     const updatedStep = [...stepsData];
+
     childsRefs.current.forEach((child, index) => {
       // bypass the header component childRef
       if (index === 0) return;
       // update the stepData with the childRef data
       updatedStep[index - 1].content = child.getData();
-      setStepsData(updatedStep);
     });
+    setStepsData(updatedStep);
   };
 
   // UPLOAD IMAGE FUNCTIONS
@@ -206,7 +207,7 @@ export default function TutorialMaker() {
   //  INITIALIZATION
   useEffect(() => {
     if (tutorialId === undefined) {
-      setOpenSideBar(true);
+      setOpenSideBar(false);
     } else {
       setId(tutorialId);
       setOpenSideBar(false);
@@ -276,7 +277,7 @@ export default function TutorialMaker() {
         save={() => {
           getStepsData();
           getSideBarData();
-          setSave(true);
+          // setSave(true);
         }}
         isWrongSubmit={isWrongSubmit}
       />
@@ -343,9 +344,9 @@ export default function TutorialMaker() {
                   setData={(data) => {
                     const updatedStep = [...stepsData];
                     updatedStep[stepIndex].content = data;
+                    updatedStep[stepIndex].preview = true;
                     setStepsData(updatedStep);
                   }}
-                  previewAll={step.preview}
                   close={() => removeStep(stepIndex)}
                 />
               </div>
