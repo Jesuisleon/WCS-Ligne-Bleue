@@ -22,7 +22,7 @@ export default function Header() {
       className="
     w-screen
     bg-white 
-    z-20
+    z-30
     bg-gradient-to-b 
     from-blue-700 
     to-blue-900

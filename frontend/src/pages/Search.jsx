@@ -27,18 +27,19 @@ export default function Search() {
   }, [searchValue]);
 
   return (
-    <div className="flex-grow flex flex-col px-60 py-5 align-center ">
-      {/* {isHidden ? null : ( */}
-      <div className="bg-gradient-to-b from-blue-700 to-blue-900 p-8 sm:p-4 flex flex-col justify-center items-center rounded-xl  shadow-lg  text-center">
-        <div className="text-2xl font-bold text-center flex align-center">
-          <FaSearch className="h-8 w-8 text-yellow-400 group-hover:text-[#1d4ed8] mr-2 mb-4 " />
+    <div className="flex-grow flex flex-col px-4 sm:px-6 md:px-8 lg:px-60 py-5 align-center">
+      <div className="bg-gradient-to-b from-blue-700 to-blue-900 p-4 sm:p-8 md:p-6 lg:p-8 flex flex-col justify-center items-center rounded-lg shadow-lg text-center">
+        <div className="text-xl font-medium text-center flex align-center">
+          <FaSearch className="h-6 w-6 text-yellow-400 group-hover:text-[#1d4ed8] mr-2 mb-4" />
           <span className="text-white">
             Veuillez renseigner ci-dessous votre recherche
           </span>
         </div>
-        <div className="text-sm font-medium text-white ">
-          <div className="text-xl font-bold text-left mb-auto">Exemples :</div>
-          <ul className="text-left  justify-center mt-2 text-base text-white sm:text-lg dark:text-white">
+        <div className="text-sm font-medium text-white">
+          <div className="text-lg font-medium text-left mb-auto">
+            Exemples :
+          </div>
+          <ul className="text-left justify-center mt-2 text-base sm:text-lg dark:text-white">
             <li className="mb-2">
               1- Tutoriel pour apprendre à allumer son téléphone
             </li>
@@ -47,9 +48,7 @@ export default function Search() {
           </ul>
         </div>
       </div>
-      {/* )} */}
-
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6 md:mb-8 lg:mb-6">
         <label
           htmlFor="search"
           className="flex justify-center mb-2 text-sm font-medium text-gray-900 dark:text-dark mt-2"
@@ -61,13 +60,12 @@ export default function Search() {
           id="search"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-          className="bg-gray-700  border-indigo-800 text-gray-900 text-sm rounded-lg focus:ring-blue-500 border-4  focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500  dark:focus:border-indigo-700"
-          placeholder="Exemple : Tutoriel pour apprendre à allumer sont téléphone "
+          className="bg-gray-700 border-indigo-800 text-gray-900 text-sm rounded-md focus:ring-blue-500 border-4 focus:border-blue-500 block w-full p-2 sm:p-3 md:p-4 lg:p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-indigo-700"
+          placeholder="Exemple : Tutoriel pour apprendre à allumer sont téléphone"
           required
         />
       </div>
-
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {searchResult &&
           searchResult.map((e) => (
             <Link key={e.id} to={`/tutorial/${e.id}`}>
