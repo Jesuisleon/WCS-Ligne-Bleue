@@ -75,7 +75,7 @@ export default function AllRoutes() {
         {isLoading && (
           <Route>
             <Route
-              path="/userProfile"
+              path="/userprofile"
               element={
                 <ProtectedRoute status={isLog}>
                   <UserProfil />
@@ -104,7 +104,7 @@ export default function AllRoutes() {
         {isLoading && (
           <Route>
             <Route
-              path="/userProfile"
+              path="/userprofile"
               element={
                 <ProtectedRoute status={admin}>
                   <UserProfil />
@@ -112,7 +112,7 @@ export default function AllRoutes() {
               }
             />
             <Route
-              path="/createTutorial/:tutorialId"
+              path="/createtutorial/:tutorialId"
               element={
                 <ProtectedRoute status={admin}>
                   <TutorialMaker />
@@ -120,7 +120,7 @@ export default function AllRoutes() {
               }
             />
             <Route
-              path="/createTutorial/"
+              path="/createtutorial/"
               element={
                 <ProtectedRoute status={admin}>
                   <TutorialMaker />

@@ -14,7 +14,24 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
   const childRef = useRef([]);
   useImperativeHandle(ref, () => ({
     getData: () => {
-      if (content.length > 0) return content;
+      if (content.length > 0) {
+        // for each question we need to have at list 2 answers and one correct answer to be valid
+        const valid = content.every((question) => {
+          const validAnswers = question.answers.length >= 2;
+          const validCorrectAnswer = question.answers.some(
+            (answer) => answer.correct === true
+          );
+          return validAnswers && validCorrectAnswer;
+        });
+        if (!valid) {
+          alert(
+            "Veuillez remplir au moins 2 réponses par question et une bonne réponse"
+          );
+          return null;
+        }
+        // if valid we return the content
+        return content;
+      }
       return null;
     },
     setData: () => {
@@ -68,6 +85,9 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
   };
 
   const removeAnswer = (questionId, answerId) => {
+    if (content[questionId - 1].answers.length === 2) {
+      return;
+    }
     const updatedAnswer = content[questionId - 1].answers.filter(
       (answer) => answer.id !== answerId
     );
@@ -94,6 +114,7 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
     } else if (element.target.name.includes("answer")) {
       updatedQuestion[id].answers[answerIndex].text = value;
     } else if (element.target.name.includes("checkbox")) {
+      if (updatedQuestion[id].answers[answerIndex].text === "") return;
       updatedQuestion[id].answers[answerIndex].correct =
         !updatedQuestion[id].answers[answerIndex].correct;
     }

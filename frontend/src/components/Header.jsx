@@ -38,17 +38,17 @@ export default function Header() {
               <img
                 className="h-8 sm:h-10 w-auto"
                 src="/image/logo_la_poste.png"
-                alt=""
+                alt="logo"
               />
             </Link>
           </div>
           {userToken && userInfos.isAdmin ? (
             <div className="mt-auto mb-auto">
               <Link
-                to="/adminPanel"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "
+                to="/adminpanel"
+                className="bg-red-400 hover:bg-red-400 text-white text-md py-2 px-4 border-4 border-red-500 hover:border-red-300 rounded-lg"
               >
-                Admin
+                DASHBOARD
               </Link>
             </div>
           ) : null}

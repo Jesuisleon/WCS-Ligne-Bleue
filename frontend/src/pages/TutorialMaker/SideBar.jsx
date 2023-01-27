@@ -26,6 +26,15 @@ const SideBar = forwardRef(
 
     const [difficulties, setDifficulties] = useState([]);
 
+    const [invalid, setInvalid] = useState({
+      theme: true,
+      difficulty: true,
+      title: true,
+      objective: true,
+      description: true,
+      hashtag: true,
+    });
+
     const [data, setData] = useState();
 
     useEffect(() => {
@@ -35,17 +44,16 @@ const SideBar = forwardRef(
     }, []);
 
     useEffect(() => {
-      if (getData !== data) setData(getData);
+      if (getData !== data) {
+        setData(getData);
+        // transform each value on invalid to false
+        const newInvalid = Object.keys(invalid).reduce((acc, key) => {
+          acc[key] = false;
+          return acc;
+        }, {});
+        setInvalid(newInvalid);
+      }
     }, [getData]);
-
-    const [invalid, setInvalid] = useState({
-      theme: true,
-      difficulty: true,
-      title: true,
-      objective: true,
-      description: true,
-      hashtag: true,
-    });
 
     const childRef = useRef(null);
     useImperativeHandle(ref, () => ({

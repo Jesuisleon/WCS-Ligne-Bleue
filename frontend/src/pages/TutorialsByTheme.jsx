@@ -114,17 +114,6 @@ export default function TutorialByTheme() {
             </Link>
           </motion.div>
         ))}
-      <div className="flex">
-        {userInfos.isAdmin ? (
-          <Link
-            className="text-red-700 text-xl font-button mx-2"
-            to="/createTutorial/"
-          >
-            {" "}
-            <p>Créer un tutoriel</p>
-          </Link>
-        ) : null}
-      </div>
     </div>
   );
 }
