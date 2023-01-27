@@ -127,6 +127,35 @@ export default function TutorialMaker() {
           theme: res.data.theme_id,
           published: res.data.published === 1,
         });
+
+        // PARSE THE STEP
+        res.data.step = JSON.parse(res.data.step);
+        res.data.step = res.data.step.map((item) => {
+          return {
+            ...item,
+            preview: false,
+          };
+        });
+        // UPDATE THE SRC OF THE IMAGE
+        const updateSrcImage = res.data.step
+          .filter(({ type }) => type === "image")
+          .map((image) => {
+            const regex = /src="([^"])*"/;
+            const src = regex.exec(image.content)[0].split('"')[1];
+            const newSrc = `${VITE_BACKEND_URL}${src}`;
+            const updatedContent = image.content.replace(src, newSrc);
+            return { ...image, content: updatedContent };
+          });
+
+        res.data.step = [
+          ...res.data.step.filter(({ type }) => type !== "image"),
+          ...updateSrcImage,
+        ];
+
+        // SORT THE STEP BY ID
+        res.data.step.sort((a, b) => a.id - b.id);
+
+        setStepsData(res.data.step);
       })
       .catch((err) => {
         if (err.response.status === 404) {
