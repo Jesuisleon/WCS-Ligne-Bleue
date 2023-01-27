@@ -46,7 +46,7 @@ export default function Header() {
             <div className="mt-auto mb-auto">
               <Link
                 to="/adminpanel"
-                className="bg-red-400 hover:bg-red-400 text-white text-md py-2 px-4 border-4 border-red-500 hover:border-red-300 rounded-lg"
+                className="bg-gray-800 hover:bg-gray-700 text-white text-md py-3 px-5 rounded-md"
               >
                 DASHBOARD
               </Link>
