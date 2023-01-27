@@ -76,27 +76,29 @@ function UserProfil() {
   const tutorialFiltred = FilterByOptionsSelected(tutorials, selectedOption);
 
   return (
-    <div className="flex-col flex items-center  ">
-      <div className="w-1/2  p-4  flex text-center bg-white border justify-between  rounded-lg shadow sm:p-8  ">
-        <div className=" ">
-          <div className="text-3xl font-bold text-gray-900 dark:text-black">
-            {userFirstName} {userLastName}{" "}
-          </div>
-          <p className="text-base text-gray-500 sm:text-lg dark:text-gray-400">
-            {userEmail}
-          </p>
-        </div>
-        <div className=" space-y-4 sm:flex sm:space-y-0 sm:space-x-4 align-center my-4">
-          <Link
-            to="/userprofil/changepassword"
-            class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-2 py-1.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
-          >
-            <div className="text-left">
-              <div className="-mt-1 font-sans text-sm font-semibold">
-                Changer votre mot de passe
-              </div>
+    <div>
+      <div className="flex flex-col items-center">
+        <div className="w-full sm:w-1/2 p-4 sm:p-8 flex text-center justify-between border-b border-gray-400">
+          <div>
+            <div className="text-3xl font-bold text-gray-900 dark:text-black">
+              {userFirstName} {userLastName}
             </div>
-          </Link>
+            <p className="text-base text-gray-500 sm:text-lg dark:text-gray-400">
+              {userEmail}
+            </p>
+          </div>
+          <div className="sm:flex sm:space-x-4 align-center my-4">
+            <Link
+              to="/userprofil/changepassword"
+              className="w-full sm:w-auto bg-gradient-to-b from-blue-700 to-blue-900 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
+            >
+              <div className="text-left">
+                <div className="-mt-1 font-sans text-sm font-semibold">
+                  Modifier mon mot de passe
+                </div>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -258,72 +260,78 @@ function UserProfil() {
       )}
 
       {!isLoading && (
-        <div className="px-4 w-full sm:px-6 lg:px-8">
-          {themeFilters
-            .filter((e) => e.isChecked === true)
-            .map((e) => (
-              <div key={e.id} className="w-full px-4 pt-2">
-                <div className="mx-auto w-full rounded-lg bg-white p-0 ">
-                  <Disclosure>
-                    {({ open }) => (
-                      <>
-                        <Disclosure.Button className="flex w-full h-20 justify-between items-center text-white rounded-lg bg-gradient-to-b from-blue-700 to-blue-900 px-4 py-2 text-left text-sm font-medium focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
-                          <span>{e.value}</span>
-                          <ChevronUpIcon
-                            className={`${
-                              open ? "rotate-180 transform" : ""
-                            } h-8 w-8 text-white`}
-                          />
-                        </Disclosure.Button>
-                        <Disclosure.Panel className="px-4 mb-4">
-                          <div className="mt-0 flex flex-col">
-                            <div className="overflow-x-auto">
-                              <div className="inline-block min-w-full py-2 align-middle">
-                                <div className="overflow-hidden shadow rounded-lg">
-                                  <table className="min-w-full divide-y divide-gray-300">
-                                    {filterTutorialByThemeId(
-                                      e.id,
-                                      tutorialFiltred
-                                    ).map((a) => (
-                                      <tbody
-                                        key={e.id}
-                                        className="divide-y divide-black"
-                                      >
-                                        <tr className="bg-gradient-to-b from-yellow-300 to-yellow-500">
-                                          <td className="py-4 pl-4 pr-3 text-sm">
-                                            <div className="flex items-center">
-                                              <div className="px-4 py-2 text-sm text-right">
-                                                {a.title}
+        <div className="    ">
+          <div className=" flex  items-center flex-col ">
+            <h1 className="sm:text-3x1 font-bold py-2 mt-8">Mes Tutoriels</h1>
+          </div>
+
+          <div className="  flex  flex-col items-center ">
+            {themeFilters
+              .filter((e) => e.isChecked === true)
+              .map((e) => (
+                <div key={e.id} className="w-1/2 ">
+                  <div className="mx-auto w-full   bg-gray-50 p-0 ">
+                    <Disclosure>
+                      {({ open }) => (
+                        <>
+                          <Disclosure.Button className="flex w-full  font-bold h-20 justify-between border-gray-300 items-center text-dark rounded-lg bg-gray-50 border px-4 py-2 text-left text-sm  focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                            <span>{e.value}</span>
+                            <ChevronUpIcon
+                              className={`${
+                                open ? "rotate-180 transform" : ""
+                              } h-8 w-8 text-black`}
+                            />
+                          </Disclosure.Button>
+                          <Disclosure.Panel className="  mb-4">
+                            <div className="mt-0 flex flex-col">
+                              <div className="overflow-x-auto">
+                                <div className="inline-block min-w-full py-2 align-middle">
+                                  <div className="overflow-hidden shadow font-ligther text-gray-600 rounded-lg ">
+                                    <table className="min-w-full divide-y  divide-gray-300">
+                                      {filterTutorialByThemeId(
+                                        e.id,
+                                        tutorialFiltred
+                                      ).map((a) => (
+                                        <tbody
+                                          key={e.id}
+                                          className="divide-y divide-black"
+                                        >
+                                          <tr className="border rounded-md  border-gray-400">
+                                            <td className="py-4 pl-4 pr-3 text-sm">
+                                              <div className="flex items-center">
+                                                <div className="px-4 py-2 text-sm text-right">
+                                                  {a.title}
+                                                </div>
                                               </div>
-                                            </div>
-                                          </td>
-                                          <td className="px-4 py-2 text-sm text-right">
-                                            <Link to={`/tutorial/${e.id}`}>
+                                            </td>
+                                            <td className="px-4 py-2 text-sm text-right">
+                                              <Link to={`/tutorial/${e.id}`}>
+                                                {a.user_id
+                                                  ? "re-faire le tutoriel"
+                                                  : "Faire le tutoriel !"}
+                                              </Link>
+                                            </td>
+                                            <td className=" text-right bg-indigo-100 text-indigo-800 text-xs font-medium px-2 py-1 rounded-full w-sm">
                                               {a.user_id
-                                                ? "re-faire le tutoriel"
-                                                : "Faire le tutoriel !"}
-                                            </Link>
-                                          </td>
-                                          <td className="px-4 py-2 text-sm text-right">
-                                            {a.user_id
-                                              ? "Validé"
-                                              : "A découvrir"}
-                                          </td>
-                                        </tr>
-                                      </tbody>
-                                    ))}
-                                  </table>
+                                                ? "Validé"
+                                                : "A découvrir"}
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      ))}
+                                    </table>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure>
+                          </Disclosure.Panel>
+                        </>
+                      )}
+                    </Disclosure>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+          </div>
         </div>
       )}
     </div>
