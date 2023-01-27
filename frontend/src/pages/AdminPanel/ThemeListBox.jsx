@@ -52,6 +52,7 @@ export default function ThemeListBox({
     adminThemesTemp[index].isChecked = !adminThemesTemp[index].isChecked;
     setAdminThemes(adminThemesTemp);
   };
+
   return (
     <fieldset
       onMouseEnter={() => setShowDropdown(true)}
@@ -70,7 +71,7 @@ export default function ThemeListBox({
       <div
         className={`${showDropdown ? "absolute" : "hidden"}  bg-gradient-to-b 
         from-gray-100 
-        to-gray-200 border-t border-b border-gray-200 divide-y divide-gray-200 py-1`}
+        to-gray-200 border-t border-b border-gray-200 divide-y divide-gray-200 py-1 px-4`}
       >
         <button
           type="button"
