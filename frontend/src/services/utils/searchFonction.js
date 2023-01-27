@@ -12,7 +12,7 @@ const SearchTutorial = (searchPhrases, tuto) => {
       .toLowerCase();
   }
 
-  searchToString.forEach(function (element) {
+  searchToString.forEach(function f(element) {
     const searchTradToRegex = ToLettersOnLowerCase(element);
     searchValueRegexTrad.push(searchTradToRegex);
   });
@@ -25,7 +25,7 @@ const SearchTutorial = (searchPhrases, tuto) => {
   });
   const match1 = [];
 
-  searchValueRegexTrad.forEach(function (element, index) {
+  searchValueRegexTrad.forEach(function f(element) {
     const matchElement = tutorialsToFind.filter((e) =>
       e.hashtag.includes(element)
     );
@@ -35,10 +35,10 @@ const SearchTutorial = (searchPhrases, tuto) => {
     }
   });
   const match2 = match1.flat();
-  match2.forEach(function (element, index) {});
+  match2.forEach(function f() {});
   const duplicateIds = match2.reduce((acc, curr) => {
     if (acc.hasOwnProperty(curr.id)) {
-      acc[curr.id].count++;
+      acc[curr.id].count += 1;
     } else {
       acc[curr.id] = { ...curr, count: 1 };
     }

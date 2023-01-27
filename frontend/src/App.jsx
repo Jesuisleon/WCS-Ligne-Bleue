@@ -76,6 +76,9 @@ function App() {
       flex-col
       min-h-screen
       w-screen 
+      bg-gradient-to-b 
+        from-yellow-100 
+        to-yellow-200
       "
     >
       <Router>
