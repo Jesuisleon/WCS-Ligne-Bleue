@@ -8,6 +8,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Montserrat", Arial, sans-serif;
 }
 
 input {
@@ -42,9 +43,7 @@ input {
 /* End CSS Animation */
 
 /* CSS Presets */
-.invalid {
-  @apply text-red-600;
-}
+
 .black-button {
   @apply antialiased bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-100;
 }
@@ -54,15 +53,7 @@ input {
 }
 
 .hashtag-button {
-  @apply bg-slate-100 mr-2 mb-2 p-1 text-sm text-black font-normal rounded cursor-pointer;
-}
-
-.tutorial-step {
-  @apply bg-white rounded-xl my-4 px-4 py-2;
-}
-
-.tutorial-header {
-  @apply flex flex-col gap-6 p-10 border-2 border-dashed border-gray-300 rounded-md;
+  @apply rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 h-10;
 }
 
 .col {
@@ -70,10 +61,10 @@ input {
 }
 
 .h1-font {
-  @apply text-xl font-semibold;
+  @apply text-xl text-white font-semibold;
 }
 
 .p-font {
-  @apply text-gray-500 first-letter:capitalize;
+  @apply text-blue-500 first-letter:capitalize;
 }
 /* End CSS Presets */

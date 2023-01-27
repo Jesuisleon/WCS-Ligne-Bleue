@@ -14,7 +14,6 @@ export default function Header() {
   const handleDisconnect = (event) => {
     event.stopPropagation();
     setUserTokenCookie(null);
-    localStorage.clear();
     navigate("/home");
   };
 
@@ -23,7 +22,7 @@ export default function Header() {
       className="
     w-screen
     bg-white 
-    z-40 
+    z-20
     bg-gradient-to-b 
     from-blue-700 
     to-blue-900
