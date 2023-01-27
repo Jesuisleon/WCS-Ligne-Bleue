@@ -311,10 +311,13 @@ function UserProfil() {
                                                   : "Faire le tutoriel !"}
                                               </Link>
                                             </td>
-                                            <td className=" text-right bg-indigo-100 text-indigo-800 text-xs font-medium px-2 py-1 rounded-full w-sm">
-                                              {a.user_id
-                                                ? "Validé"
-                                                : "A découvrir"}
+
+                                            <td className=" ">
+                                              <div className=" flex text-center bg-indigo-100 text-indigo-800  text-xs font-medium   py-1 rounded-full max-w-max ">
+                                                {a.user_id
+                                                  ? "Validé"
+                                                  : "A découvrir"}
+                                              </div>
                                             </td>
                                           </tr>
                                         </tbody>
