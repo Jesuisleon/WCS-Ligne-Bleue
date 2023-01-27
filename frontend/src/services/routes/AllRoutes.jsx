@@ -11,6 +11,7 @@ import Header from "@components/Header";
 import Breadcrumb from "@components/Breadcrumb";
 import { NavigationContext } from "@context/NavigationContext";
 
+import StackedList from "@pages/StackedList";
 import Home from "@pages/Home";
 import AdminPanel from "@pages/AdminPanel/AdminPanel";
 import Login from "@pages/Login";
@@ -22,6 +23,7 @@ import TutorialMaker from "@pages/TutorialMaker/TutorialMaker";
 import Register from "@pages/Register";
 import ChangePassword from "@pages/ChangePassword";
 import ProtectedRoute from "./ProtectedRoute";
+
 import { AuthContext } from "../../context/AuthContext";
 
 import NotFound404 from "../../components/NotFound404";
@@ -77,6 +79,7 @@ export default function AllRoutes() {
             </>
           }
         />
+        <Route path="/stackedlist" element={<StackedList />} />
         <Route path="/login" element={<Login />} />
         <Route path="/search" element={<Search />} />
         <Route

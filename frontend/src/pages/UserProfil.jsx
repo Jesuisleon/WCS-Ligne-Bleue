@@ -1,19 +1,26 @@
-import axios from "axios";
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+import axios from "axios";
+
+import { AuthContext } from "../context/AuthContext";
+
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import { HiChevronDown } from "react-icons/hi";
-import { AuthContext } from "../context/AuthContext";
-import filterTutorialByThemeId from "../services/filterTutorialByThemeId";
-import { FilterByOptionsSelected } from "../services/utils/utils";
+
+import filterTutorialByThemeId from "@services/filterTutorialByThemeId";
+import { FilterByOptionsSelected } from "@services/utils/utils";
 
 function UserProfil() {
+
   const { userInfos } = useContext(AuthContext);
+
+
   const { userId } = userInfos;
   const [infosUser, setInfosUser] = useState("");
   const [tutorials, setTutorials] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [themeFilters, setThemeFilters] = useState("");
@@ -51,7 +58,7 @@ function UserProfil() {
               userEmail: res.data.email,
               isAdmin: res.data.admin,
             });
-            setIsLoading(false);
+            setLoading(false);
           });
         }
       });
@@ -93,36 +100,36 @@ function UserProfil() {
 
   const tutorialFiltred = FilterByOptionsSelected(tutorials, selectedOption);
 
+  if (loading) { return <div>Chargement...</div>; }
+  
   return (
-    <div>
-      {!isLoading && (
-        <div className="flex-col flex items-center  ">
-          <div className="w-full sm:w-1/2 p-4 sm:p-8 flex text-center justify-between border-b border-gray-400">
-            <div>
-              <div className="text-3xl font-bold text-gray-900 dark:text-black">
-                {infosUser.userFirstName} {infosUser.userLastName}
-              </div>
-              <p className="text-base text-gray-500 sm:text-lg dark:text-gray-400">
-                {infosUser.userEmail}
-              </p>
-            </div>
-            <div className="sm:flex sm:space-x-4 align-center my-4">
-              <Link
-                to="/userprofil/changepassword"
-                className="w-full sm:w-auto bg-gradient-to-b from-blue-700 to-blue-900 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
-              >
-                <div className="text-left">
-                  <div className="-mt-1 font-sans text-sm font-semibold">
-                    Modifier mon mot de passe
-                  </div>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
+    <div className="px-10 my-6 w-full">
+      <div className="pb-5 border-b border-gray-200">
+      <h3 className="text-lg leading-6 font-medium text-gray-600">Mon profil</h3>
+      </div>
+      
 
-      {!isLoading && (
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 sm:items-center sm:justify-center py-6 sm:py-8 border-b border-gray-200">
+
+              <div>
+                <div className="text-3xl font-bold text-gray-900 dark:text-black first-letter:capitalize">
+                            {`${infosUser.userFirstName} ${infosUser.userLastName}`}
+                </div>
+                <p className="text-base text-gray-500 sm:text-base dark:text-gray-400">
+                  {infosUser.userEmail}
+                </p>
+              </div>
+
+              <Link to="/userprofil/changepassword">
+                  <p  className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Modifier mon mot de passe
+                </p>
+              </Link>
+
+          </div>
+
+      
+      
         <fieldset
           onMouseEnter={() => setShowDropdown(true)}
           onMouseLeave={() => setShowDropdown(false)}
@@ -186,9 +193,9 @@ function UserProfil() {
               ))}
           </div>
         </fieldset>
-      )}
 
-      {!isLoading && (
+
+      
         <fieldset
           onMouseEnter={() => setShowDropdown2(true)}
           onMouseLeave={() => setShowDropdown2(false)}
@@ -277,9 +284,8 @@ function UserProfil() {
             </div>
           </div>
         </fieldset>
-      )}
+      
 
-      {!isLoading && (
         <div className="    ">
           <div className=" flex  items-center flex-col ">
             <h1 className="text-2xl font-bold py-2 mt-8">Mes Tutoriels</h1>
@@ -362,7 +368,6 @@ function UserProfil() {
               ))}
           </div>
         </div>
-      )}
     </div>
   );
 }

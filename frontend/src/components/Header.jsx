@@ -31,10 +31,10 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
         <div className="w-full py-4 sm:py-6 flex items-center justify-between lg:border-none">
           <div className="hidden xs:flex items-center">
-            <Link to="/">
+            <Link to="/home">
               <span className="sr-only">Ligne Bleue</span>
               <img
-                className="h-8 sm:h-10 w-auto"
+                className="h-10 sm:h-12 w-auto"
                 src="/image/logo_la_poste.png"
                 alt="logo"
               />
@@ -94,9 +94,9 @@ export default function Header() {
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-8 bg-white p-7">
                           <Link to={`/userProfile/${userId} `}>
-                            <button
+                            <Popover.Button
                               type="button"
-                              className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start"
+                              className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start w-full"
                             >
                               <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-700 text-white sm:h-12 sm:w-12">
                                 {/* Heroicon name: outline/support */}
@@ -109,13 +109,13 @@ export default function Header() {
                                   Gérer mon profil
                                 </p>
                               </div>
-                            </button>
+                            </Popover.Button>
                           </Link>
 
                           <button
                             type="button"
                             onClick={handleDisconnect}
-                            className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                            className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 w-full"
                           >
                             <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-700 text-white sm:h-12 sm:w-12">
                               {/* Heroicon name: outline/support */}
