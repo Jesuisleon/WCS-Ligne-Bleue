@@ -1,4 +1,4 @@
-import { createContext, useState, useMemo, useCallback } from "react";
+import { createContext, useState, useMemo } from "react";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
@@ -8,17 +8,20 @@ export function AuthContextProvider({ children }) {
   const [userInfos, setUserInfos] = useState({});
   const [checkBoxFilter, setCheckBoxFilter] = useState("");
 
-  const setUserTokenCookie = useCallback((token) => {
+  const setUserTokenCookie = (token) => {
     if (token) {
+      // Set the expiration date to 1 minute from now
+      const expirationDate = new Date();
+      expirationDate.setMinutes(expirationDate.getMinutes() + 1);
       Cookies.set("userToken", token, {
-        expires: 24 / 24,
+        expires: expirationDate,
       });
       setUserToken(token);
     } else {
       Cookies.remove("userToken");
       setUserToken(null);
     }
-  }, []);
+  };
 
   const value = useMemo(
     () => ({
