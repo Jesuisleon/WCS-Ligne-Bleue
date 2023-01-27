@@ -90,28 +90,30 @@ function UserProfil() {
   const tutorialFiltred = FilterByOptionsSelected(tutorials, selectedOption);
 
   return (
-    <div className="flex-col flex items-center  ">
+    <div>
       {!isLoading && (
-        <div className="w-full sm:w-1/2 p-4 sm:p-8 flex text-center justify-between border-b border-gray-400">
-          <div>
-            <div className="text-3xl font-bold text-gray-900 dark:text-black">
-              {infosUser.userFirstName} {infosUser.userLastName}
-            </div>
-            <p className="text-base text-gray-500 sm:text-lg dark:text-gray-400">
-              {infosUser.userEmail}
-            </p>
-          </div>
-          <div className="sm:flex sm:space-x-4 align-center my-4">
-            <Link
-              to="/userprofil/changepassword"
-              className="w-full sm:w-auto bg-gradient-to-b from-blue-700 to-blue-900 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
-            >
-              <div className="text-left">
-                <div className="-mt-1 font-sans text-sm font-semibold">
-                  Modifier mon mot de passe
-                </div>
+        <div className="flex-col flex items-center  ">
+          <div className="w-full sm:w-1/2 p-4 sm:p-8 flex text-center justify-between border-b border-gray-400">
+            <div>
+              <div className="text-3xl font-bold text-gray-900 dark:text-black">
+                {infosUser.userFirstName} {infosUser.userLastName}
               </div>
-            </Link>
+              <p className="text-base text-gray-500 sm:text-lg dark:text-gray-400">
+                {infosUser.userEmail}
+              </p>
+            </div>
+            <div className="sm:flex sm:space-x-4 align-center my-4">
+              <Link
+                to="/userprofil/changepassword"
+                className="w-full sm:w-auto bg-gradient-to-b from-blue-700 to-blue-900 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
+              >
+                <div className="text-left">
+                  <div className="-mt-1 font-sans text-sm font-semibold">
+                    Modifier mon mot de passe
+                  </div>
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       )}
