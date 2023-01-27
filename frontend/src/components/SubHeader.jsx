@@ -10,7 +10,10 @@ function SubHeader({ title }) {
       mx-10
       h-[4em]
       sm:h-20
+<<<<<<< HEAD
      bg-gray-50
+=======
+>>>>>>> S3_Token_Fix_Admin
       z-20
       flex
       justify-center

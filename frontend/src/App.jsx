@@ -9,6 +9,39 @@ import { AuthContext } from "./context/AuthContext";
 import { NavigationContext } from "./context/NavigationContext";
 
 function App() {
+  const { VITE_BACKEND_URL } = import.meta.env;
+
+  axios.defaults.baseURL = VITE_BACKEND_URL;
+  axios.defaults.headers.common.Authorization = `Bearer ${Cookies.get(
+    "userToken"
+  )}`;
+
+  // AXIOS || CAN BE USED TO LOG EVERY REQUESTS AND RESPONSES
+
+  // axios.interceptors.request.use(
+  //   (request) => {
+  //     console.log(request);
+  //     // Edit request config
+  //     return request;
+  //   },
+  //   (error) => {
+  //     console.log(error);
+  //     return Promise.reject(error);
+  //   }
+  // );
+
+  // axios.interceptors.response.use(
+  //   (response) => {
+  //     console.log(response);
+  //     // Edit response config
+  //     return response;
+  //   },
+  //   (error) => {
+  //     console.log(error);
+  //     return Promise.reject(error);
+  //   }
+  // );
+
   const { setUserInfos } = useContext(AuthContext);
   const { setNavigationTheme } = useContext(NavigationContext);
 

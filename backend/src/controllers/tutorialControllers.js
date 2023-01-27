@@ -116,6 +116,54 @@ const browseForSearch = (req, res) => {
     });
 };
 
+const browseForAdminPanel = (req, res, next) => {
+  let where = "";
+  if (req.query.theme != null) {
+    where = ` where theme_id = '${req.query.theme}'`;
+  }
+  models.tutorial
+    .findAllTutorials(where)
+    .then(([rows]) => {
+      const tuto = rows;
+      let promiseChain = Promise.resolve();
+      const modifiedTuto = tuto.map((element) => {
+        const newElement = { ...element };
+        promiseChain = promiseChain
+          .then(() => models.tuto_hashtag.findTutorialHashtag(newElement.id))
+          .then((results) => {
+            const resultsWithNewKey = results[0].map(
+              ({ hashtagId: oldKeyA, hashtagText: oldKeyB, ...others }) => ({
+                id: oldKeyA,
+                text: oldKeyB,
+                ...others,
+              })
+            );
+            newElement.hashtag = resultsWithNewKey.map(function f(obj) {
+              return obj;
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(500);
+          });
+        return newElement;
+      });
+      promiseChain
+        .then(() => {
+          req.modifiedTuto = modifiedTuto;
+          next();
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.tutorial
     .findTutorial(req.params.id)
@@ -252,12 +300,31 @@ const destroy = (req, res) => {
     });
 };
 
+const readAllTutorialAndSayIfUserValidateIt = (req, res) => {
+  const userId = parseInt(req.params.userId, 10);
+  models.tutorial
+    .findAllTutorialsAndSayIfValidated(userId)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   browseForSearch,
+  browseForAdminPanel,
   read,
   edit,
   editOnline,
   add,
   destroy,
+  readAllTutorialAndSayIfUserValidateIt,
 };

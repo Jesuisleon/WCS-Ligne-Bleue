@@ -49,8 +49,39 @@ const readAllForUser = (req, res) => {
     });
 };
 
+const browseTutoRating = (req, res) => {
+  const promises = req.modifiedTuto.map((e) => {
+    return models.user_journey.findAverageRatingForTuto(e.id).then(([rows]) => {
+      e.rating = rows[0].rating;
+      return e;
+    });
+  });
+  Promise.all(promises)
+    .then((modifiedTuto) => {
+      res.send(modifiedTuto);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const browseTutoComments = (req, res) => {
+  models.user_journey
+    .findAllCommentsForTuto(req.params.id)
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   add,
   browse,
   readAllForUser,
+  browseTutoRating,
+  browseTutoComments,
 };

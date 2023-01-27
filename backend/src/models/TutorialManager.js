@@ -12,9 +12,10 @@ class TutorialManager extends AbstractManager {
     );
   }
 
+  // added Theme name in request
   findAllTutorials(where) {
     return this.connection.query(
-      `select t.id,t.theme_id, t.difficulty_id, d.name as difficulty_name, t.title, t.objective,t.description, t.step, t.author, t.published, t.creation_date, t.edition_date from  ${this.table} as t inner join difficulty as d on d.id=t.difficulty_id${where}`
+      `select t.id,t.theme_id,theme.name as theme_name, t.difficulty_id, d.name as difficulty_name, t.title, t.objective,t.description, t.step, t.author, t.published, t.creation_date, t.edition_date from  ${this.table} as t inner join difficulty as d on d.id=t.difficulty_id inner join theme on t.theme_id=theme.id${where}`
     );
   }
 
@@ -60,6 +61,14 @@ class TutorialManager extends AbstractManager {
     return this.connection.query(
       `update ${this.table} set published = ?, edition_date = NOW() where id = ?`,
       [tutorial.published, tutorial.id]
+    );
+  }
+
+  findAllTutorialsAndSayIfValidated(userId) {
+    return this.connection.query(
+      `SELECT tutorial.id, tutorial.theme_id, tutorial.title, user_Journey.user_id
+      FROM ${this.table} left JOIN user_journey ON tutorial.id = user_Journey.tutorial_id and user_Journey.user_id = ? `,
+      [userId]
     );
   }
 }
