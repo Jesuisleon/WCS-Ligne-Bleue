@@ -9,7 +9,8 @@ import { FilterByOptionsSelected } from "../services/utils/utils";
 
 function UserProfil() {
   const { userInfos } = useContext(AuthContext);
-  const { userFirstName, userLastName, userEmail, userId } = userInfos;
+  const { userId } = userInfos;
+  const [infosUser, setInfosUser] = useState("");
   const [tutorials, setTutorials] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
@@ -34,10 +35,23 @@ function UserProfil() {
         if (userId) {
           axios.get(`/journeys-validation/${userId}`).then((res) => {
             setTutorials(res.data);
+          });
+        }
+      })
+      .then(() => {
+        if (userId) {
+          axios.get(`/users/${userId}`).then((res) => {
+            setInfosUser({
+              userFirstName: res.data.firstname,
+              userLastName: res.data.lastname,
+              userEmail: res.data.email,
+              isAdmin: res.data.admin,
+            });
             setIsLoading(false);
           });
         }
       });
+
     setThemeFilters(theme);
   }, [userId]);
 
@@ -76,15 +90,15 @@ function UserProfil() {
   const tutorialFiltred = FilterByOptionsSelected(tutorials, selectedOption);
 
   return (
-    <div>
-      <div className="flex flex-col items-center">
+    <div className="flex-col flex items-center  ">
+      {!isLoading && (
         <div className="w-full sm:w-1/2 p-4 sm:p-8 flex text-center justify-between border-b border-gray-400">
           <div>
             <div className="text-3xl font-bold text-gray-900 dark:text-black">
-              {userFirstName} {userLastName}
+              {infosUser.userFirstName} {infosUser.userLastName}
             </div>
             <p className="text-base text-gray-500 sm:text-lg dark:text-gray-400">
-              {userEmail}
+              {infosUser.userEmail}
             </p>
           </div>
           <div className="sm:flex sm:space-x-4 align-center my-4">
@@ -100,7 +114,7 @@ function UserProfil() {
             </Link>
           </div>
         </div>
-      </div>
+      )}
 
       {!isLoading && (
         <div>

@@ -1,14 +1,12 @@
 import { React, useContext, Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Header() {
   const { userToken, setUserTokenCookie, userInfos } = useContext(AuthContext);
-
-  const { userLastName } = userInfos;
+  const { userFirstName, userId } = userInfos;
   const navigate = useNavigate();
 
   const handleDisconnect = (event) => {
@@ -76,7 +74,7 @@ export default function Header() {
                   ${open ? "" : "text-opacity-90"}
                   group inline-flex items-center rounded-md bg-yellow-400 px-3 py-2 text-base font-medium text-blue-700 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                   >
-                    <span>{`Bonjour ${userLastName} `}</span>
+                    <span>{`Bonjour ${userFirstName} `}</span>
                     <ChevronDownIcon
                       className={`${open ? "" : "text-opacity-70"}
                     ml-2 h-5 w-5 text-blue-700 transition duration-150 ease-in-out group-hover:text-opacity-80`}
@@ -95,7 +93,7 @@ export default function Header() {
                     <Popover.Panel className="absolute z-40 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0">
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-8 bg-white p-7">
-                          <Link to="/userprofile">
+                          <Link to={`/userProfile/${userId} `}>
                             <Popover.Button className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start">
                               <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-700 text-white sm:h-12 sm:w-12">
                                 {/* Heroicon name: outline/support */}
