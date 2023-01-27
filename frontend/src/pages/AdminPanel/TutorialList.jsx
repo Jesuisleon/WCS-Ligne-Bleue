@@ -1,6 +1,6 @@
 import * as ReactRouter from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { HiChevronDown } from "react-icons/hi";
+import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 import axios from "axios";
 import regexDate from "../../services/utils/utilFunctions";
 
@@ -10,18 +10,20 @@ export default function TutorialList({
   adminThemes,
   render,
   setCommentTutoId,
+  setCommentTitle,
   setOpen,
 }) {
   const [data, setData] = useState();
   const [tutoList, setTutoList] = useState();
   const [refreshList, setRefreshList] = useState(false);
+  const [refreshListSort, setRefreshListSort] = useState(false);
 
   useEffect(() => {
     axios
       .get(`/tutorials-rating`)
       .then((response) => {
         setData(response.data);
-        setTutoList(response.data);
+        // setTutoList(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -54,12 +56,41 @@ export default function TutorialList({
       filteredTuto = filteredTuto.filter((tuto) => filterTuto(tuto));
       setTutoList([...filteredTuto]);
     }
-  }, [adminThemes, render]);
+  }, [adminThemes, render, data]);
 
-  const handleCommentList = (id) => {
+  const handleCommentList = (id, title) => {
     setCommentTutoId(id);
+    setCommentTitle(title);
     setOpen(true);
   };
+
+  const sortList = (key, order) => {
+    const listTemp = tutoList;
+    listTemp.sort(function f(a, b) {
+      const x = a[key].toLowerCase();
+      const y = b[key].toLowerCase();
+      if (x < y) {
+        return order === "up" ? -1 : 1;
+      }
+      if (x > y) {
+        return order === "up" ? 1 : -1;
+      }
+      return 0;
+    });
+    setTutoList(listTemp);
+    setRefreshListSort(!refreshListSort);
+  };
+
+  const sortListNumber = (key, order) => {
+    const listTemp = tutoList;
+    listTemp.sort(function f(a, b) {
+      return order === "up" ? a[key] - b[key] : b[key] - a[key];
+    });
+
+    setTutoList(listTemp);
+    setRefreshListSort(!refreshListSort);
+  };
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -91,69 +122,134 @@ export default function TutorialList({
                       scope="col"
                       className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
-                      <button type="button" className="group inline-flex">
-                        Thème
-                        <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                      <div className="group inline-flex">Thème</div>
+                      <button
+                        type="button"
+                        onClick={() => sortList("theme_name", "up")}
+                        className="group inline-flex"
+                      >
+                        <span className="ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
                           <HiChevronDown
                             className="h-5 w-5"
                             aria-hidden="true"
                           />
                         </span>
                       </button>
+                      <button
+                        type="button"
+                        onClick={() => sortList("theme_name", "down")}
+                        className="group inline-flex"
+                      >
+                        <span className=" flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                          <HiChevronUp className="h-5 w-5" aria-hidden="true" />
+                        </span>
+                      </button>
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
-                      <button type="button" className="group inline-flex">
-                        Tutoriel
-                        <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                      <div className="group inline-flex">Tutoriel</div>
+                      <button
+                        type="button"
+                        onClick={() => sortList("title", "up")}
+                        className="group inline-flex"
+                      >
+                        <span className="ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
                           <HiChevronDown
                             className="h-5 w-5"
                             aria-hidden="true"
                           />
                         </span>
                       </button>
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      <button type="button" className="group inline-flex">
-                        En ligne
-                        <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
-                          <HiChevronDown
-                            className="invisible ml-2 h-5 w-5 flex-none rounded text-gray-400 group-hover:visible group-focus:visible"
-                            aria-hidden="true"
-                          />
+                      <button
+                        type="button"
+                        onClick={() => sortList("title", "down")}
+                        className="group inline-flex"
+                      >
+                        <span className=" flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                          <HiChevronUp className="h-5 w-5" aria-hidden="true" />
                         </span>
                       </button>
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
-                      <button type="button" className="group inline-flex">
-                        Crée le:
-                        <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                      <div className="group inline-flex">En ligne</div>
+                      <button
+                        type="button"
+                        onClick={() => sortListNumber("published", "up")}
+                        className="group inline-flex"
+                      >
+                        <span className="ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
                           <HiChevronDown
-                            className="invisible ml-2 h-5 w-5 flex-none rounded text-gray-400 group-hover:visible group-focus:visible"
+                            className="h-5 w-5"
                             aria-hidden="true"
                           />
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => sortListNumber("published", "down")}
+                        className="group inline-flex"
+                      >
+                        <span className=" flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                          <HiChevronUp className="h-5 w-5" aria-hidden="true" />
                         </span>
                       </button>
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
-                      <button type="button" className="group inline-flex">
-                        Modifié le:
-                        <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                      <div className="group inline-flex">Crée le</div>
+                      <button
+                        type="button"
+                        onClick={() => sortList("creation_date", "up")}
+                        className="group inline-flex"
+                      >
+                        <span className="ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
                           <HiChevronDown
-                            className="invisible ml-2 h-5 w-5 flex-none rounded text-gray-400 group-hover:visible group-focus:visible"
+                            className="h-5 w-5"
                             aria-hidden="true"
                           />
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => sortList("creation_date", "down")}
+                        className="group inline-flex"
+                      >
+                        <span className=" flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                          <HiChevronUp className="h-5 w-5" aria-hidden="true" />
+                        </span>
+                      </button>
+                    </th>
+                    <th
+                      scope="col"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                    >
+                      <div className="group inline-flex">Modifié le</div>
+                      <button
+                        type="button"
+                        onClick={() => sortList("edition_date", "up")}
+                        className="group inline-flex"
+                      >
+                        <span className="ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                          <HiChevronDown
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                          />
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => sortList("edition_date", "down")}
+                        className="group inline-flex"
+                      >
+                        <span className=" flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                          <HiChevronUp className="h-5 w-5" aria-hidden="true" />
                         </span>
                       </button>
                     </th>
@@ -173,15 +269,28 @@ export default function TutorialList({
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
-                      <button type="button" className="group inline-flex">
-                        Avis:
-                        <span className="invisible ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                      <div className="group inline-flex">Avis</div>
+                      <button
+                        type="button"
+                        onClick={() => sortListNumber("rating", "up")}
+                        className="group inline-flex"
+                      >
+                        <span className="ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
                           <HiChevronDown
-                            className="invisible ml-2 h-5 w-5 flex-none rounded text-gray-400 group-hover:visible group-focus:visible"
+                            className="h-5 w-5"
                             aria-hidden="true"
                           />
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => sortListNumber("rating", "down")}
+                        className="group inline-flex"
+                      >
+                        <span className=" flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                          <HiChevronUp className="h-5 w-5" aria-hidden="true" />
                         </span>
                       </button>
                     </th>
@@ -230,7 +339,9 @@ export default function TutorialList({
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           <button
                             type="button"
-                            onClick={() => handleCommentList(dataTuto.id)}
+                            onClick={() =>
+                              handleCommentList(dataTuto.id, dataTuto.title)
+                            }
                             className="text-indigo-600 hover:text-indigo-900"
                           >
                             Afficher
@@ -246,7 +357,13 @@ export default function TutorialList({
                             type="button"
                             className="text-indigo-600 hover:text-indigo-900 px-3"
                           >
-                            Modifier
+                            <Link
+                              className=""
+                              to={`/createTutorial/${dataTuto.id}`}
+                            >
+                              {" "}
+                              <p>Modifier</p>
+                            </Link>
                           </button>
                           <button
                             type="button"
