@@ -12,9 +12,8 @@ import Breadcrumb from "@components/Breadcrumb";
 import { NavigationContext } from "@context/NavigationContext";
 
 import Home from "@pages/Home";
-import AdminPanel from "@pages/AdminPanel";
+import AdminPanel from "@pages/AdminPanel/AdminPanel";
 import Login from "@pages/Login";
-import Journey from "@pages/Journey";
 import Search from "@pages/Search";
 import Tutorial from "@pages/Tutorial/Tutorial";
 import TutorialByTheme from "@pages/TutorialsByTheme";
@@ -125,14 +124,6 @@ export default function AllRoutes() {
               element={
                 <ProtectedRoute status={isLog}>
                   <UserProfil />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/journey"
-              element={
-                <ProtectedRoute status={isLog}>
-                  <Journey />
                 </ProtectedRoute>
               }
             />
