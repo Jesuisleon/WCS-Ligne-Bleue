@@ -38,6 +38,7 @@ export default function TutorialMaker() {
     theme: "",
     published: false,
   });
+
   const [stepsData, setStepsData] = useState([]);
   useEffect(() => {
     // initialisation of the childsRefs when the stepsData is updated
@@ -110,6 +111,27 @@ export default function TutorialMaker() {
       })
       .catch((err) => {
         console.error(err);
+      });
+  };
+
+  const fetchData = (paramId) => {
+    axios
+      .get(`/tutorials/${paramId}`)
+      .then((res) => {
+        setSideBarData({
+          title: res.data.title,
+          objective: res.data.objective,
+          description: res.data.description,
+          difficulty: res.data.difficulty_id,
+          hashtag: res.data.hashtag.map((item) => item.text),
+          theme: res.data.theme_id,
+          published: res.data.published === 1,
+        });
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          navigate("/404");
+        }
       });
   };
 
@@ -207,8 +229,9 @@ export default function TutorialMaker() {
   //  INITIALIZATION
   useEffect(() => {
     if (tutorialId === undefined) {
-      setOpenSideBar(false);
+      setOpenSideBar(true);
     } else {
+      fetchData(tutorialId);
       setId(tutorialId);
       setOpenSideBar(false);
     }

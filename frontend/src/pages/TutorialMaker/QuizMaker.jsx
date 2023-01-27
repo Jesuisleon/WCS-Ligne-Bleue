@@ -107,6 +107,12 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (content.length === 0) {
+      setQuestion();
+    }
+  }, [content]);
+
   return (
     <div ref={childRef} className="bg-white py-4 px-8">
       {preview ? (
@@ -124,9 +130,22 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
                   onClick={() => {
                     removeQuestion(question.id);
                   }}
-                  className="px-2 rounded-md border border-red-100 bg-red-50 text-md font-medium text-red-300 hover:text-red-500 hover:border-red-200 focus:z-10 focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500"
+                  className="border border-transparent bg-gray-300 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 >
-                  -
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-3 h-3"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
                 </button>
                 <label
                   htmlFor="question"
@@ -157,9 +176,22 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
                     onClick={() => {
                       removeAnswer(question.id, answer.id);
                     }}
-                    className="px-2 rounded-md border border-red-100 bg-red-50 text-md font-medium text-red-300 hover:text-red-500 hover:border-red-200 focus:z-10 focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500"
+                    className="border border-transparent bg-gray-300 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                   >
-                    -
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-3 h-3"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
                   </button>
                   <input
                     type="checkbox"

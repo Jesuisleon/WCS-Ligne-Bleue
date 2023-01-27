@@ -32,11 +32,11 @@ const SideBar = forwardRef(
       axios.get(`/difficulties`).then((response) => {
         setDifficulties(response.data);
       });
-
-      if (getData) {
-        setData(getData);
-      }
     }, []);
+
+    useEffect(() => {
+      if (getData !== data) setData(getData);
+    }, [getData]);
 
     const [invalid, setInvalid] = useState({
       theme: true,
@@ -212,10 +212,9 @@ const SideBar = forwardRef(
                                   <div className="relative flex items-start">
                                     <div className="absolute flex h-5 items-center">
                                       <input
-                                        defaultChecked={
+                                        checked={
                                           data && data.published === true
                                         }
-                                        // when the user click on the radio button, we call the handleInput function with the value true and the id published
                                         onChange={() =>
                                           handleInput(true, { id: "published" })
                                         }
@@ -246,7 +245,7 @@ const SideBar = forwardRef(
                                   <div className="relative flex items-start">
                                     <div className="absolute flex h-5 items-center">
                                       <input
-                                        defaultChecked={
+                                        checked={
                                           data && data.published === false
                                         }
                                         onChange={() =>
