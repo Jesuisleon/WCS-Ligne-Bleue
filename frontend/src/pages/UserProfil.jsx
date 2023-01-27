@@ -76,36 +76,27 @@ function UserProfil() {
   const tutorialFiltred = FilterByOptionsSelected(tutorials, selectedOption);
 
   return (
-    <div>
-      <div className=" flex justify-center items-center mt-12 mb-8">
-        <div className="w-full max-w-sm  rounded-md shadow-md bg-gradient-to-b from-blue-700 to-blue-900 dark:border-gray-700 shadow-yellow-400 ">
-          <div className="flex justify-end px-4 pt-4" />
-          <div className="flex flex-col items-center pb-10">
-            <img
-              className="w-24 h-24 mb-3 rounded-full shadow-lg"
-              src="/image/pigeon-voyageur.png"
-              alt="img"
-            />
-            <h1 className="mb-3 text-xl font-medium text-gray-700 dark:text-white">
-              {" "}
-              Mes informations personnelles:
-            </h1>
-            <h5 className="mb-1 text-sm font-medium text-gray-700 dark:text-white">
-              Prénom: {userFirstName}
-            </h5>
-            <h5 className="mb-1 text-sm font-medium text-gray-700 dark:text-white">
-              Nom: {userLastName}
-            </h5>
-            <span className="text-sm text-gray-700 dark:text-gray-100 mb-6">
-              Adresse mail : {userEmail}
-            </span>
-            <Link
-              to="/userprofil/changepassword"
-              className="dark:text-white mt-4"
-            >
-              Changer votre mot de passe
-            </Link>
+    <div className="flex-col flex items-center  ">
+      <div className="w-1/2  p-4  flex text-center bg-white border justify-between  rounded-lg shadow sm:p-8  ">
+        <div className=" ">
+          <div className="text-3xl font-bold text-gray-900 dark:text-black">
+            {userFirstName} {userLastName}{" "}
           </div>
+          <p className="text-base text-gray-500 sm:text-lg dark:text-gray-400">
+            {userEmail}
+          </p>
+        </div>
+        <div className=" space-y-4 sm:flex sm:space-y-0 sm:space-x-4 align-center my-4">
+          <Link
+            to="/userprofil/changepassword"
+            class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-2 py-1.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
+          >
+            <div className="text-left">
+              <div className="-mt-1 font-sans text-sm font-semibold">
+                Changer votre mot de passe
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
 
@@ -267,7 +258,7 @@ function UserProfil() {
       )}
 
       {!isLoading && (
-        <div className="px-4 sm:px-6 lg:px-8">
+        <div className="px-4 w-full sm:px-6 lg:px-8">
           {themeFilters
             .filter((e) => e.isChecked === true)
             .map((e) => (
