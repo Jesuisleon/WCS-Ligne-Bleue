@@ -9,7 +9,8 @@ import { FilterByOptionsSelected } from "../services/utils/utils";
 
 function UserProfil() {
   const { userInfos } = useContext(AuthContext);
-  const { userFirstName, userLastName, userEmail, userId } = userInfos;
+  const { userId } = userInfos;
+  const [infosUser, setInfosUser] = useState("");
   const [tutorials, setTutorials] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
@@ -34,10 +35,23 @@ function UserProfil() {
         if (userId) {
           axios.get(`/journeys-validation/${userId}`).then((res) => {
             setTutorials(res.data);
+          });
+        }
+      })
+      .then(() => {
+        if (userId) {
+          axios.get(`/users/${userId}`).then((res) => {
+            setInfosUser({
+              userFirstName: res.data.firstname,
+              userLastName: res.data.lastname,
+              userEmail: res.data.email,
+              isAdmin: res.data.admin,
+            });
             setIsLoading(false);
           });
         }
       });
+
     setThemeFilters(theme);
   }, [userId]);
 
@@ -77,28 +91,30 @@ function UserProfil() {
 
   return (
     <div className="flex-col flex items-center  ">
-      <div className="w-1/2  p-4  flex text-center bg-white border justify-between  rounded-lg shadow sm:p-8  ">
-        <div className=" ">
-          <div className="text-3xl font-bold text-gray-900 dark:text-black">
-            {userFirstName} {userLastName}{" "}
-          </div>
-          <p className="text-base text-gray-500 sm:text-lg dark:text-gray-400">
-            {userEmail}
-          </p>
-        </div>
-        <div className=" space-y-4 sm:flex sm:space-y-0 sm:space-x-4 align-center my-4">
-          <Link
-            to="/userprofil/changepassword"
-            class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-2 py-1.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
-          >
-            <div className="text-left">
-              <div className="-mt-1 font-sans text-sm font-semibold">
-                Changer votre mot de passe
-              </div>
+      {!isLoading && (
+        <div className="w-1/2  p-4  flex text-center bg-white border justify-between  rounded-lg shadow sm:p-8  ">
+          <div className=" ">
+            <div className="text-3xl font-bold text-gray-900 dark:text-black">
+              {infosUser.userFirstName} {infosUser.userLastName}
             </div>
-          </Link>
+            <p className="text-base text-gray-500 sm:text-lg dark:text-gray-400">
+              {infosUser.userEmail}
+            </p>
+          </div>
+          <div className=" space-y-4 sm:flex sm:space-y-0 sm:space-x-4 align-center my-4">
+            <Link
+              to="/userprofil/changepassword"
+              className="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-2 py-1.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
+            >
+              <div className="text-left">
+                <div className="-mt-1 font-sans text-sm font-semibold">
+                  Changer votre mot de passe
+                </div>
+              </div>
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
 
       {!isLoading && (
         <div>

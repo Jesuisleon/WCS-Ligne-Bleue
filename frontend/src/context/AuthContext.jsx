@@ -12,7 +12,7 @@ export function AuthContextProvider({ children }) {
     if (token) {
       // Set the expiration date to 1 minute from now
       const expirationDate = new Date();
-      expirationDate.setMinutes(expirationDate.getMinutes() + 1);
+      expirationDate.setMinutes(expirationDate.getMinutes() + 1440);
       Cookies.set("userToken", token, {
         expires: expirationDate,
       });
