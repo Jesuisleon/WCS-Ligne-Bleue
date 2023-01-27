@@ -118,7 +118,7 @@ export default function TutorialByTheme() {
         {userInfos.isAdmin ? (
           <Link
             className="text-red-700 text-xl font-button mx-2"
-            to="/createTutorial"
+            to="/createTutorial/"
           >
             {" "}
             <p>Créer un tutoriel</p>

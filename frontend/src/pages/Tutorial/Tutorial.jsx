@@ -22,6 +22,7 @@ export default function Tutorial() {
   const [data, setData] = useState(null);
   useEffect(() => {
     if (data) {
+      document.title = data.title;
       setNavigationTitle(data.title);
     }
   }, [data]);
@@ -50,12 +51,6 @@ export default function Tutorial() {
         newData.comments
       );
   }, [validate]);
-
-  useEffect(() => {
-    if (data) {
-      document.title = data.title;
-    }
-  }, [data]);
 
   const getTutorialContent = () => {
     axios
@@ -96,19 +91,21 @@ export default function Tutorial() {
   if (data === null) return <div>Loading...</div>;
 
   return (
-    <div className="flex flex-col gap-10 my-10 px-20">
+    <div className="flex flex-col gap-10 mb-10 px-20">
       {/* HEADER */}
-      <div className="tutorial-header">
+      <div className="flex flex-col gap-6 p-10 border-x-4 border-b-4 border-dashed border-blue-700">
         <div className="flex gap-2 items-end">
           <div className="flex flex-col items-start gap-2">
-            <h1 className="h1-font">Objectif</h1>
-            <p className="p-font">{data.objective}</p>
+            <h1 className="text-xl text-blue-700 font-semibold">Objectif</h1>
+            <p className="text-blue-500 first-letter:capitalize">
+              {data.objective}
+            </p>
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <h2 className="h1-font">Description</h2>
+          <h2 className="text-xl text-blue-700 font-semibold">Description</h2>
           <div
-            className="p-font"
+            className="text-blue-500 first-letter:capitalize"
             dangerouslySetInnerHTML={createMarkup(data.description)}
           />
         </div>
@@ -118,13 +115,13 @@ export default function Tutorial() {
       {data.step.map((step) => {
         if (step.type === "quiz") {
           return (
-            <div key={step.id} className="tutorial-step">
+            <div key={step.id} className="rounded-xl my-4 px-4 py-2">
               <Quiz key={step.id} data={step.content} />
             </div>
           );
         }
         return (
-          <div key={step.id} className="tutorial-step">
+          <div key={step.id} className="rounded-xl my-4 px-4 py-2">
             <div
               className="flex justify-center"
               dangerouslySetInnerHTML={createMarkup(step.content)}

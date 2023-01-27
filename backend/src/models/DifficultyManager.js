@@ -6,7 +6,7 @@ class ThemeManager extends AbstractManager {
   }
 
   findAllName() {
-    return this.connection.query(`select name from  ${this.table}`);
+    return this.connection.query(`select * from ${this.table}`);
   }
 }
 

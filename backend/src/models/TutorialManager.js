@@ -12,9 +12,10 @@ class TutorialManager extends AbstractManager {
     );
   }
 
+  // added Theme name in request
   findAllTutorials(where) {
     return this.connection.query(
-      `select t.id,t.theme_id, t.difficulty_id, d.name as difficulty_name, t.title, t.objective,t.description, t.step, t.author, t.published, t.creation_date, t.edition_date from  ${this.table} as t inner join difficulty as d on d.id=t.difficulty_id${where}`
+      `select t.id,t.theme_id,theme.name as theme_name, t.difficulty_id, d.name as difficulty_name, t.title, t.objective,t.description, t.step, t.author, t.published, t.creation_date, t.edition_date from  ${this.table} as t inner join difficulty as d on d.id=t.difficulty_id inner join theme on t.theme_id=theme.id${where}`
     );
   }
 
@@ -26,7 +27,7 @@ class TutorialManager extends AbstractManager {
 
   insert(tutorial) {
     return this.connection.query(
-      `insert into ${this.table} (theme_id, difficulty_id, title, objective,description, step, author) values (?,?,?,?,?,?,?)`,
+      `insert into ${this.table} (theme_id, difficulty_id, title, objective,description, step, author, published) values (?,?,?,?,?,?,?,?)`,
       [
         tutorial.theme,
         tutorial.difficulty,
@@ -35,6 +36,7 @@ class TutorialManager extends AbstractManager {
         tutorial.description,
         tutorial.step,
         tutorial.author,
+        tutorial.published,
       ]
     );
   }
