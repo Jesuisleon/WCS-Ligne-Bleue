@@ -111,18 +111,6 @@ function Login() {
                 />
               </div>
             </div>
-
-            <div className="flex items-center justify-between">
-              <div className="text-sm">
-                <Link
-                  to="/Register"
-                  className="font-medium text-blue-600 hover:text-blue-500"
-                >
-                  Tu n'as pas encore de compte sur laPoste ? INSCRIPTION !
-                </Link>
-              </div>
-            </div>
-
             <div>
               <button
                 type="submit"
@@ -138,6 +126,19 @@ function Login() {
               </button>
             </div>
           </form>
+          <div className="flex flex-col items-center justify-center text-sm">
+            <span className="px-2 text-gray-600">
+              Vous n'êtes pas membre de ligne Bleue ?
+            </span>
+            <div className="text-sm">
+              <Link
+                to="/register"
+                className="font-medium text-blue-600 hover:text-blue-500"
+              >
+                Cliquez ici pour créer un compte.
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

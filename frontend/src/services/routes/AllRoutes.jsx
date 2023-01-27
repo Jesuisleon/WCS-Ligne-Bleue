@@ -47,7 +47,6 @@ export default function AllRoutes() {
 
   // Set the title of the page as props
   const { navigationTitle } = useContext(NavigationContext);
-  const navTitle = navigationTitle || "Bienvenue";
 
   // Wait for the userInfos to be loaded
   const { userInfos } = useContext(AuthContext);
@@ -73,7 +72,7 @@ export default function AllRoutes() {
                 innerZ={20}
                 activeClass="sticky-nav-active"
               >
-                <SubHeader title="Bienvenue" />
+                <SubHeader navigation="home" title="Bienvenue" />
               </Sticky>
               <Home />
             </>
@@ -91,14 +90,14 @@ export default function AllRoutes() {
                 innerZ={20}
                 activeClass="sticky-nav-active"
               >
-                <SubHeader title={themeTitle} />
+                <SubHeader navigation="theme" themeTitle={themeTitle} />
               </Sticky>
               <TutorialByTheme />
             </>
           }
         />
         <Route
-          path="/theme/:themeID/tutorial/:tutorialId"
+          path="/theme/:themeId/tutorial/:tutorialId"
           element={
             <>
               <Sticky
@@ -107,7 +106,11 @@ export default function AllRoutes() {
                 innerZ={20}
                 activeClass="sticky-nav-active"
               >
-                <SubHeader title={navTitle} />
+                <SubHeader
+                  navigation="tutorial"
+                  themeTitle={themeTitle}
+                  tutorialTitle={navigationTitle}
+                />
               </Sticky>
               <Tutorial themeIcon={themeIcon} />
             </>
