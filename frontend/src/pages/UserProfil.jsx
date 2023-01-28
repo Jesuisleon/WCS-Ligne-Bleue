@@ -320,7 +320,6 @@ function UserProfil() {
                                         tutorialFiltred
                                       ).map((a) => (
                                         <tbody
-
                                           key={e.id}
                                           className=" divide-black"
                                         >
