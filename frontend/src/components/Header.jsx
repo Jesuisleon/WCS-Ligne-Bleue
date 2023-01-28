@@ -1,14 +1,12 @@
 import { React, useContext, Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Header() {
   const { userToken, setUserTokenCookie, userInfos } = useContext(AuthContext);
-
-  const { userLastName } = userInfos;
+  const { userFirstName, userId } = userInfos;
   const navigate = useNavigate();
 
   const handleDisconnect = (event) => {
@@ -22,7 +20,7 @@ export default function Header() {
       className="
     w-screen
     bg-white 
-    z-20
+    z-30
     bg-gradient-to-b 
     from-blue-700 
     to-blue-900
@@ -38,17 +36,17 @@ export default function Header() {
               <img
                 className="h-8 sm:h-10 w-auto"
                 src="/image/logo_la_poste.png"
-                alt=""
+                alt="logo"
               />
             </Link>
           </div>
           {userToken && userInfos.isAdmin ? (
             <div className="mt-auto mb-auto">
               <Link
-                to="/adminPanel"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "
+                to="/adminpanel"
+                className="bg-gray-800 hover:bg-gray-700 text-white text-md py-3 px-5 rounded-md"
               >
-                Admin
+                DASHBOARD
               </Link>
             </div>
           ) : null}
@@ -76,7 +74,7 @@ export default function Header() {
                   ${open ? "" : "text-opacity-90"}
                   group inline-flex items-center rounded-md bg-yellow-400 px-3 py-2 text-base font-medium text-blue-700 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                   >
-                    <span>{`Bonjour ${userLastName} `}</span>
+                    <span>{`Bonjour ${userFirstName} `}</span>
                     <ChevronDownIcon
                       className={`${open ? "" : "text-opacity-70"}
                     ml-2 h-5 w-5 text-blue-700 transition duration-150 ease-in-out group-hover:text-opacity-80`}
@@ -95,8 +93,11 @@ export default function Header() {
                     <Popover.Panel className="absolute z-40 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0">
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-8 bg-white p-7">
-                          <Link to="/userprofile">
-                            <Popover.Button className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start">
+                          <Link to={`/userProfile/${userId} `}>
+                            <button
+                              type="button"
+                              className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start"
+                            >
                               <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-700 text-white sm:h-12 sm:w-12">
                                 {/* Heroicon name: outline/support */}
                               </div>
@@ -108,7 +109,7 @@ export default function Header() {
                                   Gérer mon profil
                                 </p>
                               </div>
-                            </Popover.Button>
+                            </button>
                           </Link>
 
                           <button

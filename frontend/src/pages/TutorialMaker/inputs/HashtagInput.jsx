@@ -13,7 +13,7 @@ export function HashtagInput({ defaultValue, handleInput, isSubmit }) {
 
   const [hashtags, setHashtags] = useState([]);
   useEffect(() => {
-    handleInput(hashtags);
+    if (hashtags.length > 0) handleInput(hashtags);
   }, [hashtags]);
 
   const [inputValue, setInputValue] = useState("");
@@ -81,9 +81,7 @@ export function HashtagInput({ defaultValue, handleInput, isSubmit }) {
   }
 
   useEffect(() => {
-    if (defaultValue) {
-      setHashtags(defaultValue);
-    }
+    setHashtags(defaultValue);
   }, []);
 
   return (
@@ -94,6 +92,7 @@ export function HashtagInput({ defaultValue, handleInput, isSubmit }) {
         </h2>
         <div className="sm:col-span-2 flex space-x-5">
           <input
+            onPaste={(event) => event.preventDefault()}
             onKeyDown={handleKeyPress}
             onChange={handleInputChange}
             value={inputValue}
@@ -143,7 +142,7 @@ export function HashtagInput({ defaultValue, handleInput, isSubmit }) {
               {hashtag}
               <button
                 type="button"
-                className="rounded-full border border-transparent bg-gray-600 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                className="border border-transparent bg-gray-300 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 onClick={() => handleRemoveHashtag(index)}
               >
                 <svg

@@ -26,27 +26,34 @@ const SideBar = forwardRef(
 
     const [difficulties, setDifficulties] = useState([]);
 
-    const [data, setData] = useState();
-
-    useEffect(() => {
-      axios.get(`/difficulties`).then((response) => {
-        setDifficulties(response.data);
-      });
-
-      if (getData) {
-        setData(getData);
-      }
-    }, []);
-
     const [invalid, setInvalid] = useState({
       theme: true,
       difficulty: true,
       title: true,
       objective: true,
       description: true,
+      hashtag: true,
     });
 
-    // const [isWrongSubmit, setIsSubmit] = useState(true);
+    const [data, setData] = useState();
+
+    useEffect(() => {
+      axios.get(`/difficulties`).then((response) => {
+        setDifficulties(response.data);
+      });
+    }, []);
+
+    useEffect(() => {
+      if (getData !== data) {
+        setData(getData);
+        // transform each value on invalid to false
+        const newInvalid = Object.keys(invalid).reduce((acc, key) => {
+          acc[key] = false;
+          return acc;
+        }, {});
+        setInvalid(newInvalid);
+      }
+    }, [getData]);
 
     const childRef = useRef(null);
     useImperativeHandle(ref, () => ({
@@ -62,7 +69,7 @@ const SideBar = forwardRef(
       // store the data
       setData({ ...data, [editor.id]: content });
       // check if input is valid
-      if (content === "" || content === null)
+      if (content === "" || content === null || content.length === 0)
         setInvalid({ ...invalid, [editor.id]: true });
       else setInvalid({ ...invalid, [editor.id]: false });
     }
@@ -147,9 +154,9 @@ const SideBar = forwardRef(
                           {/* Tutorial Description */}
                           <TextAreaInput
                             handleInput={(e) =>
-                              handleInput(e, { id: "description" })
+                              handleInput(e.target.value, { id: "description" })
                             }
-                            data={data ? data.description : ""}
+                            defaultValue={data ? data.description : ""}
                             invalid={invalid.description}
                             isSubmit={isWrongSubmit}
                           />
@@ -213,10 +220,9 @@ const SideBar = forwardRef(
                                   <div className="relative flex items-start">
                                     <div className="absolute flex h-5 items-center">
                                       <input
-                                        defaultChecked={
+                                        checked={
                                           data && data.published === true
                                         }
-                                        // when the user click on the radio button, we call the handleInput function with the value true and the id published
                                         onChange={() =>
                                           handleInput(true, { id: "published" })
                                         }
@@ -247,7 +253,7 @@ const SideBar = forwardRef(
                                   <div className="relative flex items-start">
                                     <div className="absolute flex h-5 items-center">
                                       <input
-                                        defaultChecked={
+                                        checked={
                                           data && data.published === false
                                         }
                                         onChange={() =>

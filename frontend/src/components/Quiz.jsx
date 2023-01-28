@@ -172,7 +172,7 @@ function Question({
           <button
             type="submit"
             disabled={!selectedAnswer}
-            className={`font-button antialiased font-semibold rounded-lg text-white px-4 py-2 mt-4 
+            className={`font-button antialiased font-semibold rounded-lg text-white px-4 py-2 my-4 
             ${isSubmitted && isCorrect ? "bg-green-500" : "bg-red-500"} 
             ${!isSubmitted && "bg-blue-600 hover:opacity-75"}
             `}

@@ -36,14 +36,17 @@ export default function AllRoutes() {
   // Set the icon of the theme as props
   const { navigationTheme } = useContext(NavigationContext);
   let themeIcon;
+  let themeTitle;
   if (navigationTheme && themeId) {
     themeIcon = navigationTheme.filter((e) => e.id === parseInt(themeId, 10))[0]
       .icon;
+    themeTitle = navigationTheme.filter(
+      (e) => e.id === parseInt(themeId, 10)
+    )[0].name;
   }
 
   // Set the title of the page as props
   const { navigationTitle } = useContext(NavigationContext);
-  const navTitle = navigationTitle || "Bienvenue";
 
   // Wait for the userInfos to be loaded
   const { userInfos } = useContext(AuthContext);
@@ -56,26 +59,69 @@ export default function AllRoutes() {
   return (
     <AnimatePresence>
       <Header key="header" />
-      <Sticky enabled top={0} innerZ={20} activeClass="sticky-nav-active">
-        <SubHeader key="navigation" title={navTitle} />
-      </Sticky>
       <Routes location={location} key={location.pathname}>
         {/* routes public */}
         <Route path="/" element={<Navigate replace to="/home" />} />
-        <Route path="/home" element={<Home />} />
+        <Route
+          path="/home"
+          element={
+            <>
+              <Sticky
+                enabled
+                top={0}
+                innerZ={20}
+                activeClass="sticky-nav-active"
+              >
+                <SubHeader navigation="home" title="Bienvenue" />
+              </Sticky>
+              <Home />
+            </>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/theme/:themeId/" element={<TutorialByTheme />} />
         <Route
-          path="/theme/:themeID/tutorial/:tutorialId"
-          element={<Tutorial themeIcon={themeIcon} />}
+          path="/theme/:themeId/"
+          element={
+            <>
+              <Sticky
+                enabled
+                top={0}
+                innerZ={20}
+                activeClass="sticky-nav-active"
+              >
+                <SubHeader navigation="theme" themeTitle={themeTitle} />
+              </Sticky>
+              <TutorialByTheme />
+            </>
+          }
+        />
+        <Route
+          path="/theme/:themeId/tutorial/:tutorialId"
+          element={
+            <>
+              <Sticky
+                enabled
+                top={0}
+                innerZ={20}
+                activeClass="sticky-nav-active"
+              >
+                <SubHeader
+                  navigation="tutorial"
+                  themeTitle={themeTitle}
+                  tutorialTitle={navigationTitle}
+                />
+              </Sticky>
+              <Tutorial themeIcon={themeIcon} />
+            </>
+          }
         />
         <Route path="/register" element={<Register />} />
         {/* routes protégé si utilisateur est loggé */}
         {isLoading && (
           <Route>
             <Route
-              path="/userProfile"
+              path="/userProfile/:id"
               element={
                 <ProtectedRoute status={isLog}>
                   <UserProfil />
@@ -104,7 +150,7 @@ export default function AllRoutes() {
         {isLoading && (
           <Route>
             <Route
-              path="/userProfile"
+              path="/userprofile"
               element={
                 <ProtectedRoute status={admin}>
                   <UserProfil />
@@ -112,7 +158,7 @@ export default function AllRoutes() {
               }
             />
             <Route
-              path="/createTutorial/:tutorialId"
+              path="/createtutorial/:tutorialId"
               element={
                 <ProtectedRoute status={admin}>
                   <TutorialMaker />
@@ -120,7 +166,7 @@ export default function AllRoutes() {
               }
             />
             <Route
-              path="/createTutorial/"
+              path="/createtutorial/"
               element={
                 <ProtectedRoute status={admin}>
                   <TutorialMaker />
