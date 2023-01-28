@@ -93,7 +93,7 @@ export default function Header() {
                     <Popover.Panel className="absolute z-40 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0">
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-8 bg-white p-7">
-                          <Link to={`/userProfile/${userId} `}>
+                          <Link to={`/userprofile/${userId} `}>
                             <Popover.Button
                               type="button"
                               className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start w-full"

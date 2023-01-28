@@ -23,6 +23,16 @@ export default function Breadcrumb({ navigation, themeTitle, tutorialTitle }) {
       }
     );
   }
+  if (navigation === "search") {
+    pages.push({
+      name: "Rechercher un tutoriel",
+      href: "/search",
+      current: true,
+    });
+  }
+  if (navigation === "profil") {
+    pages.push({ name: "Bienvenue sur votre profil", href: "", current: true });
+  }
 
   return (
     <nav

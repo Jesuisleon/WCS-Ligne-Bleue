@@ -11,7 +11,7 @@ function classNames(...classes) {
 
 const { Link } = ReactRouter;
 
-export default function Example({
+export default function CommentList({
   commentTutoId,
   commentTitle,
   open,
@@ -99,7 +99,7 @@ export default function Example({
                               >
                                 <Link
                                   className="box-content  "
-                                  to={`/user/${comment.user_id}`}
+                                  to={`/userprofile/${comment.user_id}`}
                                 >
                                   <h3 className="font-medium text-white">
                                     {comment.firstname} {comment.lastname}

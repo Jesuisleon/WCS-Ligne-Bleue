@@ -11,7 +11,6 @@ import Header from "@components/Header";
 import Breadcrumb from "@components/Breadcrumb";
 import { NavigationContext } from "@context/NavigationContext";
 
-import StackedList from "@pages/StackedList";
 import Home from "@pages/Home";
 import AdminPanel from "@pages/AdminPanel/AdminPanel";
 import Login from "@pages/Login";
@@ -79,9 +78,23 @@ export default function AllRoutes() {
             </>
           }
         />
-        <Route path="/stackedlist" element={<StackedList />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/search" element={<Search />} />
+        <Route
+          path="/search"
+          element={
+            <>
+              <Sticky
+                enabled
+                top={0}
+                innerZ={20}
+                activeClass="sticky-nav-active"
+              >
+                <Breadcrumb navigation="search" />
+              </Sticky>
+              <Search />
+            </>
+          }
+        />
         <Route
           path="/theme/:themeId/"
           element={
@@ -123,9 +136,17 @@ export default function AllRoutes() {
         {isLoading && (
           <Route>
             <Route
-              path="/userProfile/:id"
+              path="/userprofile/:id"
               element={
                 <ProtectedRoute status={isLog}>
+                  <Sticky
+                    enabled
+                    top={0}
+                    innerZ={20}
+                    activeClass="sticky-nav-active"
+                  >
+                    <Breadcrumb navigation="profil" />
+                  </Sticky>
                   <UserProfil />
                 </ProtectedRoute>
               }
