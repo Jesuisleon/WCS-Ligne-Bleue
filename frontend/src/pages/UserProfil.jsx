@@ -1,15 +1,14 @@
 import axios from "axios";
-import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
-import { AuthContext } from "../context/AuthContext";
 import filterTutorialByThemeId from "../services/filterTutorialByThemeId";
 import { FilterByOptionsSelected } from "../services/utils/utils";
 
 function UserProfil() {
-  const { userInfos } = useContext(AuthContext);
-  const { userId } = userInfos;
+  const navigate = useNavigate();
+  const { userId } = useParams();
   const [infosUser, setInfosUser] = useState("");
   const [tutorials, setTutorials] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -40,15 +39,23 @@ function UserProfil() {
       })
       .then(() => {
         if (userId) {
-          axios.get(`/users/${userId}`).then((res) => {
-            setInfosUser({
-              userFirstName: res.data.firstname,
-              userLastName: res.data.lastname,
-              userEmail: res.data.email,
-              isAdmin: res.data.admin,
+          axios
+            .get(`/users/${userId}`)
+            .catch(() => {
+              return navigate("/Error");
+            })
+            .then((res) => {
+              if (!res) {
+                throw new Error("Le chargement du profil a échoué");
+              }
+              setInfosUser({
+                userFirstName: res.data.firstname,
+                userLastName: res.data.lastname,
+                userEmail: res.data.email,
+                isAdmin: res.data.admin,
+              });
+              setIsLoading(false);
             });
-            setIsLoading(false);
-          });
         }
       });
 
@@ -309,7 +316,7 @@ function UserProfil() {
                                         tutorialFiltred
                                       ).map((a) => (
                                         <tbody
-                                          key={e.id}
+                                          key={a.id}
                                           className="divide-y divide-black"
                                         >
                                           <tr className="border rounded-md  border-gray-400">
