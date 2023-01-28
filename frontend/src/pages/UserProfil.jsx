@@ -1,16 +1,20 @@
 import axios from "axios";
-import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import { HiChevronDown } from "react-icons/hi";
 import { AuthContext } from "../context/AuthContext";
 import filterTutorialByThemeId from "../services/filterTutorialByThemeId";
-import { FilterByOptionsSelected } from "../services/utils/utils";
+import {
+  FilterByOptionsSelected,
+  adminLookingOtherProfile,
+} from "../services/utils/utils";
 
 function UserProfil() {
+  const navigate = useNavigate();
   const { userInfos } = useContext(AuthContext);
-  const { userId } = userInfos;
+  const { userId } = useParams();
   const [infosUser, setInfosUser] = useState("");
   const [tutorials, setTutorials] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +22,12 @@ function UserProfil() {
   const [isOpen2, setIsOpen2] = useState(false);
   const [themeFilters, setThemeFilters] = useState("");
   const [selectedOption, setSelectedOption] = useState("Tout");
+  const userContextId = parseInt(userId, 10);
+  const adminLookOtherProfile = adminLookingOtherProfile(
+    userInfos.isAdmin,
+    userContextId,
+    userInfos.userId
+  );
 
   const handleSelectedOption = (e) => {
     setSelectedOption(e.target.value);
@@ -44,15 +54,23 @@ function UserProfil() {
       })
       .then(() => {
         if (userId) {
-          axios.get(`/users/${userId}`).then((res) => {
-            setInfosUser({
-              userFirstName: res.data.firstname,
-              userLastName: res.data.lastname,
-              userEmail: res.data.email,
-              isAdmin: res.data.admin,
+          axios
+            .get(`/users/${userId}`)
+            .catch(() => {
+              return navigate("/Error");
+            })
+            .then((res) => {
+              if (!res) {
+                throw new Error("Le chargement du profil a échoué");
+              }
+              setInfosUser({
+                userFirstName: res.data.firstname,
+                userLastName: res.data.lastname,
+                userEmail: res.data.email,
+                isAdmin: res.data.admin,
+              });
+              setIsLoading(false);
             });
-            setIsLoading(false);
-          });
         }
       });
 
@@ -103,20 +121,22 @@ function UserProfil() {
                 {infosUser.userFirstName} {infosUser.userLastName}
               </div>
               <p className="text-base text-gray-500 sm:text-lg dark:text-gray-400">
-                {infosUser.userEmail}
+                {!adminLookOtherProfile && infosUser.userEmail}
               </p>
             </div>
             <div className="sm:flex sm:space-x-4 align-center my-4">
-              <Link
-                to="/userprofil/changepassword"
-                className="w-full sm:w-auto bg-gradient-to-b from-blue-700 to-blue-900 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
-              >
-                <div className="text-left">
-                  <div className="-mt-1 font-sans text-sm font-semibold">
-                    Modifier mon mot de passe
+              {!adminLookOtherProfile && (
+                <Link
+                  to="/userprofil/changepassword"
+                  className="w-full sm:w-auto bg-gradient-to-b from-blue-700 to-blue-900 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
+                >
+                  <div className="text-left">
+                    <div className="-mt-1 font-sans text-sm font-semibold">
+                      Modifier mon mot de passe
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -282,7 +302,11 @@ function UserProfil() {
       {!isLoading && (
         <div className="    ">
           <div className=" flex  items-center flex-col ">
-            <h1 className="text-2xl font-bold py-2 mt-8">Mes Tutoriels</h1>
+            <h1 className="text-2xl font-bold py-2 mt-8">
+              {!adminLookOtherProfile
+                ? "Mes Tutoriels"
+                : `Parcours de ${infosUser.userFirstName} ${infosUser.userLastName}`}
+            </h1>
           </div>
 
           <div className="  flex  flex-col items-center  ">
@@ -313,7 +337,7 @@ function UserProfil() {
                                         tutorialFiltred
                                       ).map((a) => (
                                         <tbody
-                                          key={e.id}
+                                          key={a.title}
                                           className=" divide-black"
                                         >
                                           <tr className="border rounded-md  border-gray-400">
