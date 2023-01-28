@@ -36,17 +36,17 @@ export default function Header() {
               <img
                 className="h-8 sm:h-10 w-auto"
                 src="/image/logo_la_poste.png"
-                alt=""
+                alt="logo"
               />
             </Link>
           </div>
           {userToken && userInfos.isAdmin ? (
             <div className="mt-auto mb-auto">
               <Link
-                to="/adminPanel"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "
+                to="/adminpanel"
+                className="bg-gray-800 hover:bg-gray-700 text-white text-md py-3 px-5 rounded-md"
               >
-                Admin
+                DASHBOARD
               </Link>
             </div>
           ) : null}
@@ -94,7 +94,10 @@ export default function Header() {
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-8 bg-white p-7">
                           <Link to={`/userProfile/${userId} `}>
-                            <Popover.Button className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start">
+                            <button
+                              type="button"
+                              className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start"
+                            >
                               <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-700 text-white sm:h-12 sm:w-12">
                                 {/* Heroicon name: outline/support */}
                               </div>
@@ -106,7 +109,7 @@ export default function Header() {
                                   Gérer mon profil
                                 </p>
                               </div>
-                            </Popover.Button>
+                            </button>
                           </Link>
 
                           <button

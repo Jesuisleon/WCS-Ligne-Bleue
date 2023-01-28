@@ -38,6 +38,7 @@ export default function TutorialMaker() {
     theme: "",
     published: false,
   });
+
   const [stepsData, setStepsData] = useState([]);
   useEffect(() => {
     // initialisation of the childsRefs when the stepsData is updated
@@ -74,7 +75,6 @@ export default function TutorialMaker() {
     if (direction === "down") {
       updatedStep.splice(index + 1, 0, step[0]);
     }
-
     setStepsData(updateIndex(updatedStep));
   };
 
@@ -114,6 +114,56 @@ export default function TutorialMaker() {
       });
   };
 
+  const fetchData = (paramId) => {
+    axios
+      .get(`/tutorials/${paramId}`)
+      .then((res) => {
+        setSideBarData({
+          title: res.data.title,
+          objective: res.data.objective,
+          description: res.data.description,
+          difficulty: res.data.difficulty_id,
+          hashtag: res.data.hashtag.map((item) => item.text),
+          theme: res.data.theme_id,
+          published: res.data.published === 1,
+        });
+
+        // PARSE THE STEP
+        res.data.step = JSON.parse(res.data.step);
+        res.data.step = res.data.step.map((item) => {
+          return {
+            ...item,
+            preview: false,
+          };
+        });
+        // UPDATE THE SRC OF THE IMAGE
+        const updateSrcImage = res.data.step
+          .filter(({ type }) => type === "image")
+          .map((image) => {
+            const regex = /src="([^"])*"/;
+            const src = regex.exec(image.content)[0].split('"')[1];
+            const newSrc = `${VITE_BACKEND_URL}${src}`;
+            const updatedContent = image.content.replace(src, newSrc);
+            return { ...image, content: updatedContent };
+          });
+
+        res.data.step = [
+          ...res.data.step.filter(({ type }) => type !== "image"),
+          ...updateSrcImage,
+        ];
+
+        // SORT THE STEP BY ID
+        res.data.step.sort((a, b) => a.id - b.id);
+
+        setStepsData(res.data.step);
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          navigate("/404");
+        }
+      });
+  };
+
   // GET DATA FUNCTIONS
   const getSideBarData = () => {
     const updatedData = childsRefs.current[0].getData();
@@ -121,20 +171,22 @@ export default function TutorialMaker() {
       setOpenModalSimple(true);
       setIsWrongSubmit(true);
       setSave(false);
-      return;
+    } else {
+      setSideBarData(updatedData);
+      setSave(true);
     }
-    setSideBarData(updatedData);
   };
 
   const getStepsData = () => {
     const updatedStep = [...stepsData];
+
     childsRefs.current.forEach((child, index) => {
       // bypass the header component childRef
       if (index === 0) return;
       // update the stepData with the childRef data
       updatedStep[index - 1].content = child.getData();
-      setStepsData(updatedStep);
     });
+    setStepsData(updatedStep);
   };
 
   // UPLOAD IMAGE FUNCTIONS
@@ -208,6 +260,7 @@ export default function TutorialMaker() {
     if (tutorialId === undefined) {
       setOpenSideBar(true);
     } else {
+      fetchData(tutorialId);
       setId(tutorialId);
       setOpenSideBar(false);
     }
@@ -276,7 +329,7 @@ export default function TutorialMaker() {
         save={() => {
           getStepsData();
           getSideBarData();
-          setSave(true);
+          // setSave(true);
         }}
         isWrongSubmit={isWrongSubmit}
       />
@@ -343,9 +396,9 @@ export default function TutorialMaker() {
                   setData={(data) => {
                     const updatedStep = [...stepsData];
                     updatedStep[stepIndex].content = data;
+                    updatedStep[stepIndex].preview = true;
                     setStepsData(updatedStep);
                   }}
-                  previewAll={step.preview}
                   close={() => removeStep(stepIndex)}
                 />
               </div>

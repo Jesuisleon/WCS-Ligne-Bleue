@@ -14,7 +14,24 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
   const childRef = useRef([]);
   useImperativeHandle(ref, () => ({
     getData: () => {
-      if (content.length > 0) return content;
+      if (content.length > 0) {
+        // for each question we need to have at list 2 answers and one correct answer to be valid
+        const valid = content.every((question) => {
+          const validAnswers = question.answers.length >= 2;
+          const validCorrectAnswer = question.answers.some(
+            (answer) => answer.correct === true
+          );
+          return validAnswers && validCorrectAnswer;
+        });
+        if (!valid) {
+          alert(
+            "Veuillez remplir au moins 2 réponses par question et une bonne réponse"
+          );
+          return null;
+        }
+        // if valid we return the content
+        return content;
+      }
       return null;
     },
     setData: () => {
@@ -68,6 +85,9 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
   };
 
   const removeAnswer = (questionId, answerId) => {
+    if (content[questionId - 1].answers.length === 2) {
+      return;
+    }
     const updatedAnswer = content[questionId - 1].answers.filter(
       (answer) => answer.id !== answerId
     );
@@ -94,6 +114,7 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
     } else if (element.target.name.includes("answer")) {
       updatedQuestion[id].answers[answerIndex].text = value;
     } else if (element.target.name.includes("checkbox")) {
+      if (updatedQuestion[id].answers[answerIndex].text === "") return;
       updatedQuestion[id].answers[answerIndex].correct =
         !updatedQuestion[id].answers[answerIndex].correct;
     }
@@ -106,6 +127,12 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
       setContent(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (content.length === 0) {
+      setQuestion();
+    }
+  }, [content]);
 
   return (
     <div ref={childRef} className="bg-white py-4 px-8">
@@ -124,9 +151,22 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
                   onClick={() => {
                     removeQuestion(question.id);
                   }}
-                  className="px-2 rounded-md border border-red-100 bg-red-50 text-md font-medium text-red-300 hover:text-red-500 hover:border-red-200 focus:z-10 focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500"
+                  className="border border-transparent bg-gray-300 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 >
-                  -
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-3 h-3"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
                 </button>
                 <label
                   htmlFor="question"
@@ -157,9 +197,22 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
                     onClick={() => {
                       removeAnswer(question.id, answer.id);
                     }}
-                    className="px-2 rounded-md border border-red-100 bg-red-50 text-md font-medium text-red-300 hover:text-red-500 hover:border-red-200 focus:z-10 focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500"
+                    className="border border-transparent bg-gray-300 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                   >
-                    -
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-3 h-3"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
                   </button>
                   <input
                     type="checkbox"

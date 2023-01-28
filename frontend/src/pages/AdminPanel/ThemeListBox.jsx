@@ -52,6 +52,7 @@ export default function ThemeListBox({
     adminThemesTemp[index].isChecked = !adminThemesTemp[index].isChecked;
     setAdminThemes(adminThemesTemp);
   };
+
   return (
     <fieldset
       onMouseEnter={() => setShowDropdown(true)}
@@ -62,7 +63,7 @@ export default function ThemeListBox({
         id="dropdownDefaultButton"
         onClick={handleDropdownToggle}
         data-dropdown-toggle="dropdown"
-        className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         type="button"
       >
         Choix Thèmes <HiChevronDown size="20" />
@@ -70,18 +71,18 @@ export default function ThemeListBox({
       <div
         className={`${showDropdown ? "absolute" : "hidden"}  bg-gradient-to-b 
         from-gray-100 
-        to-gray-200 border-t border-b border-gray-200 divide-y divide-gray-200 py-1`}
+        to-gray-200 border-t border-b border-gray-200 divide-y divide-gray-200 py-1 px-4`}
       >
         <button
           type="button"
-          className="inline-flex items-center mx-2 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="inline-flex items-center mx-2 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           onClick={handleUnSelect}
         >
           Aucun
         </button>
         <button
           type="button"
-          className="inline-flex items-center mx-2 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 "
+          className="inline-flex items-center mx-2 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 "
           onClick={handleSelectAll}
         >
           Tous
@@ -103,7 +104,7 @@ export default function ThemeListBox({
                   name={`theme-${theme.name}`}
                   type="checkbox"
                   checked={theme.isChecked}
-                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                  className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
                   onChange={() => handleboxchange(index)}
                 />
               </div>
