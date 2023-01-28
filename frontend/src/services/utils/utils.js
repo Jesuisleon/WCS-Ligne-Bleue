@@ -9,3 +9,15 @@ export const FilterByOptionsSelected = (ArrayToFilter, filterOption) => {
     return ArrayToFilter.filter((e) => e.user_id === null);
   }
 };
+
+export const adminLookingOtherProfile = (isAdmin, userContextId, userId) => {
+  if (isAdmin) {
+    if (userContextId !== userId) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+};
