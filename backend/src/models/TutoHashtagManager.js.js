@@ -20,7 +20,7 @@ class TutoHashtagManager extends AbstractManager {
       return `${acc}(${idTuto}, ${hashtag})${separator}`;
     }, "")}`;
     query = query.substring(0, query.length - 2);
-    return this.connection.query(`${query}`);
+    return hashtags.length > 0 && this.connection.query(`${query}`);
   }
 
   deleteLinesForTutoEdit(id) {

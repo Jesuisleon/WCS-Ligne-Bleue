@@ -1,30 +1,37 @@
 const models = require("../models");
 
-const checkHashtag = (req, res, hashtag) => {
+async function checkHashtag(req, res, hashtag) {
   const hashtagId = [];
+  const promises = [];
   for (let i = 0; i < hashtag.length; i += 1) {
-    models.hashtag
-      .findHashtag(hashtag[i])
-      .then(([rows]) => {
-        if (rows[0] == null) {
-          models.hashtag
-            .insert(hashtag[i])
-            .then(([result]) => {
-              hashtagId[i] = result.insertId;
-            })
-            .catch((err) => {
-              console.error(err);
-              res.sendStatus(500);
-            });
-        } else hashtagId[i] = rows[0].id;
-      })
-      .catch((err) => {
-        console.error(err);
-        res.sendStatus(500);
-      });
+    promises.push(
+      models.hashtag
+        .findHashtag(hashtag[i])
+        .then(([rows]) => {
+          if (rows[0] == null) {
+            models.hashtag
+              .insert(hashtag[i])
+              .then(([result]) => {
+                hashtagId[i] = result.insertId;
+              })
+              .catch((err) => {
+                console.error(err);
+                res.sendStatus(500);
+              });
+          } else {
+            hashtagId[i] = rows[0].id;
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        })
+    );
   }
-  return hashtagId;
-};
+  return Promise.all(promises).then(() => {
+    return hashtagId;
+  });
+}
 
 const browse = (req, res) => {
   let where = "";
@@ -209,37 +216,38 @@ const edit = (req, res) => {
     res.sendStatus(403);
   } else {
     const { hashtag } = req.body;
-    const hashtagId = checkHashtag(req, res, hashtag);
-    models.tutorial
-      .update(tutorial)
-      .then(([result]) => {
-        if (result.affectedRows === 0) {
-          res.sendStatus(404);
-        } else {
-          // fonction delete tuto_hashtag by tuto_id
-          models.tuto_hashtag
-            .deleteLinesForTutoEdit(tutorial.id)
-            .then(() => {
-              // fonction insert tuto_hashtag by tuto_id
-              models.tuto_hashtag
-                .insert(hashtagId, tutorial.id)
-                .then(() => {})
-                .catch((err) => {
-                  console.error(err);
-                  res.sendStatus(500);
-                });
-              res.sendStatus(204);
-            })
-            .catch((err) => {
-              console.error(err);
-              res.sendStatus(500);
-            });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.sendStatus(500);
-      });
+    checkHashtag(req, res, hashtag).then((hashtagId) =>
+      models.tutorial
+        .update(tutorial)
+        .then(([result]) => {
+          if (result.affectedRows === 0) {
+            res.sendStatus(404);
+          } else {
+            // fonction delete tuto_hashtag by tuto_id
+            models.tuto_hashtag
+              .deleteLinesForTutoEdit(tutorial.id)
+              .then(() => {
+                // fonction insert tuto_hashtag by tuto_id
+                models.tuto_hashtag
+                  .insert(hashtagId, tutorial.id)
+                  .then(() => {})
+                  .catch((err) => {
+                    console.error(err);
+                    res.sendStatus(500);
+                  });
+                res.sendStatus(204);
+              })
+              .catch((err) => {
+                console.error(err);
+                res.sendStatus(500);
+              });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        })
+    );
   }
 };
 
@@ -269,36 +277,48 @@ const add = (req, res) => {
     res.sendStatus(403);
   } else {
     const { hashtag } = req.body;
-    const hashtagId = checkHashtag(req, res, hashtag);
+    checkHashtag(req, res, hashtag).then((hashtagId) =>
+      models.tutorial
+        .insert(tutorial)
+        .then(([result]) => {
+          models.tuto_hashtag.insert(hashtagId, result.insertId);
+          res.status(201).json({
+            id: result.insertId,
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        })
+    );
+  }
+};
+
+const destroy = (req, res) => {
+  if (req.body.admin !== 1) {
+    res.sendStatus(403);
+  } else {
     models.tutorial
-      .insert(tutorial)
+      .delete(req.params.id)
       .then(([result]) => {
-        models.tuto_hashtag.insert(hashtagId, result.insertId);
-        res.status(201).json({
-          id: result.insertId,
-        });
+        if (result.affectedRows === 0) {
+          res.sendStatus(404);
+        } else {
+          models.tuto_hashtag
+            .deleteLinesForTutoEdit(req.params.id)
+            .then(() => {})
+            .catch((err) => {
+              console.error(err);
+              res.sendStatus(500);
+            });
+          res.sendStatus(204);
+        }
       })
       .catch((err) => {
         console.error(err);
         res.sendStatus(500);
       });
   }
-};
-
-const destroy = (req, res) => {
-  models.tutorial
-    .delete(req.params.id)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
 };
 
 const readAllTutorialAndSayIfUserValidateIt = (req, res) => {
