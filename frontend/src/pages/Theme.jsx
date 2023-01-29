@@ -68,30 +68,31 @@ export default function Theme() {
   return (
     <div className="my-2 mx-4 sm:mx-10 xl:mx-14 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 sm:gap-2 ">
       {data &&
-        data.map((tutorial) => (
-          // tutorial.published &&
-          <motion.div
-            key={tutorial.id}
-            initial={{ x: "200%" }}
-            animate={{ x: "0%" }}
-            transition={{
-              duration: 0.2,
-              type: "spring",
-              stiffness: 100,
-              damping: 15,
-            }}
-          >
-            <TutorialCard
-              title={tutorial.title}
-              difficulties={tutorial.difficulty_name}
-              objective={tutorial.objective}
-              themeId={themeId}
-              tutorialId={tutorial.id}
-              validate={tutorial.user_id}
-              date={tutorial.creation_date}
-            />
-          </motion.div>
-        ))}
+        data.map((tutorial) =>
+          tutorial.published ? (
+            <motion.div
+              key={tutorial.id}
+              initial={{ x: "200%" }}
+              animate={{ x: "0%" }}
+              transition={{
+                duration: 0.2,
+                type: "spring",
+                stiffness: 100,
+                damping: 15,
+              }}
+            >
+              <TutorialCard
+                title={tutorial.title}
+                difficulties={tutorial.difficulty_name}
+                objective={tutorial.objective}
+                themeId={themeId}
+                tutorialId={tutorial.id}
+                validate={tutorial.user_id}
+                date={tutorial.creation_date}
+              />
+            </motion.div>
+          ) : null
+        )}
     </div>
   );
 }

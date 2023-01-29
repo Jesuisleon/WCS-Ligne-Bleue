@@ -48,7 +48,7 @@ export default function Search() {
 
   // FETCH TUTORIALS FROM DATABASE
   useEffect(() => {
-    axios.get(`/tutorials-search`).then((response) => {
+    axios.get(`/tutorials`).then((response) => {
       setData(response.data);
     });
   }, []);
@@ -100,29 +100,30 @@ export default function Search() {
       </div>
       <div className="my-2 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 sm:gap-2 ">
         {tutorial &&
-          tutorial.map((e) => (
-            // e.published === true &&
-            <motion.div
-              key={e.id}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                duration: 0.2,
-                delay: 0,
-                ease: [0, 0.2, 0.2, 0.2],
-              }}
-            >
-              <TutorialCard
-                title={e.title}
-                difficulties={e.difficulty_name}
-                objective={e.objective}
-                themeId={e.theme_id}
-                tutorialId={e.id}
-                validate={e.user_id}
-                date={e.creation_date}
-              />
-            </motion.div>
-          ))}
+          tutorial.map((e) =>
+            e.published === true ? (
+              <motion.div
+                key={e.id}
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.2,
+                  delay: 0,
+                  ease: [0, 0.2, 0.2, 0.2],
+                }}
+              >
+                <TutorialCard
+                  title={e.title}
+                  difficulties={e.difficulty_name}
+                  objective={e.objective}
+                  themeId={e.theme_id}
+                  tutorialId={e.id}
+                  validate={e.user_id}
+                  date={e.creation_date}
+                />
+              </motion.div>
+            ) : null
+          )}
       </div>
     </div>
   );

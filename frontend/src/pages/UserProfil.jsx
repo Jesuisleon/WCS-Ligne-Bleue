@@ -104,10 +104,11 @@ function UserProfil() {
   useEffect(() => {
     if (userInfos.userId) {
       axios.get(`/journeys-validation/${userInfos.userId}`).then((res) => {
-        res.data.forEach((tutorial) => {
+        const tutorials = res.data.filter((tutorial) => tutorial.published);
+        tutorials.forEach((tutorial) => {
           tutorial.isChecked = true;
         });
-        setTutorialsFiltered(res.data);
+        setTutorialsFiltered(tutorials);
       });
     }
   }, [userInfos]);
