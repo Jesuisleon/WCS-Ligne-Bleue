@@ -60,7 +60,7 @@ export default function Search() {
           id="search"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-          className="bg-gray-700 border-indigo-800 text-gray-900 text-sm rounded-md focus:ring-blue-500 border-4 focus:border-blue-500 block w-full p-2 sm:p-3 md:p-4 lg:p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-indigo-700"
+          className="bg-white border-indigo-800 text-gray-900 text-sm rounded-md focus:ring-blue-500 border-2 focus:border-blue-500 block w-full p-2 sm:p-3 md:p-4 lg:p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-indigo-700"
           placeholder="Exemple : Tutoriel pour apprendre à allumer sont téléphone"
           required
         />
@@ -68,7 +68,7 @@ export default function Search() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {searchResult &&
           searchResult.map((e) => (
-            <Link key={e.id} to={`/tutorial/${e.id}`}>
+            <Link key={e.id} to={`/theme/${e.theme_id}/tutorial/${e.id}`}>
               <motion.div
                 key={e.id}
                 initial={{ opacity: 0, scale: 0.5 }}

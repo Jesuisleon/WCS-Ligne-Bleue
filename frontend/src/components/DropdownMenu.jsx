@@ -54,7 +54,7 @@ export default function DropdownMenu({ onChange, title, type, data, icon }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className=" hover:border-blue-500 border-transparent hover:text-blue-500 text-blue-700 group inline-flex gap-2 items-center py-4 px-1 border-b-2 font-medium text-sm">
+        <Menu.Button className=" hover:border-blue-500 border-transparent hover:text-blue-500 text-blue-700 group inline-flex gap-2 items-center py-4 px-1 border-b-2 font-medium text-md">
           {icon}
           {title}
           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />

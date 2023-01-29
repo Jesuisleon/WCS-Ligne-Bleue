@@ -15,8 +15,6 @@ import {
 import DropdownMenu from "@components/DropdownMenu";
 import TutorialCard from "@components/TutorialCard";
 
-
-
 // FOR TUTORIAL CONTENT
 const TutorialRadioContent = [
   {
@@ -223,7 +221,7 @@ function UserProfil() {
       {/* MY PROFIL */}
       {/* TITLE */}
       <div className="pb-2 border-b border-gray-200">
-        <h3 className="text-base text-gray-500 dark:text-black first-letter:capitalize">
+        <h3 className="text-base font-body text-gray-800 first-letter:capitalize">
           Mes informations personnelles
         </h3>
       </div>
@@ -247,13 +245,13 @@ function UserProfil() {
       {/* MY JOURNEY */}
       {/* TITLE */}
       <div className="mt-4">
-        <div className="pb-2 pt-10 border-b border-gray-200">
-          <h3 className="text-base text-gray-500 dark:text-black first-letter:capitalize">
+        <div className="pb-2 pt-10 border-gray-200">
+          <h3 className="text-base font-body text-gray-800 first-letter:capitalize">
             Mon parcours
           </h3>
         </div>
         {/* MENUS */}
-        <div className="w-full flex gap-6 items-center border-y text-sm">
+        <div className="w-full flex gap-6 items-center border-y">
           <DropdownMenu
             onChange={setTutorialsFilters}
             title="Filtrer les tutorials"

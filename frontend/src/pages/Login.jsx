@@ -5,7 +5,6 @@ import axios from "axios";
 import ErrorAlert from "@components/ErrorAlert";
 import { RiMailLockFill } from "react-icons/ri";
 import { AuthContext } from "../context/AuthContext";
-import logoPoste from "../../public/image/logo_la_poste.png";
 
 function Login() {
   const { setUserTokenCookie, setUserInfos } = useContext(AuthContext);
@@ -53,7 +52,7 @@ function Login() {
           <div>
             <img
               className="mx-auto h-12 w-auto"
-              src={logoPoste}
+              src="/image/logo_la_poste.png"
               alt="Workflow"
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

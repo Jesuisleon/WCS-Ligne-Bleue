@@ -47,11 +47,11 @@ const SideBar = forwardRef(
       if (getData !== data) {
         setData(getData);
         // transform each value on invalid to false
-        const newInvalid = Object.keys(invalid).reduce((acc, key) => {
-          acc[key] = false;
-          return acc;
-        }, {});
-        setInvalid(newInvalid);
+        // const newInvalid = Object.keys(invalid).reduce((acc, key) => {
+        //   acc[key] = false;
+        //   return acc;
+        // }, {});
+        // setInvalid(newInvalid);
       }
     }, [getData]);
 

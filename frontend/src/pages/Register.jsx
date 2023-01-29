@@ -4,7 +4,6 @@ import axios from "axios";
 
 import { Link, useNavigate } from "react-router-dom";
 import ErrorAlert from "@components/ErrorAlert";
-import logoPoste from "../../public/image/logo_la_poste.png";
 
 function Register() {
   const navigate = useNavigate();
@@ -65,7 +64,11 @@ function Register() {
   return (
     <div className="min-h-full flex flex-col justify-center py-10 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <img className="mx-auto h-12 w-auto" src={logoPoste} alt="Workflow" />
+        <img
+          className="mx-auto h-12 w-auto"
+          src="/image/logo_la_poste.png"
+          alt="Workflow"
+        />
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Inscris-toi gratuitement{" "}
         </h2>
