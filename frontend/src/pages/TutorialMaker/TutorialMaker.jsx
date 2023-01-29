@@ -12,8 +12,8 @@ import QuizMaker from "@pages/TutorialMaker/QuizMaker";
 
 import Sticky from "react-stickynode";
 
-import NotificationWithActions from "@components/NotificationWithActions";
-import ModalSimple from "@components/ModalSimple";
+import NotificationWithActions from "@components/notifications/NotificationWithActions";
+import ModalSimple from "@components/notifications/ModalSimple";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 

@@ -16,7 +16,7 @@ import AdminPanel from "@pages/AdminPanel/AdminPanel";
 import Login from "@pages/Login";
 import Search from "@pages/Search";
 import Tutorial from "@pages/Tutorial/Tutorial";
-import TutorialByTheme from "@pages/TutorialsByTheme";
+import Theme from "@pages/Theme";
 import UserProfil from "@pages/UserProfil";
 import TutorialMaker from "@pages/TutorialMaker/TutorialMaker";
 import Register from "@pages/Register";
@@ -107,7 +107,7 @@ export default function AllRoutes() {
               >
                 <Breadcrumb navigation="theme" themeTitle={themeTitle} />
               </Sticky>
-              <TutorialByTheme />
+              <Theme />
             </>
           }
         />

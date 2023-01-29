@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import ErrorAlert from "@components/ErrorAlert";
+import ErrorAlert from "@components/notifications/ErrorAlert";
 import { RiMailLockFill } from "react-icons/ri";
 import { AuthContext } from "../context/AuthContext";
 

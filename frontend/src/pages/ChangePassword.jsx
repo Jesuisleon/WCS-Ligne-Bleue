@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 
 import { useNavigate, Link } from "react-router-dom";
-import ErrorAlert from "@components/ErrorAlert";
+import ErrorAlert from "@components/notifications/ErrorAlert";
 import { AuthContext } from "../context/AuthContext";
 
 export default function ChangePassword() {

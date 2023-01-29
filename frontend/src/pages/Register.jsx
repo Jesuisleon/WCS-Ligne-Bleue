@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import { Link, useNavigate } from "react-router-dom";
-import ErrorAlert from "@components/ErrorAlert";
+import ErrorAlert from "@components/notifications/ErrorAlert";
 
 function Register() {
   const navigate = useNavigate();

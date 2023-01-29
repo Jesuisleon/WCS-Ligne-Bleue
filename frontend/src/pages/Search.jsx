@@ -1,28 +1,61 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
 
 import axios from "axios";
+import { AuthContext } from "@context/AuthContext";
 
-import { FaSearch } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-import SearchTutorial from "../services/utils/searchFonction";
+import { FaSearch } from "react-icons/fa";
+
+import TutorialCard from "@components/TutorialCard";
+import SearchTutorial from "@services/utils/searchFonction";
 
 export default function Search() {
-  const [searchValue, setSearchValue] = useState("");
-  const [searchResult, setSearchResult] = useState("");
-  const [tutorialInfos, setTutorialInfos] = useState("");
+  const { userJourney } = useContext(AuthContext);
 
+  const [data, setData] = useState();
+
+  const [tutorial, setTutorial] = useState([]);
+
+  const [searchValue, setSearchValue] = useState("");
+
+  const [searchResult, setSearchResult] = useState([]);
+
+  // TRANSFORM RESULT WITH USER ID JOURNEY
+  useEffect(() => {
+    if (userJourney.length > 0 && searchResult.length > 0) {
+      // search searchResult id equal to userJourney id and add userJourney user_id and creation_date data to tutorial state
+      const userJourneyData = searchResult.map((e) => {
+        if (userJourney.find((j) => j.id === e.id)) {
+          return {
+            ...e,
+            user_id: userJourney.filter((j) => j.id === e.id)[0].user_id,
+            creation_date: userJourney.filter((j) => j.id === e.id)[0]
+              .creation_date,
+          };
+        }
+        return {
+          ...e,
+          user_id: null,
+          creation_date: null,
+        };
+      });
+      setTutorial(userJourneyData);
+    } else {
+      setTutorial(searchResult);
+    }
+  }, [searchResult]);
+
+  // FETCH TUTORIALS FROM DATABASE
   useEffect(() => {
     axios.get(`/tutorials-search`).then((response) => {
-      setTutorialInfos(response.data);
+      setData(response.data);
     });
   }, []);
 
   useEffect(() => {
-    if (tutorialInfos) {
-      const searchResulteArray = SearchTutorial(searchValue, tutorialInfos);
-      setSearchResult(searchResulteArray);
+    if (data) {
+      setSearchResult(SearchTutorial(searchValue, data));
     }
   }, [searchValue]);
 
@@ -39,12 +72,12 @@ export default function Search() {
           <div className="text-lg font-medium text-left mb-auto">
             Exemples :
           </div>
-          <ul className="text-left justify-center mt-2 text-base sm:text-lg dark:text-white">
+          <ul className="text-left justify-center mt-2 text-base italic">
             <li className="mb-2">
-              1- Tutoriel pour apprendre à allumer son téléphone
+              "Tutoriel pour apprendre à allumer son téléphone"
             </li>
-            <li className="mb-2">2- Comment envoyer un mail</li>
-            <li>3- Comment charger son téléphone</li>
+            <li className="mb-2">"Comment envoyer un mail"</li>
+            <li>"Comment charger son téléphone"</li>
           </ul>
         </div>
       </div>
@@ -65,28 +98,30 @@ export default function Search() {
           required
         />
       </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {searchResult &&
-          searchResult.map((e) => (
-            <Link key={e.id} to={`/theme/${e.theme_id}/tutorial/${e.id}`}>
-              <motion.div
-                key={e.id}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.2,
-                  delay: 0,
-                  ease: [0, 0.2, 0.2, 0.2],
-                }}
-                className="bg-gradient-to-b from-yellow-300 to-yellow-500 p-8 rounded-xl shadow-lg transition duration-300 ease-in-out transform hover:scale-110 text-center "
-              >
-                <h1 className="text-lg font-medium overflow-hidden">
-                  {e.title}
-                </h1>
-                {/* <h1 className="text-xl font-medium break-words">{e.title}</h1> */}
-                <h2 className="text-sm font-medium text-gray-700">{e.theme}</h2>
-              </motion.div>
-            </Link>
+      <div className="my-2 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 sm:gap-2 ">
+        {tutorial &&
+          tutorial.map((e) => (
+            // e.published === true &&
+            <motion.div
+              key={e.id}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.2,
+                delay: 0,
+                ease: [0, 0.2, 0.2, 0.2],
+              }}
+            >
+              <TutorialCard
+                title={e.title}
+                difficulties={e.difficulty_name}
+                objective={e.objective}
+                themeId={e.theme_id}
+                tutorialId={e.id}
+                validate={e.user_id}
+                date={e.creation_date}
+              />
+            </motion.div>
           ))}
       </div>
     </div>

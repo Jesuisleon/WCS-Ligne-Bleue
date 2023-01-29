@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 export function AuthContextProvider({ children }) {
   const [userToken, setUserToken] = useState(Cookies.get("userToken") || null);
   const [userInfos, setUserInfos] = useState({});
+  const [userJourney, setUserJourney] = useState({});
   const [checkBoxFilter, setCheckBoxFilter] = useState("");
 
   const setUserTokenCookie = (token) => {
@@ -31,8 +32,10 @@ export function AuthContextProvider({ children }) {
       userToken,
       userInfos,
       setUserInfos,
+      userJourney,
+      setUserJourney,
     }),
-    [userToken, userInfos, checkBoxFilter]
+    [userToken, userInfos, checkBoxFilter, userJourney]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

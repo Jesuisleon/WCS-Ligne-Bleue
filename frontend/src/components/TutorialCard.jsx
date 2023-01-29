@@ -13,7 +13,7 @@ export default function TutorialCard({
   // convert date to a local date string
   const stringDate = new Date(date).toLocaleDateString();
 
-  let difficulty;
+  let difficulty = null;
 
   const difficultyColor = document.getElementById(
     `tutorial-card-${tutorialId}`

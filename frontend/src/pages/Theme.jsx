@@ -12,7 +12,7 @@ import TutorialCard from "@components/TutorialCard";
 
 const { useParams } = ReactRouter;
 
-export default function TutorialByTheme() {
+export default function Theme() {
   const { themeId } = useParams();
 
   const { setNavigationTitle } = useContext(NavigationContext);
@@ -27,6 +27,7 @@ export default function TutorialByTheme() {
         const themeJourney = res.data
           .filter((r) => r.theme_id.toString() === themeId)
           .filter((r) => r.user_id);
+
         const userData = data.map((tutorial) => {
           if (themeJourney.find((j) => j.id === tutorial.id)) {
             return {
@@ -65,9 +66,10 @@ export default function TutorialByTheme() {
   }, []);
 
   return (
-    <div className="my-2 mx-4 sm:mx-10 xl:mx-14 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 sm:gap-2  ">
+    <div className="my-2 mx-4 sm:mx-10 xl:mx-14 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 sm:gap-2 ">
       {data &&
         data.map((tutorial) => (
+          // tutorial.published &&
           <motion.div
             key={tutorial.id}
             initial={{ x: "200%" }}
@@ -81,12 +83,12 @@ export default function TutorialByTheme() {
           >
             <TutorialCard
               title={tutorial.title}
-              objective={tutorial.objective}
-              date={tutorial.creation_date}
               difficulties={tutorial.difficulty_name}
+              objective={tutorial.objective}
               themeId={themeId}
               tutorialId={tutorial.id}
               validate={tutorial.user_id}
+              date={tutorial.creation_date}
             />
           </motion.div>
         ))}

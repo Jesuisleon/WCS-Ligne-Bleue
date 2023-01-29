@@ -21,7 +21,7 @@ class TutorialManager extends AbstractManager {
 
   findAllTutorialsForSearch() {
     return this.connection.query(
-      `select tutorial.id,tutorial.theme_id, theme.name as theme, tutorial.title, tutorial.description, tutorial.published from ${this.table} inner join theme on theme.id = tutorial.theme_id`
+      `select tutorial.id, tutorial.theme_id, theme.name as theme, tutorial.title,tutorial.objective, tutorial.published, difficulty.name as difficulty_name FROM ${this.table} INNER JOIN theme on theme.id = tutorial.theme_id left JOIN difficulty on difficulty.id = tutorial.difficulty_id`
     );
   }
 

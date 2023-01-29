@@ -40,7 +40,7 @@ export default function Header() {
               />
             </Link>
           </div>
-          {userToken && userInfos.isAdmin && (
+          {userToken && userInfos.isAdmin ? (
             <div className="mt-auto mb-auto hidden sm:block">
               <Link
                 to="/adminpanel"
@@ -63,7 +63,7 @@ export default function Header() {
                 dashboard
               </Link>
             </div>
-          )}
+          ) : null}
           {userToken === null ? (
             <div className="sm:ml-10 flex items-center space-x-2 sm:space-x-5">
               <Link
@@ -138,7 +138,7 @@ export default function Header() {
                               </div>
                             </Popover.Button>
                           </Link>
-                          {userToken && userInfos.isAdmin && (
+                          {userToken && userInfos.isAdmin ? (
                             <div className="mt-auto mb-auto sm:hidden block">
                               <Link to="/adminpanel">
                                 <Popover.Button
@@ -172,7 +172,7 @@ export default function Header() {
                                 </Popover.Button>
                               </Link>
                             </div>
-                          )}
+                          ) : null}
                           <button
                             type="button"
                             onClick={handleDisconnect}
