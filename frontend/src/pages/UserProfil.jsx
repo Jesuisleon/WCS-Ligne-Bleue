@@ -143,7 +143,6 @@ function UserProfil() {
         isChecked: true,
         available: true,
       }));
-      // setThemesFiltered(theme);
       updateThemes(theme, tutorialsFiltered);
     }
   }, [loading]);
