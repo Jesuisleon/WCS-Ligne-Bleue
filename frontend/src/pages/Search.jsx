@@ -14,7 +14,7 @@ export default function Search() {
   const [tutorialInfos, setTutorialInfos] = useState("");
 
   useEffect(() => {
-    axios.get(`/tutorials-search`).then((response) => {
+    axios.get(`/tutorials`).then((response) => {
       setTutorialInfos(response.data);
     });
   }, []);
@@ -68,7 +68,7 @@ export default function Search() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {searchResult &&
           searchResult.map((e) => (
-            <Link key={e.id} to={`/tutorial/${e.id}`}>
+            <Link key={e.id} to={`/theme/${e.theme_id}/tutorial/${e.id}`}>
               <motion.div
                 key={e.id}
                 initial={{ opacity: 0, scale: 0.5 }}
@@ -83,7 +83,6 @@ export default function Search() {
                 <h1 className="text-lg font-medium overflow-hidden">
                   {e.title}
                 </h1>
-                {/* <h1 className="text-xl font-medium break-words">{e.title}</h1> */}
                 <h2 className="text-sm font-medium text-gray-700">{e.theme}</h2>
               </motion.div>
             </Link>

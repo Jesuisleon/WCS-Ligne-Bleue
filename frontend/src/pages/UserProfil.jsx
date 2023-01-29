@@ -349,7 +349,9 @@ function UserProfil() {
                                               </div>
                                             </td>
                                             <td className="px-4 py-2 text-sm text-right">
-                                              <Link to={`/tutorial/${e.id}`}>
+                                              <Link
+                                                to={`/theme/${a.theme_id}/tutorial/${a.id}`}
+                                              >
                                                 {a.user_id
                                                   ? "re-faire le tutoriel"
                                                   : "Faire le tutoriel !"}
