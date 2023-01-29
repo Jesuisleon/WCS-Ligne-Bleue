@@ -34,7 +34,7 @@ export default function Header() {
             <Link to="/home">
               <span className="sr-only">Ligne Bleue</span>
               <img
-                className="h-10 sm:h-12 w-auto"
+                className="h-8 sm:h-12 w-auto"
                 src="/image/logo_la_poste.png"
                 alt="logo"
               />
@@ -51,16 +51,16 @@ export default function Header() {
             </div>
           ) : null}
           {userToken === null ? (
-            <div className="ml-10 flex items-center space-x-2 sm:space-x-5">
+            <div className="sm:ml-10 flex items-center space-x-2 sm:space-x-5">
               <Link
                 to="/login"
-                className="inline-block bg-yellow-400 py-2 px-2 sm:px-4 border border-transparent rounded-md text-base font-medium text-blue-700 hover:bg-blue-100"
+                className="inline-block bg-yellow-400 py-1 sm:py-2 px-2 sm:px-4 border border-transparent rounded-md text-base font-medium text-blue-700 hover:bg-blue-100"
               >
                 Se connecter
               </Link>
               <Link
                 to="/register"
-                className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-blue-600 hover:bg-blue-50"
+                className="inline-block bg-white py-1 sm:py-2 px-4 border border-transparent rounded-md text-base font-medium text-blue-600 hover:bg-blue-50"
               >
                 Créer un compte
               </Link>

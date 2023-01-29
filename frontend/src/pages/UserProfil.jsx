@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { NavigationContext } from "@context/NavigationContext";
+import { AuthContext } from "@context/AuthContext";
 
 import {
   Accordion,
@@ -13,7 +14,8 @@ import {
 
 import DropdownMenu from "@components/DropdownMenu";
 import TutorialCard from "@components/TutorialCard";
-import { AuthContext } from "../context/AuthContext";
+
+
 
 // FOR TUTORIAL CONTENT
 const TutorialRadioContent = [
@@ -226,7 +228,7 @@ function UserProfil() {
         </h3>
       </div>
       {/* USER INFO */}
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 sm:items-center py-6 sm:py-8 border-b border-gray-200">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 sm:items-center py-6 sm:py-8">
         <div>
           <div className="text-3xl font-bold text-gray-900 dark:text-black first-letter:capitalize">
             {`${userInfos.userFirstName} ${userInfos.userLastName}`}

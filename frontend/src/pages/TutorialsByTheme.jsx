@@ -1,54 +1,78 @@
 import * as ReactRouter from "react-router-dom";
+const {  useParams } = ReactRouter;
 import React, { useState, useEffect, useContext } from "react";
-import { NavigationContext } from "@context/NavigationContext";
 
 import axios from "axios";
 
-import { motion } from "framer-motion";
-import { HiCheckCircle } from "react-icons/hi";
-import { AuthContext } from "../context/AuthContext";
+import { NavigationContext } from "@context/NavigationContext";
+import { AuthContext } from "@context/AuthContext";
 
-const { Link, useParams } = ReactRouter;
+import { motion } from "framer-motion";
+
+import TutorialCard from "@components/TutorialCard";
+
 
 export default function TutorialByTheme() {
-  const { setNavigationTitle } = useContext(NavigationContext);
-
-  const [data, setData] = useState();
   const { themeId } = useParams();
+
+  const { setNavigationTitle } = useContext(NavigationContext);
   const { userInfos } = useContext(AuthContext);
 
+
+  const [data, setData] = useState();
+  console.log("🚀 ~ file: TutorialsByTheme.jsx:23 ~ TutorialByTheme ~ data", data)
+
+
+
+  // CHECK IF USER HAVE ALREADY VALIDATED TUTORIAL
+  const fetchValidation = (tutorialId, response) => {
+    const validation = response.filter(({ user_id }) => user_id).length > 0;
+    if (validation) {
+      return userInfos.userId
+    }
+    return false;
+  };
+
+    
+
+
+  // GET TUTORIALS FROM DATABASE WITH USER ID JOURNEY
   useEffect(() => {
+    if (userInfos.userId && data) {
+      axios.get(`/journeys-validation/${userInfos.userId}`).then((res) => {
+        const userData = data.map((tutorial) => {
+          return {
+            ...tutorial,
+            user_id: fetchValidation(tutorial.id, res.data),
+          };
+        });
+        setData(userData);
+      });
+    }
+  }, [userInfos]);
+
+  // GET TUTORIALS FROM DATABASE WITH THEME ID
+  const fetchTutorials = () => {
     axios
       .get(`/tutorials/?theme=${themeId}`)
       .then((response) => {
+
         setData(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, [userInfos.isAdmin]);
+  };
 
+  
   useEffect(() => {
+    fetchTutorials();
     setNavigationTitle("Theme");
   }, []);
 
   return (
     <div
-      className="
-        my-10
-        mx-10
-        sm:mx-20
-        grid
-        grid-cols-1
-        sm:grid-cols-2
-        xl:grid-cols-
-        2xl:grid-cols-5
-        gap-7
-        auto-rows-[minmax(100px,_1fr)]
-        sm:auto-rows-[minmax(180px,_2fr)]
-        lg:auto-rows-[minmax(220px,_2fr)]
-      "
-    >
+      className="my-2 mx-4 sm:mx-10 xl:mx-14 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 sm:gap-2 auto-rows-[minmax(100px,_1fr)] lg:auto-rows-[minmax(180px,_2fr)] xl:auto-rows-[minmax(220px,_2fr)]">
       {data &&
         data.map((tutorial) => (
           <motion.div
@@ -62,56 +86,15 @@ export default function TutorialByTheme() {
               damping: 15,
             }}
           >
-            <Link
-              key={tutorial.id}
-              className="
-                bg-white
-                h-full
-                w-full
-                p-8
-                sm=p-10
-                flex
-                flex-col
-                justify-between
-                rounded-xl
-                transition
-                duration-200
-                ease-in-out
-                transform
-                hover:scale-110
-                shadow-lg
-                shadow-yellow-400
-                text-center
-                "
-              to={`/theme/${themeId}/tutorial/${tutorial.id}`}
-            >
-              <HiCheckCircle className="text-4xl fill-green-500 m-auto" />
-              <h1 className="text-xl font-bold">{tutorial.title}</h1>
-              <div className="mt-4 mb-10">
-                <p className="text-gray-600 mb-5">{tutorial.objectif}</p>
-                <div className="bg-gray-400 h-3 rounded-lg mt-2 overflow-hidden">
-                  <div className="bg-pink-400 w-1/4 h-full rounded-lg shadow-md" />
-                </div>
-                <p className="text-gray-600 mt-5 italic">
-                  {tutorial.difficulty_name}
-                </p>
-              </div>
-              <button
-                className="
-              text-center
-              bg-blue-700
-              text-white
-              py-3
-              rounded
-              text-sm
-              font-semibold
-              hover:bg-opacity-75
-              "
-                type="button"
-              >
-                Commencer
-              </button>
-            </Link>
+            <TutorialCard
+                    title={tutorial.title}
+                    objective={tutorial.objective}
+                    date={tutorial.creation_date}
+                    difficulties={tutorial.difficulty_name}
+                    themeId={themeId}
+                    tutorialId={tutorial.id}
+                    validate={tutorial.user_id} />
+
           </motion.div>
         ))}
     </div>

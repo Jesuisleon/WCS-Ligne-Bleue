@@ -91,7 +91,7 @@ export default function Tutorial() {
   if (data === null) return <div>Loading...</div>;
 
   return (
-    <div className="flex flex-col gap-10 mb-10 px-20">
+    <div className="flex flex-col gap-10 mb-10 px-4 md:px-20">
       {/* HEADER */}
       <div className="flex flex-col gap-6 p-10 border-x-4 border-b-4 border-dashed border-blue-700">
         <div className="flex gap-2 items-end">
@@ -115,13 +115,13 @@ export default function Tutorial() {
       {data.step.map((step) => {
         if (step.type === "quiz") {
           return (
-            <div key={step.id} className="rounded-xl my-4 px-4 py-2">
+            <div key={step.id} className="rounded-xl my-4 py-2">
               <Quiz key={step.id} data={step.content} />
             </div>
           );
         }
         return (
-          <div key={step.id} className="rounded-xl my-4 px-4 py-2">
+          <div key={step.id} className="rounded-xl my-4 py-2">
             <div
               className="flex justify-center"
               dangerouslySetInnerHTML={createMarkup(step.content)}
