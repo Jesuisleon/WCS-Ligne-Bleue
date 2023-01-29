@@ -47,7 +47,8 @@ const SearchTutorial = (searchPhrases, tuto) => {
   const sortedMatches = Object.values(duplicateIds).sort(
     (a, b) => b.count - a.count
   );
-  return sortedMatches;
+  const disableIfOffLine = sortedMatches.filter((e) => e.published === 1);
+  return disableIfOffLine;
 };
 
 export default SearchTutorial;
