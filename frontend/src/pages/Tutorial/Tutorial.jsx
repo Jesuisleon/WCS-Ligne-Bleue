@@ -20,61 +20,57 @@ export default function Tutorial() {
 
   const { setNavigationTitle } = useContext(NavigationContext);
 
-  const { tutorialId, themeId } = useParams();
+  const { tutorialId } = useParams();
 
   const [data, setData] = useState(null);
-  useEffect(() => {
-    if (data) {
-      setNavigationTitle(data.title);
-    }
-  }, [data]);
 
   const [newData, setNewData] = useState({ rating: null, comments: null });
 
   const [validate, setValidate] = useState(false);
-  useEffect(() => {}, []);
   const [openNotification, setOpenNotification] = useState(false);
+
+  useEffect(() => {
+    if (data) {
+      setNavigationTitle(data.title);
+    }
+    if (userJourney.length > 1) {
+      if (
+        userJourney.filter((j) => j.id.toString() === tutorialId)[0].user_id !==
+        null
+      ) {
+        setValidate(true);
+      }
+    }
+  }, [data]);
+
+  const updateJourneyContext = () => {
+    const newJourney = userJourney.map((j) => {
+      if (j.id.toString() === tutorialId) {
+        return {
+          ...j,
+          user_id: userInfos.userId,
+          creation_date: new Date(),
+        };
+      }
+      return j;
+    });
+    setUserJourney(newJourney);
+  };
 
   const postJourney = (tutoId, userId, rating, comment) => {
     axios
       .post(`/journey`, { tutorialId: tutoId, userId, rating, comment })
       .then(() => {
+        setValidate(true);
         setOpenNotification(true);
-        setUserJourney([
-          ...userJourney,
-          {
-            id: parseInt(tutoId, 10),
-            theme_id: parseInt(themeId, 10),
-            user_id: userId,
-            creation_date: new Date(),
-          },
-        ]);
+        updateJourneyContext();
       })
       .catch((error) => {
         console.error(error);
       });
   };
 
-  useEffect(() => {
-    if (userJourney.length > 1 && data)
-      if (userJourney.find((j) => j.id === parseInt(tutorialId, 10)))
-        setValidate(true);
-  }, [userJourney]);
-
-  useEffect(() => {
-    if (
-      validate &&
-      userJourney.find((j) => j.id === parseInt(tutorialId, 10)) === false
-    )
-      postJourney(
-        tutorialId,
-        userInfos.userId,
-        newData.rating,
-        newData.comments
-      );
-  }, [validate]);
-
-  const getTutorialContent = () => {
+  const fetchTutorialContent = () => {
     axios
       .get(`/tutorials/${tutorialId}`)
       .then((response) => {
@@ -87,7 +83,7 @@ export default function Tutorial() {
   };
 
   useEffect(() => {
-    getTutorialContent();
+    fetchTutorialContent();
   }, []);
 
   const createMarkup = (content) => {
@@ -158,25 +154,37 @@ export default function Tutorial() {
       </div>
 
       {/* VALIDATOR */}
+
       {userInfos.userId && (
         <div className="bg-gray-50 border-2 shadow-lg w-full xl:w-1/2 rounded text-gray-800 flex flex-col justify-center items-center gap-8 py-6 mx-auto mt-4">
           {validate === false && (
-            <h2 className="text-4xl font-semibold">Votre avis</h2>
+            <>
+              <h2 className="text-4xl font-semibold">Votre avis</h2>
+              <Rating validate={validate} setData={setNewData} data={newData} />
+              <Comments
+                validate={validate}
+                setData={setNewData}
+                data={newData}
+              />
+            </>
           )}
-          <Rating validate={validate} setData={setNewData} data={newData} />
-          <Comments validate={validate} setData={setNewData} data={newData} />
-          {validate ? (
-            <p className="text-xl font-bold">Vous avez validé ce tutoriel !</p>
-          ) : (
+          {validate === false ? (
             <button
               className="bg-blue-500 text-white py-2 rounded-lg px-5"
               type="submit"
               onClick={() => {
-                setValidate(true);
+                postJourney(
+                  tutorialId,
+                  userInfos.userId,
+                  newData.rating,
+                  newData.comments
+                );
               }}
             >
               "Ok, c'est compris !"
             </button>
+          ) : (
+            <p className="text-xl font-bold">Vous avez validé ce tutoriel !</p>
           )}
         </div>
       )}

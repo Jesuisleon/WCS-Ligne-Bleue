@@ -6,6 +6,8 @@ import axios from "axios";
 
 import ToolBar from "@pages/TutorialMaker/ToolBar";
 import SideBar from "@pages/TutorialMaker/SideBar";
+import SidePreview from "@pages/TutorialMaker/SidePreview";
+
 import TextMaker from "@pages/TutorialMaker/TextMaker";
 import MediaMaker from "@pages/TutorialMaker/MediaMaker";
 import QuizMaker from "@pages/TutorialMaker/QuizMaker";
@@ -27,6 +29,7 @@ export default function TutorialMaker() {
     useState(false);
   const [openModalSimple, setOpenModalSimple] = useState(false);
   const [openSideBar, setOpenSideBar] = useState(false);
+  const [openSidePreview, setOpenSidePreview] = useState(false);
 
   // DATA STATES
   const [sideBarData, setSideBarData] = useState({
@@ -164,8 +167,33 @@ export default function TutorialMaker() {
       });
   };
 
-  // GET DATA FUNCTIONS
-  const getSideBarData = () => {
+  // // GET DATA FUNCTIONS
+  // const getSideBarData = () => {
+  //   const updatedData = childsRefs.current[0].getData();
+  //   if (!updatedData) {
+  //     setOpenModalSimple(true);
+  //     setIsWrongSubmit(true);
+  //     setSave(false);
+  //   } else {
+  //     setSideBarData(updatedData);
+  //     setSave(true);
+  //   }
+  // };
+
+  const getData = () => {
+    const updatedStep = [...stepsData];
+
+    childsRefs.current.forEach((child, index) => {
+      // bypass the header component childRef
+      if (index === 0) return;
+      // update the stepData with the childRef data
+      updatedStep[index - 1].content = child.getData();
+    });
+
+    if (updatedStep.some((step) => step.content === "error")) return;
+
+    setStepsData(updatedStep);
+
     const updatedData = childsRefs.current[0].getData();
     if (!updatedData) {
       setOpenModalSimple(true);
@@ -175,18 +203,6 @@ export default function TutorialMaker() {
       setSideBarData(updatedData);
       setSave(true);
     }
-  };
-
-  const getStepsData = () => {
-    const updatedStep = [...stepsData];
-
-    childsRefs.current.forEach((child, index) => {
-      // bypass the header component childRef
-      if (index === 0) return;
-      // update the stepData with the childRef data
-      updatedStep[index - 1].content = child.getData();
-    });
-    setStepsData(updatedStep);
   };
 
   const saveData = () => {
@@ -221,6 +237,31 @@ export default function TutorialMaker() {
     const updatedStep = [...stepsData];
     updatedStep[index].preview = !updatedStep[index].preview;
     setStepsData(updatedStep);
+  };
+
+  // PREVIEW ALL
+  const [previewAllData, setPreviewAllData] = useState(null);
+
+  const setPreviewAll = () => {
+    const updatedStep = [...stepsData];
+
+    childsRefs.current.forEach((child, index) => {
+      if (index === 0) return;
+      updatedStep[index - 1].content = child.getData();
+    });
+
+    if (updatedStep.some((step) => step.content === "error")) return;
+
+    const updatedData = childsRefs.current[0].getData();
+
+    const data = {
+      title: updatedData.title,
+      objective: updatedData.objective,
+      description: updatedData.description,
+      step: updatedStep,
+    };
+    setPreviewAllData(data);
+    setOpenSidePreview(!openSidePreview);
   };
 
   //  INITIALIZATION
@@ -260,7 +301,7 @@ export default function TutorialMaker() {
 
       {/* SideBar */}
       <Sticky enabled top={0} innerZ={20} activeClass="sticky-nav-active">
-        <div className="absolute right-[1em]">
+        <div className="absolute left-[1em]">
           <button
             type="button"
             onClick={() => setOpenSideBar(!openSideBar)}
@@ -296,11 +337,47 @@ export default function TutorialMaker() {
         setOpen={setOpenSideBar}
         getData={sideBarData}
         save={() => {
-          getStepsData();
-          getSideBarData();
-          // setSave(true);
+          getData();
+          // getSideBarData();
         }}
         isWrongSubmit={isWrongSubmit}
+        tutorialId={tutorialId}
+      />
+
+      {/* sidePreview */}
+      <Sticky enabled top={0} innerZ={20} activeClass="sticky-nav-active">
+        <div className="absolute right-[1em]">
+          <button
+            type="button"
+            onClick={() => setPreviewAll()}
+            className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={3}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+          </button>
+        </div>
+      </Sticky>
+      <SidePreview
+        open={openSidePreview}
+        setOpen={setOpenSidePreview}
+        getData={previewAllData}
       />
 
       {/* Steppers */}
@@ -317,7 +394,7 @@ export default function TutorialMaker() {
                     setPreview={() => setPreviewSingle(stepIndex)}
                     preview={step.preview}
                     moveStep={(direction) => {
-                      getStepsData();
+                      getData();
                       moveStep(stepIndex, direction);
                     }}
                     close={() => removeStep(stepIndex)}
@@ -348,7 +425,7 @@ export default function TutorialMaker() {
                     lastStepIndex={stepsData.length - 1}
                     preview={step.preview}
                     moveStep={(direction) => {
-                      getStepsData();
+                      getData();
                       moveStep(stepIndex, direction);
                     }}
                     close={() => removeStep(stepIndex)}
@@ -384,7 +461,7 @@ export default function TutorialMaker() {
                     setPreview={() => setPreviewSingle(stepIndex)}
                     preview={step.preview}
                     moveStep={(direction) => {
-                      getStepsData();
+                      getData();
                       moveStep(stepIndex, direction);
                     }}
                     close={() => removeStep(stepIndex)}

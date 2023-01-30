@@ -21,7 +21,7 @@ import { SelectInput } from "./inputs/SelectInput";
 import { HashtagInput } from "./inputs/HashtagInput";
 
 const SideBar = forwardRef(
-  ({ open, setOpen, getData, save, preview, isWrongSubmit }, ref) => {
+  ({ open, setOpen, getData, save, isWrongSubmit, tutorialId }, ref) => {
     const { navigationTheme } = useContext(NavigationContext);
 
     const [difficulties, setDifficulties] = useState([]);
@@ -46,6 +46,16 @@ const SideBar = forwardRef(
     useEffect(() => {
       if (getData !== data) {
         setData(getData);
+      }
+      if (tutorialId) {
+        setInvalid({
+          theme: false,
+          difficulty: false,
+          title: false,
+          objective: false,
+          description: false,
+          hashtag: false,
+        });
       }
     }, [getData]);
 
@@ -79,15 +89,15 @@ const SideBar = forwardRef(
             <div className="absolute inset-0 overflow-hidden">
               <Dialog.Overlay className="absolute inset-0" />
 
-              <div className="pointer-events-none inset-y-0 fixed right-0 flex max-w-full pl-10 sm:pl-16">
+              <div className="pointer-events-none inset-y-0 fixed left-0 flex max-w-full pr-10">
                 <Transition.Child
                   as={Fragment}
                   enter="transform transition ease-in-out duration-500 sm:duration-700"
-                  enterFrom="translate-x-full"
-                  enterTo="translate-x-0"
+                  enterFrom="-translate-x-full"
+                  enterTo="-translate-x-0"
                   leave="transform transition ease-in-out duration-500 sm:duration-700"
-                  leaveFrom="translate-x-0"
-                  leaveTo="translate-x-full"
+                  leaveFrom="-translate-x-0"
+                  leaveTo="-translate-x-full"
                 >
                   <div className="pointer-events-auto w-screen max-w-2xl">
                     <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
@@ -305,13 +315,6 @@ const SideBar = forwardRef(
                             className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                           >
                             Enregistrer
-                          </button>
-                          <button
-                            onClick={preview}
-                            type="submit"
-                            className="inline-flex justify-center rounded-md border border-transparent bg-yellow-400 py-2 px-4 text-sm font-medium text-blue-700 shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2"
-                          >
-                            Preview
                           </button>
                         </div>
                       </div>

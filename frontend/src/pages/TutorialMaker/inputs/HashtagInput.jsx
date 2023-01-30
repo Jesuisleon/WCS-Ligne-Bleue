@@ -142,14 +142,14 @@ export function HashtagInput({ defaultValue, handleInput, isSubmit }) {
               {hashtag}
               <button
                 type="button"
-                className="border border-transparent bg-gray-300 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                className="border border-transparent bg-red-500 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded"
                 onClick={() => handleRemoveHashtag(index)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  strokeWidth={1.5}
+                  strokeWidth={2}
                   stroke="currentColor"
                   className="w-3 h-3"
                 >
