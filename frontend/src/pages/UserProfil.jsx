@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -14,6 +14,8 @@ import {
 
 import DropdownMenu from "@components/DropdownMenu";
 import TutorialCard from "@components/TutorialCard";
+
+import { adminLookingOtherProfile } from "../services/utils/utils";
 
 // FOR TUTORIAL CONTENT
 const TutorialRadioContent = [
@@ -96,20 +98,54 @@ function Icon({ id, open }) {
 function UserProfil() {
   // USER INFOS FROM CONTEXT
   const { userInfos } = useContext(AuthContext);
+  const { userId } = useParams();
+  const [infosUser, setInfosUser] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const userContextId = parseInt(userId, 10);
+  const navigate = useNavigate();
+
+  const adminLookOtherProfile = adminLookingOtherProfile(
+    userInfos.isAdmin,
+    userContextId,
+    userInfos.userId
+  );
 
   // TUTORIAL DATA
   const [tutorialsFiltered, setTutorialsFiltered] = useState([]);
 
   // GET TUTORIALS FROM DATABASE WITH USER ID JOURNEY
   useEffect(() => {
-    if (userInfos.userId) {
-      axios.get(`/journeys-validation/${userInfos.userId}`).then((res) => {
-        const tutorials = res.data.filter((tutorial) => tutorial.published);
-        tutorials.forEach((tutorial) => {
-          tutorial.isChecked = true;
+    if (userId) {
+      axios
+        .get(`/journeys-validation/${userId}`)
+        .then((res) => {
+          const tutorials = res.data.filter((tutorial) => tutorial.published);
+          tutorials.forEach((tutorial) => {
+            tutorial.isChecked = true;
+          });
+          setTutorialsFiltered(tutorials);
+        })
+        .then(() => {
+          if (userId) {
+            axios
+              .get(`/users/${userId}`)
+              .catch(() => {
+                return navigate("/Error");
+              })
+              .then((res) => {
+                if (!res) {
+                  throw new Error("Le chargement du profil a échoué");
+                }
+                setInfosUser({
+                  userFirstName: res.data.firstname,
+                  userLastName: res.data.lastname,
+                  userEmail: res.data.email,
+                  isAdmin: res.data.admin,
+                });
+                setIsLoading(false);
+              });
+          }
         });
-        setTutorialsFiltered(tutorials);
-      });
     }
   }, [userInfos]);
 
@@ -216,7 +252,7 @@ function UserProfil() {
     return <div>Chargement...</div>;
   }
 
-  return (
+  return !isLoading ? (
     <div className="px-4 sm:px-14 my-6 w-full">
       {/* MY PROFIL */}
       {/* TITLE */}
@@ -229,17 +265,19 @@ function UserProfil() {
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 sm:items-center py-6 sm:py-8">
         <div>
           <div className="text-3xl font-bold text-gray-900 dark:text-black first-letter:capitalize">
-            {`${userInfos.userFirstName} ${userInfos.userLastName}`}
+            {`${infosUser.userFirstName} ${infosUser.userLastName}`}
           </div>
           <p className="text-base text-gray-500 sm:text-base dark:text-gray-400">
-            {userInfos.userEmail}
+            {!adminLookOtherProfile && infosUser.userEmail}
           </p>
         </div>
-        <Link to="/userprofil/changepassword">
-          <p className="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-            modifier mon mot de passe
-          </p>
-        </Link>
+        {!adminLookOtherProfile && (
+          <Link to="/userprofil/changepassword">
+            <p className="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+              modifier mon mot de passe
+            </p>
+          </Link>
+        )}
       </div>
 
       {/* MY JOURNEY */}
@@ -247,7 +285,9 @@ function UserProfil() {
       <div className="mt-4">
         <div className="pb-2 pt-10 border-gray-200">
           <h3 className="text-base font-body text-gray-800 first-letter:capitalize">
-            Mon parcours
+            {!adminLookOtherProfile
+              ? "Mes Tutoriels"
+              : `Parcours de ${infosUser.userFirstName} ${infosUser.userLastName}`}
           </h3>
         </div>
         {/* MENUS */}
@@ -305,6 +345,8 @@ function UserProfil() {
         </Accordion>
       ))}
     </div>
+  ) : (
+    <h1>link</h1>
   );
 }
 
