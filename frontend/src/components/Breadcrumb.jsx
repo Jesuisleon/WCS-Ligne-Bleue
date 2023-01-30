@@ -1,19 +1,24 @@
 import { Link, useParams } from "react-router-dom";
 
+import { useContext } from "react";
+import { AuthContext } from "@context/AuthContext";
+
+import Loading from "@components/Loading";
+
 import { HomeIcon } from "@heroicons/react/solid";
 
 export default function Breadcrumb({ navigation, themeTitle, tutorialTitle }) {
-  const pages = [];
+  const { themeId, tutorialId, userId } = useParams();
+  const { userInfos } = useContext(AuthContext);
 
+  const pages = [];
   if (navigation === "home") {
     pages.push({ name: "Bienvenue", href: "/home", current: true });
   }
   if (navigation === "theme") {
-    const { themeId } = useParams();
     pages.push({ name: themeTitle, href: `/theme/${themeId}`, current: true });
   }
   if (navigation === "tutorial") {
-    const { tutorialId, themeId } = useParams();
     // check windows width to display the theme title or not
     if (window.innerWidth > 768) {
       pages.push(
@@ -40,13 +45,23 @@ export default function Breadcrumb({ navigation, themeTitle, tutorialTitle }) {
     });
   }
   if (navigation === "profil") {
-    pages.push({ name: "Bienvenue sur votre profil", href: "", current: true });
+    if (userInfos.isAdmin && userId !== userInfos.userId) {
+      pages.push({
+        name: `Profil d'un utilisateur`,
+        href: "",
+        current: true,
+      });
+    } else {
+      pages.push({
+        name: "Bienvenue sur votre profil",
+        href: "",
+        current: true,
+      });
+    }
   }
 
   // wait for the data to be fetched
-  if (pages.length < 1) {
-    return <div>Loading...</div>;
-  }
+  if (pages.length < 1) return <Loading />;
 
   return (
     <nav

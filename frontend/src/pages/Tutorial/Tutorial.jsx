@@ -61,7 +61,10 @@ export default function Tutorial() {
   }, [userJourney]);
 
   useEffect(() => {
-    if (validate)
+    if (
+      validate &&
+      userJourney.find((j) => j.id === parseInt(tutorialId, 10)) === false
+    )
       postJourney(
         tutorialId,
         userInfos.userId,

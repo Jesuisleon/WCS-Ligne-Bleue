@@ -9,6 +9,8 @@ import { AuthContext } from "@context/AuthContext";
 
 import { motion } from "framer-motion";
 
+import Loading from "@components/Loading";
+
 import TutorialCard from "@components/TutorialCard";
 
 const { useParams } = ReactRouter;
@@ -67,9 +69,7 @@ export default function Theme() {
     setNavigationTitle("Theme");
   }, []);
 
-  if (dataWithJourney === undefined) {
-    return <div>Chargement...</div>;
-  }
+  if (dataWithJourney === undefined) return <Loading />;
 
   return (
     <div className="my-2 mx-4 sm:mx-10 xl:mx-14 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 sm:gap-2 ">
