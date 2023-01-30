@@ -74,7 +74,7 @@ const add = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("La combinaison Email/Mot de passe est incorrect");
+      res.status(500).send("L'adresse email est déjà utilisé");
     });
 };
 
