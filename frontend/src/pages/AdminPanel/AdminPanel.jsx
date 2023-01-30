@@ -111,7 +111,7 @@ export default function AdminPanel() {
           <div className="flex justify-center">
             <DropdownMenu
               onChange={setThemesFilters}
-              title="Filtrer les thémes"
+              title="Filtrer les thèmes"
               type="checkbox"
               data={themesFiltered}
               icon={<ThemeIcon />}

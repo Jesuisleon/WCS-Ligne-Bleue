@@ -89,13 +89,17 @@ INSERT INTO `theme` VALUES (1,'Utiliser ligne bleue','/image/telephone.png'),(2,
 DROP TABLE IF EXISTS `tuto_hashtag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tuto_hashtag` (
-  `tutorial_id` int NOT NULL,
-  `hashtag_id` int NOT NULL,
-  PRIMARY KEY (`tutorial_id`,`hashtag_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+-- CREATE TABLE `tuto_hashtag` (
+--   `tutorial_id` int NOT NULL,
+--   `hashtag_id` int NOT NULL,
+--   PRIMARY KEY (`tutorial_id`,`hashtag_id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
+CREATE TABLE tuto_hashtag (
+    tutorial_id INTEGER REFERENCES tutorial (id) ON DELETE CASCADE,
+    hashtag_id INTEGER REFERENCES hashtag (id) ON DELETE CASCADE,
+    PRIMARY KEY (tutorial_id, hashtag_id)  
+) ;
 --
 -- Dumping data for table `tuto_hashtag`
 --
@@ -173,14 +177,23 @@ INSERT INTO `user` VALUES (1,'admin','admin','adminlaposte@gmail.com','$argon2id
 DROP TABLE IF EXISTS `user_journey`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user_journey` (
-  `user_id` int NOT NULL,
-  `tutorial_id` int NOT NULL,
-  `rating` int DEFAULT NULL,
-  `comment` varchar(255) DEFAULT NULL,
-  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`user_id`,`tutorial_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- CREATE TABLE `user_journey` (
+--   `user_id` int NOT NULL,
+--   `tutorial_id` int NOT NULL,
+--   `rating` int DEFAULT NULL,
+--   `comment` varchar(255) DEFAULT NULL,
+--   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--   PRIMARY KEY (`user_id`,`tutorial_id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE user_journey (
+    user_id INTEGER REFERENCES user (id) ON DELETE CASCADE,
+    tutorial_id INTEGER REFERENCES tutorial (id) ON DELETE CASCADE,
+    rating INTEGER,
+    comment varchar(255),
+    creation_date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, tutorial_id)
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
