@@ -53,7 +53,7 @@ export default function NotificationWithActions({
                     <p className="mt-1 text-sm text-gray-500">{message}</p>
                     <div className="mt-3 flex space-x-7">
                       <button
-                        onClick={nextStep}
+                        onClick={() => nextStep()}
                         type="button"
                         className="bg-white rounded-md text-sm font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                       >

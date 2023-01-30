@@ -2,6 +2,7 @@ import * as ReactRouter from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 import axios from "axios";
+import ModalDelete from "@components/notifications/modalDelete";
 import regexDate from "../../services/utils/utilFunctions";
 
 const { Link } = ReactRouter;
@@ -18,12 +19,17 @@ export default function TutorialList({
 
   const [refreshList, setRefreshList] = useState(false);
   const [refreshListSort, setRefreshListSort] = useState(false);
+  // LOADING DATA
+  const [isLoading, setIsLoading] = useState(true);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteTutoId, setDeleteTutoId] = useState();
 
   useEffect(() => {
     axios
       .get(`/tutorials-rating`)
       .then((response) => {
         setData(response.data);
+        setIsLoading(false);
         // setTutoList(response.data);
       })
       .catch((error) => {
@@ -36,6 +42,18 @@ export default function TutorialList({
       .put(`/tutorials-published/${tutoId}`, publish)
       .then(() => {
         setRefreshList(!refreshList);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const deleteTutorial = () => {
+    axios
+      .delete(`/tutorials/${deleteTutoId}`)
+      .then(() => {
+        setRefreshList(!refreshList);
+        setOpenDelete(false);
       })
       .catch((err) => {
         console.error(err);
@@ -89,6 +107,11 @@ export default function TutorialList({
 
     setTutoList(listTemp);
     setRefreshListSort(!refreshListSort);
+  };
+
+  const confirmDelete = (tutoId) => {
+    setDeleteTutoId(tutoId);
+    setOpenDelete(true);
   };
 
   return (
@@ -279,7 +302,12 @@ export default function TutorialList({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {tutoList &&
+                  {isLoading ? (
+                    <tr>
+                      <td>Chargement...</td>
+                    </tr>
+                  ) : (
+                    tutoList &&
                     tutoList.map((dataTuto) => (
                       <tr key={dataTuto.id}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
@@ -329,6 +357,17 @@ export default function TutorialList({
                             : "-"}
                         </td>
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                          <button
+                            type="button"
+                            className="text-blue-600 hover:text-blue-900 px-3"
+                          >
+                            <Link
+                              className=""
+                              to={`/theme/${dataTuto.theme_id}/tutorial/${dataTuto.id}`}
+                            >
+                              <p>Afficher</p>
+                            </Link>
+                          </button>
                           <Link
                             to={`/createtutorial/${dataTuto.id}`}
                             className="text-blue-600 hover:text-blue-900 px-3"
@@ -337,25 +376,30 @@ export default function TutorialList({
                           </Link>
                           <button
                             type="button"
-                            className="text-blue-600 hover:text-blue-900"
+                            onClick={() => confirmDelete(dataTuto.id)}
+                            className="text-red-600 hover:text-red-700 px-3"
                           >
-                            <Link
-                              className=""
-                              to={`/theme/${dataTuto.theme_id}/tutorial/${dataTuto.id}`}
-                            >
-                              {" "}
-                              <p>Afficher</p>
-                            </Link>
+                            <p>Supprimer</p>
                           </button>
                         </td>
                       </tr>
-                    ))}
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
+      {openDelete && (
+        <ModalDelete
+          open={openDelete}
+          setOpen={setOpenDelete}
+          title="supprimer"
+          message="Souhaitez vous vraiment supprimer définitivement ce tutoriel?"
+          nextStep={() => deleteTutorial()}
+        />
+      )}
     </div>
   );
 }
