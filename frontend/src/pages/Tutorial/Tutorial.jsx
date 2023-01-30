@@ -20,7 +20,6 @@ export default function Tutorial() {
   const [data, setData] = useState(null);
   useEffect(() => {
     if (data) {
-      document.title = data.title;
       setNavigationTitle(data.title);
     }
   }, [data]);
@@ -73,49 +72,69 @@ export default function Tutorial() {
   if (data === null) return <div>Loading...</div>;
 
   return (
-    <div className="flex flex-col gap-10 mb-10 px-4 md:px-20">
+    <div className="flex flex-col gap-14 mb-10 px-4 md:px-20 text-lg text-gray-800 divide-gray-200 ">
       {/* HEADER */}
-      <div className="flex flex-col gap-6 p-10 border-x-4 border-b-4 border-dashed border-blue-700">
-        <div className="flex gap-2 items-end">
-          <div className="flex flex-col items-start gap-2">
-            <h1 className="text-xl text-blue-700 font-semibold">Objectif</h1>
-            <p className="text-blue-500 first-letter:capitalize">
+
+      <div className="flex flex-col gap-6 pt-10">
+        
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-14">
+
+        <div className="flex flex-col items-start sm:gap-2">
+            <h1 className="text-4xl font-semibold">Titre</h1>
+            <p className=" first-letter:capitalize">
+              {data.title}
+            </p>
+          </div>
+
+          <div className="flex flex-col items-start sm:gap-2">
+            <h1 className="text-4xl font-semibold">Objectif</h1>
+            <p className="first-letter:capitalize">
               {data.objective}
             </p>
           </div>
+
         </div>
-        <div className="flex flex-col gap-2">
-          <h2 className="text-xl text-blue-700 font-semibold">Description</h2>
+
+        <div className="flex flex-col sm:gap-2">
+          <h2 className="text-4xl font-semibold">
+            Description
+          </h2>
           <div
-            className="text-blue-500 first-letter:capitalize"
+            className="first-letter:capitalize"
             dangerouslySetInnerHTML={createMarkup(data.description)}
           />
         </div>
+
       </div>
 
       {/* STEPPERS */}
-      {data.step.map((step) => {
-        if (step.type === "quiz") {
+      <div>
+        <h1 className="text-4xl font-semibold sm:mb-2">Tutoriel</h1>
+        <div className="flex flex-col items-center gap-6">
+        {data.step.map((step) => {
+          if (step.type === "quiz") {
+            return (
+              <div key={step.id} className="w-full">
+                <Quiz key={step.id} data={step.content} />
+              </div>
+            );
+          }
           return (
-            <div key={step.id} className="rounded-xl my-4 py-2">
-              <Quiz key={step.id} data={step.content} />
+            <div key={step.id} className="">
+              <div
+                className="flex justify-center"
+                dangerouslySetInnerHTML={createMarkup(step.content)}
+              />
             </div>
           );
-        }
-        return (
-          <div key={step.id} className="rounded-xl my-4 py-2">
-            <div
-              className="flex justify-center"
-              dangerouslySetInnerHTML={createMarkup(step.content)}
-            />
-          </div>
-        );
-      })}
+        })}
+        </div>
+      </div>
 
       {/* VALIDATOR */}
       {userInfos.userId && (
-        <div className="bg-gradient-to-b from-blue-600 to-blue-900 w-full xl:w-1/2 rounded-md text-white flex flex-col justify-center items-center gap-6 py-4 mx-auto mt-4">
-          {validate === false && <h2 className="h1-font">L'envie d'avis</h2>}
+        <div className="bg-gray-50 border-2 shadow-lg w-full xl:w-1/2 rounded text-gray-800 flex flex-col justify-center items-center gap-8 py-6 mx-auto mt-4">
+          {validate === false && <h2 className="text-4xl font-semibold">Votre avis</h2>}
           <Rating validate={validate} setData={setNewData} data={newData} />
           <Comments validate={validate} setData={setNewData} data={newData} />
           <button

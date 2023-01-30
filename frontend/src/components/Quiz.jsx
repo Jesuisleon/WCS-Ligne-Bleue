@@ -13,7 +13,7 @@ function Quiz({ data }) {
   };
 
   return (
-    <div className="bg-white border-2 rounded-md">
+    <div className="bg-white border-2 rounded-md p-2 sm:p-4">
       {data &&
         data.map((item, index) => (
           <Question
@@ -27,7 +27,7 @@ function Quiz({ data }) {
         ))}
       {data && currentQuestion === data.length && (
         <div className="pt-2">
-          <h2 className="text-xl font-bold w-fit">
+          <h2 className="text-lg font-bold w-fit">
             {`Vous avez trouvé ${score} réponse sur ${data.length}`}
           </h2>
         </div>
@@ -98,21 +98,23 @@ function Question({
   return (
     <div>
       <div
-        className={`pt-4 pb-2 pl-4 flex gap-4 items-center bg-blue-700 text-white ${
+        className={`pt-4 pb-2 px-4 border-b-4 border-white flex gap-4 items-center bg-blue-700 text-white ${
           isSubmitted && isCorrect && "bg-green-500"
         }
         ${isSubmitted && !isCorrect && "bg-red-500"}`}
       >
-        <h2
-          className={`text-xl font-bold ${
-            currentQuestion < questionIndex && "text-gray-400"
-          } `}
-        >
-          {questionIndex + 1}. {question}
-        </h2>
-        {isSubmitted === false && (
-          <p>{isMultipleCorrect && "(Plusieurs réponses sont possible)"}</p>
-        )}
+        <div>
+          <h2
+            className={`text-lg font-bold ${
+              currentQuestion < questionIndex && "text-gray-400"
+            } `}
+          >
+            {questionIndex + 1}. {question}
+          </h2>
+          {isSubmitted === false && (
+            <p className="text-sm italic">{isMultipleCorrect && "Plusieurs réponses sont possibles"}</p>
+          )}
+        </div>
         {currentQuestion > questionIndex && (
           <div
             onKeyDown={(event) => {

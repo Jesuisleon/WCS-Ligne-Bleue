@@ -37,6 +37,7 @@ function Comments({ validate, data, setData }) {
         className="w-full text-black p-2 rounded-md"
         name="comments"
         id="comments"
+        maxLength="500"
         value={comments}
         onChange={(e) => setComments(e.target.value)}
       />

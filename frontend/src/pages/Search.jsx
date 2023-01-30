@@ -19,7 +19,9 @@ export default function Search() {
 
   const [searchValue, setSearchValue] = useState("");
 
+
   const [searchResult, setSearchResult] = useState([]);
+  console.log("🚀 ~ file: Search.jsx:24 ~ Search ~ searchResult", searchResult)
 
   // TRANSFORM RESULT WITH USER ID JOURNEY
   useEffect(() => {

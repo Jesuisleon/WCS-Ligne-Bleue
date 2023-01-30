@@ -14,6 +14,8 @@ export default function Breadcrumb({ navigation, themeTitle, tutorialTitle }) {
   }
   if (navigation === "tutorial") {
     const { tutorialId, themeId } = useParams();
+    // check windows width to display the theme title or not
+    if (window.innerWidth > 768) {
     pages.push(
       { name: themeTitle, href: `/theme/${themeId}`, current: false },
       {
@@ -22,6 +24,15 @@ export default function Breadcrumb({ navigation, themeTitle, tutorialTitle }) {
         current: true,
       }
     );
+    } else {
+      pages.push(
+        {
+          name: tutorialTitle,
+          href: `/theme/${themeId}/tutorial/${tutorialId}`,
+          current: true,
+        }
+      );
+    }
   }
   if (navigation === "search") {
     pages.push({
@@ -71,7 +82,7 @@ export default function Breadcrumb({ navigation, themeTitle, tutorialTitle }) {
               </svg>
               <Link
                 to={page.href}
-                className="ml-4 text-sm sm:text-lg font-semibold antialiased text-blue-700 hover:text-blue-600"
+                className="ml-4 text-lg sm:text-lg font-semibold antialiased text-blue-700 hover:text-blue-600"
                 aria-current={page.current ? "page" : undefined}
               >
                 {page.name}
