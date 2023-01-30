@@ -7,6 +7,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 
 export default function SidePreview({ open, setOpen, getData }) {
+  
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function SidePreview({ open, setOpen, getData }) {
                       <div className="ml-3 flex h-7 items-center">
                         <button
                           type="button"
-                          className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                          className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                           onClick={() => setOpen(false)}
                         >
                           <span className="sr-only">Close panel</span>

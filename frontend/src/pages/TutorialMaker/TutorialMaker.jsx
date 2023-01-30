@@ -167,19 +167,6 @@ export default function TutorialMaker() {
       });
   };
 
-  // // GET DATA FUNCTIONS
-  // const getSideBarData = () => {
-  //   const updatedData = childsRefs.current[0].getData();
-  //   if (!updatedData) {
-  //     setOpenModalSimple(true);
-  //     setIsWrongSubmit(true);
-  //     setSave(false);
-  //   } else {
-  //     setSideBarData(updatedData);
-  //     setSave(true);
-  //   }
-  // };
-
   const getData = () => {
     const updatedStep = [...stepsData];
 
