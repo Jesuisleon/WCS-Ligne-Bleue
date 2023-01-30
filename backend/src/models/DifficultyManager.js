@@ -8,6 +8,13 @@ class ThemeManager extends AbstractManager {
   findAllName() {
     return this.connection.query(`select * from ${this.table}`);
   }
+
+  insert(difficulty) {
+    return this.connection.query(
+      `insert into ${this.table} (name) values (?)`,
+      [difficulty.name]
+    );
+  }
 }
 
 module.exports = ThemeManager;

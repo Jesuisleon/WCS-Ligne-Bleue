@@ -257,6 +257,7 @@ export default function TutorialMaker() {
           navigate(`/theme/${sideBarData.theme}/tutorial/${id}`);
         }}
       />
+
       {/* SideBar */}
       <Sticky enabled top={0} innerZ={20} activeClass="sticky-nav-active">
         <div className="absolute right-[1em]">

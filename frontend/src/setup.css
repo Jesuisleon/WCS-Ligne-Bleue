@@ -61,7 +61,7 @@ input {
 }
 
 .h1-font {
-  @apply text-xl text-white font-semibold;
+  @apply text-xl text-gray-700 font-semibold;
 }
 
 .p-font {

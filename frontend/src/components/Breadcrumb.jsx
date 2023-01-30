@@ -1,27 +1,41 @@
 import { Link, useParams } from "react-router-dom";
 
+import { useContext } from "react";
+import { AuthContext } from "@context/AuthContext";
+
+import Loading from "@components/Loading";
+
 import { HomeIcon } from "@heroicons/react/solid";
 
 export default function Breadcrumb({ navigation, themeTitle, tutorialTitle }) {
-  const pages = [];
+  const { themeId, tutorialId, userId } = useParams();
+  const { userInfos } = useContext(AuthContext);
 
+  const pages = [];
   if (navigation === "home") {
     pages.push({ name: "Bienvenue", href: "/home", current: true });
   }
   if (navigation === "theme") {
-    const { themeId } = useParams();
     pages.push({ name: themeTitle, href: `/theme/${themeId}`, current: true });
   }
   if (navigation === "tutorial") {
-    const { tutorialId, themeId } = useParams();
-    pages.push(
-      { name: themeTitle, href: `/theme/${themeId}`, current: false },
-      {
+    // check windows width to display the theme title or not
+    if (window.innerWidth > 768) {
+      pages.push(
+        { name: themeTitle, href: `/theme/${themeId}`, current: false },
+        {
+          name: tutorialTitle,
+          href: `/theme/${themeId}/tutorial/${tutorialId}`,
+          current: true,
+        }
+      );
+    } else {
+      pages.push({
         name: tutorialTitle,
         href: `/theme/${themeId}/tutorial/${tutorialId}`,
         current: true,
-      }
-    );
+      });
+    }
   }
   if (navigation === "search") {
     pages.push({
@@ -31,13 +45,23 @@ export default function Breadcrumb({ navigation, themeTitle, tutorialTitle }) {
     });
   }
   if (navigation === "profil") {
-    pages.push({ name: "Bienvenue sur votre profil", href: "", current: true });
+    if (userInfos.isAdmin && userId !== userInfos.userId) {
+      pages.push({
+        name: `Profil d'un utilisateur`,
+        href: "",
+        current: true,
+      });
+    } else {
+      pages.push({
+        name: "Bienvenue sur votre profil",
+        href: "",
+        current: true,
+      });
+    }
   }
 
   // wait for the data to be fetched
-  if (pages.length < 1) {
-    return <div>Loading...</div>;
-  }
+  if (pages.length < 1) return <Loading />;
 
   return (
     <nav
@@ -71,7 +95,7 @@ export default function Breadcrumb({ navigation, themeTitle, tutorialTitle }) {
               </svg>
               <Link
                 to={page.href}
-                className="ml-4 text-sm sm:text-lg font-semibold antialiased text-blue-700 hover:text-blue-600"
+                className="ml-4 text-lg sm:text-lg font-semibold antialiased text-blue-700 hover:text-blue-600"
                 aria-current={page.current ? "page" : undefined}
               >
                 {page.name}

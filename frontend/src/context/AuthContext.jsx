@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 export function AuthContextProvider({ children }) {
   const [userToken, setUserToken] = useState(Cookies.get("userToken") || null);
   const [userInfos, setUserInfos] = useState({});
-  const [userJourney, setUserJourney] = useState({});
+  const [userJourney, setUserJourney] = useState([]);
   const [checkBoxFilter, setCheckBoxFilter] = useState("");
 
   const setUserTokenCookie = (token) => {

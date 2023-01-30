@@ -1,5 +1,6 @@
 export function TextAreaInput({
   defaultValue,
+  maxlength,
   handleInput,
   invalid,
   isSubmit,
@@ -21,6 +22,7 @@ export function TextAreaInput({
           onChange={handleInput}
           id="project-description"
           name="project-description"
+          maxLength={maxlength}
           rows={3}
           style={{ resize: "none" }}
           className={`block w-full rounded-md border shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${

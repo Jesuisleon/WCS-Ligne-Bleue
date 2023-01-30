@@ -60,7 +60,7 @@ export default function Search() {
   }, [searchValue]);
 
   return (
-    <div className="flex-grow flex flex-col px-4 sm:px-6 md:px-8 lg:px-60 py-5 align-center">
+    <div className="flex-grow flex flex-col px-4 sm:px-6 md:px-8 lg:px-40 py-5 align-center">
       <div className="bg-gradient-to-b from-blue-700 to-blue-900 p-4 sm:p-8 md:p-6 lg:p-8 flex flex-col justify-center items-center rounded-lg shadow-lg text-center">
         <div className="text-xl font-medium text-center flex align-center">
           <FaSearch className="h-6 w-6 text-yellow-400 group-hover:text-[#1d4ed8] mr-2 mb-4" />
@@ -101,7 +101,7 @@ export default function Search() {
       <div className="my-2 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 sm:gap-2 ">
         {tutorial &&
           tutorial.map((e) =>
-            e.published === true ? (
+            e.published === 1 ? (
               <motion.div
                 key={e.id}
                 initial={{ opacity: 0, scale: 0.5 }}

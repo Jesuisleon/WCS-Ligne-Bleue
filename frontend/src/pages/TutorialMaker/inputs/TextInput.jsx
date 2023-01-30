@@ -2,6 +2,7 @@ export function TextInput({
   type,
   name,
   placeholder,
+  maxlength,
   defaultValue,
   handleInput,
   invalid,
@@ -22,6 +23,7 @@ export function TextInput({
         <input
           onChange={handleInput}
           placeholder={placeholder}
+          maxLength={maxlength}
           name={type}
           id={type}
           type="text"

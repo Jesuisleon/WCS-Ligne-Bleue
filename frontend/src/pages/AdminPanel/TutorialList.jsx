@@ -1,8 +1,12 @@
 import * as ReactRouter from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { HiChevronDown, HiChevronUp } from "react-icons/hi";
+
 import axios from "axios";
 import ModalDelete from "@components/notifications/modalDelete";
+
+import Loading from "@components/Loading";
+
+import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 import regexDate from "../../services/utils/utilFunctions";
 
 const { Link } = ReactRouter;
@@ -125,9 +129,9 @@ export default function TutorialList({
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      className="flex-inline min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
-                      <div className="group inline-flex">Thème</div>
+                      <p className="group inline-flex">Thème</p>
                       <button
                         type="button"
                         onClick={() => sortList("theme_name", "up")}
@@ -150,11 +154,12 @@ export default function TutorialList({
                         </span>
                       </button>
                     </th>
+
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      className="flex-inline min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
-                      <div className="group inline-flex">Tutoriel</div>
+                      <p className="group inline-flex">Tutoriel</p>
                       <button
                         type="button"
                         onClick={() => sortList("title", "up")}
@@ -177,11 +182,12 @@ export default function TutorialList({
                         </span>
                       </button>
                     </th>
+
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      className="flex-inline min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
-                      <div className="group inline-flex">En ligne</div>
+                      <p className="group inline-flex">En ligne</p>
                       <button
                         type="button"
                         onClick={() => sortListNumber("published", "up")}
@@ -199,16 +205,17 @@ export default function TutorialList({
                         onClick={() => sortListNumber("published", "down")}
                         className="group inline-flex"
                       >
-                        <span className=" flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
+                        <span className="flex-inline flex-none rounded text-gray-400 group-hover:visible group-focus:visible">
                           <HiChevronUp className="h-5 w-5" aria-hidden="true" />
                         </span>
                       </button>
                     </th>
+
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      className="flex-inline min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
-                      <div className="group inline-flex">Crée le</div>
+                      <p className="group inline-flex">Crée le</p>
                       <button
                         type="button"
                         onClick={() => sortList("creation_date", "up")}
@@ -231,11 +238,12 @@ export default function TutorialList({
                         </span>
                       </button>
                     </th>
+
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      className="flex-inline min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
-                      <div className="group inline-flex">Modifié le</div>
+                      <p className="group inline-flex">Modifié le</p>
                       <button
                         type="button"
                         onClick={() => sortList("edition_date", "up")}
@@ -258,19 +266,21 @@ export default function TutorialList({
                         </span>
                       </button>
                     </th>
+
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="flex-inline min-w-max px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      <div type="button" className="group inline-flex">
+                      <p type="button" className="group inline-flex">
                         Commentaires
-                      </div>
+                      </p>
                     </th>
+
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      className="inline-flex min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-4"
                     >
-                      <div className="group inline-flex">Avis</div>
+                      <p className="group inline-flex">Avis</p>
                       <button
                         type="button"
                         onClick={() => sortListNumber("rating", "up")}
@@ -304,7 +314,9 @@ export default function TutorialList({
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {isLoading ? (
                     <tr>
-                      <td>Chargement...</td>
+                      <td className="flex justify-center bg-gray-50">
+                        <Loading />
+                      </td>
                     </tr>
                   ) : (
                     tutoList &&

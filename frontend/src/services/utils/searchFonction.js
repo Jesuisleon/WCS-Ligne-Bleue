@@ -35,6 +35,7 @@ const SearchTutorial = (searchPhrases, tuto) => {
     }
   });
   const match2 = match1.flat();
+
   match2.forEach(function f() {});
   const duplicateIds = match2.reduce((acc, curr) => {
     if (acc.hasOwnProperty(curr.id)) {
@@ -47,8 +48,8 @@ const SearchTutorial = (searchPhrases, tuto) => {
   const sortedMatches = Object.values(duplicateIds).sort(
     (a, b) => b.count - a.count
   );
-  const disableIfOffLine = sortedMatches.filter((e) => e.published === 1);
-  return disableIfOffLine;
+
+  return sortedMatches;
 };
 
 export default SearchTutorial;
