@@ -7,6 +7,7 @@ import axios from "axios";
 import { AuthContext } from "@context/AuthContext";
 
 import NotFound404 from "@components/NotFound404";
+import Loading from "@components/Loading";
 
 import Quiz from "@components/Quiz";
 
@@ -93,7 +94,7 @@ export default function Tutorial() {
     return { __html: content };
   };
 
-  if (data === null) return <div>Loading...</div>;
+  if (data === null) return <Loading />;
 
   if (data !== null && userInfos.isAdmin === 0 && data.published === 0) {
     return <NotFound404 />;

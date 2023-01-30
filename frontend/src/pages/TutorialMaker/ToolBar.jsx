@@ -1,3 +1,7 @@
+import { useState } from "react";
+
+import ModalDelete from "@components/notifications/modalDelete";
+
 import {
   HiOutlineTrash,
   HiOutlineChevronUp,
@@ -13,8 +17,16 @@ export default function ToolBar({
   moveStep,
   close,
 }) {
+  const [openModal, setOpenModal] = useState(false);
   return (
     <div className="bg-white px-4 py-3 sm:px-6 rounded-t-xl">
+      <ModalDelete
+        open={openModal}
+        setOpen={() => setOpenModal(false)}
+        title="Supprimer"
+        message="Souhaitez vous vraiment supprimer définitivement ce contenue ?"
+        nextStep={close}
+      />
       <div className="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-nowrap">
         <div className="ml-4 mt-2 ">
           <h3 className="text-md leading-6 font-medium text-gray-400 first-letter:capitalize">
@@ -93,7 +105,7 @@ export default function ToolBar({
           <button
             type="button"
             className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            onClick={close}
+            onClick={() => setOpenModal(true)}
           >
             <HiOutlineTrash color="red" size={17} />
           </button>

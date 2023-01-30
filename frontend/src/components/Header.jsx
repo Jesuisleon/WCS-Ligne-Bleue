@@ -171,7 +171,7 @@ export default function Header() {
                                   </div>
                                   <div className="ml-4">
                                     <p className="text-base font-medium text-gray-900">
-                                      Dashboard
+                                      Menu Admin
                                     </p>
                                     <p className="mt-1 text-sm text-gray-500">
                                       Gérer le site
