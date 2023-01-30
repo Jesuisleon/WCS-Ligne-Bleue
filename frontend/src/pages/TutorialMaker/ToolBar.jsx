@@ -8,7 +8,6 @@ import {
   HiOutlineChevronDown,
 } from "react-icons/hi";
 
-
 export default function ToolBar({
   type,
   stepIndex,
@@ -18,16 +17,16 @@ export default function ToolBar({
   moveStep,
   close,
 }) {
-
   const [openModal, setOpenModal] = useState(false);
   return (
     <div className="bg-white px-4 py-3 sm:px-6 rounded-t-xl">
       <ModalDelete
-          open={openModal}
-          setOpen={() => setOpenModal(false)}
-          title="Supprimer"
-          message="Souhaitez vous vraiment supprimer définitivement ce contenue ?"
-          nextStep={close} />
+        open={openModal}
+        setOpen={() => setOpenModal(false)}
+        title="Supprimer"
+        message="Souhaitez vous vraiment supprimer définitivement ce contenue ?"
+        nextStep={close}
+      />
       <div className="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-nowrap">
         <div className="ml-4 mt-2 ">
           <h3 className="text-md leading-6 font-medium text-gray-400 first-letter:capitalize">
