@@ -44,15 +44,16 @@ router.post(
   verifyPassword
 );
 
+router.get(
+  "/journeys-validation/:userId",
+  tutorialControllers.readAllTutorialAndSayIfUserValidateIt
+);
+
 // Not public routes
 router.use(verifyToken, verifyAdmin); // authentication wall : verifyToken is activated for each route after this line
 
 // Journey routes
 router.get("/journeys/:userId", journeyControllers.readAllForUser);
-router.get(
-  "/journeys-validation/:userId",
-  tutorialControllers.readAllTutorialAndSayIfUserValidateIt
-);
 router.get("/journeys", journeyControllers.browse);
 router.post("/journey", journeyControllers.add);
 router.get("/journeys-comments/:id", journeyControllers.browseTutoComments);

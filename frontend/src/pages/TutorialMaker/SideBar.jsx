@@ -125,6 +125,7 @@ const SideBar = forwardRef(
                             type="title"
                             name="Titre"
                             placeholder="Choississez un titre pour votre tutoriel"
+                            maxlength="50"
                             defaultValue={data ? data.title : ""}
                             handleInput={(e) =>
                               handleInput(e.target.value, { id: "title" })
@@ -137,6 +138,7 @@ const SideBar = forwardRef(
                             type="objective"
                             name="Objectif"
                             placeholder="Quel est l'objectif de votre tutoriel ?"
+                            maxlength="80"
                             defaultValue={data ? data.objective : ""}
                             handleInput={(e) =>
                               handleInput(e.target.value, { id: "objective" })
@@ -151,6 +153,7 @@ const SideBar = forwardRef(
                               handleInput(e.target.value, { id: "description" })
                             }
                             defaultValue={data ? data.description : ""}
+                            maxlength="1000"
                             invalid={invalid.description}
                             isSubmit={isWrongSubmit}
                           />

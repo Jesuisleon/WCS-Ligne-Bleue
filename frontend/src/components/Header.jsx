@@ -5,13 +5,21 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Header() {
-  const { userToken, setUserTokenCookie, userInfos } = useContext(AuthContext);
+  const {
+    userToken,
+    setUserTokenCookie,
+    userInfos,
+    setUserInfos,
+    setUserJourney,
+  } = useContext(AuthContext);
   const { userFirstName, userId } = userInfos;
   const navigate = useNavigate();
 
   const handleDisconnect = (event) => {
     event.stopPropagation();
     setUserTokenCookie(null);
+    setUserJourney([]);
+    setUserInfos({});
     navigate("/home");
   };
 

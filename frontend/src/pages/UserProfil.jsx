@@ -15,6 +15,7 @@ import {
 import DropdownMenu from "@components/DropdownMenu";
 import TutorialCard from "@components/TutorialCard";
 
+import Loading from "@components/Loading";
 import { adminLookingOtherProfile } from "../services/utils/utils";
 
 // FOR TUTORIAL CONTENT
@@ -180,6 +181,7 @@ function UserProfil() {
         isChecked: true,
         available: true,
       }));
+      // setThemesFiltered(theme);
       updateThemes(theme, tutorialsFiltered);
     }
   }, [loading]);
@@ -248,9 +250,7 @@ function UserProfil() {
   };
 
   // LOADING BEFORE GETTING DATA
-  if (loading) {
-    return <div>Chargement...</div>;
-  }
+  if (loading) return <Loading />;
 
   return !isLoading ? (
     <div className="px-4 sm:px-14 my-6 w-full">
@@ -258,7 +258,9 @@ function UserProfil() {
       {/* TITLE */}
       <div className="pb-2 border-b border-gray-200">
         <h3 className="text-base font-body text-gray-800 first-letter:capitalize">
-          Mes informations personnelles
+          {!adminLookOtherProfile
+            ? "Mes informations personnelles"
+            : "Informations personnelles de l'utilisateur"}
         </h3>
       </div>
       {/* USER INFO */}
@@ -294,14 +296,14 @@ function UserProfil() {
         <div className="w-full flex gap-6 items-center border-y">
           <DropdownMenu
             onChange={setTutorialsFilters}
-            title="Filtrer les tutorials"
+            title="Filtrer les tutoriels"
             type="radio"
             data={TutorialRadioContent}
             icon={<TutorialIcon />}
           />
           <DropdownMenu
             onChange={setThemesFilters}
-            title="Filtrer les thémes"
+            title="Filtrer les thèmes"
             type="checkbox"
             data={themesFiltered}
             icon={<ThemeIcon />}
@@ -346,7 +348,7 @@ function UserProfil() {
       ))}
     </div>
   ) : (
-    <h1>link</h1>
+    <Loading />
   );
 }
 

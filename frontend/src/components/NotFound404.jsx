@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import Loading from "@components/Loading";
+
 export default function NotFound404() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -10,9 +12,7 @@ export default function NotFound404() {
     }, 2000);
   }, []);
 
-  if (isLoading) {
-    return <div>Chargement...</div>;
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <div className="min-h-full pt-16 pb-12 flex flex-col">
