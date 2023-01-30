@@ -12,8 +12,8 @@ import QuizMaker from "@pages/TutorialMaker/QuizMaker";
 
 import Sticky from "react-stickynode";
 
-import NotificationWithActions from "@components/NotificationWithActions";
-import ModalSimple from "@components/ModalSimple";
+import NotificationWithActions from "@components/notifications/NotificationWithActions";
+import ModalSimple from "@components/notifications/ModalSimple";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
@@ -189,39 +189,7 @@ export default function TutorialMaker() {
     setStepsData(updatedStep);
   };
 
-  // UPLOAD IMAGE FUNCTIONS
-  const getImageSteps = (data) => {
-    const image = data.filter(({ type }) => type === "image");
-    return image;
-  };
-
-  const getSrcImage = (data) => {
-    return data.map(
-      ({ content }) => content.split("src")[1].split("alt")[0].split('"')[1]
-    );
-  };
-
-  const getDeletedHost = (data) => {
-    return data.map((item) => item.split(VITE_BACKEND_URL)[1]);
-  };
-
-  const setDeletedHostToContent = (data) => {
-    return stepsData.map((item) => {
-      if (item.type === "image") {
-        return {
-          ...item,
-          content: item.content.replace(/src="[^"]+"/, `src="${data}"`),
-        };
-      }
-      return item;
-    });
-  };
-
   const saveData = () => {
-    const updatedStepsData = setDeletedHostToContent(
-      getDeletedHost(getSrcImage(getImageSteps(stepsData)))
-    );
-
     const data = {
       title: sideBarData.title,
       objective: sideBarData.objective,
@@ -229,7 +197,7 @@ export default function TutorialMaker() {
       difficulty: sideBarData.difficulty,
       hashtag: sideBarData.hashtag,
       theme: sideBarData.theme,
-      step: JSON.stringify(updatedStepsData),
+      step: JSON.stringify(stepsData),
       author: "admin",
       published: sideBarData.published ? 1 : 0,
     };

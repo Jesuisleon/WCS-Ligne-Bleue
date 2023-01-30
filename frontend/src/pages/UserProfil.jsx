@@ -1,394 +1,309 @@
+import React, { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { Disclosure } from "@headlessui/react";
-import { ChevronUpIcon } from "@heroicons/react/20/solid";
-import { HiChevronDown } from "react-icons/hi";
-import { AuthContext } from "../context/AuthContext";
-import filterTutorialByThemeId from "../services/filterTutorialByThemeId";
+
+import { NavigationContext } from "@context/NavigationContext";
+import { AuthContext } from "@context/AuthContext";
+
 import {
-  FilterByOptionsSelected,
-  adminLookingOtherProfile,
-} from "../services/utils/utils";
+  Accordion,
+  AccordionHeader,
+  AccordionBody,
+} from "@material-tailwind/react";
+
+import DropdownMenu from "@components/DropdownMenu";
+import TutorialCard from "@components/TutorialCard";
+
+// FOR TUTORIAL CONTENT
+const TutorialRadioContent = [
+  {
+    id: 1,
+    name: "Tous les tutoriels",
+    isChecked: true,
+    available: true,
+  },
+  {
+    id: 2,
+    name: "Tutoriels à découvrir",
+    isChecked: false,
+    available: true,
+  },
+  {
+    id: 3,
+    name: "Tutoriels terminés",
+    isChecked: false,
+    available: true,
+  },
+];
+
+function TutorialIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-6 h-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
+      />
+    </svg>
+  );
+}
+
+// FOR THEME CONTENT
+function ThemeIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-6 h-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59"
+      />
+    </svg>
+  );
+}
+
+function Icon({ id, open }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className={`${
+        id === open ? "rotate-180" : ""
+      } h-5 w-5 transition-transform`}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+    </svg>
+  );
+}
 
 function UserProfil() {
-  const navigate = useNavigate();
+  // USER INFOS FROM CONTEXT
   const { userInfos } = useContext(AuthContext);
-  const { userId } = useParams();
-  const [infosUser, setInfosUser] = useState("");
-  const [tutorials, setTutorials] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
-  const [themeFilters, setThemeFilters] = useState("");
-  const [selectedOption, setSelectedOption] = useState("Tout");
-  const userContextId = parseInt(userId, 10);
-  const adminLookOtherProfile = adminLookingOtherProfile(
-    userInfos.isAdmin,
-    userContextId,
-    userInfos.userId
-  );
 
-  const handleSelectedOption = (e) => {
-    setSelectedOption(e.target.value);
+  // TUTORIAL DATA
+  const [tutorialsFiltered, setTutorialsFiltered] = useState([]);
+
+  // GET TUTORIALS FROM DATABASE WITH USER ID JOURNEY
+  useEffect(() => {
+    if (userInfos.userId) {
+      axios.get(`/journeys-validation/${userInfos.userId}`).then((res) => {
+        const tutorials = res.data.filter((tutorial) => tutorial.published);
+        tutorials.forEach((tutorial) => {
+          tutorial.isChecked = true;
+        });
+        setTutorialsFiltered(tutorials);
+      });
+    }
+  }, [userInfos]);
+
+  // NAVIGATION THEME FROM CONTEXT
+  const { navigationTheme } = useContext(NavigationContext);
+  // THEMES DATA
+  const [themesFiltered, setThemesFiltered] = useState([]);
+
+  // FUNCTION TO FILTER THEME WITHOUT TUTORIAL
+  function updateThemes(themes, tutorials) {
+    const updatedThemes = themes.map((theme) => {
+      return {
+        ...theme,
+        available:
+          tutorials.filter((tutorial) => tutorial.theme_id === theme.id)
+            .length !== 0,
+      };
+    });
+
+    setThemesFiltered(updatedThemes);
+  }
+
+  // LOADING DATA
+  const [loading, setLoading] = useState(true);
+
+  // FILTERS THEMES WHEN DATA FINISH TO LOAD
+  useEffect(() => {
+    if (loading === false) {
+      const theme = navigationTheme.map((e) => ({
+        id: e.id,
+        name: e.name,
+        isChecked: true,
+        available: true,
+      }));
+      updateThemes(theme, tutorialsFiltered);
+    }
+  }, [loading]);
+
+  // SET LOADING TO FALSE WHEN DATA IS LOADED
+  useEffect(() => {
+    if (navigationTheme.length > 0 && tutorialsFiltered.length > 0) {
+      setLoading(false);
+    }
+  }, [navigationTheme, tutorialsFiltered]);
+
+  // CHECKBOXES FILTERS
+  const setThemesFilters = (e) => {
+    const updatedThemes = e.filter((theme) => {
+      return theme.isChecked === true;
+    });
+    setThemesFiltered(updatedThemes);
   };
 
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [showDropdown2, setShowDropdown2] = useState(false);
-
-  useEffect(() => {
-    const theme = [];
-    axios
-      .get(`/home`)
-      .then((response) => {
-        response.data.map((e) =>
-          theme.push({ id: e.id, value: e.name, isChecked: true })
-        );
-      })
-      .then(() => {
-        if (userId) {
-          axios.get(`/journeys-validation/${userId}`).then((res) => {
-            setTutorials(res.data);
-          });
-        }
-      })
-      .then(() => {
-        if (userId) {
-          axios
-            .get(`/users/${userId}`)
-            .catch(() => {
-              return navigate("/Error");
-            })
-            .then((res) => {
-              if (!res) {
-                throw new Error("Le chargement du profil a échoué");
-              }
-              setInfosUser({
-                userFirstName: res.data.firstname,
-                userLastName: res.data.lastname,
-                userEmail: res.data.email,
-                isAdmin: res.data.admin,
-              });
-              setIsLoading(false);
-            });
+  // UPDATE TUTORIALS WITH RADIO FILTERS
+  const updateTutorials = (e) => {
+    const updatedTutorials = [...tutorialsFiltered];
+    if (e === 3) {
+      updatedTutorials.forEach((tutorial) => {
+        if (tutorial.user_id === null) {
+          tutorial.isChecked = false;
+        } else {
+          tutorial.isChecked = true;
         }
       });
+    } else if (e === 2) {
+      updatedTutorials.forEach((tutorial) => {
+        if (tutorial.user_id === null) {
+          tutorial.isChecked = true;
+        } else {
+          tutorial.isChecked = false;
+        }
+      });
+    } else {
+      updatedTutorials.forEach((tutorial) => {
+        tutorial.isChecked = true;
+      });
+    }
 
-    setThemeFilters(theme);
-  }, [userId]);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    updateThemes(
+      themesFiltered,
+      updatedTutorials.filter(({ isChecked }) => isChecked)
+    );
+    return updatedTutorials;
   };
 
-  const toggleDropdown2 = () => {
-    setIsOpen2(!isOpen2);
-  };
-
-  const handleOptionChange = (index) => {
-    const themeFiltersTemp = [...themeFilters];
-    themeFiltersTemp[index].isChecked = !themeFiltersTemp[index].isChecked;
-    setThemeFilters(themeFiltersTemp);
-  };
-
-  const handleUnSelect = () => {
-    const themeFiltersChangedToFalse = [];
-    themeFilters.forEach(function f(e) {
-      e.isChecked = false;
-      themeFiltersChangedToFalse.push(e);
+  // RADIO FILTERS
+  const setTutorialsFilters = (e) => {
+    const checkedRadio = e.filter((radio) => {
+      return radio.isChecked === true;
     });
-    setThemeFilters(themeFiltersChangedToFalse);
+    const updatedTutorials = updateTutorials(checkedRadio[0].id);
+    setTutorialsFiltered(updatedTutorials);
   };
 
-  const handleAllSelect = () => {
-    const themeFiltersChangedToTrue = [];
-    themeFilters.forEach(function f(e) {
-      e.isChecked = true;
-      themeFiltersChangedToTrue.push(e);
-    });
-    setThemeFilters(themeFiltersChangedToTrue);
+  // OPEN ACCORDION
+  const [open, setOpen] = useState(0);
+
+  const handleOpen = (value) => {
+    setOpen(open === value ? 0 : value);
   };
 
-  const tutorialFiltred = FilterByOptionsSelected(tutorials, selectedOption);
+  // LOADING BEFORE GETTING DATA
+  if (loading) {
+    return <div>Chargement...</div>;
+  }
 
   return (
-    <div>
-      {!isLoading && (
-        <div className="flex-col flex items-center  ">
-          <div className="w-full sm:w-1/2 p-4 sm:p-8 flex text-center justify-between border-b border-gray-400">
-            <div>
-              <div className="text-3xl font-bold text-gray-900 dark:text-black">
-                {infosUser.userFirstName} {infosUser.userLastName}
-              </div>
-              <p className="text-base text-gray-500 sm:text-lg dark:text-gray-400">
-                {!adminLookOtherProfile && infosUser.userEmail}
-              </p>
-            </div>
-            <div className="sm:flex sm:space-x-4 align-center my-4">
-              {!adminLookOtherProfile && (
-                <Link
-                  to="/userprofil/changepassword"
-                  className="w-full sm:w-auto bg-gradient-to-b from-blue-700 to-blue-900 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
-                >
-                  <div className="text-left">
-                    <div className="-mt-1 font-sans text-sm font-semibold">
-                      Modifier mon mot de passe
-                    </div>
-                  </div>
-                </Link>
-              )}
-            </div>
+    <div className="px-4 sm:px-14 my-6 w-full">
+      {/* MY PROFIL */}
+      {/* TITLE */}
+      <div className="pb-2 border-b border-gray-200">
+        <h3 className="text-base font-body text-gray-800 first-letter:capitalize">
+          Mes informations personnelles
+        </h3>
+      </div>
+      {/* USER INFO */}
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 sm:items-center py-6 sm:py-8">
+        <div>
+          <div className="text-3xl font-bold text-gray-900 dark:text-black first-letter:capitalize">
+            {`${userInfos.userFirstName} ${userInfos.userLastName}`}
           </div>
+          <p className="text-base text-gray-500 sm:text-base dark:text-gray-400">
+            {userInfos.userEmail}
+          </p>
         </div>
-      )}
+        <Link to="/userprofil/changepassword">
+          <p className="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+            modifier mon mot de passe
+          </p>
+        </Link>
+      </div>
 
-      {!isLoading && (
-        <fieldset
-          onMouseEnter={() => setShowDropdown(true)}
-          onMouseLeave={() => setShowDropdown(false)}
-          className="w-1/4 px-4 sm:px-6 lg:px-8 mt-2"
-        >
-          <button
-            id="dropdownDefaultButton"
-            onClick={toggleDropdown}
-            data-dropdown-toggle="dropdown"
-            className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            type="button"
-          >
-            Filtrer par themes <HiChevronDown size="20" />
-          </button>
-          <div
-            className={`${
-              showDropdown ? "absolute" : "hidden"
-            }  bg-gradient-to-b 
-          from-gray-100 
-          to-gray-200 border-t border-b border-gray-200 divide-y divide-gray-200 py-1`}
-          >
-            <button
-              type="button"
-              className="inline-flex items-center mx-2 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={handleUnSelect}
-            >
-              Aucun
-            </button>
-            <button
-              type="button"
-              className="inline-flex items-center mx-2 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 "
-              onClick={handleAllSelect}
-            >
-              Tous
-            </button>
-            {themeFilters &&
-              themeFilters.map((themfilter, index) => (
-                <div
-                  key={themfilter.value}
-                  className="relative flex items-start px-2 py-2"
-                >
-                  <div className="min-w-0 flex-1 text-sm">
-                    <label
-                      htmlFor="checkbox-item-11"
-                      className="font-medium text-gray-700 select-none"
-                    >
-                      {themfilter.value}
-                    </label>
-                  </div>
-                  <div className="ml-3 flex items-center h-5">
-                    <input
-                      id="checkbox-item-11"
-                      value=""
-                      type="checkbox"
-                      checked={themfilter.isChecked}
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                      onChange={() => handleOptionChange(index)}
-                    />
-                  </div>
-                </div>
-              ))}
-          </div>
-        </fieldset>
-      )}
-
-      {!isLoading && (
-        <fieldset
-          onMouseEnter={() => setShowDropdown2(true)}
-          onMouseLeave={() => setShowDropdown2(false)}
-          className="w-1/4 px-4 sm:px-6 lg:px-8 mt-2"
-        >
-          <button
-            id="dropdownDefaultButton"
-            onClick={toggleDropdown2}
-            data-dropdown-toggle="dropdown"
-            className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            type="button"
-          >
-            Filtrer par état des tutoriel <HiChevronDown size="20" />
-          </button>
-          <div
-            className={`${
-              showDropdown2 ? "absolute" : "hidden"
-            }  bg-gradient-to-b 
-          from-gray-100 
-          to-gray-200 border-t border-b border-gray-200 divide-y divide-gray-200 py-1`}
-          >
-            <div className="relative flex items-start px-2 py-2">
-              <div className="min-w-0 flex-1 text-sm">
-                <label
-                  htmlFor="checkbox-item-11"
-                  className="font-medium text-gray-700 select-none"
-                >
-                  Tout
-                </label>
-              </div>
-              <div className="ml-3 flex items-center h-5">
-                <input
-                  id="checkbox-item-11"
-                  name="Tout"
-                  value="Tout"
-                  type="radio"
-                  checked={selectedOption === "Tout"}
-                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                  onChange={handleSelectedOption}
-                />
-              </div>
-            </div>
-
-            <div className="relative flex items-start px-2 py-2">
-              <div className="min-w-0 flex-1 text-sm">
-                <label
-                  htmlFor="checkbox-item-11"
-                  className="font-medium text-gray-700 select-none"
-                >
-                  Validé
-                </label>
-              </div>
-              <div className="ml-3 flex items-center h-5">
-                <input
-                  id="checkbox-item-11"
-                  type="radio"
-                  name="Validé"
-                  value="Validé"
-                  checked={selectedOption === "Validé"}
-                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                  onChange={handleSelectedOption}
-                />
-              </div>
-            </div>
-
-            <div className="relative flex items-start px-2 py-2">
-              <div className="min-w-0 flex-1 text-sm">
-                <label
-                  htmlFor="checkbox-item-11"
-                  className="font-medium text-gray-700 select-none"
-                >
-                  A découvrir
-                </label>
-              </div>
-              <div className="ml-3 flex items-center h-5">
-                <input
-                  type="radio"
-                  name="A découvrir"
-                  value="A découvrir"
-                  checked={selectedOption === "A découvrir"}
-                  onChange={handleSelectedOption}
-                  id="checkbox-item-11"
-                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                />
-              </div>
-            </div>
-          </div>
-        </fieldset>
-      )}
-
-      {!isLoading && (
-        <div className="    ">
-          <div className=" flex  items-center flex-col ">
-            <h1 className="text-2xl font-bold py-2 mt-8">
-              {!adminLookOtherProfile
-                ? "Mes Tutoriels"
-                : `Parcours de ${infosUser.userFirstName} ${infosUser.userLastName}`}
-            </h1>
-          </div>
-
-          <div className="  flex  flex-col items-center  ">
-            {themeFilters
-              .filter((e) => e.isChecked === true)
-              .map((e) => (
-                <div key={e.id} className="w-1/2 ">
-                  <div className="mx-auto w-full   bg-gray-50 p-0 ">
-                    <Disclosure>
-                      {({ open }) => (
-                        <>
-                          <Disclosure.Button className="flex w-full  font-bold h-20 justify-between border-gray-400 items-center text-dark rounded-lg bg-gray-200 border px-4 py-2 text-left text-sm  focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
-                            <span>{e.value}</span>
-                            <ChevronUpIcon
-                              className={`${
-                                open ? "rotate-180 transform" : ""
-                              } h-8 w-8 text-black`}
-                            />
-                          </Disclosure.Button>
-                          <Disclosure.Panel className="  mb-4">
-                            <div className="mt-0 flex flex-col">
-                              <div className="overflow-x-auto">
-                                <div className="inline-block min-w-full w-1/2 align-middle">
-                                  <div className="overflow-hidden shadow font-ligther text-gray-600 rounded ">
-                                    <table className="min-w-full divide-y  ">
-                                      {filterTutorialByThemeId(
-                                        e.id,
-                                        tutorialFiltred
-                                      ).map((a) => (
-                                        <tbody
-                                          key={a.title}
-                                          className=" divide-black"
-                                        >
-                                          <tr className="border rounded-md  border-gray-400">
-                                            <td className="py-4 pl-4 pr-3 text-sm">
-                                              <div className="flex items-center">
-                                                <div className=" py-2 text-sm text-right">
-                                                  {a.title}
-                                                </div>
-                                              </div>
-                                            </td>
-                                            <td className="px-4 py-2 text-sm text-right">
-                                              <Link
-                                                to={`/theme/${a.theme_id}/tutorial/${a.id}`}
-                                              >
-                                                {a.user_id
-                                                  ? "re-faire le tutoriel"
-                                                  : "Faire le tutoriel !"}
-                                              </Link>
-                                            </td>
-
-                                            <td>
-                                              <div
-                                                className={`flex text-center text-xs font-medium py-1 rounded-full max-w-max ${
-                                                  a.user_id
-                                                    ? "bg-green-500 text-green-100"
-                                                    : "bg-indigo-100 text-indigo-800"
-                                                }`}
-                                              >
-                                                {a.user_id
-                                                  ? "Validé"
-                                                  : "A découvrir"}
-                                              </div>
-                                            </td>
-                                          </tr>
-                                        </tbody>
-                                      ))}
-                                    </table>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </Disclosure.Panel>
-                        </>
-                      )}
-                    </Disclosure>
-                  </div>
-                </div>
-              ))}
-          </div>
+      {/* MY JOURNEY */}
+      {/* TITLE */}
+      <div className="mt-4">
+        <div className="pb-2 pt-10 border-gray-200">
+          <h3 className="text-base font-body text-gray-800 first-letter:capitalize">
+            Mon parcours
+          </h3>
         </div>
-      )}
+        {/* MENUS */}
+        <div className="w-full flex gap-6 items-center border-y">
+          <DropdownMenu
+            onChange={setTutorialsFilters}
+            title="Filtrer les tutorials"
+            type="radio"
+            data={TutorialRadioContent}
+            icon={<TutorialIcon />}
+          />
+          <DropdownMenu
+            onChange={setThemesFilters}
+            title="Filtrer les thémes"
+            type="checkbox"
+            data={themesFiltered}
+            icon={<ThemeIcon />}
+          />
+        </div>
+      </div>
+      {/* THEMES */}
+      {themesFiltered.map((theme, index) => (
+        <Accordion
+          key={theme.id}
+          open={open === index + 1}
+          className="text-gray-700"
+          icon={<Icon id={index + 1} open={open} />}
+        >
+          {theme.available === true && (
+            <AccordionHeader
+              onClick={() => handleOpen(index + 1)}
+              className="bg-gray-50 px-4 text-base sm:text-xl text-start"
+            >
+              {theme.name}
+            </AccordionHeader>
+          )}
+          <AccordionBody>
+            {tutorialsFiltered.map((tutorial) => (
+              <div key={tutorial.id}>
+                {tutorial.theme_id === theme.id && tutorial.isChecked && (
+                  // TUTORIALS
+                  <TutorialCard
+                    title={tutorial.title}
+                    objective={tutorial.objective}
+                    date={tutorial.creation_date}
+                    difficulties={tutorial.difficulty_name}
+                    themeId={theme.id}
+                    tutorialId={tutorial.id}
+                    validate={tutorial.user_id}
+                  />
+                )}
+              </div>
+            ))}
+          </AccordionBody>
+        </Accordion>
+      ))}
     </div>
   );
 }

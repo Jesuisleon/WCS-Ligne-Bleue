@@ -16,33 +16,7 @@ function App() {
     "userToken"
   )}`;
 
-  // AXIOS || CAN BE USED TO LOG EVERY REQUESTS AND RESPONSES
-
-  // axios.interceptors.request.use(
-  //   (request) => {
-  //     console.log(request);
-  //     // Edit request config
-  //     return request;
-  //   },
-  //   (error) => {
-  //     console.log(error);
-  //     return Promise.reject(error);
-  //   }
-  // );
-
-  // axios.interceptors.response.use(
-  //   (response) => {
-  //     console.log(response);
-  //     // Edit response config
-  //     return response;
-  //   },
-  //   (error) => {
-  //     console.log(error);
-  //     return Promise.reject(error);
-  //   }
-  // );
-
-  const { setUserInfos } = useContext(AuthContext);
+  const { setUserInfos, setUserJourney } = useContext(AuthContext);
   const { setNavigationTheme } = useContext(NavigationContext);
 
   useEffect(() => {
@@ -58,7 +32,11 @@ function App() {
             userEmail: response.data.email,
             isAdmin: response.data.admin,
           });
+          axios.get(`/journeys-validation/${response.data.id}`).then((res) => {
+            setUserJourney(res.data);
+          });
         })
+
         .catch((error) => {
           console.error(error);
         });

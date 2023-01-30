@@ -11,8 +11,6 @@ import Quiz from "@components/Quiz";
 import Rating from "./Rating";
 import Comments from "./Comments";
 
-const { VITE_BACKEND_URL } = import.meta.env;
-
 export default function Tutorial() {
   const { userInfos } = useContext(AuthContext);
   const { setNavigationTitle } = useContext(NavigationContext);
@@ -29,7 +27,7 @@ export default function Tutorial() {
 
   const [newData, setNewData] = useState({ rating: null, comments: null });
 
-  const [validate, setValidata] = useState(false);
+  const [validate, setValidate] = useState(false);
 
   const postJourney = (tutoId, userId, rating, comment) => {
     axios
@@ -57,22 +55,6 @@ export default function Tutorial() {
       .get(`/tutorials/${tutorialId}`)
       .then((response) => {
         response.data.step = JSON.parse(response.data.step);
-
-        const updateSrcImage = response.data.step
-          .filter(({ type }) => type === "image")
-          .map((image) => {
-            const regex = /src="([^"])*"/;
-            const src = regex.exec(image.content)[0].split('"')[1];
-            const newSrc = `${VITE_BACKEND_URL}${src}`;
-            const updatedContent = image.content.replace(src, newSrc);
-            return { ...image, content: updatedContent };
-          });
-
-        response.data.step = [
-          ...response.data.step.filter(({ type }) => type !== "image"),
-          ...updateSrcImage,
-        ];
-
         setData(response.data);
       })
       .catch((error) => {
@@ -91,7 +73,7 @@ export default function Tutorial() {
   if (data === null) return <div>Loading...</div>;
 
   return (
-    <div className="flex flex-col gap-10 mb-10 px-20">
+    <div className="flex flex-col gap-10 mb-10 px-4 md:px-20">
       {/* HEADER */}
       <div className="flex flex-col gap-6 p-10 border-x-4 border-b-4 border-dashed border-blue-700">
         <div className="flex gap-2 items-end">
@@ -115,13 +97,13 @@ export default function Tutorial() {
       {data.step.map((step) => {
         if (step.type === "quiz") {
           return (
-            <div key={step.id} className="rounded-xl my-4 px-4 py-2">
+            <div key={step.id} className="rounded-xl my-4 py-2">
               <Quiz key={step.id} data={step.content} />
             </div>
           );
         }
         return (
-          <div key={step.id} className="rounded-xl my-4 px-4 py-2">
+          <div key={step.id} className="rounded-xl my-4 py-2">
             <div
               className="flex justify-center"
               dangerouslySetInnerHTML={createMarkup(step.content)}
@@ -140,7 +122,7 @@ export default function Tutorial() {
             className="bg-blue-500 text-white py-2 rounded-lg px-5"
             type="submit"
             onClick={() => {
-              setValidata(true);
+              setValidate(true);
             }}
           >
             Ok, c'est compris !

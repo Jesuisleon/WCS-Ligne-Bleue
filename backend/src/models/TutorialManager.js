@@ -21,7 +21,7 @@ class TutorialManager extends AbstractManager {
 
   findAllTutorialsForSearch() {
     return this.connection.query(
-      `select tutorial.id,tutorial.theme_id, theme.name as theme, tutorial.title, tutorial.description, tutorial.published from ${this.table} inner join theme on theme.id = tutorial.theme_id`
+      `select tutorial.id, tutorial.theme_id, theme.name as theme, tutorial.title,tutorial.objective, tutorial.published, difficulty.name as difficulty_name FROM ${this.table} INNER JOIN theme on theme.id = tutorial.theme_id left JOIN difficulty on difficulty.id = tutorial.difficulty_id`
     );
   }
 
@@ -66,8 +66,8 @@ class TutorialManager extends AbstractManager {
 
   findAllTutorialsAndSayIfValidated(userId) {
     return this.connection.query(
-      `SELECT tutorial.id, tutorial.theme_id, tutorial.title, user_journey.user_id
-      FROM ${this.table} left JOIN user_journey ON tutorial.id = user_journey.tutorial_id and user_journey.user_id = ? `,
+      `SELECT tutorial.id, tutorial.theme_id, tutorial.title, tutorial.objective,user_journey.user_id, user_journey.creation_date, difficulty.name as difficulty_name, tutorial.published
+      FROM ${this.table} left JOIN user_journey ON tutorial.id = user_journey.tutorial_id and user_journey.user_id = ? left JOIN difficulty on difficulty.id=tutorial.difficulty_id `,
       [userId]
     );
   }

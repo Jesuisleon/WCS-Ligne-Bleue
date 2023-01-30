@@ -31,36 +31,50 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
         <div className="w-full py-4 sm:py-6 flex items-center justify-between lg:border-none">
           <div className="hidden xs:flex items-center">
-            <Link to="/">
+            <Link to="/home">
               <span className="sr-only">Ligne Bleue</span>
               <img
-                className="h-8 sm:h-10 w-auto"
+                className="h-8 sm:h-12 w-auto"
                 src="/image/logo_la_poste.png"
                 alt="logo"
               />
             </Link>
           </div>
           {userToken && userInfos.isAdmin ? (
-            <div className="mt-auto mb-auto">
+            <div className="mt-auto mb-auto hidden sm:block">
               <Link
                 to="/adminpanel"
-                className="bg-gray-800 hover:bg-gray-700 text-white text-md py-3 px-5 rounded-md"
+                className="flex gap-2 w-fit rounded-md border border-gray-300 bg-white py-2 px-4 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
-                DASHBOARD
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"
+                  />
+                </svg>
+                dashboard
               </Link>
             </div>
           ) : null}
           {userToken === null ? (
-            <div className="ml-10 flex items-center space-x-2 sm:space-x-5">
+            <div className="sm:ml-10 flex items-center space-x-2 sm:space-x-5">
               <Link
                 to="/login"
-                className="inline-block bg-yellow-400 py-2 px-2 sm:px-4 border border-transparent rounded-md text-base font-medium text-blue-700 hover:bg-blue-100"
+                className="inline-block bg-yellow-400 py-1 sm:py-2 px-2 sm:px-4 border border-transparent rounded-md text-base font-medium text-blue-700 hover:bg-blue-100"
               >
                 Se connecter
               </Link>
               <Link
                 to="/register"
-                className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-blue-600 hover:bg-blue-50"
+                className="inline-block bg-white py-1 sm:py-2 px-4 border border-transparent rounded-md text-base font-medium text-blue-600 hover:bg-blue-50"
               >
                 Créer un compte
               </Link>
@@ -93,13 +107,26 @@ export default function Header() {
                     <Popover.Panel className="absolute z-40 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0">
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-8 bg-white p-7">
-                          <Link to={`/userProfile/${userId} `}>
-                            <button
+                          <Link to={`/userprofile/${userId} `}>
+                            <Popover.Button
                               type="button"
-                              className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start"
+                              className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start w-full"
                             >
                               <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-700 text-white sm:h-12 sm:w-12">
-                                {/* Heroicon name: outline/support */}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={1.5}
+                                  stroke="currentColor"
+                                  className="w-6 h-6"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                                  />
+                                </svg>
                               </div>
                               <div className="ml-4">
                                 <p className="text-base font-medium text-gray-900">
@@ -109,16 +136,63 @@ export default function Header() {
                                   Gérer mon profil
                                 </p>
                               </div>
-                            </button>
+                            </Popover.Button>
                           </Link>
-
+                          {userToken && userInfos.isAdmin ? (
+                            <div className="mt-auto mb-auto sm:hidden block">
+                              <Link to="/adminpanel">
+                                <Popover.Button
+                                  type="button"
+                                  className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 text-start w-full"
+                                >
+                                  <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-700 text-white sm:h-12 sm:w-12">
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      strokeWidth={1.5}
+                                      stroke="currentColor"
+                                      className="w-6 h-6"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"
+                                      />
+                                    </svg>
+                                  </div>
+                                  <div className="ml-4">
+                                    <p className="text-base font-medium text-gray-900">
+                                      Dashboard
+                                    </p>
+                                    <p className="mt-1 text-sm text-gray-500">
+                                      Gérer le site
+                                    </p>
+                                  </div>
+                                </Popover.Button>
+                              </Link>
+                            </div>
+                          ) : null}
                           <button
                             type="button"
                             onClick={handleDisconnect}
-                            className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                            className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 w-full"
                           >
                             <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-700 text-white sm:h-12 sm:w-12">
-                              {/* Heroicon name: outline/support */}
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+                                />
+                              </svg>
                             </div>
                             <div className="ml-4 text-start">
                               <p className="text-base font-medium text-gray-900">

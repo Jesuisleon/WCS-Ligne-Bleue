@@ -8,21 +8,21 @@ import { AnimatePresence } from "framer-motion";
 import Sticky from "react-stickynode";
 
 import Header from "@components/Header";
-import SubHeader from "@components/SubHeader";
+import Breadcrumb from "@components/Breadcrumb";
 import { NavigationContext } from "@context/NavigationContext";
 
 import Home from "@pages/Home";
-import AdminPanel from "@pages/AdminPanel";
+import AdminPanel from "@pages/AdminPanel/AdminPanel";
 import Login from "@pages/Login";
-import Journey from "@pages/Journey";
 import Search from "@pages/Search";
 import Tutorial from "@pages/Tutorial/Tutorial";
-import TutorialByTheme from "@pages/TutorialsByTheme";
+import Theme from "@pages/Theme";
 import UserProfil from "@pages/UserProfil";
 import TutorialMaker from "@pages/TutorialMaker/TutorialMaker";
 import Register from "@pages/Register";
 import ChangePassword from "@pages/ChangePassword";
 import ProtectedRoute from "./ProtectedRoute";
+
 import { AuthContext } from "../../context/AuthContext";
 
 import NotFound404 from "../../components/NotFound404";
@@ -72,14 +72,29 @@ export default function AllRoutes() {
                 innerZ={20}
                 activeClass="sticky-nav-active"
               >
-                <SubHeader navigation="home" title="Bienvenue" />
+                <Breadcrumb navigation="home" title="Bienvenue" />
               </Sticky>
               <Home />
             </>
           }
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/search" element={<Search />} />
+        <Route
+          path="/search"
+          element={
+            <>
+              <Sticky
+                enabled
+                top={0}
+                innerZ={20}
+                activeClass="sticky-nav-active"
+              >
+                <Breadcrumb navigation="search" />
+              </Sticky>
+              <Search />
+            </>
+          }
+        />
         <Route
           path="/theme/:themeId/"
           element={
@@ -90,9 +105,9 @@ export default function AllRoutes() {
                 innerZ={20}
                 activeClass="sticky-nav-active"
               >
-                <SubHeader navigation="theme" themeTitle={themeTitle} />
+                <Breadcrumb navigation="theme" themeTitle={themeTitle} />
               </Sticky>
-              <TutorialByTheme />
+              <Theme />
             </>
           }
         />
@@ -106,7 +121,7 @@ export default function AllRoutes() {
                 innerZ={20}
                 activeClass="sticky-nav-active"
               >
-                <SubHeader
+                <Breadcrumb
                   navigation="tutorial"
                   themeTitle={themeTitle}
                   tutorialTitle={navigationTitle}
@@ -124,15 +139,15 @@ export default function AllRoutes() {
               path="/userProfile/:userId"
               element={
                 <ProtectedRoute status={isLog}>
+                  <Sticky
+                    enabled
+                    top={0}
+                    innerZ={20}
+                    activeClass="sticky-nav-active"
+                  >
+                    <Breadcrumb navigation="profil" />
+                  </Sticky>
                   <UserProfil />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/journey"
-              element={
-                <ProtectedRoute status={isLog}>
-                  <Journey />
                 </ProtectedRoute>
               }
             />

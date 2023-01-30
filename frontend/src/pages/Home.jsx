@@ -22,11 +22,13 @@ export default function Home() {
       id: 1,
       name: "Rechercher un tutoriel",
       src: "/image/search.gif",
+      link: "/search",
     },
     {
       id: 2,
       name: "Pour poursuivre",
       src: "/image/poursuivre.gif",
+      link: "#",
     },
   ];
 
@@ -87,7 +89,7 @@ export default function Home() {
         ))}
 
         {otherThemes.map((data) => (
-          <Link key={data.id} className={themeCardStyled} to="/search">
+          <Link key={data.id} className={themeCardStyled} to={data.link}>
             <motion.div key={data.id} className={iconsContainerStyled}>
               <img src={data.src} alt={data.name} className={iconStyled} />
             </motion.div>

@@ -8,7 +8,6 @@ export default function ThemeListBox({
   render,
   setRender,
 }) {
-  // const [adminThemes, setAdminThemes] = useState();
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleDropdownToggle = () => {
