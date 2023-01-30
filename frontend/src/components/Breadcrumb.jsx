@@ -16,22 +16,20 @@ export default function Breadcrumb({ navigation, themeTitle, tutorialTitle }) {
     const { tutorialId, themeId } = useParams();
     // check windows width to display the theme title or not
     if (window.innerWidth > 768) {
-    pages.push(
-      { name: themeTitle, href: `/theme/${themeId}`, current: false },
-      {
-        name: tutorialTitle,
-        href: `/theme/${themeId}/tutorial/${tutorialId}`,
-        current: true,
-      }
-    );
-    } else {
       pages.push(
+        { name: themeTitle, href: `/theme/${themeId}`, current: false },
         {
           name: tutorialTitle,
           href: `/theme/${themeId}/tutorial/${tutorialId}`,
           current: true,
         }
       );
+    } else {
+      pages.push({
+        name: tutorialTitle,
+        href: `/theme/${themeId}/tutorial/${tutorialId}`,
+        current: true,
+      });
     }
   }
   if (navigation === "search") {

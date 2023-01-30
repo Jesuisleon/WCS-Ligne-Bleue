@@ -36,7 +36,6 @@ const SideBar = forwardRef(
     });
 
     const [data, setData] = useState();
-    console.log("sideBar data", data)
 
     useEffect(() => {
       axios.get(`/difficulties`).then((response) => {

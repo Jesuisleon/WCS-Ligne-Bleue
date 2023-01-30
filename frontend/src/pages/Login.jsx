@@ -7,7 +7,8 @@ import { RiMailLockFill } from "react-icons/ri";
 import { AuthContext } from "../context/AuthContext";
 
 function Login() {
-  const { setUserTokenCookie, setUserInfos } = useContext(AuthContext);
+  const { setUserTokenCookie, setUserInfos, setUserJourney } =
+    useContext(AuthContext);
 
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
@@ -40,6 +41,11 @@ function Login() {
             userEmail: response.data.user.email,
             isAdmin: response.data.user.admin,
           });
+          axios
+            .get(`/journeys-validation/${response.data.user.id}`)
+            .then((res) => {
+              setUserJourney(res.data);
+            });
           navigate("/");
         }
       });

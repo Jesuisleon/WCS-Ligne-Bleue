@@ -112,7 +112,9 @@ function Question({
             {questionIndex + 1}. {question}
           </h2>
           {isSubmitted === false && (
-            <p className="text-sm italic">{isMultipleCorrect && "Plusieurs réponses sont possibles"}</p>
+            <p className="text-sm italic">
+              {isMultipleCorrect && "Plusieurs réponses sont possibles"}
+            </p>
           )}
         </div>
         {currentQuestion > questionIndex && (

@@ -15,7 +15,6 @@ import Sticky from "react-stickynode";
 import NotificationWithActions from "@components/notifications/NotificationWithActions";
 import ModalSimple from "@components/notifications/ModalSimple";
 
-
 const { VITE_BACKEND_URL } = import.meta.env;
 
 export default function TutorialMaker() {
@@ -39,7 +38,6 @@ export default function TutorialMaker() {
     theme: "",
     published: false,
   });
-  console.log("Tutorial makerData", sideBarData)
 
   const [stepsData, setStepsData] = useState([]);
   useEffect(() => {
@@ -259,7 +257,6 @@ export default function TutorialMaker() {
           navigate(`/theme/${sideBarData.theme}/tutorial/${id}`);
         }}
       />
-
 
       {/* SideBar */}
       <Sticky enabled top={0} innerZ={20} activeClass="sticky-nav-active">

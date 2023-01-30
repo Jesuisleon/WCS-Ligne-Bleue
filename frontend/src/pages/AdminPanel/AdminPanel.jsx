@@ -84,7 +84,7 @@ export default function AdminPanel() {
       <div className="mt-4 px-4 xl:px-10">
         <div className="pb-2 border-b border-gray-200">
           <h3 className="text-base font-body text-gray-800 first-letter:capitalize">
-            Dashboard
+            Menu Admin
           </h3>
         </div>
         {/* MENUS */}
