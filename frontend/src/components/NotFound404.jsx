@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import logoPoste from "../../public/image/logo_la_poste.png";
 
 export default function NotFound404() {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +20,11 @@ export default function NotFound404() {
         <div className="flex-shrink-0 flex justify-center">
           <a href="/" className="inline-flex">
             <span className="sr-only">Workflow</span>
-            <img className="h-12 w-auto" src={logoPoste} alt="" />
+            <img
+              className="h-12 w-auto"
+              src="/image/logo_la_poste.png"
+              alt=""
+            />
           </a>
         </div>
         <div className="py-16">

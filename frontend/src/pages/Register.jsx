@@ -183,9 +183,9 @@ function Register() {
                   htmlFor="floating_repeat_password"
                   className="block text-sm font-medium text-gray-800"
                 >
-                  Comfirmer mot de passe
+                  Confirmer mot de passe
                 </label>
-                <div className="mt-1 ">
+                <div className="mt-1  ">
                   <input
                     id="floating_repeat_password"
                     name="repeat_password"
