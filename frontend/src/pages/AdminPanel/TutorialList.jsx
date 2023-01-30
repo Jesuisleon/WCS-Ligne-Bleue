@@ -406,8 +406,8 @@ export default function TutorialList({
       {openDelete && (
         <ModalDelete
           open={openDelete}
-          setOpen={setOpenDelete}
-          title="supprimer"
+          setOpen={() => setOpenDelete(false)}
+          title="Supprimer"
           message="Souhaitez vous vraiment supprimer définitivement ce tutoriel?"
           nextStep={() => deleteTutorial()}
         />
