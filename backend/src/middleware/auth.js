@@ -41,7 +41,7 @@ const verifyPassword = (req, res) => {
           user: req.user,
         });
       } else {
-        res.sendStatus(401);
+        res.status(401).send("La combinaison Email/Mot de passe est incorrect");
       }
     })
     .catch((err) => {

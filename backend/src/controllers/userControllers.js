@@ -74,7 +74,7 @@ const add = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500).send("L'adresse email est déjà utilisé");
     });
 };
 
@@ -111,7 +111,7 @@ const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
         req.user = users[0];
         next();
       } else {
-        res.status(401).send("Not Found");
+        res.status(401).send("La combinaison Email/Mot de passe est incorrect");
       }
     })
     .catch((err) => {
