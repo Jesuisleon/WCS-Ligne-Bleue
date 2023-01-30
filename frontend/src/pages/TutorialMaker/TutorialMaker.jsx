@@ -17,8 +17,6 @@ import Sticky from "react-stickynode";
 import NotificationWithActions from "@components/notifications/NotificationWithActions";
 import ModalSimple from "@components/notifications/ModalSimple";
 
-const { VITE_BACKEND_URL } = import.meta.env;
-
 export default function TutorialMaker() {
   // CONFIGURATION
   const childsRefs = useRef([]);
@@ -139,25 +137,9 @@ export default function TutorialMaker() {
             preview: false,
           };
         });
-        // UPDATE THE SRC OF THE IMAGE
-        const updateSrcImage = res.data.step
-          .filter(({ type }) => type === "image")
-          .map((image) => {
-            const regex = /src="([^"])*"/;
-            const src = regex.exec(image.content)[0].split('"')[1];
-            const newSrc = `${VITE_BACKEND_URL}${src}`;
-            const updatedContent = image.content.replace(src, newSrc);
-            return { ...image, content: updatedContent };
-          });
-
-        res.data.step = [
-          ...res.data.step.filter(({ type }) => type !== "image"),
-          ...updateSrcImage,
-        ];
 
         // SORT THE STEP BY ID
         res.data.step.sort((a, b) => a.id - b.id);
-
         setStepsData(res.data.step);
       })
       .catch((err) => {
@@ -165,6 +147,18 @@ export default function TutorialMaker() {
           navigate("/404");
         }
       });
+  };
+
+  const getStepsData = () => {
+    const updatedStep = [...stepsData];
+
+    childsRefs.current.forEach((child, index) => {
+      // bypass the header component childRef
+      if (index === 0) return;
+      // update the stepData with the childRef data
+      updatedStep[index - 1].content = child.getData();
+    });
+    setStepsData(updatedStep);
   };
 
   const getData = () => {
@@ -381,7 +375,7 @@ export default function TutorialMaker() {
                     setPreview={() => setPreviewSingle(stepIndex)}
                     preview={step.preview}
                     moveStep={(direction) => {
-                      getData();
+                      getStepsData();
                       moveStep(stepIndex, direction);
                     }}
                     close={() => removeStep(stepIndex)}
@@ -412,7 +406,7 @@ export default function TutorialMaker() {
                     lastStepIndex={stepsData.length - 1}
                     preview={step.preview}
                     moveStep={(direction) => {
-                      getData();
+                      getStepsData();
                       moveStep(stepIndex, direction);
                     }}
                     close={() => removeStep(stepIndex)}
@@ -448,7 +442,7 @@ export default function TutorialMaker() {
                     setPreview={() => setPreviewSingle(stepIndex)}
                     preview={step.preview}
                     moveStep={(direction) => {
-                      getData();
+                      getStepsData();
                       moveStep(stepIndex, direction);
                     }}
                     close={() => removeStep(stepIndex)}
