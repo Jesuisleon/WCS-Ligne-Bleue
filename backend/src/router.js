@@ -26,6 +26,7 @@ const difficultyControllers = require("./controllers/difficultyControllers");
 
 // public routes
 router.get("/home", themeControllers.browse);
+router.get("/themes/:id", themeControllers.read);
 router.post("/users", hashPassword, userControllers.add);
 router.get("/tutorials", tutorialControllers.browse);
 router.get("/tutorials/:id", tutorialControllers.read);
@@ -74,6 +75,8 @@ router.put("/tutorials/:id", tutorialControllers.edit);
 router.put("/tutorials-published/:id", tutorialControllers.editOnline);
 router.post("/tutorials", tutorialControllers.add);
 router.delete("/tutorials/:id", tutorialControllers.destroy);
+router.post("/themes", themeControllers.add);
+router.post("/difficulties", difficultyControllers.add);
 
 router.post("/upload/image", upload.single("image"), (req, res) => {
   const { file } = req;
