@@ -1,4 +1,4 @@
-export default function Loading() {
+export default function SimpleLoading() {
   return (
     <div className="flex items-center justify-center ">
       <svg
@@ -21,7 +21,7 @@ export default function Loading() {
           d="M4 12a8 8 0 018-8v8z"
         />
       </svg>
-      <span className="text-gray-700">Chargement...</span>
+      <span className="text-gray-700" />
     </div>
   );
 }
