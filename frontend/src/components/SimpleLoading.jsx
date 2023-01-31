@@ -1,8 +1,8 @@
-export default function Loading() {
+export default function SimpleLoading() {
   return (
-    <div className="flex items-center justify-center ">
+    <div className="w-min">
       <svg
-        className="animate-spin h-5 w-5 mr-3"
+        className="animate-spin h-5 w-5"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -21,7 +21,7 @@ export default function Loading() {
           d="M4 12a8 8 0 018-8v8z"
         />
       </svg>
-      <span className="text-gray-700">Chargement...</span>
+      <span className="text-gray-700" />
     </div>
   );
 }

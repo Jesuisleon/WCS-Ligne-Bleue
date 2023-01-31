@@ -5,6 +5,7 @@ import axios from "axios";
 import ModalDelete from "@components/notifications/modalDelete";
 
 import Loading from "@components/Loading";
+import SimpleLoading from "@components/SimpleLoading";
 
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 import regexDate from "../../services/utils/utilFunctions";
@@ -27,6 +28,10 @@ export default function TutorialList({
   const [isLoading, setIsLoading] = useState(true);
   const [openDelete, setOpenDelete] = useState(false);
   const [deleteTutoId, setDeleteTutoId] = useState();
+  const [loadingPublish, setLoadingPublish] = useState(false);
+  const [loadingPublishId, setLoadingPublishId] = useState(-1);
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  const [loadingDeleteId, setLoadingDeleteId] = useState(-1);
 
   useEffect(() => {
     axios
@@ -34,6 +39,10 @@ export default function TutorialList({
       .then((response) => {
         setData(response.data);
         setIsLoading(false);
+        setLoadingPublish(false);
+        setLoadingDelete(false);
+        setLoadingPublishId(-1);
+        setLoadingDeleteId(-1);
         // setTutoList(response.data);
       })
       .catch((error) => {
@@ -46,6 +55,8 @@ export default function TutorialList({
       .put(`/tutorials-published/${tutoId}`, publish)
       .then(() => {
         setRefreshList(!refreshList);
+        setLoadingPublish(true);
+        setLoadingPublishId(tutoId);
       })
       .catch((err) => {
         console.error(err);
@@ -57,6 +68,8 @@ export default function TutorialList({
       .delete(`/tutorials/${deleteTutoId}`)
       .then(() => {
         setRefreshList(!refreshList);
+        setLoadingDelete(true);
+        setLoadingDeleteId(deleteTutoId);
         setOpenDelete(false);
       })
       .catch((err) => {
@@ -329,22 +342,27 @@ export default function TutorialList({
                           {dataTuto.title}
                         </td>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium  sm:pl-6">
-                          <button
-                            type="submit"
-                            onClick={() =>
-                              publishTutorial(
-                                { published: !dataTuto.published },
-                                dataTuto.id
-                              )
-                            }
-                            className={`${
-                              dataTuto.published
-                                ? "bg-green-200 text-green-800"
-                                : "bg-red-200 text-red-800"
-                            } inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium`}
-                          >
-                            {dataTuto.published ? "En ligne" : "hors ligne"}
-                          </button>
+                          {loadingPublish &&
+                          loadingPublishId === dataTuto.id ? (
+                            <Loading />
+                          ) : (
+                            <button
+                              type="submit"
+                              onClick={() =>
+                                publishTutorial(
+                                  { published: !dataTuto.published },
+                                  dataTuto.id
+                                )
+                              }
+                              className={`${
+                                dataTuto.published
+                                  ? "bg-green-200 text-green-800"
+                                  : "bg-red-200 text-red-800"
+                              } inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium`}
+                            >
+                              {dataTuto.published ? "En ligne" : "hors ligne"}
+                            </button>
+                          )}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {regexDate(dataTuto.creation_date)}
@@ -368,7 +386,7 @@ export default function TutorialList({
                             ? Math.round(dataTuto.rating * 100) / 100
                             : "-"}
                         </td>
-                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                        <td className="relative flex whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                           <button
                             type="button"
                             className="text-blue-600 hover:text-blue-900 px-3"
@@ -386,13 +404,17 @@ export default function TutorialList({
                           >
                             Modifier
                           </Link>
-                          <button
-                            type="button"
-                            onClick={() => confirmDelete(dataTuto.id)}
-                            className="text-red-600 hover:text-red-700 px-3"
-                          >
-                            <p>Supprimer</p>
-                          </button>
+                          {loadingDelete && loadingDeleteId === dataTuto.id ? (
+                            <SimpleLoading />
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => confirmDelete(dataTuto.id)}
+                              className="text-red-600 hover:text-red-700 px-3"
+                            >
+                              <p>Supprimer</p>
+                            </button>
+                          )}
                         </td>
                       </tr>
                     ))
