@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { useEffect, useState, useContext } from "react";
-import { NavigationContext } from "@context/NavigationContext";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
+import { NavigationContext } from "@context/NavigationContext";
+
+import { motion } from "framer-motion";
+
+import Loading from "@components/Loading";
 
 export default function Home() {
   const { setNavigationTitle } = useContext(NavigationContext);
@@ -71,6 +74,7 @@ export default function Home() {
         lg:auto-rows-[minmax(220px,_2fr)]
         "
       >
+        {themes.length === 0 && <Loading />}
         {themes.map((data) => (
           <Link
             key={data.id}
@@ -88,14 +92,15 @@ export default function Home() {
           </Link>
         ))}
 
-        {otherThemes.map((data) => (
-          <Link key={data.id} className={themeCardStyled} to={data.link}>
-            <motion.div key={data.id} className={iconsContainerStyled}>
-              <img src={data.src} alt={data.name} className={iconStyled} />
-            </motion.div>
-            <p>{data.name}</p>
-          </Link>
-        ))}
+        {themes.length > 0 &&
+          otherThemes.map((data) => (
+            <Link key={data.id} className={themeCardStyled} to={data.link}>
+              <motion.div key={data.id} className={iconsContainerStyled}>
+                <img src={data.src} alt={data.name} className={iconStyled} />
+              </motion.div>
+              <p>{data.name}</p>
+            </Link>
+          ))}
       </div>
     </motion.div>
   );
