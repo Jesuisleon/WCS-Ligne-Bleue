@@ -386,7 +386,7 @@ export default function TutorialList({
                             ? Math.round(dataTuto.rating * 100) / 100
                             : "-"}
                         </td>
-                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                        <td className="relative flex whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                           <button
                             type="button"
                             className="text-blue-600 hover:text-blue-900 px-3"
