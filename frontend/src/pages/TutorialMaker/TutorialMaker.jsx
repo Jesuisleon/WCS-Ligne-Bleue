@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
-
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
+import { AuthContext } from "@context/AuthContext";
 
 import axios from "axios";
 
@@ -21,6 +22,8 @@ export default function TutorialMaker() {
   // CONFIGURATION
   const childsRefs = useRef([]);
   const navigate = useNavigate();
+
+  const { userJourney, setUserJourney } = useContext(AuthContext);
 
   // TOGGLE SHOW/HIDE
   const [openNotificationWithActions, setOpenNotificationWithActions] =
@@ -210,6 +213,18 @@ export default function TutorialMaker() {
   useEffect(() => {
     if (save) saveData();
   }, [save]);
+
+  useEffect(() => {
+    if (openNotificationWithActions) {
+      if (userJourney.find((item) => item.id === id)) return;
+      const updatedJourney = {
+        id,
+        user_id: null,
+        theme_id: sideBarData.theme,
+      };
+      setUserJourney([...userJourney, updatedJourney]);
+    }
+  }, [openNotificationWithActions]);
 
   // PREVIEW
   const [preview, setPreview] = useState(false);
