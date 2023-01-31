@@ -6,10 +6,13 @@ import React, {
   forwardRef,
 } from "react";
 
+import ModaleSimple from "@components/notifications/ModalSimple";
+
 import Quiz from "@components/Quiz";
 
 const QuizMaker = forwardRef(({ data, preview }, ref) => {
   const [content, setContent] = useState([]);
+  const [openModalSimple, setOpenModalSimple] = useState(false);
 
   const childRef = useRef([]);
   useImperativeHandle(ref, () => ({
@@ -24,18 +27,13 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
           return validAnswers && validCorrectAnswer;
         });
         if (!valid) {
-          alert(
-            "Veuillez remplir au moins 2 réponses par question et une bonne réponse"
-          );
-          return null;
+          setOpenModalSimple(true);
+          return "error";
         }
         // if valid we return the content
         return content;
       }
       return null;
-    },
-    setData: () => {
-      setContent(data);
     },
   }));
 
@@ -126,6 +124,7 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
     if (data) {
       setContent(data);
     }
+    if (data === "error") setContent([]);
   }, [data]);
 
   useEffect(() => {
@@ -135,7 +134,13 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
   }, [content]);
 
   return (
-    <div ref={childRef} className="bg-white py-4 px-8">
+    <div ref={childRef} className="bg-white py-4 px-8 border-t">
+      <ModaleSimple
+        title="Erreur"
+        message="Un quiz doit avoir au moins une réponse correct par question."
+        open={openModalSimple}
+        setOpen={setOpenModalSimple}
+      />
       {preview ? (
         <Quiz data={content} />
       ) : (
@@ -145,21 +150,21 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
               key={question.id}
               className="flex flex-col items-start gap-4 mb-4 pt-4"
             >
-              <div className="border-b-[1px] flex gap-4 items-center w-full">
+              <div className="flex gap-4 items-center w-full bg-blue-700 pb-1 pl-2">
                 <button
                   type="button"
                   onClick={() => {
                     removeQuestion(question.id);
                   }}
-                  className="border border-transparent bg-gray-300 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                  className="border border-transparent bg-red-500 text-base font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    strokeWidth={1.5}
+                    strokeWidth={2}
                     stroke="currentColor"
-                    className="w-3 h-3"
+                    className="w-4 h-4"
                   >
                     <path
                       strokeLinecap="round"
@@ -170,12 +175,12 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
                 </button>
                 <label
                   htmlFor="question"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-base font-medium text-white"
                 >
                   {question.id}
                 </label>
 
-                <div className="mt-1 border-b border-gray-300 focus-within:border-indigo-600">
+                <div className="mt-1 border-b border-gray-300 focus-within:border-blue-600">
                   <input
                     type="text"
                     id={questionIndex}
@@ -186,26 +191,29 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
                     }}
                     placeholder="Votre Question"
                     size={question.question.length}
-                    className="block w-full border-0 border-b border-transparent focus:border-blue-700 focus:ring-0 sm:text-sm"
+                    className="block w-full border-0 border-b border-transparent bg-white focus:border-blue-700 focus:ring-0 sm:text-base"
                   />
                 </div>
               </div>
               {question.answers.map((answer, answerIndex) => (
-                <div key={answer.id} className="flex gap-4 items-center w-full">
+                <div
+                  key={answer.id}
+                  className="flex gap-4 items-center w-full pl-2"
+                >
                   <button
                     type="button"
                     onClick={() => {
                       removeAnswer(question.id, answer.id);
                     }}
-                    className="border border-transparent bg-gray-300 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                    className="border border-transparent bg-red-500 text-base font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      strokeWidth={1.5}
+                      strokeWidth={2}
                       stroke="currentColor"
-                      className="w-3 h-3"
+                      className="w-4 h-4"
                     >
                       <path
                         strokeLinecap="round"
@@ -234,7 +242,7 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
                         handleChange(e);
                       }}
                       placeholder="Votre réponse"
-                      className={`block w-full border-0 border-b border-transparent focus:border-blue-700 focus:ring-0 sm:text-sm ${
+                      className={`block w-full border-0 border-b border-transparent focus:border-blue-700 focus:ring-0 sm:text-base ${
                         answer.correct && "text-green-500"
                       }`}
                       size={answer.text.length}
@@ -243,7 +251,7 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
                 </div>
               ))}
               <button
-                className="relative inline-flex items-center gap-2 px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                className="relative inline-flex items-center gap-2 px-4 py-2 rounded-md border border-gray-300 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 type="button"
                 onClick={() => setAnswer(questionIndex)}
               >
@@ -268,7 +276,7 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
           <div className="flex flex-col items-center">
             <button
               type="button"
-              className="relative inline-flex items-center gap-2 px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+              className="relative inline-flex items-center gap-2 px-4 py-2 rounded-md border border-gray-300 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
               onClick={setQuestion}
             >
               <svg

@@ -67,4 +67,17 @@ input {
 .p-font {
   @apply text-blue-500 first-letter:capitalize;
 }
+.tox-tinymce {
+  @apply border-none rounded-none !important;
+}
+
+.tox-editor-header {
+  @apply border-t-2 p-0 !important;
+}
+
+.tox .tox-toolbar-overlord .tox-toolbar__primary {
+  background-position: 0 !important;
+  @apply w-screen;
+}
+
 /* End CSS Presets */

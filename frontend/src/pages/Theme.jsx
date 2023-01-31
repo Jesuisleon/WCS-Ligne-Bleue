@@ -10,6 +10,7 @@ import { AuthContext } from "@context/AuthContext";
 import { motion } from "framer-motion";
 
 import Loading from "@components/Loading";
+import NotFoundTheme from "@components/NotFoundThemes";
 
 import TutorialCard from "@components/TutorialCard";
 
@@ -71,6 +72,7 @@ export default function Theme() {
 
   if (dataWithJourney === undefined) return <Loading />;
 
+  if (dataWithJourney.length === 0) return <NotFoundTheme />;
   return (
     <div className="my-2 mx-4 sm:mx-10 xl:mx-14 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 sm:gap-2 ">
       {dataWithJourney.map((tutorial) =>
