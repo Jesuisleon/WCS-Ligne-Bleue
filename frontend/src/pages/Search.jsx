@@ -81,6 +81,7 @@ export default function Search() {
           </ul>
         </div>
       </div>
+
       <div className="mb-4 sm:mb-6 md:mb-8 lg:mb-6">
         <label
           htmlFor="search"

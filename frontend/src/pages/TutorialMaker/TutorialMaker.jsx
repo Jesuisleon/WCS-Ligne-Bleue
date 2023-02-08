@@ -44,6 +44,7 @@ export default function TutorialMaker() {
   });
 
   const [stepsData, setStepsData] = useState([]);
+
   useEffect(() => {
     // initialisation of the childsRefs when the stepsData is updated
     childsRefs.current = childsRefs.current.filter((item) => item !== null);
@@ -492,7 +493,7 @@ export default function TutorialMaker() {
           </>
         )}
         <div className="mt-6 space-x-5">
-          <span className="relative z-0 inline-flex shadow-sm rounded-md">
+          <div className="relative z-0 inline-flex shadow-sm rounded-md ">
             <button
               onClick={() => setStep("text")}
               type="button"
@@ -504,7 +505,7 @@ export default function TutorialMaker() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-6 h-6 hidden sm:block"
               >
                 <path
                   strokeLinecap="round"
@@ -525,7 +526,7 @@ export default function TutorialMaker() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-6 h-6 hidden sm:block"
               >
                 <path
                   strokeLinecap="round"
@@ -546,7 +547,7 @@ export default function TutorialMaker() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-6 h-6 hidden sm:block"
               >
                 <path
                   strokeLinecap="round"
@@ -572,7 +573,7 @@ export default function TutorialMaker() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-6 h-6 hidden sm:block"
               >
                 <path
                   strokeLinecap="round"
@@ -582,7 +583,7 @@ export default function TutorialMaker() {
               </svg>
               Nouveau Quiz
             </button>
-          </span>
+          </div>
         </div>
       </div>
     </div>

@@ -198,7 +198,7 @@ export default function TutorialList({
 
                     <th
                       scope="col"
-                      className="flex-inline min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      className="whitespace-nowrap flex-inline min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
                       <p className="group inline-flex">En ligne</p>
                       <button
@@ -226,7 +226,7 @@ export default function TutorialList({
 
                     <th
                       scope="col"
-                      className="flex-inline min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      className="whitespace-nowrap flex-inline min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
                       <p className="group inline-flex">Crée le</p>
                       <button
@@ -254,7 +254,7 @@ export default function TutorialList({
 
                     <th
                       scope="col"
-                      className="flex-inline min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      className="whitespace-nowrap flex-inline min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
                       <p className="group inline-flex">Modifié le</p>
                       <button
@@ -282,7 +282,7 @@ export default function TutorialList({
 
                     <th
                       scope="col"
-                      className="flex-inline min-w-max px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="whitespace-nowrap flex-inline min-w-max px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
                       <p type="button" className="group inline-flex">
                         Commentaires
@@ -291,7 +291,7 @@ export default function TutorialList({
 
                     <th
                       scope="col"
-                      className="inline-flex min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-4"
+                      className="whitespace-nowrap inline-flex min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-4"
                     >
                       <p className="group inline-flex">Avis</p>
                       <button

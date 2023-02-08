@@ -74,7 +74,7 @@ export default function SidePreview({ open, setOpen, getData }) {
                           </div>
 
                           <div className="flex flex-col items-start sm:gap-2">
-                            <h1 className="text-4xl font-semibold">Objectif</h1>
+                            <h1 className="text-2xl font-semibold">Objectif</h1>
                             <p className="first-letter:capitalize">
                               {data.objective}
                             </p>
@@ -82,7 +82,7 @@ export default function SidePreview({ open, setOpen, getData }) {
                         </div>
 
                         <div className="flex flex-col sm:gap-2">
-                          <h2 className="text-4xl font-semibold">
+                          <h2 className="text-2xl font-semibold">
                             Description
                           </h2>
                           <div
