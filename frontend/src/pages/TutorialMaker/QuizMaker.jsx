@@ -18,7 +18,7 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
   const childRef = useRef([]);
   useImperativeHandle(ref, () => ({
     getData: () => {
-      return content
+      return content;
     },
   }));
 
@@ -113,7 +113,6 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
       setQuestion();
     }
   }, [data]);
-
 
   return (
     <div ref={childRef} className="bg-white py-4 px-8 border-t">
