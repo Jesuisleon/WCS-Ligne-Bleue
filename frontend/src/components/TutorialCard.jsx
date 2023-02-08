@@ -41,7 +41,7 @@ export default function TutorialCard({
           </p>
           <p
             id={`tutorial-card-${tutorialId}`}
-            className="py-1 sm:py-0 px-2 inline-flex items-center text-sm leading-5 font-semibold rounded-full"
+            className="py-1 sm:py-0 px-2 inline-flex items-center text-sm leading-5 font-semibold rounded-full whitespace-nowrap"
           >
             {difficulty}
           </p>

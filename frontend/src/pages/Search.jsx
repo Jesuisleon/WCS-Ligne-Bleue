@@ -16,6 +16,7 @@ export default function Search() {
   const [data, setData] = useState();
 
   const [tutorial, setTutorial] = useState([]);
+  console.log("🚀 ~ Search ~ tutorial", tutorial)
 
   const [searchValue, setSearchValue] = useState("");
 
