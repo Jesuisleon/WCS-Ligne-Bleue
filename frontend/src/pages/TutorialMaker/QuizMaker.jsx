@@ -12,28 +12,13 @@ import Quiz from "@components/Quiz";
 
 const QuizMaker = forwardRef(({ data, preview }, ref) => {
   const [content, setContent] = useState([]);
+
   const [openModalSimple, setOpenModalSimple] = useState(false);
 
   const childRef = useRef([]);
   useImperativeHandle(ref, () => ({
     getData: () => {
-      if (content.length > 0) {
-        // for each question we need to have at list 2 answers and one correct answer to be valid
-        const valid = content.every((question) => {
-          const validAnswers = question.answers.length >= 2;
-          const validCorrectAnswer = question.answers.some(
-            (answer) => answer.correct === true
-          );
-          return validAnswers && validCorrectAnswer;
-        });
-        if (!valid) {
-          setOpenModalSimple(true);
-          return "error";
-        }
-        // if valid we return the content
-        return content;
-      }
-      return null;
+      return content
     },
   }));
 
@@ -124,14 +109,11 @@ const QuizMaker = forwardRef(({ data, preview }, ref) => {
     if (data) {
       setContent(data);
     }
-    if (data === "error") setContent([]);
-  }, [data]);
-
-  useEffect(() => {
-    if (content.length === 0) {
+    if (data === null) {
       setQuestion();
     }
-  }, [content]);
+  }, [data]);
+
 
   return (
     <div ref={childRef} className="bg-white py-4 px-8 border-t">

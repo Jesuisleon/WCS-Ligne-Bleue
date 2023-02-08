@@ -216,6 +216,8 @@ const edit = (req, res) => {
     res.sendStatus(403);
   } else {
     const { hashtag } = req.body;
+
+    
     checkHashtag(req, res, hashtag).then((hashtagId) =>
       models.tutorial
         .update(tutorial)

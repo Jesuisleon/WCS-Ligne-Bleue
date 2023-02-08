@@ -44,6 +44,7 @@ export default function TutorialMaker() {
   });
 
   const [stepsData, setStepsData] = useState([]);
+
   useEffect(() => {
     // initialisation of the childsRefs when the stepsData is updated
     childsRefs.current = childsRefs.current.filter((item) => item !== null);
