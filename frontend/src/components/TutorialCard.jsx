@@ -47,7 +47,7 @@ export default function TutorialCard({
           </p>
         </div>
         <p className="text-base text-gray-700 italic">
-          <span className="not-italic">objectif: </span> "{objective}"
+         "{objective}"
         </p>
         <div className="flex-inline sm:flex gap-2 sm:mt-0">
           <Link to={`/theme/${themeId}/tutorial/${tutorialId}`}>

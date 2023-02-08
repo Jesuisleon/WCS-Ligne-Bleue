@@ -228,7 +228,7 @@ export default function TutorialList({
                       scope="col"
                       className="whitespace-nowrap flex-inline min-w-max py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
-                      <p className="group inline-flex">Crée le</p>
+                      <p className="group inline-flex">Créé le</p>
                       <button
                         type="button"
                         onClick={() => sortList("creation_date", "up")}

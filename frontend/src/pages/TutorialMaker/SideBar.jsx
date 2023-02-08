@@ -219,7 +219,7 @@ const SideBar = forwardRef(
                             <div className="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
                               <div>
                                 <legend className="text-sm font-medium text-gray-900">
-                                  Privacy
+                                  Publication
                                 </legend>
                               </div>
                               <div className="space-y-5 sm:col-span-2">
