@@ -110,7 +110,9 @@ export default function Tutorial() {
       <div className="flex flex-col gap-6 pt-10">
         <div className="flex flex-col gap-6 sm:gap-14">
           <div className="flex flex-col items-start sm:gap-2">
-            <h1 className="text-4xl font-semibold first-letter:capitalize text-blue-700 ">{data.title}</h1>
+            <h1 className="text-4xl font-semibold first-letter:capitalize text-blue-700 ">
+              {data.title}
+            </h1>
           </div>
 
           <div className="flex flex-col items-start sm:gap-2">
@@ -130,7 +132,9 @@ export default function Tutorial() {
 
       {/* STEPPERS */}
       <div>
-        <h1 className="text-3xl font-semibold sm:mb-2 text-blue-700">Tutoriel</h1>
+        <h1 className="text-3xl font-semibold sm:mb-2 text-blue-700">
+          Tutoriel
+        </h1>
         <div className="flex flex-col items-center gap-6">
           {data.step.map((step) => {
             if (step.type === "quiz") {
@@ -156,11 +160,17 @@ export default function Tutorial() {
 
       {userInfos.userId && (
         <div className="w-full flex flex-col items-center">
-          <h2 className="text-2xl font-semibold text-blue-700 mx-auto">Votre avis</h2>
+          <h2 className="text-2xl font-semibold text-blue-700 mx-auto">
+            Votre avis
+          </h2>
           <div className="bg-gray-50 border-2 shadow-lg w-full xl:w-1/2 rounded text-gray-800 flex flex-col justify-center items-center gap-8 py-6 mt-4 mx-auto">
             {validate === false && (
               <>
-                <Rating validate={validate} setData={setNewData} data={newData} />
+                <Rating
+                  validate={validate}
+                  setData={setNewData}
+                  data={newData}
+                />
                 <Comments
                   validate={validate}
                   setData={setNewData}
@@ -184,7 +194,9 @@ export default function Tutorial() {
                 "Ok, c'est compris !"
               </button>
             ) : (
-              <p className="text-xl font-bold">Vous avez validé ce tutoriel !</p>
+              <p className="text-xl font-bold">
+                Vous avez validé ce tutoriel !
+              </p>
             )}
           </div>
         </div>
