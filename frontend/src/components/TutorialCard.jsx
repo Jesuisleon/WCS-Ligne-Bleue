@@ -53,11 +53,11 @@ export default function TutorialCard({
           <Link to={`/theme/${themeId}/tutorial/${tutorialId}`}>
             {validate ? (
               <p className="w-fit rounded-md border border-gray-300 bg-white py-2 px-4 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                revoir le tutoriel
+                Revoir le tutoriel
               </p>
             ) : (
               <p className="inline-flex justify-center rounded-md border border-transparent bg-yellow-400 py-2 px-4 text-base font-medium text-blue-700 shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2">
-                commencer le tutoriel
+                Commencer le tutoriel
               </p>
             )}
           </Link>
