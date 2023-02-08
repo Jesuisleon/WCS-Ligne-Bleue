@@ -46,9 +46,7 @@ export default function TutorialCard({
             {difficulty}
           </p>
         </div>
-        <p className="text-base text-gray-700 italic">
-         "{objective}"
-        </p>
+        <p className="text-base text-gray-700 italic">"{objective}"</p>
         <div className="flex-inline sm:flex gap-2 sm:mt-0">
           <Link to={`/theme/${themeId}/tutorial/${tutorialId}`}>
             {validate ? (
