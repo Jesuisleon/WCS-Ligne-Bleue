@@ -15,21 +15,19 @@ export default function TutorialCard({
 
   let difficulty = null;
 
-  const difficultyColor = document.getElementById(
+  const difficultyColor = document?.getElementById(
     `tutorial-card-${tutorialId}`
   );
 
-  if (difficultyColor !== null) {
-    if (difficulties === "Débutant") {
-      difficulty = "Débutant 🐣";
-      difficultyColor.classList.add("bg-blue-100", "text-blue-800");
-    } else if (difficulties === "Intermédiaire") {
-      difficulty = "Intermédiaire 🐥";
-      difficultyColor.classList.add("bg-yellow-100", "text-yellow-800");
-    } else if (difficulties === "Avancé") {
-      difficulty = "Avancé 🐔";
-      difficultyColor.classList.add("bg-red-100", "text-red-800");
-    }
+  if (difficulties === "Débutant") {
+    difficulty = "Débutant 🐣";
+    difficultyColor?.classList.add("bg-blue-100", "text-blue-800");
+  } else if (difficulties === "Intermédiaire") {
+    difficulty = "Intermédiaire 🐥";
+    difficultyColor?.classList.add("bg-yellow-100", "text-yellow-800");
+  } else if (difficulties === "Avancé") {
+    difficulty = "Avancé 🐔";
+    difficultyColor?.classList.add("bg-red-100", "text-red-800");
   }
 
   return (
