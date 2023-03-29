@@ -16,7 +16,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ["@heroicons/react"], // <-- add this line
+      external: ['@heroicons/react/*'], 
     },
   },
 });
