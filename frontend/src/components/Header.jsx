@@ -32,7 +32,7 @@ export default function Header() {
     bg-gradient-to-b 
     from-blue-700 
     to-blue-900
-    border-b-2
+    border-b-2x
     border-blue-900
     "
     >
