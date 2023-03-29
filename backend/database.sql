@@ -1,219 +1,490 @@
--- MySQL dump 10.13  Distrib 8.0.31, for macos12.6 (arm64)
---
--- Host: 127.0.0.1    Database: laposte
--- ------------------------------------------------------
--- Server version	8.0.31
+/*
+ Navicat Premium Data Transfer
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+ Source Server         : WCS Ligne Bleue
+ Source Server Type    : MariaDB
+ Source Server Version : 100518 (10.5.18-MariaDB-0+deb11u1)
+ Source Host           : 24.226.169.2:3306
+ Source Schema         : wcs-laposte
 
---
--- Table structure for table `difficulty`
---
+ Target Server Type    : MariaDB
+ Target Server Version : 100518 (10.5.18-MariaDB-0+deb11u1)
+ File Encoding         : 65001
 
+ Date: 29/03/2023 15:55:50
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for difficulty
+-- ----------------------------
 DROP TABLE IF EXISTS `difficulty`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `difficulty` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `difficulty`
---
+-- ----------------------------
+-- Records of difficulty
+-- ----------------------------
+BEGIN;
+INSERT INTO `difficulty` (`id`, `name`) VALUES (1, 'Débutant');
+INSERT INTO `difficulty` (`id`, `name`) VALUES (2, 'Intermédiaire');
+INSERT INTO `difficulty` (`id`, `name`) VALUES (3, 'Avancé');
+COMMIT;
 
-/*!40000 ALTER TABLE `difficulty` DISABLE KEYS */;
-INSERT INTO `difficulty` VALUES (1,'Débutant'),(2,'Intermédiaire'),(3,'Avancé');
-/*!40000 ALTER TABLE `difficulty` ENABLE KEYS */;
-
---
--- Table structure for table `hashtag`
---
-
+-- ----------------------------
+-- Table structure for hashtag
+-- ----------------------------
 DROP TABLE IF EXISTS `hashtag`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `hashtag` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `hashtag`
---
+-- ----------------------------
+-- Records of hashtag
+-- ----------------------------
+BEGIN;
+INSERT INTO `hashtag` (`id`, `text`) VALUES (1, 'phone');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (2, 'internet');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (3, 'login');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (4, 'telephone');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (5, 'chargeur');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (6, 'appareil');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (7, 'batterie');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (8, 'electrique');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (9, 'prise');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (10, 'chargement');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (11, 'charge');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (12, 'rechargement');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (13, 'recherche');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (14, 'navigateur');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (15, 'web');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (16, 'information');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (17, 'mail');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (18, 'email');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (19, 'adresse');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (20, 'boite');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (21, 'creer');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (22, 'creation');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (23, 'proteger');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (24, 'securite');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (25, 'fausse');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (26, 'proche');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (27, 'mots');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (28, 'cle');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (29, 'utiliser');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (30, 'itineraire');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (31, 'cheque');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (32, 'energie');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (33, 'etat');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (34, 'aide');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (35, 'azeeaz');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (36, 'allumer');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (37, 'arret');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (38, 'eteindre');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (39, 'marche');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (40, 'alimentation');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (41, 'ecran');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (42, 'tactile');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (43, 'deplacer');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (44, 'slide');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (45, 'deplacement');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (46, 'scroll');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (47, 'toucher');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (48, 'swipe');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (49, 'lorem');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (50, 'ipsum');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (51, 'qrcode');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (52, 'code');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (53, 'photo');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (54, 'scanner');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (55, 'instagram');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (56, 'reseaux');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (57, 'facebook');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (58, 'sociaux');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (59, 'snapchat');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (60, 'tiktok');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (61, 'tuto');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (62, 'delete');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (63, 'envoie');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (64, 'message');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (65, 'sms');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (66, 'courrier');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (67, 'recevoir');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (68, 'envoyer');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (69, 'effacer');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (70, 'flash');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (71, 'prendre');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (72, 'video');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (73, 'camera');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (74, 'mire');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (75, 'proches');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (76, 'appel');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (77, 'azeaze');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (78, 'bleue');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (79, 'ligne');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (80, 'lancer');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (81, 'envoye');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (82, 'ecrire');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (83, 'messages');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (84, 'cellulaire');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (85, 'gestion');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (86, 'contacts');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (87, 'contact');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (88, 'organiser');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (89, 'ami');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (90, 'gerer');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (91, 'boutton');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (92, 'mobile');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (93, 'allume');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (94, 'map');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (95, 'maps');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (96, 'route');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (97, 'duree');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (98, 'google');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (99, 'horaire');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (100, 'test');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (101, 'dada');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (102, 'chrome');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (103, 'resultat');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (104, 'rechercher');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (105, 'aller');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (106, 'passe');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (107, 'password');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (108, 'securise');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (109, 'mot');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (110, 'retenir');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (111, 'mdp');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (112, 'fff');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (113, 'huh');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (114, 'messagerie');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (115, 'tutoriel');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (116, 'faisons');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (117, 'teest');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (118, 'communication');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (119, 'livret');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (120, 'lycee');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (121, 'college');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (122, 'scolaire');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (123, 'pronote');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (124, 'enfant');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (125, 'photos');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (126, 'scanneur');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (127, 'scanners');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (128, 'cree');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (129, 'android');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (130, 'carnet');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (131, 'scolarite');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (132, 'echange');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (133, 'punition');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (134, 'sanction');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (135, 'bulletin');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (136, 'planning');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (137, 'quotidien');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (138, 'bien');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (139, 'organisation');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (140, 'vie');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (141, 'projet');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (142, 'lifestyle');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (143, 'plannification');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (144, 'etre');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (145, 'prevention');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (146, 'manipuler');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (147, 'formulaire');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (148, 'titre');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (149, 'mms');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (150, 'decouvrir');
+INSERT INTO `hashtag` (`id`, `text`) VALUES (151, 'comment');
+COMMIT;
 
-/*!40000 ALTER TABLE `hashtag` DISABLE KEYS */;
-INSERT INTO `hashtag` VALUES (1,'phone'),(2,'internet'),(3,'login'),(4,'telephone'),(5,'chargeur'),(6,'appareil'),(7,'batterie'),(8,'electrique'),(9,'prise'),(10,'chargement'),(11,'charge'),(12,'rechargement'),(13,'recherche'),(14,'navigateur'),(15,'web'),(16,'information'),(17,'mail'),(18,'email'),(19,'adresse'),(20,'boite'),(21,'creer'),(22,'creation'),(23,'proteger'),(24,'securite'),(25,'fausse'),(26,'proche'),(27,'mots'),(28,'cle'),(29,'utiliser'),(30,'itineraire'),(31,'cheque'),(32,'energie'),(33,'etat'),(34,'aide'),(35,'azeeaz');
-/*!40000 ALTER TABLE `hashtag` ENABLE KEYS */;
-
---
--- Table structure for table `theme`
---
-
+-- ----------------------------
+-- Table structure for theme
+-- ----------------------------
 DROP TABLE IF EXISTS `theme`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `theme` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `icon` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `theme`
---
+-- ----------------------------
+-- Records of theme
+-- ----------------------------
+BEGIN;
+INSERT INTO `theme` (`id`, `name`, `icon`) VALUES (1, 'Utiliser ligne bleue', '/image/telephone.png');
+INSERT INTO `theme` (`id`, `name`, `icon`) VALUES (2, 'Utiliser mon téléphone', '/image/phone3.gif');
+INSERT INTO `theme` (`id`, `name`, `icon`) VALUES (3, 'Aller sur internet', '/image/internet.gif');
+INSERT INTO `theme` (`id`, `name`, `icon`) VALUES (4, 'Vie Courante', '/image/vie_courante.png');
+INSERT INTO `theme` (`id`, `name`, `icon`) VALUES (5, 'Me divertir', '/image/divertir.png');
+INSERT INTO `theme` (`id`, `name`, `icon`) VALUES (6, 'Mes mails', '/image/mail3.gif');
+INSERT INTO `theme` (`id`, `name`, `icon`) VALUES (7, 'Communiquer', '/image/communiquer.png');
+INSERT INTO `theme` (`id`, `name`, `icon`) VALUES (8, 'Utiliser mon téléphone en sécurité', '/image/securite.gif');
+INSERT INTO `theme` (`id`, `name`, `icon`) VALUES (9, 'Se déplacer', '/image/deplacer.gif');
+INSERT INTO `theme` (`id`, `name`, `icon`) VALUES (10, 'Se faire aider', '/image/aide.gif');
+COMMIT;
 
-/*!40000 ALTER TABLE `theme` DISABLE KEYS */;
-INSERT INTO `theme` VALUES (1,'Utiliser ligne bleue','/image/telephone.png'),(2,'Utiliser mon téléphone','/image/phone3.gif'),(3,'Aller sur internet','/image/internet.gif'),(4,'Vie Courante','/image/vie_courante.png'),(5,'Me divertir','/image/divertir.png'),(6,'Mes mails','/image/mail3.gif'),(7,'Communiquer','/image/communiquer.png'),(8,'Utiliser mon téléphone en sécurité','/image/securite.gif'),(9,'Se déplacer','/image/deplacer.gif'),(10,'Se faire aider','/image/aide.gif');
-/*!40000 ALTER TABLE `theme` ENABLE KEYS */;
-
---
--- Table structure for table `tuto_hashtag`
---
-
+-- ----------------------------
+-- Table structure for tuto_hashtag
+-- ----------------------------
 DROP TABLE IF EXISTS `tuto_hashtag`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
--- CREATE TABLE `tuto_hashtag` (
---   `tutorial_id` int NOT NULL,
---   `hashtag_id` int NOT NULL,
---   PRIMARY KEY (`tutorial_id`,`hashtag_id`)
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
-/*!40101 SET character_set_client = @saved_cs_client */;
-CREATE TABLE tuto_hashtag (
-    tutorial_id INTEGER REFERENCES tutorial (id) ON DELETE CASCADE,
-    hashtag_id INTEGER REFERENCES hashtag (id) ON DELETE CASCADE,
-    PRIMARY KEY (tutorial_id, hashtag_id)  
-) ;
---
--- Dumping data for table `tuto_hashtag`
---
+CREATE TABLE `tuto_hashtag` (
+  `tutorial_id` int(11) NOT NULL,
+  `hashtag_id` int(11) NOT NULL,
+  PRIMARY KEY (`tutorial_id`,`hashtag_id`),
+  KEY `hashtag_id` (`hashtag_id`),
+  CONSTRAINT `tuto_hashtag_ibfk_1` FOREIGN KEY (`tutorial_id`) REFERENCES `tutorial` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `tuto_hashtag_ibfk_2` FOREIGN KEY (`hashtag_id`) REFERENCES `hashtag` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-/*!40000 ALTER TABLE `tuto_hashtag` DISABLE KEYS */;
-INSERT INTO `tuto_hashtag` VALUES (1,1),(1,2),(2,2),(2,7),(2,8),(3,15),(4,2),(4,13),(4,14),(5,5),(5,6),(5,7),(5,8),(5,9),(5,10),(5,11),(5,12),(13,35);
-/*!40000 ALTER TABLE `tuto_hashtag` ENABLE KEYS */;
+-- ----------------------------
+-- Records of tuto_hashtag
+-- ----------------------------
+BEGIN;
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (1, 1);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (1, 2);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (2, 2);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (2, 7);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (2, 8);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (13, 35);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (15, 4);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (15, 41);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (15, 42);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (15, 43);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (15, 44);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (15, 45);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (15, 46);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (15, 47);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (15, 48);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (18, 6);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (18, 51);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (18, 52);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (18, 53);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (18, 54);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (18, 125);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (18, 126);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (18, 127);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (19, 55);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (19, 56);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (19, 57);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (19, 58);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (19, 59);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (21, 4);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (21, 29);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (21, 63);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (21, 64);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (21, 65);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (21, 66);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (21, 67);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (21, 68);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (21, 115);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (21, 129);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (21, 149);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (21, 150);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (31, 6);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (31, 53);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (31, 70);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (31, 71);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (31, 72);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (31, 73);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (31, 74);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (31, 125);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (37, 4);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (37, 67);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (37, 68);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (37, 76);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (38, 4);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (38, 79);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (40, 4);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (40, 21);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (40, 85);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (40, 86);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (40, 87);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (40, 88);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (40, 89);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (40, 90);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (40, 128);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (40, 129);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (41, 4);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (41, 29);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (41, 36);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (41, 38);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (41, 91);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (41, 92);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (41, 93);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (41, 151);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (50, 2);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (50, 13);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (50, 98);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (50, 102);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (50, 103);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (50, 104);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (50, 105);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (51, 21);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (51, 24);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (51, 29);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (51, 106);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (51, 107);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (51, 108);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (51, 109);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (54, 17);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (54, 18);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (54, 20);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (54, 64);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (54, 66);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (54, 114);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 79);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 118);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 119);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 120);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 121);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 122);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 123);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 124);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 130);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 131);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 132);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 133);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 134);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (63, 135);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (64, 88);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (64, 136);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (64, 137);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (64, 138);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (64, 139);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (64, 140);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (64, 141);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (64, 142);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (64, 143);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (64, 144);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (65, 24);
+INSERT INTO `tuto_hashtag` (`tutorial_id`, `hashtag_id`) VALUES (65, 145);
+COMMIT;
 
---
--- Table structure for table `tutorial`
---
-
+-- ----------------------------
+-- Table structure for tutorial
+-- ----------------------------
 DROP TABLE IF EXISTS `tutorial`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tutorial` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `theme_id` int DEFAULT '1',
-  `difficulty_id` int NOT NULL DEFAULT '1',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `theme_id` int(11) DEFAULT 1,
+  `difficulty_id` int(11) NOT NULL DEFAULT 1,
   `title` varchar(255) NOT NULL,
   `objective` varchar(255) NOT NULL,
   `description` varchar(1000) NOT NULL,
   `step` longtext NOT NULL,
   `author` varchar(255) NOT NULL,
-  `published` tinyint(1) NOT NULL DEFAULT '0',
-  `creation_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `edition_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `published` tinyint(1) NOT NULL DEFAULT 0,
+  `creation_date` datetime DEFAULT current_timestamp(),
+  `edition_date` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `theme_id` (`theme_id`),
   KEY `difficulty_id` (`difficulty_id`),
   CONSTRAINT `tutorial_ibfk_1` FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `tutorial_ibfk_2` FOREIGN KEY (`difficulty_id`) REFERENCES `difficulty` (`id`) ON DELETE SET DEFAULT
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  CONSTRAINT `tutorial_ibfk_2` FOREIGN KEY (`difficulty_id`) REFERENCES `difficulty` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `tutorial`
---
+-- ----------------------------
+-- Records of tutorial
+-- ----------------------------
+BEGIN;
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (15, 2, 1, 'Les gestes de manipulation', 'réussir à se déplacer sur son appareil', 'apprendre les gestes de manipulation de son téléphone', '[{\"id\":1,\"type\":\"text\",\"content\":\"<h1 class=\\\"fr-view\\\" style=\\\"text-align: center;\\\">&nbsp;Les gestes de manipulation</h1>\",\"preview\":false},{\"id\":2,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><strong>Geste 1 : Glisser de gauche &agrave; droite / \\\"swipe\\\"</strong></p>\",\"preview\":false},{\"id\":3,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGfcuUtdNAIAvtai8VG7Ego-E09HgZC82CHw&amp;usqp=CAU\\\" alt=\\\"\\\" width=\\\"242\\\" height=\\\"209\\\"></p>\",\"preview\":false},{\"id\":4,\"type\":\"text\",\"content\":\"<p><strong>Mais une partie de celui-ci ne vous est pas encore visible...&nbsp;</strong></p>\\n<p>Glissez votre doigt de droite &agrave; gauche sur l\'&eacute;cran, comme affich&eacute; ci-dessous. Que voyez-vous ? Qu\'est-ce qui a chang&eacute; ? Qu\'est-ce qui n\'a pas chang&eacute; ?</p>\\n<p>R&eacute;p&eacute;tez l\'op&eacute;ration plusieurs fois, en alternant le sens droite-gauche/gauche-droite.</p>\",\"preview\":false},{\"id\":5,\"type\":\"text\",\"content\":\"<p><strong>Davantage d\'espace de bureau</strong></p>\\n<p>En faisant glisser son doigt sur le bureau, on acc&egrave;de &agrave; de l\'espace suppl&eacute;mentaire. On pourra y ranger davantage d\'applications.<br>Les applications visibles changent, mais la barre d\'&eacute;tat, les notifications et les boutons de navigation restent fixes</p>\",\"preview\":false},{\"id\":6,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><strong>Geste 2 : Cliquer</strong></p>\",\"preview\":false},{\"id\":7,\"type\":\"image\",\"content\":\"<p><img src=\\\"data:image/png;base64,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\\\" alt=\\\"\\\" width=\\\"225\\\" height=\\\"225\\\"></p>\",\"preview\":false},{\"id\":8,\"type\":\"text\",\"content\":\"<p>Pour actionner un bouton, ouvrir une application ou s&eacute;lectionner un emplacement pr&eacute;cis, on aura besoin de cliquer. Ceci se fait &agrave; l\'aide d\'une courte pression sur l\'&eacute;cran. comme indiquer ci-dessous.</p>\",\"preview\":false},{\"id\":9,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><strong>Geste 3 : Glisser de bas en haut / \\\"scroll\\\"</strong></p>\",\"preview\":false},{\"id\":10,\"type\":\"image\",\"content\":\"<p><img src=\\\"data:image/jpeg;base64,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\\\" alt=\\\"\\\" width=\\\"217\\\" height=\\\"232\\\"></p>\",\"preview\":false},{\"id\":11,\"type\":\"text\",\"content\":\"<p>Sur certaines applications, les informations disponibles ne tiennent pas sur un seul &eacute;cran. Pour acc&eacute;der &agrave; la suite, il est alors n&eacute;cessaire de \\\"scroller\\\", c\'est-&agrave;-dire de faire d&eacute;filer l\'&eacute;cran vers le haut, comme montr&eacute; sur cette image ci-dessous.</p>\",\"preview\":false},{\"id\":12,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><strong>A vous de jouer !</strong></p>\",\"preview\":false},{\"id\":13,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://storage.lesbonsclics.fr/upload/documents/public/decouvrir-smartphone-tablette-exerciceV12/content/assets/sdLnkGA_BxJdusdh_9rcDYErF61Fo2Y-b.png\\\" alt=\\\"\\\"></p>\",\"preview\":false}]', 'admin', 0, '2023-01-30 10:44:25', '2023-02-08 10:48:15');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (18, 2, 2, 'Comment scanner un QR Code depuis son smartphone ?', 'réussir à scanner un QR code', 'dans ce tutoriel vous allez découvrir les QR code', '[{\"id\":1,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><strong>A quoi ressemble un QR Code ?&nbsp;&nbsp;</strong></p>\",\"preview\":false},{\"id\":2,\"type\":\"image\",\"content\":\"<p><img src=\\\"data:image/jpeg;base64,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\\\" alt=\\\"\\\" width=\\\"297\\\" height=\\\"170\\\"></p>\",\"preview\":true},{\"id\":3,\"type\":\"text\",\"content\":\"<div class=\\\"noOutline\\\" tabindex=\\\"-1\\\" data-ba=\\\"lessonEdit.block\\\" data-ba-index=\\\"4\\\" data-block-id=\\\"cku2mckd1006c3g6hlu5oqteh\\\">\\n<div>\\n<div class=\\\"block-text block-text--onecol\\\">\\n<div class=\\\"block-text__container\\\" data-ba=\\\"blocks.blockText\\\">\\n<div class=\\\"block-text__row\\\">\\n<div class=\\\"block-text__col brand--body brand--linkColor\\\" aria-hidden=\\\"false\\\">\\n<div class=\\\"fr-view\\\">\\n<p style=\\\"text-align: center;\\\"><strong>C\'est quoi un QR Code ?&nbsp;</strong><strong><br></strong></p>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n<div class=\\\"noOutline\\\" tabindex=\\\"-1\\\" data-ba=\\\"lessonEdit.block\\\" data-ba-index=\\\"5\\\" data-block-id=\\\"ckv6gnqnl006w3e6c306w8iyi\\\">\\n<div>\\n<div class=\\\"block-text block-text--onecol\\\">\\n<div class=\\\"block-text__container\\\" data-ba=\\\"blocks.blockText\\\">\\n<div class=\\\"block-text__row\\\">\\n<div class=\\\"block-text__col brand--body brand--linkColor\\\" aria-hidden=\\\"false\\\">\\n<div class=\\\"fr-view\\\">\\n<p style=\\\"text-align: center;\\\"><strong>Trouvez les mots manquants dans la d&eacute;finition&nbsp;</strong></p>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\",\"preview\":false},{\"id\":4,\"type\":\"text\",\"content\":\"<p>C&rsquo;est un type de&nbsp;<strong>A.</strong>_____________ en deux dimensions qui peut &ecirc;tre lu tr&egrave;s vite par une&nbsp;<strong>B</strong><strong>.</strong>____________. Le QR Code peut renvoyer vers un fichier, un site internet, une information, un point wi-fi, un texte, etc.&nbsp;</p>\",\"preview\":false},{\"id\":5,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\"Cochez les mots manquants :\",\"answers\":[{\"id\":1,\"text\":\"A. code barres\",\"correct\":true},{\"id\":2,\"text\":\"A. téléphone \",\"correct\":false},{\"id\":3,\"text\":\"B- personne\",\"correct\":false},{\"id\":4,\"text\":\"B- machine\",\"correct\":true}]}],\"preview\":false},{\"id\":6,\"type\":\"text\",\"content\":\"<div class=\\\"noOutline\\\" tabindex=\\\"-1\\\" data-ba=\\\"lessonEdit.block\\\" data-ba-index=\\\"9\\\" data-block-id=\\\"ckv6ovldy00g43e6cparbnp56\\\">\\n<div>\\n<div class=\\\"block-text block-text--onecol\\\">\\n<div class=\\\"block-text__container\\\" data-ba=\\\"blocks.blockText\\\">\\n<div class=\\\"block-text__row\\\">\\n<div class=\\\"block-text__col brand--body brand--linkColor\\\" aria-hidden=\\\"false\\\">\\n<div class=\\\"fr-view\\\">\\n<p style=\\\"text-align: center;\\\"><strong>O&ugrave; trouver un QR Code ?&nbsp;</strong></p>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n<div class=\\\"noOutline\\\" tabindex=\\\"-1\\\" data-ba=\\\"lessonEdit.block\\\" data-ba-index=\\\"10\\\" data-block-id=\\\"ckv6gnpmo006u3e6cqiwj9n2g\\\">\\n<div>\\n<div class=\\\"block-text block-text--onecol\\\">\\n<div class=\\\"block-text__container\\\" data-ba=\\\"blocks.blockText\\\">\\n<div class=\\\"block-text__row\\\">\\n<div class=\\\"block-text__col brand--body brand--linkColor\\\" aria-hidden=\\\"false\\\">\\n<div class=\\\"fr-view\\\">\\n<p style=\\\"text-align: center;\\\"><strong>A votre avis, quand peut-on avoir besoin d&rsquo;utiliser ou de scanner un QR code ?</strong></p>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\",\"preview\":false},{\"id\":7,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\"Cochez les endroits dans lesquels vous pouvez avoir besoin de scanner un QR Code : \",\"answers\":[{\"id\":1,\"text\":\"Au restaurant\",\"correct\":true},{\"id\":2,\"text\":\"A l\'aéroport\",\"correct\":true},{\"id\":3,\"text\":\" Aux courses\",\"correct\":true},{\"id\":4,\"text\":\"Dans les magasins\",\"correct\":true},{\"id\":5,\"text\":\"En regardant la télévision\",\"correct\":true}]}],\"preview\":false},{\"id\":8,\"type\":\"text\",\"content\":\"<h1 class=\\\"fr-view\\\" style=\\\"text-align: center;\\\">A vous de jouer !</h1>\\n<p style=\\\"text-align: center;\\\"><strong>Comment scanner un QR Code&nbsp; ?&nbsp;</strong></p>\\n<p style=\\\"text-align: center;\\\">&nbsp;</p>\",\"preview\":false},{\"id\":9,\"type\":\"text\",\"content\":\"<ul>\\n<li>D&eacute;verrouillez votre t&eacute;l&eacute;phone</li>\\n<li>Ouvrez l\'appareil photo</li>\\n<li>Visez le QR Code</li>\\n<li>Cliquez sur le lien qui s\'affiche &agrave; l\'&eacute;cran (Android)</li>\\n<li>Cliquez sur le lien qui s\'affiche &agrave; l\'&eacute;cran (Iphone)</li>\\n</ul>\",\"preview\":false},{\"id\":10,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><strong>D&eacute;couvrez les &eacute;tapes en vid&eacute;o</strong></p>\",\"preview\":false},{\"id\":11,\"type\":\"video\",\"content\":\"<p><iframe src=\\\"https://www.youtube.com/embed/6RrU3TpIZq4\\\" width=\\\"500\\\" height=\\\"280\\\" allowfullscreen=\\\"allowfullscreen\\\"></iframe></p>\",\"preview\":true}]', 'admin', 1, '2023-01-30 10:59:18', '2023-01-31 11:54:00');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (19, 5, 3, 'Les réseaux sociaux', 'Découvrir l\'univers des réseaux sociaux', 'vous allez découvrir les réseaux sociaux les plus populaires', '[{\"id\":1,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\"Sur les réseaux sociaux je peux ? \",\"answers\":[{\"id\":1,\"text\":\"A. partager des photos \",\"correct\":true},{\"id\":2,\"text\":\"B. communiquer avec ses proches\",\"correct\":true},{\"id\":3,\"text\":\"C. suivre l\'actualité\",\"correct\":true},{\"id\":4,\"text\":\"D. acheter des objets \",\"correct\":true},{\"id\":5,\"text\":\"E. suivre la programmation d\'événements\",\"correct\":true},{\"id\":6,\"text\":\"F. trouver des offres d\'emploi\",\"correct\":true}]}],\"preview\":false},{\"id\":2,\"type\":\"text\",\"content\":\"<p>Les r&eacute;seaux sociaux sont des sites internet ou des applications qui vous permettent de rester en contact avec votre entourage.</p>\",\"preview\":false},{\"id\":3,\"type\":\"text\",\"content\":\"<div class=\\\"noOutline\\\" data-ba=\\\"lessonEdit.block\\\" data-ba-index=\\\"9\\\" data-block-id=\\\"ckybd9xtg004t3f6cs1zpjcsp\\\">\\n<div>\\n<div class=\\\"block-text block-text--onecol\\\">\\n<div class=\\\"block-text__container\\\" data-ba=\\\"blocks.blockText\\\">\\n<div class=\\\"block-text__row\\\">\\n<div class=\\\"block-text__col brand--body brand--linkColor\\\">\\n<div class=\\\"fr-view\\\">\\n<p style=\\\"text-align: center;\\\"><strong>Comment se rendre sur les r&eacute;seaux sociaux ?&nbsp;</strong></p>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n<div class=\\\"noOutline\\\" data-ba=\\\"lessonEdit.block\\\" data-ba-index=\\\"10\\\" data-block-id=\\\"ckybd9z86004u3f6ceyzgyvc0\\\">\\n<div>\\n<div class=\\\"block-text block-text--onecol\\\">\\n<div class=\\\"block-text__container\\\" data-ba=\\\"blocks.blockText\\\">\\n<div class=\\\"block-text__row\\\">\\n<div class=\\\"block-text__col brand--body brand--linkColor\\\">\\n<div class=\\\"fr-view\\\">\\n<p style=\\\"text-align: center;\\\"><strong>Consigne :&nbsp;</strong>r&eacute;pondez &agrave; la question suivante</p>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\",\"preview\":false},{\"id\":4,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\" De quoi avez-vous besoin pour aller sur les réseaux sociaux ? \",\"answers\":[{\"id\":1,\"text\":\"A. Internet (Wifi ou 3G/4G) \",\"correct\":true},{\"id\":2,\"text\":\"B. Un smartphone\",\"correct\":true},{\"id\":3,\"text\":\"C. Un ordinateur\",\"correct\":true},{\"id\":4,\"text\":\"D. Une tablette\",\"correct\":true}]}],\"preview\":false},{\"id\":5,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><strong>Les limites des r&eacute;seaux sociaux</strong></p>\",\"preview\":false},{\"id\":6,\"type\":\"text\",\"content\":\"<p>Vous allez d&eacute;couvrir les risques que peuvent comporter l\'usage des r&eacute;seaux sociaux. Comme sur Internet, il est important d\'en avoir conscience pour s\'en prot&eacute;ger.</p>\",\"preview\":false},{\"id\":7,\"type\":\"text\",\"content\":\"<ul>\\n<li>le cyber-harcelement</li>\\n<li>les fake news</li>\\n<li>Addiction aux &eacute;crans</li>\\n<li>l\'usurpation d\'identit&eacute;</li>\\n<li>les arnaques en ligne</li>\\n</ul>\",\"preview\":false},{\"id\":8,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><span style=\\\"color: rgb(35, 111, 161); font-size: 18pt;\\\">Facebook</span></p>\",\"preview\":false},{\"id\":9,\"type\":\"text\",\"content\":\"<p>Facebook est le plus gros r&eacute;seau social du moment, avec plusieurs centaines de millions de personnes inscrites. Facebook vous permet de rester en contact avec vos amis et votre famille, de partager vos moments, photos, vid&eacute;os, vos humeurs et consulter ceux de vos contacts.</p>\",\"preview\":false},{\"id\":10,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><span style=\\\"font-size: 18pt; color: rgb(185, 106, 217);\\\">Instagram</span></p>\\n<p style=\\\"text-align: center;\\\">&nbsp;</p>\",\"preview\":false},{\"id\":11,\"type\":\"text\",\"content\":\"<p>Instagram est un r&eacute;seau social utilis&eacute; surtout sur smartphone. Le but est de partager ses photographies et vid&eacute;os de mani&egrave;re temporaire (story) ou durable (publication). Chaque utilisateur a une page personnelle Instagram o&ugrave; apparaissent les contenus.</p>\",\"preview\":false},{\"id\":12,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><span style=\\\"font-size: 18pt; color: rgb(241, 196, 15);\\\">Snapchat</span></p>\",\"preview\":false},{\"id\":13,\"type\":\"text\",\"content\":\"<p>Snapchat est une application gratuite de partage (&eacute;ph&eacute;m&egrave;re) de photos et de vid&eacute;os &nbsp;&agrave; ses ami(e)s depuis son smartphone.</p>\",\"preview\":false},{\"id\":14,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><span style=\\\"font-size: 18pt;\\\">TikTok</span></p>\",\"preview\":false},{\"id\":15,\"type\":\"text\",\"content\":\"<p>TikTok est une application mobile de partage de courtes vid&eacute;os en musique. Les th&egrave;mes des vid&eacute;os sont vari&eacute;s (chor&eacute;graphies, sketchs, mini-sc&egrave;nes, etc..)</p>\",\"preview\":false},{\"id\":16,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><span style=\\\"font-size: 18pt; color: rgb(53, 152, 219);\\\">Twitter</span></p>\",\"preview\":false},{\"id\":17,\"type\":\"text\",\"content\":\"<p>Twitter est un r&eacute;seau social gratuit qui permet d\'envoyer des &nbsp;messages tr&egrave;s courts. On les appelle des tweets ou gazouillis. Ces messages sont limit&eacute;s &agrave; 280 caract&egrave;res.</p>\",\"preview\":false}]', 'admin', 1, '2023-01-30 11:16:48', '2023-02-08 10:48:35');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (21, 2, 1, 'Comment envoyer un SMS/MMS sur Android', 'envoyer un SMS', 'dans ce tutoriel vous allez découvrir comment envoyer un SMS ', '[{\"id\":1,\"type\":\"text\",\"content\":\"<p>Si vous d&eacute;butez &agrave; peine avec votre smartphone&nbsp;<strong>Android</strong>, vous cherchez peut-&ecirc;tre &agrave; savoir comment envoyer un&nbsp;<strong>SMS ou MMS</strong>. Apr&egrave;s tout, il s&rsquo;agit d&rsquo;une fonctionnalit&eacute; basique de nos t&eacute;l&eacute;phones portables depuis des lustres aujourd&rsquo;hui.</p>\",\"preview\":false},{\"id\":2,\"type\":\"text\",\"content\":\"<p>Voil&agrave; belles lurettes qu&rsquo;un t&eacute;l&eacute;phone ne sert plus seulement &agrave; t&eacute;l&eacute;phoner. Mais l&rsquo;une des autres fonctionnalit&eacute;s ancestrales de nos smartphones reste l&rsquo;envoi de SMS et de MMS. Mais vous &ecirc;tes peut-&ecirc;tre un n&eacute;ophyte total en la mati&egrave;re ou alors quelqu&rsquo;un de votre famille est un peu perdu et vous souhaitez l&rsquo;aider. C&rsquo;est &agrave; cela que sert ce guide qui explique&nbsp;<strong>comment envoyer un SMS sur Android</strong>.</p>\",\"preview\":false},{\"id\":3,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://images.frandroid.com/wp-content/uploads/2014/06/img_20181130_182039-768x576.jpg\\\" alt=\\\"\\\" width=\\\"600\\\" height=\\\"450\\\"></p>\",\"preview\":false},{\"id\":4,\"type\":\"text\",\"content\":\"<h2 style=\\\"text-align: center;\\\">COMMENT ENVOYER UN MESSAGE SUR ANDROID</h2>\",\"preview\":false},{\"id\":5,\"type\":\"text\",\"content\":\"<p>Commencez par ouvrir votre application SMS. Dans un coin de l&rsquo;interface, vous verrez un bouton qui peut prendre plusieurs formes en fonction de votre smartphone. Cette touche peut &ecirc;tre pr&eacute;sent&eacute;e sous la forme d&rsquo;un signe Plus , d&rsquo;une bulle de texte &nbsp;ou simplement d&rsquo;une petite phrase du type &laquo;&thinsp;<strong>D&eacute;marrer une discussion</strong> &raquo;.</p>\\n<p>Appuyez sur ce bouton. Cela vous m&egrave;nera sur une interface ou vous devrez d&rsquo;abord entrer le num&eacute;ro de t&eacute;l&eacute;phone de votre choix ou alors le nom d&rsquo;un contact enregistr&eacute;. Une fois que cela est termin&eacute;, il vous suffit de taper votre texte et d&rsquo;appuyer sur le bouton &laquo;&thinsp;Envoyer&thinsp;&raquo; qui s&rsquo;affiche &agrave; l&rsquo;&eacute;cran. Celui-ci peut &ecirc;tre repr&eacute;sent&eacute; par un simple triangle pointant vers la droite.</p>\",\"preview\":false},{\"id\":6,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://i0.wp.com/images.frandroid.com/wp-content/uploads/2014/06/20181130_181420.jpg?w=306&amp;h=628&amp;ssl=1\\\" alt=\\\"\\\" width=\\\"305\\\" height=\\\"628\\\"></p>\",\"preview\":false},{\"id\":7,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://i0.wp.com/images.frandroid.com/wp-content/uploads/2014/06/screenshot_20181130-181048_messages.jpg?w=305&amp;h=628&amp;ssl=1\\\" alt=\\\"\\\" width=\\\"305\\\" height=\\\"628\\\"></p>\",\"preview\":false},{\"id\":8,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://i0.wp.com/images.frandroid.com/wp-content/uploads/2014/06/screenshot_20181130-181020_messages.jpg?w=305&amp;h=628&amp;ssl=1\\\" alt=\\\"\\\" width=\\\"305\\\" height=\\\"628\\\"></p>\",\"preview\":false},{\"id\":9,\"type\":\"text\",\"content\":\"<p>Pour les MMS, la d&eacute;marche est exactement la m&ecirc;me. Avant d&rsquo;envoyer le message, il faudra simplement aller chercher votre image ou vid&eacute;o &agrave; partager dans la galerie de votre smartphone.</p>\",\"preview\":false},{\"id\":10,\"type\":\"text\",\"content\":\"<h2 style=\\\"text-align: center;\\\">CE QU&rsquo;IL FAUT RETENIR</h2>\",\"preview\":false},{\"id\":11,\"type\":\"text\",\"content\":\"<p>Comment envoyer un SMS ?</p>\\n<ul>\\n<li>Ouvrez votre&nbsp;<strong>application SMS</strong></li>\\n<li>Appuyer sur le bouton&nbsp;<strong>D&eacute;marrer une discussion</strong></li>\\n<li>Tapez le num&eacute;ro du destinataire ou le nom du contact enregistr&eacute;</li>\\n<li>Cliquez sur&nbsp;<strong>Envoyer</strong></li>\\n</ul>\",\"preview\":false},{\"id\":12,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\">La suite en vid&eacute;o<span style=\\\"font-size: 14pt;\\\"> !</span></p>\",\"preview\":false},{\"id\":13,\"type\":\"video\",\"content\":\"<p><iframe src=\\\"https://www.dailymotion.com/embed/video/x811jlq\\\" width=\\\"480\\\" height=\\\"270\\\" allowfullscreen=\\\"allowfullscreen\\\"></iframe></p>\",\"preview\":false},{\"id\":14,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><strong>Voici un outils <em>d\'edition</em></strong></p>\",\"preview\":false},{\"id\":15,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\"Comment peut on envoyer un sms ?\",\"answers\":[{\"id\":1,\"text\":\"Avec son portable\",\"correct\":true},{\"id\":2,\"text\":\"Avec la voix\",\"correct\":true},{\"id\":3,\"text\":\"sans telephone\",\"correct\":false}]}],\"preview\":false}]', 'admin', 1, '2023-01-30 11:45:18', '2023-02-09 18:33:55');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (31, 5, 1, 'Faire une photo ou vidéo', 'prendre une photo', 'dans ce tutoriel vous allez apprendre à prendre une photo', '[{\"id\":1,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><span style=\\\"font-size: 18pt; color: rgb(0, 0, 0);\\\">Comment prendre des photos avec un appareil Android</span></p>\",\"preview\":false},{\"id\":2,\"type\":\"text\",\"content\":\"<p>Avec la cam&eacute;ra de votre smartphone, c\'est facile de prendre des photos. La plupart des consommateurs, avant d\'acheter un nouveau t&eacute;l&eacute;phone ou une nouvelle tablette, prennent en consid&eacute;ration la qualit&eacute; de la cam&eacute;ra. L\'application de cam&eacute;ra est tr&egrave;s facile &agrave; utiliser et peut &ecirc;tre utile &agrave; tout moment de la journ&eacute;e.</p>\",\"preview\":false},{\"id\":3,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><span style=\\\"color: rgb(0, 0, 0); font-size: 18pt;\\\">Prendre une photo de fa&ccedil;on r&eacute;guli&egrave;re</span></p>\",\"preview\":false},{\"id\":4,\"type\":\"image\",\"content\":\"<p><img src=\\\"http://localhost:8000/images/87a0f7d6-e794-4545-9570-648285016bf7android.jpg\\\" alt=\\\"\\\" width=\\\"500\\\" height=\\\"363\\\"></p>\",\"preview\":false},{\"id\":5,\"type\":\"text\",\"content\":\"<p><strong class=\\\"whb\\\">1- Lancez l\'application de cam&eacute;ra.</strong>&nbsp;Vous trouverez l\'ic&ocirc;ne de l\'application de cam&eacute;ra sur l\'&eacute;cran d\'accueil.</p>\\n<ul>\\n<li>Si vous ne trouvez pas l\'ic&ocirc;ne de la cam&eacute;ra sur l\'&eacute;cran d\'accueil, acc&eacute;dez au menu d\'applications qui se trouve en bas &agrave; droite de l\'&eacute;cran. Recherchez-la parmi les applications.</li>\\n</ul>\",\"preview\":false},{\"id\":6,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://www.wikihow.com/images/thumb/0/03/Take-Pictures-on-Android-Step-2-Version-2.jpg/v4-728px-Take-Pictures-on-Android-Step-2-Version-2.jpg.webp\\\" alt=\\\"\\\" width=\\\"600\\\" height=\\\"436\\\"></p>\",\"preview\":false},{\"id\":7,\"type\":\"text\",\"content\":\"<p><strong class=\\\"whb\\\">2- Activez/d&eacute;sactivez le flash.</strong>&nbsp;Dans le panneau de param&egrave;tres situ&eacute; dans l\'un des coins de l\'&eacute;cran, vous verrez certaines ic&ocirc;nes affich&eacute;es.</p>\\n<ul>\\n<li>Recherchez l\'ic&ocirc;ne en forme de tonnerre. Appuyez dessus pour activer ou d&eacute;sactiver le flash.</li>\\n</ul>\",\"preview\":false},{\"id\":8,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://www.wikihow.com/images/thumb/0/04/Take-Pictures-on-Android-Step-3-Version-2.jpg/v4-728px-Take-Pictures-on-Android-Step-3-Version-2.jpg.webp\\\" alt=\\\"\\\" width=\\\"600\\\" height=\\\"436\\\"></p>\",\"preview\":false},{\"id\":9,\"type\":\"text\",\"content\":\"<p><strong class=\\\"whb\\\">3- Point de mire.</strong>&nbsp;Appuyez sur l\'objet que vous souhaitez capturer pour focaliser la cam&eacute;ra dessus.</p>\",\"preview\":false},{\"id\":10,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://www.wikihow.com/images/thumb/c/c4/Take-Pictures-on-Android-Step-4-Version-2.jpg/v4-728px-Take-Pictures-on-Android-Step-4-Version-2.jpg.webp\\\" alt=\\\"\\\" width=\\\"600\\\" height=\\\"436\\\"></p>\",\"preview\":false},{\"id\":11,\"type\":\"text\",\"content\":\"<p><strong class=\\\"whb\\\">4- Prenez la photo.</strong>&nbsp;Appuyez sur le bouton du flash situ&eacute; au milieu du c&ocirc;t&eacute; gauche ou droit de l\'&eacute;cran pour prendre la photo. Soyez immobile, car les mouvements peuvent rendre l\'image floue.</p>\",\"preview\":false},{\"id\":12,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://www.wikihow.com/images/thumb/9/93/Take-Pictures-on-Android-Step-5-Version-2.jpg/v4-728px-Take-Pictures-on-Android-Step-5-Version-2.jpg.webp\\\" alt=\\\"\\\" width=\\\"600\\\" height=\\\"436\\\"></p>\",\"preview\":false},{\"id\":13,\"type\":\"text\",\"content\":\"<p><strong class=\\\"whb\\\">5- Pr&eacute;visualisez l\'image.</strong>&nbsp;Si vous souhaitez voir l\'image que vous venez de prendre, appuyez juste sur la petite ic&ocirc;ne en haut &agrave; gauche (dessin de paysage/horizontal), ou en bas &agrave; gauche(portrait/vertical) de l\'&eacute;cran.</p>\",\"preview\":false}]', 'admin', 1, '2023-01-30 12:27:56', '2023-01-31 11:48:51');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (37, 2, 1, 'Appel entrant et sortant', 'envoyer et recevoir des appels', 'voici la marche à suivre pour envoyer et recevoir des appels', '[{\"id\":1,\"type\":\"text\",\"content\":\"<h2>Passer un appel t&eacute;l&eacute;phonique</h2>\\n<div><strong>Important</strong>&nbsp;: Pour utiliser l\'application T&eacute;l&eacute;phone, vous devez accepter l\'invite pour la d&eacute;finir comme application par d&eacute;faut.</div>\\n<div>\\n<ol>\\n<li>Ouvrez l\'application T&eacute;l&eacute;phone sur votre t&eacute;l&eacute;phone&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/3uxMlSDIndQDopciRurAFnprWh1EGcvBfSzD\\\" alt=\\\"\\\" width=\\\"18\\\" height=\\\"18\\\" data-mime-type=\\\"image/svg+xml\\\">.&nbsp;</li>\\n<li>Choisissez le contact &agrave; appeler&nbsp;:\\n<ul>\\n<li>Pour composer directement un num&eacute;ro de t&eacute;l&eacute;phone, utilisez le clavier&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/328CBA488969E07088C7807F79ABBD6BB9A1\\\" alt=\\\"Clavier\\\" width=\\\"20\\\" data-mime-type=\\\"image/png\\\">.</li>\\n<li>Pour s&eacute;lectionner l\'un de vos contacts enregistr&eacute;s, appuyez sur Contacts&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/Ro7m0WWCCC5Hra5B998RsC8GF58AyhB2msMq\\\" alt=\\\"Contacts\\\" width=\\\"18\\\" height=\\\"18\\\" data-mime-type=\\\"image/png\\\">.&nbsp;Nous pouvons vous pr&eacute;senter des suggestions de contacts en fonction de l\'historique de vos appels.</li>\\n<li>Pour choisir l\'un des num&eacute;ros que vous avez appel&eacute;s r&eacute;cemment, appuyez sur R&eacute;cents&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/awGmlhzF9M0YMhBkvDOEvqvdTh90jnn6y5Fx\\\" alt=\\\"R&eacute;cents\\\" width=\\\"18\\\" height=\\\"18\\\" data-mime-type=\\\"image/png\\\">.</li>\\n<li>Pour faire votre choix parmi les contacts enregistr&eacute;s dans les favoris, appuyez sur Favoris&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/z4TYQZTMNUvx4Vktx4xZTgxWgw1AR6yEz9oZ\\\" alt=\\\"Num&eacute;rotation abr&eacute;g&eacute;e\\\" width=\\\"18\\\" height=\\\"18\\\" data-mime-type=\\\"image/png\\\">.</li>\\n</ul>\\n</li>\\n<li>Appuyez sur Appeler&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/SNP_2924401_en_v0\\\" alt=\\\"t&eacute;l&eacute;phone\\\" width=\\\"20\\\" data-mime-type=\\\"image/png\\\">.</li>\\n<li>Si vous souhaitez terminer l\'appel, appuyez sur le bouton de fin d\'appel&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/7D8B96C7042AB8A4A8FCA98CDD62625B9AE4\\\" alt=\\\"bouton de fin d\\\" width=\\\"20\\\" data-mime-type=\\\"image/png\\\">. Si la fen&ecirc;tre d\'appel est r&eacute;duite, faites glisser la bulle d\'appel en bas &agrave; droite de l\'&eacute;cran.</li>\\n</ol>\\n</div>\",\"preview\":false},{\"id\":2,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://support.ubity.com/tech/wp-content/uploads/2017/04/PasserUnAppel1.jpg\\\" alt=\\\"ecran telephone\\\" width=\\\"800\\\" height=\\\"307\\\"></p>\",\"preview\":true},{\"id\":3,\"type\":\"text\",\"content\":\"<h2><a name=\\\"answer_call\\\"></a>Accepter ou refuser un appel t&eacute;l&eacute;phonique</h2>\\n<div>\\n<p>Lorsque quelqu\'un vous appelle, son num&eacute;ro, son nom ou son contact s\'affichent &agrave; l\'&eacute;cran. Lorsque Google parvient &agrave; valider un num&eacute;ro de t&eacute;l&eacute;phone, le symbole <img src=\\\"https://storage.googleapis.com/support-kms-prod/gBG3jYSuCNW7xbuLPHaGo3KUia9Y9Y9SJNLR\\\" alt=\\\"\\\" width=\\\"18\\\" height=\\\"18\\\" data-mime-type=\\\"image/svg+xml\\\">&nbsp;Valid&eacute; s\'affiche au-dessus du nom ou du num&eacute;ro de l\'appelant.</p>\\n<span id=\\\"372495E\\\"></span>\\n<ul>\\n<li>Pour r&eacute;pondre &agrave; l\'appel, <span id=\\\"305411S\\\"></span>faites glisser le cercle blanc vers le haut de l\'&eacute;cran<span id=\\\"305411E\\\"></span> si votre t&eacute;l&eacute;phone est verrouill&eacute; ou appuyez sur <strong>R&eacute;pondre</strong>.</li>\\n<li>Pour refuser l\'appel, <span id=\\\"305829S\\\"></span>faites glisser le cercle blanc vers le bas de l\'&eacute;cran<span id=\\\"305829E\\\"></span> si votre t&eacute;l&eacute;phone est verrouill&eacute;, ou appuyez sur <strong>Ignorer</strong>.&nbsp;Les appelants auxquels vous ne r&eacute;pondez pas peuvent vous laisser un message.</li>\\n<li>Pour refuser l\'appel et envoyer un SMS &agrave; l\'appelant, <span id=\\\"305529S\\\"></span>balayez l\'&eacute;cran vers le haut depuis l\'ic&ocirc;ne <span id=\\\"372495S\\\"></span>Message&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/56A6C384ADAB8EFBBA569B01C93CD52C312B\\\" alt=\\\"Nouveau message\\\" width=\\\"20\\\" data-mime-type=\\\"image/png\\\">.&nbsp;<span id=\\\"305529E\\\"></span></li>\\n</ul>\\n</div>\\n<div>\\n<p><strong>Astuces&nbsp;:&nbsp;</strong></p>\\n<ul>\\n<li>Si vous r&eacute;pondez &agrave; un appel alors que vous &ecirc;tes d&eacute;j&agrave; en communication, le premier appel est mis en attente.</li>\\n<li>Si l\'Assistant&nbsp;Google est activ&eacute;, vous pouvez r&eacute;pondre &agrave; un appel ou le refuser &agrave; l\'aide de votre voix. Utilisez par exemple les commandes vocales suivantes&nbsp;:\\n<ul>\\n<li>\\\"Hey&nbsp;Google, r&eacute;ponds &agrave; l\'appel.\\\"</li>\\n<li>\\\"Hey&nbsp;Google, refuse l\'appel.\\\"</li>\\n</ul>\\n</li>\\n</ul>\\n</div>\",\"preview\":false},{\"id\":4,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://productdocuments.mitel.com/AEM/Technology/CloudLink/All%20Releases/MiVoice%20Office/FR-FR/HTML5/MiVoice_Office/Images/android_callkit.png\\\" alt=\\\"appel entrant\\\" width=\\\"806\\\" height=\\\"382\\\"></p>\",\"preview\":true},{\"id\":5,\"type\":\"text\",\"content\":\"<h2>Utiliser les options d\'appel t&eacute;l&eacute;phonique</h2>\\n<div>\\n<div>Voici les options disponibles lorsque vous &ecirc;tes en communication&nbsp;:</div>\\n<ul>\\n<li>Pour afficher le clavier, appuyez sur Clavier&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/328CBA488969E07088C7807F79ABBD6BB9A1\\\" alt=\\\"Clavier\\\" width=\\\"20\\\" data-mime-type=\\\"image/png\\\">.</li>\\n<li>Pour activer l\'&eacute;couteur, le haut-parleur ou n\'importe quel casque&nbsp;Bluetooth connect&eacute;, appuyez sur Haut-parleur&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/9B046F9807D1BDDBA1FBC1A3AB345FE85F86\\\" alt=\\\"Haut-parleur\\\" width=\\\"18\\\" height=\\\"18\\\" data-mime-type=\\\"image/png\\\">.</li>\\n<li>Pour activer ou d&eacute;sactiver le micro, appuyez sur Couper le son&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/E4C1B55B30D2868D7EAAE27D61BF6B98376D\\\" alt=\\\"Couper le son\\\" width=\\\"18\\\" height=\\\"18\\\" data-mime-type=\\\"image/png\\\">.</li>\\n<li>Pour mettre en attente votre interlocuteur, appuyez sur Mettre en attente&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/8EECB5FE2E078EC16B47F734D2E64E1DB7A1\\\" alt=\\\"Mettre en attente\\\" width=\\\"18\\\" height=\\\"18\\\" data-mime-type=\\\"image/png\\\">, puis appuyez &agrave; nouveau dessus pour reprendre l\'appel.</li>\\n<li>Pour passer d\'un appel &agrave; l\'autre, appuyez sur Changer&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/6073D88B39F601C4A534D4134BF0BB6D6C00\\\" alt=\\\"Changer\\\" width=\\\"18\\\" height=\\\"18\\\" data-mime-type=\\\"image/png\\\">. L\'autre appel est mis en attente.</li>\\n<li>Pour fusionner les appels en cours et cr&eacute;er une conf&eacute;rence t&eacute;l&eacute;phonique, appuyez sur Fusionner des appels&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/SNP_2924413_en_v0\\\" alt=\\\"Fusionner des appels\\\" width=\\\"18\\\" height=\\\"18\\\" data-mime-type=\\\"image/png\\\">.</li>\\n<li><span id=\\\"372597S\\\"></span>Pour r&eacute;duire la fen&ecirc;tre d\'appel, acc&eacute;dez &agrave; l\'&eacute;cran d\'accueil. D&eacute;couvrez comment <a href=\\\"https://support.google.com/pixelphone/answer/6073614\\\" rel=\\\"noopener\\\">naviguer sur votre t&eacute;l&eacute;phone</a>.\\n<ul>\\n<li>Faites glisser la bulle d\'appel pour la d&eacute;placer.</li>\\n<li>Pour masquer la bulle d\'appel, faites-la glisser vers le bas de l\'&eacute;cran.<span id=\\\"372597E\\\"></span></li>\\n</ul>\\n</li>\\n<li>Avec certains op&eacute;rateurs et appareils, vous pouvez&nbsp;:\\n<ul>\\n<li><strong>passer &agrave; un appel vid&eacute;o</strong> en appuyant sur Appel vid&eacute;o&nbsp;<img src=\\\"https://lh3.googleusercontent.com/nRtWmeOt8UKdPcUI1Ig2PM287vjpFj1DrUWdHCvTDr-qMIZykFt-P2quORxZlsTxnZtR\\\" alt=\\\"Appel vid&eacute;o\\\" data-mime-type=\\\"image/png\\\" data-alt-src=\\\"//lh3.googleusercontent.com/nRtWmeOt8UKdPcUI1Ig2PM287vjpFj1DrUWdHCvTDr-qMIZykFt-P2quORxZlsTxnZtR\\\">&nbsp;;</li>\\n<li><strong>transf&eacute;rer un appel en cours vers un autre num&eacute;ro</strong>.\\n<ol>\\n<li>Dans un appel en cours, appuyez sur Ajouter un appel&nbsp;<img src=\\\"https://lh3.googleusercontent.com/WC1kbfVwJ1CS2CQAOzFGbxIIkZot6o9ZflcNLmWN2iZAppxxW1ZimUosXBMKCcnlX7A=w36-h36\\\" alt=\\\"Ajouter\\\" width=\\\"18\\\" height=\\\"18\\\" data-mime-type=\\\"image/png\\\" data-alt-src=\\\"//lh3.googleusercontent.com/WC1kbfVwJ1CS2CQAOzFGbxIIkZot6o9ZflcNLmWN2iZAppxxW1ZimUosXBMKCcnlX7A\\\">.</li>\\n<li>Saisissez un num&eacute;ro de t&eacute;l&eacute;phone.</li>\\n<li>Appuyez sur<strong> </strong>Appeler<strong>&nbsp;</strong><img src=\\\"https://storage.googleapis.com/support-kms-prod/SNP_2924401_en_v0\\\" alt=\\\"t&eacute;l&eacute;phone\\\" width=\\\"20\\\" data-mime-type=\\\"image/png\\\">.</li>\\n<li>Une fois la liaison &eacute;tablie, appuyez sur Transf&eacute;rer&nbsp;<img src=\\\"https://storage.googleapis.com/support-kms-prod/La02fTGjWMCxn2IsWrwbUmrt7ZxKrKjbmXkq\\\" alt=\\\"\\\" width=\\\"18\\\" height=\\\"18\\\" data-mime-type=\\\"image/png\\\">. Votre appel est transf&eacute;r&eacute; vers le num&eacute;ro que vous avez saisi &agrave; l\'&eacute;tape&nbsp;2.</li>\\n</ol>\\n</li>\\n</ul>\\n</li>\\n</ul>\\n</div>\",\"preview\":false},{\"id\":6,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\"Comment choisir un contact à appeler?\",\"answers\":[{\"id\":1,\"text\":\"En composant directement son numéro de téléphone\",\"correct\":true},{\"id\":2,\"text\":\"En dessinant un rond sur l\'écran\",\"correct\":false},{\"id\":3,\"text\":\"En selectionant un contact enregistré\",\"correct\":true}]}],\"preview\":false}]', 'admin', 1, '2023-01-30 15:54:04', '2023-01-30 16:53:47');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (38, 1, 1, 'Lancer l\'application', 'démarrer l\'application Ligne Bleue', 'Voici un tutoriel pour démarrer l\'application sur le téléphone', '[{\"id\":1,\"type\":\"text\",\"content\":\"<p>Pour d&eacute;marrer l\'application Ligne Bleue, toucher l\'icone \\\"Ligne Bleue\\\" sur l\'&eacute;cran</p>\",\"preview\":false},{\"id\":2,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://www.frandroid.com/wp-content/uploads/2010/04/telechargement.jpg?w=180\\\" alt=\\\"icone application\\\" width=\\\"480\\\" height=\\\"800\\\"></p>\",\"preview\":true}]', 'admin', 1, '2023-01-30 16:21:21', '2023-01-30 17:05:55');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (40, 2, 2, 'Gestion des contacts', 'créer et organiser ses contacts', 'dans ce tutoriel vous allez apprendre à enregistrer des contacts', '[{\"id\":1,\"type\":\"text\",\"content\":\"<h1 class=\\\"article-title article-title_h1\\\" style=\\\"text-align: center;\\\"><span class=\\\"article-title__text\\\">Comment organiser vos contacts sur Android</span></h1>\",\"preview\":false},{\"id\":2,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://fs.npstatic.com/userfiles/6727621/image/2016/HeroS-random/AndroidPIT-htc-10-contacts-w810h462.jpg\\\" alt=\\\"\\\" width=\\\"600\\\" height=\\\"342\\\"></p>\",\"preview\":false},{\"id\":3,\"type\":\"text\",\"content\":\"<p>On en parle peu, mais l\'application Contacts est&nbsp;l\'une des applications les&nbsp;plus importantes pr&eacute;sentes sur un smartphone. Votre appareil a beau vous permettre&nbsp;de jouer, de surfer sur le web, de faire vos courses etc, il n\'en est pas moins&nbsp;un t&eacute;l&eacute;phone ! Voici comment&nbsp;organiser vos contacts sur Android correctement.</p>\",\"preview\":false},{\"id\":4,\"type\":\"text\",\"content\":\"<p>Android vous aide un peu &agrave; g&eacute;rer votre liste de contacts mais les possibilit&eacute;s qu\'il offre ne sont pas toujours tr&egrave;s claires, ni tr&egrave;s d&eacute;velopp&eacute;es. Voici donc tout sp&eacute;cialement pour vous, un petit guide p&eacute;dagogique incluant des applications tierces que vous pouvez &eacute;galement utiliser pour g&eacute;rer vos contacts, que vous ayez un Pixel 3 ou un<span style=\\\"background-color: rgb(255, 255, 255);\\\"> Galaxi note 9, </span>tout fonctionne de la m&ecirc;me fa&ccedil;on ou presque.&nbsp;</p>\",\"preview\":false},{\"id\":5,\"type\":\"text\",\"content\":\"<h2>Comment g&eacute;rer ses contacts de fa&ccedil;on simple</h2>\\n<p>L\'application Contacts (elle a chang&eacute; de nombreuses fois de d&eacute;nominations mais elle s\'appelle Contacts dans les derni&egrave;res versions) vous permet d\'acc&eacute;der imm&eacute;diatement aux contacts associ&eacute;s avec votre compte Google. Vous trouvez &eacute;galement un&nbsp;bouton&nbsp;<em>Recherche</em>&nbsp;en haut &agrave; droite et un gros bouton de couleur&nbsp;<em>Ajouter contact&nbsp;</em>en bas &agrave; droite.&nbsp;</p>\",\"preview\":false},{\"id\":6,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://fs.npstatic.com/userfiles/7066884/image/androidpit-FR-contacts-w782.png\\\" alt=\\\"\\\" width=\\\"600\\\" height=\\\"626\\\"></p>\",\"preview\":false},{\"id\":7,\"type\":\"text\",\"content\":\"<p>Choisissez n\'importe quel contact pour faire appara&icirc;tre sa fiche associ&eacute;e - vous pourrez alors l\'appeler, lui envoyer un email ou un SMS (&agrave; condition que ces informations y figurent), voir les derni&egrave;res interactions (les derniers SMS envoy&eacute;s) et &eacute;diter les informations du contact&nbsp;sur votre appareil (via l\'ic&ocirc;ne&nbsp;<em>Crayon&nbsp;</em>en haut &agrave; droite).</p>\",\"preview\":false},{\"id\":8,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://fs.npstatic.com/userfiles/7066884/image/androidpit-FR-contacts-2-w782.jpg\\\" alt=\\\"\\\" width=\\\"600\\\" height=\\\"626\\\"></p>\",\"preview\":false},{\"id\":9,\"type\":\"text\",\"content\":\"<h2>Customiser vos contacts</h2>\\n<p>Tapez sur le bouton&nbsp;<em>Plus&nbsp;</em>(trois points verticaux) et choisissez&nbsp;<em>Personnaliser la vie&nbsp;</em>- l\'&eacute;cran suivant vous permettra alors de choisir quels contacts afficher dans l\'application, et quels contacts vous d&eacute;sirez cacher.&nbsp;</p>\",\"preview\":false},{\"id\":10,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://fs.npstatic.com/userfiles/7066884/image/androidpit-fr-contacts-4-w782.jpg\\\" alt=\\\"\\\" width=\\\"600\\\" height=\\\"626\\\"></p>\",\"preview\":false},{\"id\":11,\"type\":\"text\",\"content\":\"<p>Vous pouvez notamment choisir parmi&nbsp;toutes les applications poss&eacute;dant leur propre liste de contacts (comme Whatsapp et Facebook) et les sous-sections de ces listes (s\'il y en a). Dans le cas de vos contacts Google par exemple, vous aurez peut-&ecirc;tre int&eacute;r&ecirc;t &agrave; choisir un groupe de contacts, plut&ocirc;t qu\'&agrave; tous les afficher.&nbsp;Vous pouvez choisir d\'afficher des groupes particuliers plut&ocirc;t que tous les contacts de votre compte Google.</p>\",\"preview\":false},{\"id\":12,\"type\":\"text\",\"content\":\"<p>Personnaliser vos contacts en choisissant&nbsp;les groupes de contact Google &agrave; afficher, ainsi que ceux d\'applications tierces prendra un peu de temps, mais vous permettra d\'en gagner beaucoup par la suite. Votre application Contact ssera bien plus efficace si vous cachez par exemple le groupe de covoitureurs d\'il y a trois ans, au profit des&nbsp;personnes avec lesquelles vous communiquez le plus.</p>\",\"preview\":false}]', 'admin', 1, '2023-01-30 16:48:11', '2023-01-31 12:25:11');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (41, 2, 1, 'Allumer et éteindre son téléphone Android', 'Apprendre a éteindre et allumer son téléphone Modile', 'Dans ce tutoriel vous allez apprendre la manipulation  basique pour allumer et éteindre votre téléphone mobile.', '[{\"id\":1,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://images.samsung.com/is/image/samsung/assets/fr/support/mobile-devices6/comment-eteindre-mon-smartphone-samsung-galaxy/header.png?$ORIGIN_PNG$\\\" alt=\\\"\\\" width=\\\"490\\\" height=\\\"300\\\"></p>\",\"preview\":false},{\"id\":2,\"type\":\"text\",\"content\":\"<p>Pour assurer le bon fonctionnement de votre smartphone, nous vous recommandons d&rsquo;&eacute;teindre votre appareil r&eacute;guli&egrave;rement.</p>\",\"preview\":false},{\"id\":3,\"type\":\"text\",\"content\":\"<p><strong>Eteindre mon smartphone &agrave; partir du panneau des notifications&nbsp;</strong></p>\\n<p>1- <span class=\\\"co29-numbering__list-headline\\\">Pour ouvrir le panneau des notifications, faites glisser votre doigt du haut vers le bas de l&rsquo;&eacute;cran de votre smartphone, en commen&ccedil;ant tout en haut de l&rsquo;&eacute;cran.</span></p>\\n<p><span class=\\\"co29-numbering__list-headline\\\">2-<span class=\\\"co29-numbering__list-headline\\\">Appuyez sur l&rsquo;ic&ocirc;ne &laquo;&nbsp;&Eacute;teindre l&rsquo;appareil&nbsp;&raquo; qui se trouve dans le coin sup&eacute;rieur droit du panneau des notifications.</span></span></p>\",\"preview\":false},{\"id\":4,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://images.samsung.com/is/image/samsung/assets/fr/support/mobile-devices6/comment-eteindre-mon-smartphone-samsung-galaxy/Turn-off-your-smartphone-1.png?$ORIGIN_PNG$\\\" alt=\\\"\\\" width=\\\"242\\\" height=\\\"520\\\"></p>\",\"preview\":false},{\"id\":5,\"type\":\"text\",\"content\":\"<p><span class=\\\"co29-numbering__list-headline\\\">3-</span><span class=\\\"co29-numbering__list-headline\\\">Appuyez sur </span><span class=\\\"co29-numbering__list-headline\\\">Éteindre.</span></p>\",\"preview\":false},{\"id\":6,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://images.samsung.com/is/image/samsung/assets/fr/support/mobile-devices6/comment-eteindre-mon-smartphone-samsung-galaxy/Turn-off-your-smartphone-2.png?$ORIGIN_PNG$\\\" alt=\\\"\\\" width=\\\"242\\\" height=\\\"520\\\"></p>\",\"preview\":false},{\"id\":7,\"type\":\"text\",\"content\":\"<p>4-<span class=\\\"co29-numbering__list-headline\\\">Appuyez &agrave; nouveau sur&nbsp;Éteindre&nbsp;pour confirmer votre d&eacute;cision.</span></p>\",\"preview\":false},{\"id\":8,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://images.samsung.com/is/image/samsung/assets/fr/support/mobile-devices6/comment-eteindre-mon-smartphone-samsung-galaxy/Turn-off-yoursmartphone-3.png?$ORIGIN_PNG$\\\" alt=\\\"\\\" width=\\\"242\\\" height=\\\"520\\\"></p>\",\"preview\":false},{\"id\":9,\"type\":\"text\",\"content\":\"<p><strong>Allumer son t&eacute;l&eacute;phone</strong></p>\\n<p>Appuyez longuement sur la touche&nbsp;<strong>Marche/Arr&ecirc;t</strong>&nbsp;situ&eacute;e &agrave; gauche de l\'appareil.</p>\\n<p class=\\\"text-mw\\\">Votre mobile s\'allume.</p>\\n<p class=\\\"text-mw\\\"><span class=\\\"txtInformation\\\"><strong>Remarque :&nbsp;</strong></span>Lors de la premi&egrave;re utilisation, votre Samsung Galaxy Y vous demande d\'activer votre mobile.</p>\",\"preview\":false},{\"id\":10,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://cdn.woopic.com/c10f167280f2414abb346a5347e1ecd9/prod/binaries/images/2674901-samsung-galaxy-y-marche-arret_screenshot.jpg\\\" alt=\\\"\\\" width=\\\"189\\\" height=\\\"315\\\"></p>\",\"preview\":false}]', 'admin', 1, '2023-01-30 16:55:51', '2023-02-08 12:00:48');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (50, 3, 1, 'Faire une recherche sur google', 'Apprendre a faire une recherche sur google', 'Dans ce tutoriel vous allez apprendre à aller sur google chrome et ensuite faire une recherche internet', '[{\"id\":1,\"type\":\"text\",\"content\":\"<p><strong>1-Pour faire une recherche sur google cliquez sur l\'icone de google chrome (image ci-dessous)</strong></p>\",\"preview\":false},{\"id\":2,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://img.phonandroid.com/2020/06/chrome-android.jpg\\\" alt=\\\"\\\" width=\\\"600\\\" height=\\\"375\\\"></p>\",\"preview\":true},{\"id\":3,\"type\":\"text\",\"content\":\"<p><strong>2-Ensuite saisissez un texte dans la barre de recherche&nbsp;</strong></p>\",\"preview\":false},{\"id\":4,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://dyrk.org/wp-content/uploads/2018/10/autocompletegoogle.jpg\\\" alt=\\\"\\\" width=\\\"800\\\" height=\\\"400\\\"></p>\",\"preview\":true},{\"id\":5,\"type\":\"text\",\"content\":\"<p><strong>3-Des resultat vont s\'afficher, clickez dessus et vous aurez le resultat de votre chercherche</strong></p>\",\"preview\":false},{\"id\":6,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://ssl.sitew.org/images/blog/articles/actualisercontenu/serp-seo.png\\\" alt=\\\"\\\" width=\\\"800\\\" height=\\\"508\\\"></p>\",\"preview\":true},{\"id\":7,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\"Quelle est l\'application sur laquelle vous devez clicker poour acceder a google \",\"answers\":[{\"id\":1,\"text\":\"Google Chrome\",\"correct\":true},{\"id\":2,\"text\":\"Recherche sur google \",\"correct\":false},{\"id\":3,\"text\":\"Google metal\",\"correct\":false}]}],\"preview\":false}]', 'admin', 1, '2023-01-31 10:01:52', '2023-01-31 10:01:52');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (51, 8, 3, 'Comment créer un mot de passe sécurisé ?', 'réussir à créer un mot de passe sécurisé ', 'dans ce tutoriel vous allez apprendre les principes d\'un bon mot de passe', '[{\"id\":1,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><span style=\\\"font-size: 18pt;\\\"><strong>D&eacute;couvrir les principes d\'un bon mot de passe</strong></span></p>\",\"preview\":false},{\"id\":2,\"type\":\"text\",\"content\":\"<p><strong><span style=\\\"font-size: 14pt;\\\">A retenir</span></strong></p>\\n<ol>\\n<li style=\\\"font-size: 12pt;\\\"><span style=\\\"font-size: 12pt;\\\">Un bon mot de passe est long : au moins 8 caract&egrave;res.</span></li>\\n<li style=\\\"font-size: 12pt;\\\"><span style=\\\"font-size: 12pt;\\\">Un bon mot de passe est compos&eacute; de chiffres, lettres et caract&egrave;res sp&eacute;ciaux.</span></li>\\n<li style=\\\"font-size: 12pt;\\\"><span style=\\\"font-size: 12pt;\\\">Un bon mot de passe n\'a aucun lien avec votre vie personnelle. Il est difficile &agrave; deviner.</span></li>\\n</ol>\",\"preview\":false},{\"id\":3,\"type\":\"text\",\"content\":\"<p>Vous pouvez cr&eacute;er un mot de passe s&eacute;curis&eacute; en assemblant des mots qui n\'ont aucun rapport les uns avec les autres, avec des chiffres et caract&egrave;res sp&eacute;ciaux !&nbsp;</p>\",\"preview\":false},{\"id\":4,\"type\":\"text\",\"content\":\"<div data-block-id=\\\"cj5nz52dh001q3c61zq9fhl07\\\">\\n<div>\\n<div class=\\\"block-text block-text--heading\\\">\\n<div class=\\\"block-text__container\\\">\\n<div class=\\\"block-text__row\\\">\\n<div class=\\\"block-text__col brand--head\\\">\\n<div class=\\\"brand--linkColor\\\">\\n<div class=\\\" brand--linkColor\\\" aria-hidden=\\\"false\\\">\\n<div class=\\\"fr-view\\\">A retenir</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n<div class=\\\"block-text__row\\\">&nbsp;</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n<div data-block-id=\\\"cj5nz5f0p001r3c6170n2jemk\\\">\\n<div>\\n<div class=\\\"block-text block-text--heading\\\">\\n<div class=\\\"block-text__container\\\">\\n<div class=\\\"block-text__row\\\">\\n<div class=\\\"block-text__col brand--head\\\">\\n<div class=\\\"brand--linkColor\\\">\\n<div class=\\\" brand--linkColor\\\" aria-hidden=\\\"false\\\">\\n<div class=\\\"fr-view\\\">Pour composer des mots de passe s&eacute;curis&eacute;s et faciles &agrave; retenir :</div>\\n<div class=\\\"fr-view\\\">\\n<ol>\\n<li>&nbsp;Assemblez deux ou trois mots sans rapport les uns avec les autres</li>\\n<li>&nbsp;Mettez la premi&egrave;re lettre de chaque mot en majuscule</li>\\n<li>&nbsp;S&eacute;parez les mots d\'un caract&egrave;re sp&eacute;cial</li>\\n<li>&nbsp;Ajoutez un chiffre</li>\\n</ol>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\",\"preview\":false},{\"id\":5,\"type\":\"text\",\"content\":\"<p>Abou et ses mots de passe</p>\\n<p>Abou est heureux. Il a r&eacute;ussi &agrave; cr&eacute;er un mot de passe s&eacute;curis&eacute;, en assemblant des mots sans lien les uns avec les autres :&nbsp;</p>\\n<p><strong>Lasagne.Cravate.1</strong></p>\",\"preview\":false},{\"id\":6,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\"Abou peut-il utiliser le même mot de passe pour son compte Facebook ?\",\"answers\":[{\"id\":1,\"text\":\"Oui\",\"correct\":false},{\"id\":2,\"text\":\"Non\",\"correct\":true}]},{\"id\":2,\"question\":\"Pour créer un mot de passe Facebook facile à retenir, quelle méthode conseillez-vous à Abou ?\",\"answers\":[{\"id\":1,\"text\":\"Garder le même mot de passe et enlever quelques lettres\",\"correct\":false},{\"id\":2,\"text\":\"Garder le même mot de passe et ajouter les premières lettres du mot Facebook\",\"correct\":true},{\"id\":3,\"text\":\"Trouver un nouveau mot de passe complètement différent\",\"correct\":false}]},{\"id\":3,\"question\":\"Selon cette méthode, quel serait le mot de passe d\'Abou pour son compte Skype ?\",\"answers\":[{\"id\":1,\"text\":\"Lasagne.Cravate.1Sk\",\"correct\":true},{\"id\":2,\"text\":\"SCravate.Lasagne.1\",\"correct\":false}]},{\"id\":4,\"question\":\"Selon cette méthode, quel serait le mot de passe d\'Abou pour son compte Ventes Privées ?\",\"answers\":[{\"id\":1,\"text\":\"Lasagne.Cravate.1Ve\",\"correct\":true},{\"id\":2,\"text\":\"Ventes.Privées.Lasagne\",\"correct\":false}]}],\"preview\":false},{\"id\":7,\"type\":\"text\",\"content\":\"<div data-block-id=\\\"cj5nz52dh001q3c61zq9fhl07\\\">\\n<div>\\n<div class=\\\"block-text block-text--heading\\\">\\n<div class=\\\"block-text__container\\\">\\n<div class=\\\"block-text__row\\\">\\n<div class=\\\"block-text__col brand--head\\\">\\n<div class=\\\"brand--linkColor\\\">\\n<div class=\\\" brand--linkColor\\\" aria-hidden=\\\"false\\\">\\n<div class=\\\"fr-view\\\">A retenir</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n<div data-block-id=\\\"cj5nz5f0p001r3c6170n2jemk\\\">\\n<div>\\n<div class=\\\"block-text block-text--heading\\\">\\n<div class=\\\"block-text__container\\\">\\n<div class=\\\"block-text__row\\\">\\n<div class=\\\"block-text__col brand--head\\\">\\n<div class=\\\"brand--linkColor\\\">\\n<div class=\\\" brand--linkColor\\\" aria-hidden=\\\"false\\\">\\n<div class=\\\"fr-view\\\">\\n<p>Pour cr&eacute;er plusieurs mots de passe s&eacute;curis&eacute;s et faciles &agrave; retenir :</p>\\n<ol>\\n<li>Gardez le m&ecirc;me mot de passe, compos&eacute; de chiffres, lettres et caract&egrave;res sp&eacute;ciaux</li>\\n<li>Ajoutez les premi&egrave;res lettres du service sur lequel vous vous trouvez</li>\\n</ol>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\",\"preview\":false}]', 'admin', 1, '2023-01-31 10:02:11', '2023-02-08 12:01:56');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (54, 6, 1, 'Comment choisir et créer une boîte mail ?', 'choisir sa boite mail', 'dans ce tutoriel vous allez apprendre à choisir une boite mail', '[{\"id\":1,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\">Introduction</p>\\n<p style=\\\"text-align: center;\\\">Avez-vous une bo&icirc;te mail ?</p>\",\"preview\":false},{\"id\":2,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtFILQTHOnr7W0JfhebhVXZPbryLswz4vjaA&amp;usqp=CAU\\\" alt=\\\"\\\" width=\\\"300\\\" height=\\\"168\\\"></p>\",\"preview\":true},{\"id\":3,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\"Avez-vous une boîte mail ?\",\"answers\":[{\"id\":1,\"text\":\"Oui\",\"correct\":false},{\"id\":2,\"text\":\"Non\",\"correct\":true}]}],\"preview\":false},{\"id\":4,\"type\":\"text\",\"content\":\"<div class=\\\"noOutline\\\" tabindex=\\\"-1\\\" data-ba=\\\"lessonEdit.block\\\" data-ba-index=\\\"3\\\" data-block-id=\\\"ck7ajjtdw023e1mmnbghv3v9s\\\">\\n<div>\\n<div class=\\\"block-text block-text--onecol\\\">\\n<div class=\\\"block-text__container\\\" data-ba=\\\"blocks.blockText\\\">\\n<div class=\\\"block-text__row\\\">\\n<div class=\\\"block-text__col brand--body brand--linkColor\\\" aria-hidden=\\\"false\\\">\\n<div class=\\\"fr-view\\\">\\n<p style=\\\"text-align: center;\\\"><strong>Les principales bo&icirc;tes mail</strong></p>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n<div class=\\\"noOutline\\\" tabindex=\\\"-1\\\" data-ba=\\\"lessonEdit.block\\\" data-ba-index=\\\"4\\\" data-block-id=\\\"ck7ajjt3f003v3h5xol40p83v\\\">\\n<div class=\\\"block-text block-text--onecol\\\">\\n<div class=\\\"block-text__container\\\" data-ba=\\\"blocks.blockText\\\">\\n<div class=\\\"block-text__row\\\">\\n<div class=\\\"block-text__col brand--body brand--linkColor\\\" aria-hidden=\\\"false\\\">\\n<div class=\\\"fr-view\\\">\\n<p style=\\\"text-align: center;\\\">&nbsp;Afin de vous faciliter la t&acirc;che, nous vous proposons la liste des bo&icirc;tes mail les plus utilis&eacute;es&nbsp;</p>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\\n</div>\",\"preview\":false},{\"id\":5,\"type\":\"text\",\"content\":\"<ol>\\n<li><strong>Gmail</strong></li>\\n<li><strong>La poste.net</strong></li>\\n<li><strong>Outlook</strong></li>\\n<li><strong>Protonmail</strong></li>\\n<li><strong>Yahoo</strong></li>\\n<li><strong>Mailo</strong></li>\\n</ol>\",\"preview\":false}]', 'admin', 1, '2023-01-31 10:18:24', '2023-01-31 11:46:18');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (63, 7, 2, 'Le livret scolaire unique : du CP à la 3ème et pro', 'découvrir le livret scolaire en ligne de son enfant', 'dans ce tutoriel vous allez découvrir le livret scolaire en ligne', '[{\"id\":1,\"type\":\"text\",\"content\":\"<p><strong>Le livret scolaire unique</strong>&nbsp;est un outil cr&eacute;&eacute; par l\'Etat. Il s\'adresse aux parents de chaque &eacute;l&egrave;ve. Il permet de suivre l\'&eacute;l&egrave;ve du CP &agrave; la 3&egrave;me.&nbsp;</p>\\n<p><strong>Ce qu\'on trouve dans le livret :&nbsp;</strong></p>\\n<ul>\\n<li>Bilans des cycles en cours et pr&eacute;c&eacute;dents : difficult&eacute;s, acquis et progr&egrave;s.</li>\\n<li>Les attestations obtenues par l\'&eacute;l&egrave;ve.</li>\\n<li>Les notes, les appr&eacute;ciations et le bilan global.</li>\\n</ul>\",\"preview\":false},{\"id\":2,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://pbs.twimg.com/media/CrBJZiQWgAA1jv4.jpg\\\" alt=\\\"\\\" width=\\\"800\\\" height=\\\"400\\\"></p>\",\"preview\":true},{\"id\":3,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><span style=\\\"font-size: 18pt;\\\"><strong>Nouveau :&nbsp;le livret scolaire unique&nbsp;en ligne</strong></span></p>\",\"preview\":false},{\"id\":4,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://belair.ent.auvergnerhonealpes.fr/lectureFichiergw.do?ID_FICHIER=69991\\\" alt=\\\"\\\" width=\\\"1339\\\" height=\\\"754\\\"></p>\",\"preview\":true},{\"id\":5,\"type\":\"text\",\"content\":\"<p style=\\\"text-align: center;\\\"><strong>Pronote : du coll&egrave;ge au lyc&eacute;e</strong></p>\",\"preview\":false},{\"id\":6,\"type\":\"text\",\"content\":\"<p><strong>Pronote&nbsp;</strong>regroupe toutes les informations li&eacute;es &agrave; la scolarit&eacute; de l\'&eacute;l&egrave;ve du coll&egrave;ge au lyc&eacute;e. C\'est un outil priv&eacute; et financ&eacute; par les &eacute;tablissements. Il existe un espace Pronote gratuit r&eacute;serv&eacute; aux parents.&nbsp;</p>\\n<p><strong>Ce qu\'on trouve sur Pronote :&nbsp;</strong></p>\\n<ul>\\n<li>Cahier de texte et emploi du temps.</li>\\n<li>Absences, retards et punitions.</li>\\n<li>Notes, bilans et dossier scolaire.</li>\\n<li>Messagerie et contacts.&nbsp;</li>\\n</ul>\",\"preview\":false},{\"id\":7,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://i0.wp.com/lyceeutrillo.fr/wp-content/uploads/2020/08/EgWRpLnWoAAMIuk.jpg?resize=1038%2C576&amp;ssl=1\\\" alt=\\\"\\\" width=\\\"800\\\" height=\\\"444\\\"></p>\",\"preview\":true}]', 'admin', 1, '2023-01-31 10:46:47', '2023-01-31 12:05:02');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (64, 4, 3, 'Organiser sa vie quotidienne', 'mieux organiser sa vie', 'dans ce tutoriel vous allez apprendre à mieux organiser votre vie', '[{\"id\":1,\"type\":\"text\",\"content\":\"<h2 id=\\\"h-organiser-sa-vie-gagner-du-temps-pour-soi-r-aliser-ses-projets\\\" style=\\\"text-align: center;\\\">Organiser sa vie, gagner du temps pour soi &amp;&nbsp;R&eacute;aliser ses projets !</h2>\",\"preview\":false},{\"id\":2,\"type\":\"text\",\"content\":\"<p><strong>Comment organiser&nbsp;sa vie pour mieux vivre&nbsp;?</strong> Bonne question !</p>\\n<p>D&rsquo;abord on n&rsquo;organise pas pour le simple plaisir d&rsquo;organiser, planifier sa vie &ccedil;a n&rsquo;a rien de marrant,&nbsp;<strong>c&rsquo;est le temps qu&rsquo;on gagne en s&rsquo;organisant qui change la vie et la rend meilleure.</strong></p>\\n<p>Organiser&nbsp;les choses pour gagner du temps pour&nbsp;<strong>prendre du temps pour soi</strong>&nbsp;ou pour&nbsp;<strong>r&eacute;aliser ses projets</strong>&nbsp;&ccedil;a c&rsquo;est chouette.</p>\\n<p><strong>Avoir un objectif</strong>&nbsp;&ccedil;a aide &agrave; se motiver pour planifier sa journ&eacute;e, sa semaine, pour s&rsquo;organiser au travail, organiser sa journ&eacute;e &agrave; la maison, planifier ses week ends&hellip;</p>\",\"preview\":false},{\"id\":3,\"type\":\"image\",\"content\":\"<p><img src=\\\"https://images.leblogdelamechante.fr/images/2017/06/organiser-sa-vie-3-768x446.jpg\\\" alt=\\\"\\\" width=\\\"600\\\" height=\\\"348\\\"></p>\",\"preview\":true},{\"id\":4,\"type\":\"text\",\"content\":\"<h2 id=\\\"h-mes-7-conseils-pour-organiser-sa-vie-au-quotidien\\\" class=\\\"has-text-align-center\\\" style=\\\"text-align: center;\\\">Mes 7 conseils pour organiser sa vie au quotidien</h2>\",\"preview\":false},{\"id\":5,\"type\":\"text\",\"content\":\"<h3>1 &ndash; APPRENDS &Agrave; TE CONNA&Icirc;TRE</h3>\\n<p>Organiser sa vie autour de ses modes de fonctionnements et de ceux qui vivent avec toi c&rsquo;est le plus simple. Comprendre comment on fonctionne et adapter les choses un maximum &agrave; sa fa&ccedil;on de fonctionner (et pas l&rsquo;inverse) pour les rendre simples : comme &nbsp; ranger les objets l&agrave; ou ils atterrissent toujours (une place plus naturelle).</p>\",\"preview\":false},{\"id\":6,\"type\":\"text\",\"content\":\"<h3>2 &ndash; D&Eacute;BARRASSE TOI DES OBJETS INUTILES</h3>\\n<p>Ce dont tu ne te sers pas prend la place de ce dont tu as vraiment besoin au quotidien et t&rsquo;emp&ecirc;chent d&rsquo;organiser ta vie comme tu as besoin de le faire. Il faut apprendre &agrave; acheter moins et &agrave; <a href=\\\"https://www.leblogdelamechante.fr/blog-mode/plus-de-gachis-moins-de-bordel/\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">jeter quand c&rsquo;est n&eacute;cessaire</a>&nbsp;(m&ecirc;me si ce n&rsquo;est pas agr&eacute;able).</p>\",\"preview\":false},{\"id\":7,\"type\":\"text\",\"content\":\"<h3>3 &ndash; NE FAIS PAS DES LISTES DE CHOSES &Agrave; FAIRE</h3>\\n<p>Notes les dans ton agenda en prenant les plages horaires n&eacute;cessaires pour accomplir chaque chose. Pour les gros projets notes la date &agrave; laquelle &ccedil;a doit &ecirc;tre fait et remontes dans l&rsquo;agenda avec les &eacute;tapes n&eacute;cessaires.</p>\",\"preview\":false},{\"id\":8,\"type\":\"text\",\"content\":\"<h3>4 &ndash; PRENDS DES NOTES, &Eacute;CRIS TES OBJECTIFS</h3>\\n<p>Tes envies, ce qui te permettrait&nbsp;<a href=\\\"https://www.leblogdelamechante.fr/blog-mode/bonnes-resolutions-methode/\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">d&rsquo;accomplir tes r&ecirc;ves</a>, ne laisses pas les choses dans ta t&ecirc;te.</p>\",\"preview\":false},{\"id\":9,\"type\":\"text\",\"content\":\"<h3>5 &ndash; PROCRASTINES JUSTE CE QU&rsquo;IL FAUT</h3>\\n<p>Pour&nbsp;<a href=\\\"https://www.leblogdelamechante.fr/blog-mode/procrastination-creative/\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">r&ecirc;vasser et avoir des id&eacute;es</a>, fixes toi juste des limites &agrave; ne pas franchir comme si tu &eacute;tais ton propre parent pour&nbsp;<a href=\\\"https://www.leblogdelamechante.fr/blog-mode/micros-tracas-quotidiens/\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">arr&ecirc;ter de procrastiner</a>&nbsp;de fa&ccedil;on excessive.</p>\",\"preview\":false},{\"id\":10,\"type\":\"text\",\"content\":\"<h3>6 &ndash; CR&Eacute;E TOI DES PETITES ROUTINES</h3>\\n<p>Pour tout ce qui doit se faire tout seul, si tu n&rsquo;arrives pas &agrave; faire quelque chose, cherche l&rsquo;&eacute;tape qui coince dans ta routine.</p>\",\"preview\":false},{\"id\":11,\"type\":\"text\",\"content\":\"<h3>7 &ndash; NE CHERCHES PAS &Agrave; FAIRE TOUT PARFAITEMENT</h3>\\n<p>Mets en place des solutions temporaires et fais les &eacute;voluer au fil de tes id&eacute;es et exp&eacute;rimentations.</p>\",\"preview\":false}]', 'admin', 1, '2023-01-31 12:18:52', '2023-01-31 12:18:52');
+INSERT INTO `tutorial` (`id`, `theme_id`, `difficulty_id`, `title`, `objective`, `description`, `step`, `author`, `published`, `creation_date`, `edition_date`) VALUES (65, 3, 3, 'Comment se protéger des fausses informations ?', 'se proteger des fausses informations', 'tuto', '[{\"id\":1,\"type\":\"text\",\"content\":\"<p>ne pas supprimer creation juste pour l\'aspect visiuel de la demo</p>\",\"preview\":false}]', 'admin', 1, '2023-01-31 12:32:44', '2023-01-31 12:32:44');
+COMMIT;
 
-/*!40000 ALTER TABLE `tutorial` DISABLE KEYS */;
-INSERT INTO `tutorial` VALUES (3,5,2,'quizz','reussir quiz','<p>Quizz</p>','[{\"id\":1,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\"qui est le plus beau\",\"answers\":[{\"id\":1,\"text\":\"Leon\",\"correct\":true},{\"id\":2,\"text\":\"Saak\",\"correct\":false},{\"id\":3,\"text\":\"Leon\",\"correct\":false}]}]}]','admin',0,'2023-01-23 09:50:52','2023-01-23 09:50:52'),(4,3,1,'Comment chercher une information ?','effectuer une recherche sur internet','<p><strong>Internet : Un oc&eacute;an</strong></p>','[{\"id\":1,\"type\":\"image\",\"content\":\"<p><img style=\\\"display: block; margin-left: auto; margin-right: auto;\\\" src=\\\"/images/fa8dad65-e93d-4110-87f2-00bb34b512e0internet.png\\\" alt=\\\"\\\" width=\\\"800\\\" height=\\\"254\\\"></p>\"},{\"id\":2,\"type\":\"image\",\"content\":\"<p><img style=\\\"display: block; margin-left: auto; margin-right: auto;\\\" src=\\\"/images/6e2de84e-be38-4cea-bd4d-ea4f3413ed70icones.png\\\" alt=\\\"\\\" width=\\\"900\\\" height=\\\"471\\\"></p>\"},{\"id\":3,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\" A votre avis, à quoi servent ces icones ?\",\"answers\":[{\"id\":1,\"text\":\"Ouvrir des fichiers\",\"correct\":false},{\"id\":2,\"text\":\"Aller sur Internet\",\"correct\":true},{\"id\":3,\"text\":\"Je ne sais pas\",\"correct\":false}]}]}]','admin',0,'2023-01-23 09:50:52','2023-01-23 09:50:52'),(5,2,1,'Charger un appareil','reussir a mettre un appareil en charge','<h1 class=\"fr-view\">Introduction</h1>','[{\"id\":1,\"type\":\"editor\",\"content\":\"<p style=\\\"text-align: center;\\\"><strong>Les tablettes et smartphone fonctionnent avec une batterie...</strong><br><strong>Ce qui n&eacute;cessite de les charger r&eacute;guli&egrave;rement avec le courant electrique.</strong></p>\"},{\"id\":2,\"type\":\"image\",\"content\":\"<p><img style=\\\"display: block; margin-left: auto; margin-right: auto;\\\" src=\\\"/images/cef604b2-4fd4-4a05-8555-1177793d12c3batt.png\\\" alt=\\\"\\\" width=\\\"512\\\" height=\\\"512\\\"></p>\"},{\"id\":3,\"type\":\"image\",\"content\":\"<p><img style=\\\"display: block; margin-left: auto; margin-right: auto;\\\" src=\\\"/images/2f98bc4d-b21d-4019-b867-8cc355e97289tablette.png\\\" alt=\\\"\\\" width=\\\"900\\\" height=\\\"433\\\"></p>\"},{\"id\":4,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\"Sur la tablette ci-dessus, ou se situe le \\\"port de charge\\\" ?\",\"answers\":[{\"id\":1,\"text\":\"Réponse A\",\"correct\":true},{\"id\":2,\"text\":\"Réponse B\",\"correct\":false},{\"id\":3,\"text\":\"Réponse C\",\"correct\":false}]}]}]','admin',0,'2023-01-23 09:50:52','2023-01-23 09:50:52'),(6,8,3,'Protéger ses proches','savoir lire une info','<h2>La mauvaise ou fausse... nouvelle !</h2>','[{\"id\":1,\"type\":\"image\",\"content\":\"<p><img style=\\\"display: block; margin-left: auto; margin-right: auto;\\\" src=\\\"/images/f57a30e4-6453-460c-addf-baa8741472e2secu.png\\\" alt=\\\"\\\" width=\\\"484\\\" height=\\\"394\\\"></p>\"},{\"id\":2,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\" A votre avis, quels sont les éléments qui font douter Anita ?\",\"answers\":[{\"id\":1,\"text\":\"La source de l information\",\"correct\":false},{\"id\":2,\"text\":\" Elle n a entendu personne en parler \",\"correct\":false},{\"id\":3,\"text\":\"La photo ne ressemble pas à une vraie photo\",\"correct\":false}]}]}]','admin',0,'2023-01-23 09:50:52','2023-01-23 09:50:52'),(8,6,1,' Introduction','repondre','<p>&nbsp;Introduction</p>','[{\"id\":1,\"type\":\"image\",\"content\":\"<p><img style=\\\"display: block; margin-left: auto; margin-right: auto;\\\" src=\\\"/images/2b582137-2a72-48de-8a48-3a55a1067e81mail.png\\\" alt=\\\"\\\" width=\\\"900\\\" height=\\\"503\\\"></p>\"},{\"id\":2,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\"Avez-vous une boîte mail ?\",\"answers\":[{\"id\":1,\"text\":\"Oui\",\"correct\":false},{\"id\":2,\"text\":\"Non\",\"correct\":true}]}]}]','admin',0,'2023-01-23 09:50:52','2023-01-23 09:50:52'),(11,4,2,'Découvrir le cheque energie','reussir','<p>Cheque energie</p>','[{\"id\":1,\"type\":\"image\",\"content\":\"<p><img style=\\\"display: block; margin-left: auto; margin-right: auto;\\\" src=\\\"/images/5e592599-1f00-4a75-97ef-3367ae563a4bcheque.png\\\" alt=\\\"\\\" width=\\\"700\\\" height=\\\"438\\\"></p>\"},{\"id\":2,\"type\":\"quiz\",\"content\":[{\"id\":1,\"question\":\" Est-ce que vous connaissez le chèque énergie ?\",\"answers\":[{\"id\":1,\"text\":\"Oui, mais je ne sais pas l utiliser\",\"correct\":false},{\"id\":2,\"text\":\"Oui, je l ai déjà utilisé \",\"correct\":false},{\"id\":3,\"text\":\"Non, c est pour ça que je suis ici\",\"correct\":true}]},{\"id\":2,\"question\":\" A votre avis, qu est-ce que le chèque énergie ?\",\"answers\":[{\"id\":1,\"text\":\"Un bon de réduction mis en place par les fournisseurs d énergie\",\"correct\":false},{\"id\":2,\"text\":\"Une déduction d impôts\",\"correct\":false},{\"id\":3,\"text\":\"Une aide de l Etat pour payer sa facture d énergie \",\"correct\":true},{\"id\":4,\"text\":\"Je ne sais pas\",\"correct\":false}]},{\"id\":3,\"question\":\"Qui a le droit au chèque énergie ?\",\"answers\":[{\"id\":1,\"text\":\"Tout le monde\",\"correct\":false},{\"id\":2,\"text\":\"Uniquement les locataires d appartement\",\"correct\":false},{\"id\":3,\"text\":\"Toute personne déclarée avec un revenu fiscal inférieur à 10 800€\",\"correct\":true}]},{\"id\":4,\"question\":\"A votre avis, que faut-il faire pour obtenir le chèque énergie ? \",\"answers\":[{\"id\":1,\"text\":\"Remplir un formulaire de demande chaque année\",\"correct\":false},{\"id\":2,\"text\":\" Pas de démarche, le chèque est envoyé automatiquement chaque année\",\"correct\":true},{\"id\":3,\"text\":\"Prendre rendez-vous sur internet avec un conseiller spécialisé\",\"correct\":false}]}]}]','admin',0,'2023-01-23 09:50:52','2023-01-23 09:50:52'),(12,4,1,'video','test url','<p>a voir</p>','[{\"id\":1,\"type\":\"video\",\"content\":\"<p><iframe src=\\\"https://www.youtube.com/embed/-j8TMdLAAmc\\\" width=\\\"560\\\" height=\\\"314\\\" allowfullscreen=\\\"allowfullscreen\\\"></iframe></p>\"}]','admin',0,'2023-01-23 09:50:52','2023-01-23 09:50:52');
-/*!40000 ALTER TABLE `tutorial` ENABLE KEYS */;
-
---
--- Table structure for table `user`
---
-
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
 DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `hashedPassword` varchar(255) NOT NULL,
-  `admin` tinyint(1) NOT NULL DEFAULT '0',
+  `admin` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `user`
---
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+BEGIN;
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (1, 'admin', 'admin', 'adminlaposte@gmail.com', '$argon2id$v=19$m=65536,t=3,p=1$CIEbKZNo6pCTTsu8tgQU2Q$T4Iidc3Kbnksn02Q6C2v+NF+8590r4UcHAhckpBll/Q', 1);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (2, 'Romain', 'Timmer', 'timmer@gmail.com', '$argon2id$v=19$m=65536,t=3,p=1$IiwgyuOQ6m8uekQH4Tz/Qg$GQr4Y1wC/2BXn2TF/qPApUxqU7pZxXao7AXgu1wX5kk', 1);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (3, 'Rémy', 'Bernardin', 'bernardin@gmail.com', '$argon2id$v=19$m=65536,t=3,p=1$W5LUI7siqBwBAVUpolk+sw$v6rdgSw0Y8by65NXjMB3HIxDAULTuKd98+2Xw/+3SUw', 0);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (4, 'Lucas', 'Fasilleau', 'fasilleau@gmail.com', '$argon2id$v=19$m=65536,t=3,p=1$1t06KFrossBRrBAGepe9uQ$h3qFJ46mWsgcrJ+y7WhrVd4RLqhGVZ1PafAtoouTmxk', 0);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (5, 'Léon', 'Versavel', 'versavel@gmail.com', '$argon2id$v=19$m=65536,t=3,p=1$dvW02UvenzYp2hVvtviP6w$gp1lRRDpVUZBe91mvB/bgbRqtxY6dGSA37J93opOkCQ', 0);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (6, 'lucas', 'faz', 'faz@gmail.com', '$argon2id$v=19$m=65536,t=3,p=1$NBhLQVDGjsfLSmJgdCkFsQ$R43KKvkOyeUqT17A7EyP2xEkA6glEz6xMkfzFd2ylm0', 0);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (7, 'leon', 'versavel', 'leon.versavel@gmail.com', '$argon2id$v=19$m=65536,t=3,p=1$vsSGSfFTrVdjkQ0dZpWLXQ$C6PowfskyvDh4GWndIP2jzi1eZq5mI1IEzoaCIUAbcQ', 0);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (8, 'lucas', 'billy', 'faz@hotmail.com', '$argon2id$v=19$m=65536,t=3,p=1$MGSdF7eBbY9CFSrkEgV6Aw$g9JnPUXxnL1p3zrM0BYna6wHImfIpithjZlB1IKSjgE', 0);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (12, 'lucas', 'faz', 'maxime@gmail.com', '$argon2id$v=19$m=65536,t=3,p=1$RtN9eVgolPqBPByNKEY3WQ$C8sX6xHC/BEii8PT60zy9Is3Og3K4cBF/wvut7iLcac', 0);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (13, 'Laurent', 'Duclos', 'duclos@gmail.com', '$argon2id$v=19$m=65536,t=3,p=1$0rR/iP/JKZK1oGBaV0r80g$DqMIY4ytoHlQeUAPnQuP3I6Uy8x8l/kR2ayKcJMN7/8', 0);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (14, 'Maxime', 'Faure', 'faure@gmail.com', '$argon2id$v=19$m=65536,t=3,p=1$9PXkqFDJKVtDEcQoxPKn5Q$U42ahhC4ifuBzB30yjTFeYJ8+PTqXIepr/rywRqMD5g', 0);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (15, 'Mark', 'Bernard', 'bernad@gmail.com', '$argon2id$v=19$m=65536,t=3,p=1$kcYlnuxk7xN6JuhLVWcRYw$ZlHMsdBla2U/ieUBRZeJ3ob0eWDkJPKo2pDtaNObFDY', 0);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedPassword`, `admin`) VALUES (16, 'arthur', 'pinpin', 'arthur@gmail.com', '$argon2id$v=19$m=65536,t=3,p=1$BGC8uTSJQM/2Pf5oI4EsIg$rQzSakXAq2rJlUyVUj7Kl0s8zmGIvaq0b6s/05318w0', 0);
+COMMIT;
 
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','admin','adminlaposte@gmail.com','$argon2id$v=19$m=65536,t=3,p=1$CIEbKZNo6pCTTsu8tgQU2Q$T4Iidc3Kbnksn02Q6C2v+NF+8590r4UcHAhckpBll/Q',1),(2,'Romain','Timmer','timmer@gmail.com','$argon2id$v=19$m=65536,t=3,p=1$IiwgyuOQ6m8uekQH4Tz/Qg$GQr4Y1wC/2BXn2TF/qPApUxqU7pZxXao7AXgu1wX5kk',1),(3,'Rémy','Bernardin','bernardin@gmail.com','$argon2id$v=19$m=65536,t=3,p=1$W5LUI7siqBwBAVUpolk+sw$v6rdgSw0Y8by65NXjMB3HIxDAULTuKd98+2Xw/+3SUw',0),(4,'Lucas','Fasilleau','fasilleau@gmail.com','$argon2id$v=19$m=65536,t=3,p=1$1t06KFrossBRrBAGepe9uQ$h3qFJ46mWsgcrJ+y7WhrVd4RLqhGVZ1PafAtoouTmxk',0),(5,'Léon','Versavel','versavel@gmail.com','$argon2id$v=19$m=65536,t=3,p=1$dvW02UvenzYp2hVvtviP6w$gp1lRRDpVUZBe91mvB/bgbRqtxY6dGSA37J93opOkCQ',0);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-
---
--- Table structure for table `user_journey`
---
-
+-- ----------------------------
+-- Table structure for user_journey
+-- ----------------------------
 DROP TABLE IF EXISTS `user_journey`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
--- CREATE TABLE `user_journey` (
---   `user_id` int NOT NULL,
---   `tutorial_id` int NOT NULL,
---   `rating` int DEFAULT NULL,
---   `comment` varchar(255) DEFAULT NULL,
---   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
---   PRIMARY KEY (`user_id`,`tutorial_id`)
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `user_journey` (
+  `user_id` int(11) NOT NULL,
+  `tutorial_id` int(11) NOT NULL,
+  `rating` int(11) DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  `creation_date` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`user_id`,`tutorial_id`),
+  KEY `tutorial_id` (`tutorial_id`),
+  CONSTRAINT `user_journey_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_journey_ibfk_2` FOREIGN KEY (`tutorial_id`) REFERENCES `tutorial` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE user_journey (
-    user_id INTEGER REFERENCES user (id) ON DELETE CASCADE,
-    tutorial_id INTEGER REFERENCES tutorial (id) ON DELETE CASCADE,
-    rating INTEGER,
-    comment varchar(255),
-    creation_date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (user_id, tutorial_id)
-);
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- ----------------------------
+-- Records of user_journey
+-- ----------------------------
+BEGIN;
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (1, 15, 5, NULL, '2023-01-30 21:53:09');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (1, 37, 2, NULL, '2023-01-30 22:02:02');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (1, 38, 2, NULL, '2023-02-08 10:43:31');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (1, 41, 5, NULL, '2023-01-30 21:47:01');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (2, 15, 3, 'Super tutoriel', '2023-01-31 11:36:07');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (2, 21, 3, 'Très bon tutoriel.\nPar contre j\'ai vraiment du mal je ne sais pas si je suis fais pour utiliser des smartphone.', '2023-01-31 11:38:07');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (2, 41, 3, 'blabla', '2023-01-30 17:08:03');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (3, 15, 5, 'super tuto', '2023-01-30 13:48:45');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (3, 21, 3, 'j\'ai pas tout compris mais je m\'accroche!', '2023-01-30 13:45:41');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (3, 37, 4, NULL, '2023-02-25 13:38:33');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (3, 41, 5, 'Cool super tutoriel', '2023-01-30 17:09:34');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (5, 41, 3, 'Pas mal mais moi je l\'aurai pas fait comme ça ce tuto, je trouve qu\'il manque d\'optimisation.', '2023-01-31 10:40:39');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (6, 40, 5, 'Amazing ', '2023-01-30 17:12:45');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (7, 21, 4, NULL, '2023-02-08 16:13:59');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (13, 50, 5, 'Super quêtes je ne savais pas comment faire avant ', '2023-01-31 11:42:57');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (14, 19, 3, 'Super j\'ai appris pleins de chose', '2023-01-31 12:34:24');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (14, 21, 5, 'Super tuto !', '2023-01-31 12:32:38');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (14, 50, 5, 'Super j\'adore faire des tutoriel pendants le DemoDay', '2023-01-31 12:31:45');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (15, 50, 4, 'Super tutoriel j\'adore le demo day', '2023-01-31 15:14:57');
+INSERT INTO `user_journey` (`user_id`, `tutorial_id`, `rating`, `comment`, `creation_date`) VALUES (16, 37, 4, 'J\'ai adoré ce tutoriel, j\'ai appris beaucoup de chose', '2023-02-09 17:20:48');
+COMMIT;
 
---
--- Dumping data for table `user_journey`
---
-
-/*!40000 ALTER TABLE `user_journey` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_journey` ENABLE KEYS */;
-
---
--- Dumping routines for database 'laposte'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2023-01-23 12:06:22
+SET FOREIGN_KEY_CHECKS = 1;
