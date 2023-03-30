@@ -24,13 +24,13 @@ export default function Home() {
     {
       id: 1,
       name: "Rechercher un tutoriel",
-      src: "../public/image/search.gif",
+      src: "/image/search.gif",
       link: "/search",
     },
     {
       id: 2,
       name: "Pour poursuivre",
-      src: "../public/image/poursuivre.gif",
+      src: "/image/poursuivre.gif",
       link: "#",
     },
   ];
