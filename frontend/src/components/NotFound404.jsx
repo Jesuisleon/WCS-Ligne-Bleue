@@ -22,7 +22,7 @@ export default function NotFound404() {
             <span className="sr-only">Workflow</span>
             <img
               className="h-12 w-auto"
-              src="../public/image/logo_la_poste.png"
+              src="/image/logo_la_poste.png"
               alt=""
             />
           </a>

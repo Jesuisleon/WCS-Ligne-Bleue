@@ -86,11 +86,7 @@ export default function Home() {
               key={data.id}
               className={iconsContainerStyled}
             >
-              <img
-                src={`../public/${data.icon}`}
-                alt={data.name}
-                className={iconStyled}
-              />
+              <img src={data.icon} alt={data.name} className={iconStyled} />
             </motion.div>
             <p>{data.name}</p>
           </Link>
