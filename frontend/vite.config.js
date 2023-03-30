@@ -14,10 +14,5 @@ export default defineConfig({
       "@context": path.resolve(__dirname, "src/context"),
     },
   },
-  build: {
-    rollupOptions: {
-      external: ['@heroicons/react/20/solid'], 
-    },
-  },
 });
 

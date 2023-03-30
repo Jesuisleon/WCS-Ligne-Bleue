@@ -1,7 +1,6 @@
 import { React, useContext, Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Popover, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Header() {
@@ -96,12 +95,7 @@ export default function Header() {
                   ${open ? "" : "text-opacity-90"}
                   group inline-flex items-center rounded-md bg-yellow-400 px-3 py-2 text-base font-medium text-blue-700 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                   >
-                    <span>{`Bonjour ${userFirstName} `}</span>
-                    <ChevronDownIcon
-                      className={`${open ? "" : "text-opacity-70"}
-                    ml-2 h-5 w-5 text-blue-700 transition duration-150 ease-in-out group-hover:text-opacity-80`}
-                      aria-hidden="true"
-                    />
+                      <span>{`Bonjour ${userFirstName} `}</span>
                   </Popover.Button>
                   <Transition
                     as={Fragment}
