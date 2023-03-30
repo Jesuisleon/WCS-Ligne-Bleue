@@ -17,23 +17,14 @@ export default defineConfig({
   // FOR LOCAL BUILD
   // add /dist to the base of the url of the image folder on build to make it work
 
-  base: "/dist/",
-  build: {
-    outDir: "home",
-    emptyOutDir: true,
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, "index.html"),
-      },
-    },
-  },
-  // Websocket is not supported in the browser
-  server: {
-    proxy: {
-      "^/home//ws": {
-        target: "ws://127.0.0.1:5500",
-        ws: false,
-      },
-    },
-  },
+  // base: "/dist/",
+  // build: {
+  //   outDir: "home",
+  //   emptyOutDir: true,
+  //   rollupOptions: {
+  //     input: {
+  //       main: path.resolve(__dirname, "index.html"),
+  //     },
+  //   },
+  // },
 });
