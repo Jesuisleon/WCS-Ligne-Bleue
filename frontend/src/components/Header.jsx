@@ -42,7 +42,7 @@ export default function Header() {
               <span className="sr-only">Ligne Bleue</span>
               <img
                 className="h-8 sm:h-12 w-auto"
-                src="/image/logo_la_poste.png"
+                src="../public/image/logo_la_poste.png"
                 alt="logo"
               />
             </Link>
@@ -96,6 +96,21 @@ export default function Header() {
                   group inline-flex items-center rounded-md bg-yellow-400 px-3 py-2 text-base font-medium text-blue-700 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                   >
                     <span>{`Bonjour ${userFirstName} `}</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2.5}
+                      stroke="currentColor"
+                      className={`${open ? "" : "text-opacity-70"}
+                    ml-2 h-4 w-4 text-blue-700 transition duration-150 ease-in-out group-hover:text-opacity-80`}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                      />
+                    </svg>
                   </Popover.Button>
                   <Transition
                     as={Fragment}

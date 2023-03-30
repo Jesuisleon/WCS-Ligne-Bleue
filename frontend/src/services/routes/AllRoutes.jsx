@@ -11,7 +11,7 @@ import Header from "@components/Header";
 import Breadcrumb from "@components/Breadcrumb";
 import { NavigationContext } from "@context/NavigationContext";
 
-import Home from "@pages/Home";
+import Home from "@pages/Index";
 import AdminPanel from "@pages/AdminPanel/AdminPanel";
 import Login from "@pages/Login";
 import Search from "@pages/Search";
