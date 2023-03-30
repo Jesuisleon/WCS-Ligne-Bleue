@@ -42,7 +42,7 @@ export default function Header() {
               <span className="sr-only">Ligne Bleue</span>
               <img
                 className="h-8 sm:h-12 w-auto"
-                src="../public/image/logo_la_poste.png"
+                src={`${process.env.PUBLIC_URL}/image/logo_la_poste.png`}
                 alt="logo"
               />
             </Link>
