@@ -11,10 +11,6 @@
     <br/>
     <br/>
     <a href="https://wcs-ligne-bleue.vercel.app/">View Demo</a>
-    .
-    <a href="https://github.com/Jesuisleon/WCS Ligne Bleue/issues">Report Bug</a>
-    .
-    <a href="https://github.com/Jesuisleon/WCS Ligne Bleue/issues">Request Feature</a>
   </p>
 </p>
 
@@ -40,10 +36,6 @@ At its core, "Ligne Bleue" is about empowerment and inclusivity. It seeks to bri
 
 ## Built With
 
-Love
-
-* []()
-* []()
 * [Vite](https://vitejs.dev/)
 * [ESLint](https://eslint.org/)
 * [Prettier](https://prettier.io/)
