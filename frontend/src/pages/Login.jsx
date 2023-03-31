@@ -143,6 +143,33 @@ function Login() {
                 Cliquez ici pour créer un compte.
               </Link>
             </div>
+            {/* Give informations for the demos to admin and user logins */}
+            <div className="text-base font-bold flex flex-col items-cente mt-8">
+              <div>
+                <span className="text-gray-600">Admin email : </span>
+                <span className="font-medium text-red-600 hover:text-red-400">
+                  adminlaposte@gmail.com
+                </span>
+              </div>
+              <div>
+                <span className="text-gray-600">Admin password : </span>
+                <span className="font-medium text-red-600 hover:text-red-400">
+                  adminadmin
+                </span>
+              </div>
+              <div className="mt-4">
+                <span className="text-gray-600">User email : </span>
+                <span className="font-medium text-green-600 hover:text-green-500">
+                  arthur@gmail.com
+                </span>
+              </div>
+              <div>
+                <span className="text-gray-600">User password : </span>
+                <span className="font-medium text-green-600 hover:text-green-500">
+                  toulouse
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
