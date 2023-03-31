@@ -114,7 +114,7 @@ VITE_BACKEND_URL=
 ```sh
 Run command `node migrate.js` on the backend folder
 ```
-7. Create an account on <a href="https://www.tiny.cloud" TinyMCE 
+7. Create an account on <a href="https://www.tiny.cloud">TinyMCE </a>
 and keep an API Key for free.
 
 8. On the folder /frontend/src/pages/TutorialMaker/ you have to put your API Key on the TextMaker.jsx and the MediaMaker.jsx <Editor> config.
