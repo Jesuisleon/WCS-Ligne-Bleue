@@ -1,7 +1,7 @@
 <br/>
 <p align="center">
   <a href="https://github.com/Jesuisleon/WCS Ligne Bleue">
-    <img src="/frontend/public/image/logo_la_poste.png" alt="Logo" width="80" height="80">
+    <img src="/frontend/public/image/logo_la_poste.png" alt="Logo" width="100" height="80">
   </a>
 
   <h3 align="center">WCS Ligne Bleue</h3>
